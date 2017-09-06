@@ -18,7 +18,7 @@ namespace Nez.Particles
 		/// convenience method for setting ParticleEmitterConfig.simulateInWorldSpace. If true, particles will simulate in world space. ie when the
 		/// parent Transform moves it will have no effect on any already active Particles.
 		/// </summary>
-		public bool simulateInWorldSpace { set { _emitterConfig.simulateInWorldSpace = value; } }
+		public bool simulateInWorldSpace { set { emitterConfig.simulateInWorldSpace = value; } }
 
 		/// <summary>
 		/// config object with various properties to deal with particle collisions
@@ -45,21 +45,21 @@ namespace Nez.Particles
 		bool _emitting;
 		List<Particle> _particles;
 		bool _playOnAwake;
-		ParticleEmitterConfig _emitterConfig;
+		public ParticleEmitterConfig emitterConfig;
 
 
 		public ParticleEmitter( ParticleEmitterConfig emitterConfig, bool playOnAwake = true )
 		{
-			_emitterConfig = emitterConfig;
+			this.emitterConfig = emitterConfig;
 			_playOnAwake = playOnAwake;
-			_particles = new List<Particle>( (int)_emitterConfig.maxParticles );
-			Pool<Particle>.warmCache( (int)_emitterConfig.maxParticles );
+			_particles = new List<Particle>( (int)this.emitterConfig.maxParticles );
+			Pool<Particle>.warmCache( (int)this.emitterConfig.maxParticles );
 
 			// set some sensible defaults
 			collisionConfig.elasticity = 0.5f;
 			collisionConfig.friction = 0.5f;
 			collisionConfig.collidesWithLayers = Physics.allLayers;
-			collisionConfig.gravity = _emitterConfig.gravity;
+			collisionConfig.gravity = this.emitterConfig.gravity;
 			collisionConfig.lifetimeLoss = 0f;
 			collisionConfig.minKillSpeedSquared = float.MinValue;
 			collisionConfig.radiusScale = 0.8f;
@@ -75,8 +75,8 @@ namespace Nez.Particles
 		{
 			// prep our custom BlendState and set the Material with it
 			var blendState = new BlendState();
-			blendState.ColorSourceBlend = blendState.AlphaSourceBlend = _emitterConfig.blendFuncSource;
-			blendState.ColorDestinationBlend = blendState.AlphaDestinationBlend = _emitterConfig.blendFuncDestination;
+			blendState.ColorSourceBlend = blendState.AlphaSourceBlend = emitterConfig.blendFuncSource;
+			blendState.ColorDestinationBlend = blendState.AlphaDestinationBlend = emitterConfig.blendFuncDestination;
 
 			material = new Material( blendState );
 		}
@@ -100,14 +100,14 @@ namespace Nez.Particles
 			var rootPosition = entity.transform.position + _localOffset;
 			
 			// if the emitter is active and the emission rate is greater than zero then emit particles
-			if( _active && _emitterConfig.emissionRate > 0 )
+			if( _active && emitterConfig.emissionRate > 0 )
 			{
-				var rate = 1.0f / _emitterConfig.emissionRate;
+				var rate = 1.0f / emitterConfig.emissionRate;
 
-				if( _particles.Count < _emitterConfig.maxParticles )
+				if( _particles.Count < emitterConfig.maxParticles )
 					_emitCounter += Time.deltaTime;
 
-				while( _emitting && _particles.Count < _emitterConfig.maxParticles && _emitCounter > rate )
+				while( _emitting && _particles.Count < emitterConfig.maxParticles && _emitCounter > rate )
 				{
 					addParticle( rootPosition );
 					_emitCounter -= rate;
@@ -115,7 +115,7 @@ namespace Nez.Particles
 
 				_elapsedTime += Time.deltaTime;
 
-				if( _emitterConfig.duration != -1 && _emitterConfig.duration < _elapsedTime )
+				if( emitterConfig.duration != -1 && emitterConfig.duration < _elapsedTime )
 				{
 					// when we hit our duration we dont emit any more particles
 					_emitting = false;
@@ -137,7 +137,7 @@ namespace Nez.Particles
 				var currentParticle = _particles[i];
 
 				// if update returns true that means the particle is done
-				if( currentParticle.update( _emitterConfig, ref collisionConfig, rootPosition ) )
+				if( currentParticle.update( emitterConfig, ref collisionConfig, rootPosition ) )
 				{
 					Pool<Particle>.free( currentParticle );
 					_particles.RemoveAt( i );
@@ -145,7 +145,7 @@ namespace Nez.Particles
 				else
 				{
 					// particle is good. collect min/max positions for the bounds
-					var pos = _emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
+					var pos = emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
 					pos += currentParticle.position;
 					Vector2.Min( ref min, ref pos, out min );
 					Vector2.Max( ref max, ref pos, out max );
@@ -157,14 +157,14 @@ namespace Nez.Particles
 			_bounds.width = max.X - min.X;
 			_bounds.height = max.Y - min.Y;
 
-			if( _emitterConfig.subtexture == null )
+			if( emitterConfig.subtexture == null )
 			{
 				_bounds.inflate( 1 * maxParticleSize, 1 * maxParticleSize );
 			}
 			else
 			{
-				maxParticleSize /= _emitterConfig.subtexture.sourceRect.Width;
-				_bounds.inflate( _emitterConfig.subtexture.sourceRect.Width * maxParticleSize, _emitterConfig.subtexture.sourceRect.Height * maxParticleSize );
+				maxParticleSize /= emitterConfig.subtexture.sourceRect.Width;
+				_bounds.inflate( emitterConfig.subtexture.sourceRect.Width * maxParticleSize, emitterConfig.subtexture.sourceRect.Height * maxParticleSize );
 			}
 		}
 
@@ -181,12 +181,12 @@ namespace Nez.Particles
 			for( var i = 0; i < _particles.Count; i++ )
 			{
 				var currentParticle = _particles[i];
-				var pos = _emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
+				var pos = emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
 
-				if( _emitterConfig.subtexture == null )
+				if( emitterConfig.subtexture == null )
 					graphics.batcher.draw( graphics.pixelTexture, pos + currentParticle.position, currentParticle.color, currentParticle.rotation, Vector2.One, currentParticle.particleSize * 0.5f, SpriteEffects.None, layerDepth );
 				else
-					graphics.batcher.draw( _emitterConfig.subtexture, pos + currentParticle.position, currentParticle.color, currentParticle.rotation, _emitterConfig.subtexture.center, currentParticle.particleSize / _emitterConfig.subtexture.sourceRect.Width, SpriteEffects.None, layerDepth );
+					graphics.batcher.draw( emitterConfig.subtexture, pos + currentParticle.position, currentParticle.color, currentParticle.rotation, emitterConfig.subtexture.center, currentParticle.particleSize / emitterConfig.subtexture.sourceRect.Width, SpriteEffects.None, layerDepth );
 			}
 		}
 
@@ -269,7 +269,7 @@ namespace Nez.Particles
 		{
 			// take the next particle out of the particle pool we have created and initialize it
 			var particle = Pool<Particle>.obtain();
-			particle.initialize( _emitterConfig, position );
+			particle.initialize( emitterConfig, position );
 			_particles.Add( particle );
 		}
 
