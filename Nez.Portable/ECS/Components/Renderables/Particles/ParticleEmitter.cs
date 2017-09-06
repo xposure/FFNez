@@ -28,24 +28,25 @@ namespace Nez.Particles
 		/// <summary>
 		/// keeps track of how many particles should be emitted
 		/// </summary>
-		float _emitCounter;
+		private float _emitCounter;
 
 		/// <summary>
 		/// tracks the elapsed time of the emitter
 		/// </summary>
-		float _elapsedTime;
+		private float _elapsedTime;
 
-		bool _active = false;
-		bool _isPaused;
+		private bool _active = false;
+		private bool _isPaused;
 
 		/// <summary>
 		/// if the emitter is emitting this will be true. Note that emitting can be false while particles are still alive. emitting gets set
 		/// to false and then any live particles are allowed to finish their lifecycle.
 		/// </summary>
-		bool _emitting;
-		List<Particle> _particles;
-		bool _playOnAwake;
+		public bool emitting;
+		private List<Particle> _particles;
+		private bool _playOnAwake;
 		public ParticleEmitterConfig emitterConfig;
+		public float maxParticleThreshold = 1f;
 
 
 		public ParticleEmitter( ParticleEmitterConfig emitterConfig, bool playOnAwake = true )
@@ -104,10 +105,12 @@ namespace Nez.Particles
 			{
 				var rate = 1.0f / emitterConfig.emissionRate;
 
-				if( _particles.Count < emitterConfig.maxParticles )
+				var maxParticleCount = (int) (emitterConfig.maxParticles * maxParticleThreshold);
+
+				if( _particles.Count < maxParticleCount )
 					_emitCounter += Time.deltaTime;
 
-				while( _emitting && _particles.Count < emitterConfig.maxParticles && _emitCounter > rate )
+				while( emitting && _particles.Count < maxParticleCount && _emitCounter > rate )
 				{
 					addParticle( rootPosition );
 					_emitCounter -= rate;
@@ -118,7 +121,7 @@ namespace Nez.Particles
 				if( emitterConfig.duration != -1 && emitterConfig.duration < _elapsedTime )
 				{
 					// when we hit our duration we dont emit any more particles
-					_emitting = false;
+					emitting = false;
 
 					// once all our particles are done we stop the emitter
 					if( _particles.Count == 0 )
@@ -218,7 +221,7 @@ namespace Nez.Particles
 			}
 
 			_active = true;
-			_emitting = true;
+			emitting = true;
 			_elapsedTime = 0;
 			_emitCounter = 0;
 		}
