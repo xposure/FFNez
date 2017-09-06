@@ -76,10 +76,11 @@ namespace Nez.ParticleDesignerImporter
 				string fullPath = Path.Combine( fileDirectory, input.emitterConfig.texture.name );
 				context.Logger.LogMessage( "Looking for texture file at {0}", fullPath );
 				result.texture = context.BuildAndLoadAsset<string, Texture2DContent>( new ExternalReference<string>( fullPath ), "TextureProcessor" );
-				context.Logger.LogMessage( "Texture file found" );
+				context.Logger.LogMessage( "Texture file loaded." );
 			}
 
 			result.particleEmitterConfig = input.emitterConfig;
+			context.Logger.LogMessage( "Emitter configuration loaded." );
 
 			return result;
 		}

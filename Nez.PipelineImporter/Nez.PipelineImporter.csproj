@@ -38,8 +38,8 @@
       <Package>monodevelop</Package>
     </Reference>
     <Reference Include="Ionic.Zlib">
-      <HintPath>$(SolutionDir)packages\Ionic.Zlib.1.9.1.5\lib\Ionic.Zlib.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>C:\Users\Nihal Talur\Development\GitLab\SuperBoats3\src\SuperBoats3\packages\Ionic.Zlib.1.9.1.5\lib\Ionic.Zlib.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(SolutionDir)packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
