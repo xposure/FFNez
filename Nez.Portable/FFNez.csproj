@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -100,6 +100,7 @@
     <Compile Include="Debug\Debug.cs" />
     <Compile Include="ECS\Camera.cs" />
     <Compile Include="ECS\Component.cs" />
+    <Compile Include="ECS\Components\Renderables\Particles\FufParticleCreatorConfig.cs" />
     <Compile Include="ECS\Entity.cs" />
     <Compile Include="ECS\Scene.cs" />
     <Compile Include="ECS\Components\Renderables\RenderableComponent.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Physics\Physics.cs" />
     <Compile Include="Physics\Ray2D.cs" />
     <Compile Include="Physics\SpatialHash.cs" />
+    <Compile Include="PipelineRuntime\FufParticleCreator\FufParticleCreatorConfigReader.cs" />
     <Compile Include="PipelineRuntime\Tiled\TiledIsometricTiledLayer.cs" />
     <Compile Include="UI\Base\ICullable.cs" />
     <Compile Include="Utils\Emitter.cs" />

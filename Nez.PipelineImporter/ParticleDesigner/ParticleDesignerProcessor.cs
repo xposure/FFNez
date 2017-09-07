@@ -16,7 +16,6 @@ namespace Nez.ParticleDesignerImporter
 	{
 		public static ContentBuildLogger logger;
 
-
 		public override ParticleDesignerProcessorResult Process( ParticleDesignerContent input, ContentProcessorContext context )
 		{
 			logger = context.Logger;
