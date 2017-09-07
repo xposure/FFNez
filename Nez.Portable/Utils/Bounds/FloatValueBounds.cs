@@ -10,7 +10,14 @@
         {
         }
 
-        public float NextValue()
+        public void setMidpoint(float mid)
+        {
+            var diff = max - min;
+            min = mid - diff / 2;
+            max = mid + diff / 2;
+        }
+
+        public float nextValue()
         {
             return min + (max - min) * Random.nextFloat();
         }

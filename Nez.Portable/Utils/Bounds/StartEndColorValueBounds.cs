@@ -17,10 +17,10 @@ namespace Nez
         {
         }
 
-        public (Color, Color) NextValues()
+        public (Color, Color) nextValues()
         {
-            return (new ColorValueBounds(start.min, start.max).NextValue(), new ColorValueBounds(end.min, end.max)
-                .NextValue());
+            return (new ColorValueBounds(start.min, start.max).nextValue(), new ColorValueBounds(end.min, end.max)
+                .nextValue());
         }
     }
 }

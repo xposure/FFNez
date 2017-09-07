@@ -12,7 +12,7 @@ namespace Nez
         {
         }
 
-        public Color NextValue()
+        public Color nextValue()
         {
             var nR = min.R + (max.R - min.R) * Random.nextFloat();
             var nG = min.G + (max.G - min.G) * Random.nextFloat();

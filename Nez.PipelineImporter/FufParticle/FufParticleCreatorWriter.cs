@@ -13,6 +13,8 @@ namespace Nez.PipelineImporter.FufParticle
         {
             try
             {
+                FufParticleCreatorProcessor.logger.LogMessage("Writing out FufParticleCreator asset");
+                
                 writer.Write(value.emitterConfig.LaunchAngle.min);
                 writer.Write(value.emitterConfig.LaunchAngle.max);
             
@@ -41,6 +43,7 @@ namespace Nez.PipelineImporter.FufParticle
                 writer.Write(value.emitterConfig.ParticleAngle.max);
                 
                 // write out texture data
+                FufParticleCreatorProcessor.logger.LogMessage($"Writing texture: {value.texture}");
                 writer.WriteObject(value.texture);
             }
             catch (NullReferenceException e)

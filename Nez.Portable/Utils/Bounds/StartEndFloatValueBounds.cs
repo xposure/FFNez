@@ -15,9 +15,9 @@
         {
         }
 
-        public (float, float) NextValues()
+        public (float, float) nextValues()
         {
-            return (new FloatValueBounds(start.min, start.max).NextValue(), new FloatValueBounds(end.min, end.max).NextValue());
+            return (new FloatValueBounds(start.min, start.max).nextValue(), new FloatValueBounds(end.min, end.max).nextValue());
         }
     }
 }

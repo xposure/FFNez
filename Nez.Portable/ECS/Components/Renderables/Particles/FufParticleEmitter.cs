@@ -7,16 +7,21 @@ namespace Nez.ECS.Components.Renderables.Particles
 {
     public class FufParticleEmitter : RenderableComponent, IUpdatable
     {
+        public override RectangleF bounds
+        {
+            get { return _bounds; }
+        }
+
         private Vector2 rootPosition => entity.transform.position + _localOffset;
         private List<FufParticle> _particles;
         public FufParticleCreatorConfig emitterConfig;
         public bool emitting = true;
         public bool playing = false;
+        public float frequency = 0;
         public bool simulateInWorldSpace = true;
 
         private float _elapsedTime = 0;
         private float _emitCounter = 0;
-        private float _frequency = 0;
         private int _maxParticles;
 
         public FufParticleEmitter(FufParticleCreatorConfig emitterConfig, int maxParticles = 200,
@@ -34,6 +39,8 @@ namespace Nez.ECS.Components.Renderables.Particles
         private void emitterInit()
         {
             var blendState = new BlendState();
+            blendState.ColorSourceBlend = blendState.AlphaSourceBlend = Blend.SourceAlpha;
+            blendState.ColorDestinationBlend = blendState.AlphaDestinationBlend = Blend.One;
             material = new Material(blendState);
         }
 
@@ -50,7 +57,7 @@ namespace Nez.ECS.Components.Renderables.Particles
         {
             playing = true;
             emitting = true;
-            _frequency = frequency;
+            this.frequency = frequency;
 
             _elapsedTime = 0;
             _emitCounter = 0;
@@ -82,9 +89,9 @@ namespace Nez.ECS.Components.Renderables.Particles
         {
             if (!playing) return;
 
-            if (_frequency > 0)
+            if (frequency > 0)
             {
-                var emitTime = 1f / _frequency;
+                var emitTime = 1f / frequency;
 
                 if (_particles.Count < _maxParticles)
                 {
@@ -100,6 +107,10 @@ namespace Nez.ECS.Components.Renderables.Particles
                 _elapsedTime += Time.deltaTime;
             }
 
+            var boundsMin = new Vector2(float.MaxValue, float.MaxValue);
+            var boundsMax = new Vector2(float.MinValue, float.MinValue);
+            var maxParticleScale = 0f;
+
             // update particles
             for (var i = _particles.Count - 1; i >= 0; i--)
             {
@@ -111,7 +122,21 @@ namespace Nez.ECS.Components.Renderables.Particles
                     Pool<FufParticle>.free(particle);
                     _particles.RemoveAt(i);
                 }
+                else
+                {
+                    var pos = particle.position + (simulateInWorldSpace ? particle.spawnPosition : rootPosition);
+                    Vector2.Min(ref boundsMin, ref pos, out boundsMin);
+                    Vector2.Max(ref boundsMax, ref pos, out boundsMax);
+                    maxParticleScale = Math.Max(maxParticleScale, particle.scale);
+                }
             }
+
+            _bounds.location = boundsMin;
+            _bounds.width = boundsMax.X - boundsMin.X;
+            _bounds.height = boundsMax.Y - boundsMin.Y;
+
+            _bounds.inflate(emitterConfig.Subtexture.sourceRect.Width * maxParticleScale,
+                emitterConfig.Subtexture.sourceRect.Height * maxParticleScale);
         }
 
         public override void render(Graphics graphics, Camera camera)

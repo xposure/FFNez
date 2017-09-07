@@ -1,6 +1,6 @@
 ﻿namespace Nez
 {
-    public class ValueBounds<T> where T : struct
+    public class ValueBounds<T>
     {
         public T min { get; set; }
         public T max { get; set; }

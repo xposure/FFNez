@@ -1,9 +1,9 @@
 ﻿namespace Nez
 {
-    public class StartEndValueBounds<T> where T : struct
+    public class StartEndValueBounds<T>
     {
-        public ValueBounds<T> start = new ValueBounds<T>();
-        public ValueBounds<T> end = new ValueBounds<T>();
+        public ValueBounds<T> start { get; set; } = new ValueBounds<T>();
+        public ValueBounds<T> end { get; set; } = new ValueBounds<T>();
 
         public StartEndValueBounds(T val) : this(val, val)
         {

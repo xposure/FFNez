@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
+using Nez.ConversionTypes;
 
 namespace Nez.PipelineImporter.FufParticle
 {
@@ -15,8 +16,8 @@ namespace Nez.PipelineImporter.FufParticle
         public ValueBounds<float> ParticleAngle { get; set; } = new ValueBounds<float>(0);
 
         [JsonProperty("color")]
-        public StartEndValueBounds<Color> Color { get; set; } =
-            new StartEndValueBounds<Color>(Microsoft.Xna.Framework.Color.White);
+        public StartEndValueBounds<ConversionTypeColor> Color { get; set; } =
+            new StartEndValueBounds<ConversionTypeColor>(Microsoft.Xna.Framework.Color.White);
 
         [JsonProperty("alpha")]
         public StartEndValueBounds<float> Alpha { get; set; } = new StartEndValueBounds<float>(1.0f);

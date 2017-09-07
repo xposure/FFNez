@@ -39,15 +39,15 @@ namespace Nez.ECS.Components.Renderables.Particles
             rotation = 0f;
             scale = 1f;
 
-            _lifetime = _timeToLive = emitterConfig.Life.NextValue();
-            rotation = emitterConfig.ParticleAngle.NextValue();
-            var launchAngle = MathHelper.ToRadians(emitterConfig.LaunchAngle.NextValue());
-            var speed = emitterConfig.LaunchAngle.NextValue();
+            _lifetime = _timeToLive = emitterConfig.Life.nextValue();
+            rotation = emitterConfig.ParticleAngle.nextValue();
+            var launchAngle = MathHelper.ToRadians(emitterConfig.LaunchAngle.nextValue());
+            var speed = emitterConfig.LaunchAngle.nextValue();
             velocity = new Vector2((float) Math.Cos(launchAngle), (float) Math.Sin(launchAngle)) * speed;
 
-            (_startScale, _endScale) = emitterConfig.Scale.NextValues();
-            (_startAlpha, _endAlpha) = emitterConfig.Alpha.NextValues();
-            (_startColor, _endColor) = emitterConfig.Color.NextValues();
+            (_startScale, _endScale) = emitterConfig.Scale.nextValues();
+            (_startAlpha, _endAlpha) = emitterConfig.Alpha.nextValues();
+            (_startColor, _endColor) = emitterConfig.Color.nextValues();
 
             scale = _startScale;
             alpha = _startAlpha;
@@ -64,13 +64,13 @@ namespace Nez.ECS.Components.Renderables.Particles
             if (_timeToLive > 0)
             {
                 // TODO: update kinematics
-                position += velocity;
+                position += velocity * Time.deltaTime;
 
                 // interpolate values
 
                 ColorExt.lerp(ref _startColor, ref _endColor, out color, (_lifetime - _timeToLive) / (_lifetime));
-                scale += MathHelper.Max(_scaleDelta * Time.deltaTime, 0);
-                alpha += MathHelper.Max(_alphaDelta * Time.deltaTime, 0);
+                scale += _scaleDelta * Time.deltaTime;
+                alpha += _alphaDelta * Time.deltaTime;
                 color.A = (byte) (255 * alpha);
             }
             else
