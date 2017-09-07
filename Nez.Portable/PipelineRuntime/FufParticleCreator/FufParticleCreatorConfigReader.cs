@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Nez.ECS.Components.Renderables.Particles;
+using Nez.Textures;
 
 namespace Nez.PipelineRuntime.FufParticleCreator
 {
@@ -19,23 +21,26 @@ namespace Nez.PipelineRuntime.FufParticleCreator
             emitterConfig.Life.min = reader.ReadSingle();
             emitterConfig.Life.max = reader.ReadSingle();
 
-            emitterConfig.Color.startMin = reader.ReadColor();
-            emitterConfig.Color.startMax = reader.ReadColor();
-            emitterConfig.Color.endMin = reader.ReadColor();
-            emitterConfig.Color.endMax = reader.ReadColor();
+            emitterConfig.Color.start.min = reader.ReadColor();
+            emitterConfig.Color.start.max = reader.ReadColor();
+            emitterConfig.Color.end.min = reader.ReadColor();
+            emitterConfig.Color.end.max = reader.ReadColor();
 
-            emitterConfig.Alpha.startMin = reader.ReadSingle();
-            emitterConfig.Alpha.startMax = reader.ReadSingle();
-            emitterConfig.Alpha.endMin = reader.ReadSingle();
-            emitterConfig.Alpha.endMax = reader.ReadSingle();
+            emitterConfig.Alpha.start.min = reader.ReadSingle();
+            emitterConfig.Alpha.start.max = reader.ReadSingle();
+            emitterConfig.Alpha.end.min = reader.ReadSingle();
+            emitterConfig.Alpha.end.max = reader.ReadSingle();
 
-            emitterConfig.Scale.startMin = reader.ReadSingle();
-            emitterConfig.Scale.startMax = reader.ReadSingle();
-            emitterConfig.Scale.endMin = reader.ReadSingle();
-            emitterConfig.Scale.endMax = reader.ReadSingle();
+            emitterConfig.Scale.start.min = reader.ReadSingle();
+            emitterConfig.Scale.start.max = reader.ReadSingle();
+            emitterConfig.Scale.end.min = reader.ReadSingle();
+            emitterConfig.Scale.end.max = reader.ReadSingle();
 
             emitterConfig.ParticleAngle.min = reader.ReadSingle();
             emitterConfig.ParticleAngle.max = reader.ReadSingle();
+
+            var texture = reader.ReadObject<Texture2D>();
+            emitterConfig.Subtexture = new Subtexture(texture);
 
             return emitterConfig;
         }

@@ -5,20 +5,20 @@ namespace Nez.ECS.Components.Renderables.Particles
 {
     public class FufParticleCreatorConfig
     {
-        public Subtexture Subtexture { get; }
-        
-        public ValueBounds<float> LaunchAngle { get; }
+        public Subtexture Subtexture { get; set; }
 
-        public ValueBounds<float> ParticleAngle { get; }
+        public FloatValueBounds LaunchAngle { get; } = new FloatValueBounds(270);
 
-        public StartEndValueBounds<Color> Color { get; }
+        public FloatValueBounds ParticleAngle { get; } = new FloatValueBounds(0);
 
-        public StartEndValueBounds<float> Alpha { get; }
+        public StartEndColorValueBounds Color { get; } = new StartEndColorValueBounds(Microsoft.Xna.Framework.Color.White);
 
-        public ValueBounds<float> Life { get; }
+        public StartEndFloatValueBounds Alpha { get; } = new StartEndFloatValueBounds(1f);
 
-        public StartEndValueBounds<float> Scale { get; }
+        public FloatValueBounds Life { get; } = new FloatValueBounds(1f);
 
-        public ValueBounds<float> Speed { get; }
+        public StartEndFloatValueBounds Scale { get; } = new StartEndFloatValueBounds(1f);
+
+        public FloatValueBounds Speed { get; } = new FloatValueBounds(1f);
     }
 }

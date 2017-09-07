@@ -5,6 +5,10 @@
         public T min { get; set; }
         public T max { get; set; }
 
+        public ValueBounds() : this(default(T))
+        {
+        }
+
         public ValueBounds(T val) : this(val, val)
         {
         }

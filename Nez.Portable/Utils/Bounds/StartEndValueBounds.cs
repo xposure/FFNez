@@ -2,11 +2,8 @@
 {
     public class StartEndValueBounds<T> where T : struct
     {
-        public T startMin { get; set; }
-        public T startMax { get; set; }
-
-        public T endMin { get; set; }
-        public T endMax { get; set; }
+        public ValueBounds<T> start = new ValueBounds<T>();
+        public ValueBounds<T> end = new ValueBounds<T>();
 
         public StartEndValueBounds(T val) : this(val, val)
         {
@@ -18,10 +15,10 @@
 
         public StartEndValueBounds(T startMin, T startMax, T endMin, T endMax)
         {
-            this.startMin = startMin;
-            this.startMax = startMax;
-            this.endMin = endMin;
-            this.endMax = endMax;
+            this.start.min = startMin;
+            this.start.max = startMax;
+            this.end.min = endMin;
+            this.end.max = endMax;
         }
     }
 }

@@ -129,8 +129,13 @@
     <Compile Include="PipelineRuntime\FufParticleCreator\FufParticleCreatorConfigReader.cs" />
     <Compile Include="PipelineRuntime\Tiled\TiledIsometricTiledLayer.cs" />
     <Compile Include="UI\Base\ICullable.cs" />
+    <Compile Include="Utils\Bounds\ColorValueBounds.cs" />
+    <Compile Include="Utils\Bounds\FloatValueBounds.cs" />
+    <Compile Include="Utils\Bounds\StartEndColorValueBounds.cs" />
+    <Compile Include="Utils\Bounds\StartEndFloatValueBounds.cs" />
+    <Compile Include="Utils\Bounds\StartEndValueBounds.cs" />
+    <Compile Include="Utils\Bounds\ValueBounds.cs" />
     <Compile Include="Utils\Emitter.cs" />
-    <Compile Include="Utils\StartEndValueBounds.cs" />
     <Compile Include="Utils\Time.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="CoreEvents.cs" />
@@ -578,11 +583,13 @@
     <Compile Include="ECS\Components\Renderables\PolygonLight\PolySpotLight.cs" />
     <Compile Include="Utils\Extensions\TouchLocationExt.cs" />
     <Compile Include="Utils\Extensions\GestureSampleExt.cs" />
-    <Compile Include="Utils\ValueBounds.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
       <HintPath>MonoGamePCL\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\..\..\src\SuperBoats3\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -590,5 +597,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\SVG\Shapes\Paths\SvgPathBuilder.cs" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

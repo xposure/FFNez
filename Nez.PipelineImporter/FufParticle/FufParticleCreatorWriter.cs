@@ -22,20 +22,20 @@ namespace Nez.PipelineImporter.FufParticle
                 writer.Write(value.emitterConfig.Life.min);
                 writer.Write(value.emitterConfig.Life.max);
             
-                writer.Write(value.emitterConfig.Color.startMin);
-                writer.Write(value.emitterConfig.Color.startMin);
-                writer.Write(value.emitterConfig.Color.endMin);
-                writer.Write(value.emitterConfig.Color.endMax);
+                writer.Write(value.emitterConfig.Color.start.min);
+                writer.Write(value.emitterConfig.Color.start.max);
+                writer.Write(value.emitterConfig.Color.end.min);
+                writer.Write(value.emitterConfig.Color.end.max);
             
-                writer.Write(value.emitterConfig.Alpha.startMin);
-                writer.Write(value.emitterConfig.Alpha.startMin);
-                writer.Write(value.emitterConfig.Alpha.endMin);
-                writer.Write(value.emitterConfig.Alpha.endMax);
+                writer.Write(value.emitterConfig.Alpha.start.min);
+                writer.Write(value.emitterConfig.Alpha.start.min);
+                writer.Write(value.emitterConfig.Alpha.end.min);
+                writer.Write(value.emitterConfig.Alpha.end.max);
             
-                writer.Write(value.emitterConfig.Scale.startMin);
-                writer.Write(value.emitterConfig.Scale.startMin);
-                writer.Write(value.emitterConfig.Scale.endMin);
-                writer.Write(value.emitterConfig.Scale.endMax);
+                writer.Write(value.emitterConfig.Scale.start.min);
+                writer.Write(value.emitterConfig.Scale.start.min);
+                writer.Write(value.emitterConfig.Scale.end.min);
+                writer.Write(value.emitterConfig.Scale.end.max);
             
                 writer.Write(value.emitterConfig.ParticleAngle.min);
                 writer.Write(value.emitterConfig.ParticleAngle.max);
