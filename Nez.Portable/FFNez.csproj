@@ -575,6 +575,7 @@
     <Compile Include="ECS\Components\Renderables\PolygonLight\PolySpotLight.cs" />
     <Compile Include="Utils\Extensions\TouchLocationExt.cs" />
     <Compile Include="Utils\Extensions\GestureSampleExt.cs" />
+    <Compile Include="Utils\ValueBounds.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

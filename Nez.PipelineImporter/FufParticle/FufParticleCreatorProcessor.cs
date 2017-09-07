@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework.Content.Pipeline;
+﻿using System.IO;
+using Microsoft.Xna.Framework.Content.Pipeline;
+using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 
 namespace Nez.PipelineImporter.FufParticle
 {
     [ContentProcessor(DisplayName = "Fuf Particle Importer")]
-    public class FufParticleCreatorProcessor : ContentProcessor<FufParticleCreatorContent, FufParticleEmitterProcessorResult>
+    public class
+        FufParticleCreatorProcessor : ContentProcessor<FufParticleCreatorContent, FufParticleEmitterProcessorResult>
     {
         public static ContentBuildLogger logger;
 
@@ -12,11 +15,21 @@ namespace Nez.PipelineImporter.FufParticle
         {
             logger = context.Logger;
             var result = new FufParticleEmitterProcessorResult();
-            
-            // ...Process additional data
+
+            // load texture
+            if (input.emitterConfig.TextureName == null)
+                throw new InvalidContentException("'texture' property of emitter configuration was not found.");
+
+            var fileDir = Path.GetDirectoryName(input.path);
+            var fullPath = Path.Combine(fileDir, input.emitterConfig.TextureName);
+            context.Logger.LogMessage("Looking for texture file at {0}", fullPath);
+            result.texture =
+                context.BuildAndLoadAsset<string, Texture2DContent>(new ExternalReference<string>(fullPath),
+                    "TextureProcessor");
+            context.Logger.LogMessage("Texture file loaded.");
 
             result.emitterConfig = input.emitterConfig;
-            
+
             return result;
         }
     }

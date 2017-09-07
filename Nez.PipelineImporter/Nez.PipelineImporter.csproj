@@ -54,6 +54,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ConversionTypes\ConversionTypeColor.cs" />
     <Compile Include="FufParticle\FufParticleCreatorEmitterConfig.cs" />
     <Compile Include="FufParticle\FufParticleCreatorContent.cs" />
     <Compile Include="FufParticle\FufParticleCreatorImporter.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="Overlap2D\Overlap2DProcessor.cs" />
     <Compile Include="Overlap2D\Overlap2DWriter.cs" />
     <Compile Include="ParticleDesigner\ParticleDesignerImporter.cs" />
-    <Compile Include="ParticleDesigner\ConversionTypes\ParticleDesignerColor.cs" />
     <Compile Include="ParticleDesigner\ConversionTypes\ParticleDesignerFloatValue.cs" />
     <Compile Include="ParticleDesigner\ConversionTypes\ParticleDesignerIntValue.cs" />
     <Compile Include="ParticleDesigner\ConversionTypes\ParticleDesignerVector2.cs" />

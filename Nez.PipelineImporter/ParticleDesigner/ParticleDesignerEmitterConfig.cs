@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Nez.ConversionTypes;
 
 
 namespace Nez.ParticleDesignerImporter
@@ -47,16 +48,16 @@ namespace Nez.ParticleDesignerImporter
 		public ParticleDesignerFloatValue tangentialAccelVariance;
 
 		[XmlElement]
-		public ParticleDesignerColor startColor;
+		public ConversionTypeColor startColor;
 
 		[XmlElement]
-		public ParticleDesignerColor startColorVariance;
+		public ConversionTypeColor startColorVariance;
 
 		[XmlElement]
-		public ParticleDesignerColor finishColor;
+		public ConversionTypeColor finishColor;
 
 		[XmlElement]
-		public ParticleDesignerColor finishColorVariance;
+		public ConversionTypeColor finishColorVariance;
 
 		[XmlElement]
 		public ParticleDesignerIntValue maxParticles;
