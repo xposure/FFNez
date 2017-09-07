@@ -1,7 +1,11 @@
-﻿namespace Nez.PipelineImporter.FufParticle
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace Nez.PipelineImporter.FufParticle
 {
     public class FufParticleCreatorEmitterConfig
     {
-        public float angle = 0;
+        [JsonProperty("angle")]
+        public float Angle { get; } = 0;
     }
 }

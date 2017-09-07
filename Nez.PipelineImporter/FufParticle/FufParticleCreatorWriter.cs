@@ -10,7 +10,7 @@ namespace Nez.PipelineImporter.FufParticle
     {
         protected override void Write(ContentWriter writer, FufParticleEmitterProcessorResult value)
         {
-            writer.Write(value.emitterConfig.angle);
+            writer.Write(value.emitterConfig.Angle);
         }
         
         public override string GetRuntimeType(TargetPlatform targetPlatform)

@@ -162,9 +162,9 @@
     <Compile Include="Common\PixelBitmapContentExt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nez.Portable\Nez.csproj">
-      <Project>{60B7197D-D0D5-405C-90A2-A56903E9B039}</Project>
-      <Name>Nez</Name>
+    <ProjectReference Include="..\Nez.Portable\FFNez.csproj">
+      <Project>{60b7197d-d0d5-405c-90a2-a56903e9b039}</Project>
+      <Name>FFNez</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
