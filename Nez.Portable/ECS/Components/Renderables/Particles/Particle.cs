@@ -226,7 +226,7 @@ namespace Nez.Particles
 			}
 			else
 			{
-				// timeToLive expired. were done
+				// timeToLive expired. we're done
 				return true;
 			}
 
