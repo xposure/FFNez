@@ -72,7 +72,7 @@ namespace Nez.ECS.Components.Renderables.Particles
 
         public void emit(int count)
         {
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 addParticle(rootPosition);
             }
@@ -84,7 +84,7 @@ namespace Nez.ECS.Components.Renderables.Particles
 
             if (_frequency > 0)
             {
-                float emitTime = 1f / _frequency;
+                var emitTime = 1f / _frequency;
 
                 if (_particles.Count < _maxParticles)
                 {
@@ -101,7 +101,7 @@ namespace Nez.ECS.Components.Renderables.Particles
             }
 
             // update particles
-            for (int i = _particles.Count - 1; i >= 0; i--)
+            for (var i = _particles.Count - 1; i >= 0; i--)
             {
                 var particle = _particles[i];
 
@@ -116,7 +116,7 @@ namespace Nez.ECS.Components.Renderables.Particles
 
         public override void render(Graphics graphics, Camera camera)
         {
-            for (int i = 0; i < _particles.Count; i++)
+            for (var i = 0; i < _particles.Count; i++)
             {
                 var particle = _particles[i];
                 var referencePosition = simulateInWorldSpace ? particle.spawnPosition : rootPosition;
