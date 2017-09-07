@@ -17,11 +17,11 @@ namespace Nez.PipelineImporter.FufParticle
             var result = new FufParticleEmitterProcessorResult();
 
             // load texture
-            if (input.emitterConfig.TextureName == null)
+            if (input.emitterConfig.Texture == null)
                 throw new InvalidContentException("'texture' property of emitter configuration was not found.");
 
             var fileDir = Path.GetDirectoryName(input.path);
-            var fullPath = Path.Combine(fileDir, input.emitterConfig.TextureName);
+            var fullPath = Path.Combine(fileDir, input.emitterConfig.Texture);
             context.Logger.LogMessage("Looking for texture file at {0}", fullPath);
             result.texture =
                 context.BuildAndLoadAsset<string, Texture2DContent>(new ExternalReference<string>(fullPath),
