@@ -11,16 +11,14 @@ namespace Nez.ECS.Components.Renderables.Particles
 
         public ValueBounds<float> ParticleAngle { get; }
 
-        public ValueBounds<Color> Color { get; }
+        public StartEndValueBounds<Color> Color { get; }
 
-        public ValueBounds<float> Alpha { get; }
+        public StartEndValueBounds<float> Alpha { get; }
 
         public ValueBounds<float> Life { get; }
 
-        public ValueBounds<Vector2> Scale { get; }
+        public StartEndValueBounds<float> Scale { get; }
 
         public ValueBounds<float> Speed { get; }
-
-        public bool KeepScaleRatio { get; set; }
     }
 }

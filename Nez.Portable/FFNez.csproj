@@ -100,7 +100,9 @@
     <Compile Include="Debug\Debug.cs" />
     <Compile Include="ECS\Camera.cs" />
     <Compile Include="ECS\Component.cs" />
+    <Compile Include="ECS\Components\Renderables\Particles\FufParticle.cs" />
     <Compile Include="ECS\Components\Renderables\Particles\FufParticleCreatorConfig.cs" />
+    <Compile Include="ECS\Components\Renderables\Particles\FufParticleEmitter.cs" />
     <Compile Include="ECS\Entity.cs" />
     <Compile Include="ECS\Scene.cs" />
     <Compile Include="ECS\Components\Renderables\RenderableComponent.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="PipelineRuntime\Tiled\TiledIsometricTiledLayer.cs" />
     <Compile Include="UI\Base\ICullable.cs" />
     <Compile Include="Utils\Emitter.cs" />
+    <Compile Include="Utils\StartEndValueBounds.cs" />
     <Compile Include="Utils\Time.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="CoreEvents.cs" />

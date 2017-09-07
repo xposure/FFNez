@@ -22,15 +22,20 @@ namespace Nez.PipelineImporter.FufParticle
                 writer.Write(value.emitterConfig.Life.min);
                 writer.Write(value.emitterConfig.Life.max);
             
-                writer.Write(value.emitterConfig.Color.min);
-                writer.Write(value.emitterConfig.Color.max);
+                writer.Write(value.emitterConfig.Color.startMin);
+                writer.Write(value.emitterConfig.Color.startMin);
+                writer.Write(value.emitterConfig.Color.endMin);
+                writer.Write(value.emitterConfig.Color.endMax);
             
-                writer.Write(value.emitterConfig.Alpha.min);
-                writer.Write(value.emitterConfig.Alpha.max);
+                writer.Write(value.emitterConfig.Alpha.startMin);
+                writer.Write(value.emitterConfig.Alpha.startMin);
+                writer.Write(value.emitterConfig.Alpha.endMin);
+                writer.Write(value.emitterConfig.Alpha.endMax);
             
-                writer.Write(value.emitterConfig.Scale.min);
-                writer.Write(value.emitterConfig.Scale.max);
-                writer.Write(value.emitterConfig.KeepScaleRatio);
+                writer.Write(value.emitterConfig.Scale.startMin);
+                writer.Write(value.emitterConfig.Scale.startMin);
+                writer.Write(value.emitterConfig.Scale.endMin);
+                writer.Write(value.emitterConfig.Scale.endMax);
             
                 writer.Write(value.emitterConfig.ParticleAngle.min);
                 writer.Write(value.emitterConfig.ParticleAngle.max);
