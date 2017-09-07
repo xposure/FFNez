@@ -77,6 +77,11 @@ namespace Nez.ECS.Components.Renderables.Particles
             emitting = false;
         }
 
+        public void resume()
+        {
+            emitting = true;
+        }
+
         public void emit(int count)
         {
             for (var i = 0; i < count; i++)
@@ -103,7 +108,6 @@ namespace Nez.ECS.Components.Renderables.Particles
                     addParticle(rootPosition);
                     _emitCounter -= emitTime;
                 }
-
                 _elapsedTime += Time.deltaTime;
             }
 
