@@ -7,7 +7,7 @@
     <ProjectGuid>{60B7197D-D0D5-405C-90A2-A56903E9B039}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Nez</RootNamespace>
-    <AssemblyName>FFNez</AssemblyName>
+    <AssemblyName>Nez</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
   </PropertyGroup>
