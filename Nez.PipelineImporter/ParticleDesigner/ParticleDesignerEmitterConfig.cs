@@ -9,10 +9,10 @@ namespace Nez.ParticleDesignerImporter
 	public class ParticleDesignerEmitterConfig
 	{
 		[XmlElement]
-		public ParticleDesignerVector2 sourcePosition;
+		public ConversionTypeVector2 sourcePosition;
 
 		[XmlElement]
-		public ParticleDesignerVector2 sourcePositionVariance;
+		public ConversionTypeVector2 sourcePositionVariance;
 
 		[XmlElement]
 		public ParticleDesignerFloatValue speed;
@@ -33,7 +33,7 @@ namespace Nez.ParticleDesignerImporter
 		public ParticleDesignerFloatValue angleVariance;
 
 		[XmlElement]
-		public ParticleDesignerVector2 gravity;
+		public ConversionTypeVector2 gravity;
 
 		[XmlElement]
 		public ParticleDesignerFloatValue radialAcceleration;

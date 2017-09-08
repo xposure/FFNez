@@ -49,7 +49,7 @@ namespace Nez.ECS.Components.Renderables.Particles
             base.onAddedToEntity();
             if (emitting)
             {
-                play();
+                playing = true;
             }
         }
 

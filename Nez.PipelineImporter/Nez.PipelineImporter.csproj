@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ConversionTypes\ConversionTypeColor.cs" />
+    <Compile Include="Common\ConversionTypes\ConversionTypeVector2.cs" />
     <Compile Include="FufParticle\FufParticleCreatorEmitterConfig.cs" />
     <Compile Include="FufParticle\FufParticleCreatorContent.cs" />
     <Compile Include="FufParticle\FufParticleCreatorImporter.cs" />
@@ -119,7 +120,6 @@
     <Compile Include="ParticleDesigner\ParticleDesignerImporter.cs" />
     <Compile Include="ParticleDesigner\ConversionTypes\ParticleDesignerFloatValue.cs" />
     <Compile Include="ParticleDesigner\ConversionTypes\ParticleDesignerIntValue.cs" />
-    <Compile Include="ParticleDesigner\ConversionTypes\ParticleDesignerVector2.cs" />
     <Compile Include="ParticleDesigner\ParticleDesignerProcessor.cs" />
     <Compile Include="ParticleDesigner\ConversionTypes\ParticleDesignerTexture.cs" />
     <Compile Include="ParticleDesigner\ParticleDesignerContent.cs" />

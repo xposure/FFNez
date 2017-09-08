@@ -28,6 +28,9 @@ namespace Nez.PipelineImporter.FufParticle
         [JsonProperty("scale")]
         public StartEndValueBounds<float> Scale { get; set; } = new StartEndValueBounds<float>(1.0f);
 
+        [JsonProperty("offset")]
+        public ValueBounds<ConversionTypeVector2> Offset { get; set; } = new ValueBounds<ConversionTypeVector2>();
+
         [JsonProperty("speed")]
         public ValueBounds<float> Speed { get; set; } = new ValueBounds<float>(100f);
     }

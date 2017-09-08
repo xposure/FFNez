@@ -38,6 +38,9 @@ namespace Nez.PipelineImporter.FufParticle
                 writer.Write(value.emitterConfig.Scale.start.min);
                 writer.Write(value.emitterConfig.Scale.end.min);
                 writer.Write(value.emitterConfig.Scale.end.max);
+                
+                writer.Write(value.emitterConfig.Offset.min);
+                writer.Write(value.emitterConfig.Offset.max);
             
                 writer.Write(value.emitterConfig.ParticleAngle.min);
                 writer.Write(value.emitterConfig.ParticleAngle.max);

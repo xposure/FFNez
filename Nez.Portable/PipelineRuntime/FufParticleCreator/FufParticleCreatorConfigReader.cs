@@ -36,6 +36,9 @@ namespace Nez.PipelineRuntime.FufParticleCreator
             emitterConfig.Scale.end.min = reader.ReadSingle();
             emitterConfig.Scale.end.max = reader.ReadSingle();
 
+            emitterConfig.Offset.min = reader.ReadVector2();
+            emitterConfig.Offset.max = reader.ReadVector2();
+
             emitterConfig.ParticleAngle.min = reader.ReadSingle();
             emitterConfig.ParticleAngle.max = reader.ReadSingle();
 

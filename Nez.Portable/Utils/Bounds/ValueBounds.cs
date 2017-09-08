@@ -15,6 +15,11 @@
 
         public ValueBounds(T min, T max)
         {
+            set(min, max);
+        }
+
+        public void set(T min, T max)
+        {
             this.min = min;
             this.max = max;
         }

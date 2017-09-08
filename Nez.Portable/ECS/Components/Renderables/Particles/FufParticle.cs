@@ -42,8 +42,12 @@ namespace Nez.ECS.Components.Renderables.Particles
             _lifetime = _timeToLive = emitterConfig.Life.nextValue();
             rotation = emitterConfig.ParticleAngle.nextValue();
             var launchAngle = MathHelper.ToRadians(emitterConfig.LaunchAngle.nextValue());
-            var speed = emitterConfig.LaunchAngle.nextValue();
+            var speed = emitterConfig.Speed.nextValue();
             velocity = new Vector2((float) Math.Cos(launchAngle), (float) Math.Sin(launchAngle)) * speed;
+
+            var offset = emitterConfig.Offset.nextValue();
+            offset = Vector2.Transform(offset, Matrix.CreateRotationZ(launchAngle));
+            position += offset;
 
             (_startScale, _endScale) = emitterConfig.Scale.nextValues();
             (_startAlpha, _endAlpha) = emitterConfig.Alpha.nextValues();

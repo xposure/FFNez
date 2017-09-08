@@ -135,6 +135,7 @@
     <Compile Include="Utils\Bounds\StartEndFloatValueBounds.cs" />
     <Compile Include="Utils\Bounds\StartEndValueBounds.cs" />
     <Compile Include="Utils\Bounds\ValueBounds.cs" />
+    <Compile Include="Utils\Bounds\Vector2ValueBounds.cs" />
     <Compile Include="Utils\Emitter.cs" />
     <Compile Include="Utils\Time.cs" />
     <Compile Include="Core.cs" />
