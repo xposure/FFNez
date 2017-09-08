@@ -23,7 +23,7 @@ namespace Nez.PipelineImporter.FufParticle
             
                 writer.Write(value.emitterConfig.Life.min);
                 writer.Write(value.emitterConfig.Life.max);
-            
+                
                 writer.Write(value.emitterConfig.Color.start.min);
                 writer.Write(value.emitterConfig.Color.start.max);
                 writer.Write(value.emitterConfig.Color.end.min);
