@@ -110,6 +110,7 @@ namespace Nez
 			set { _instance._nextScene = value; }
 		}
 
+		public static Core instance => _instance;
 
 		public Core( int width = 1280, int height = 720, bool isFullScreen = false, bool enableEntitySystems = true, string windowTitle = "Nez", string contentDirectory = "Content" )
 		{
