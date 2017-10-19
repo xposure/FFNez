@@ -306,6 +306,30 @@ namespace Nez
 
 			return list;
 		}
+		
+		/// <summary>
+		/// returns a List of all Entities with a matching name. The returned List can be put back in the pool via ListPool.free.
+		/// </summary>
+		/// <returns>The of type.</returns>
+		/// <typeparam name="T">The 1st type parameter.</typeparam>
+		public List<Entity> entitiesWithName(string name)
+		{
+			var list = ListPool<Entity>.obtain();
+			for( var i = 0; i < _entities.length; i++ )
+			{
+				if( _entities.buffer[i].name == name )
+					list.Add( _entities.buffer[i] );
+			}
+
+			// in case an entity is added and searched for in the same frame we check the toAdd list
+			for( var i = 0; i < _entitiesToAdd.Count; i++ )
+			{
+				if( _entitiesToAdd[i].name == name )
+					list.Add( _entitiesToAdd[i] );
+			}
+
+			return list;
+		}
 
 
 		/// <summary>

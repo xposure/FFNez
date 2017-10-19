@@ -1065,6 +1065,10 @@ namespace Nez
 			return entities.entitiesOfType<T>();
 		}
 
+		public List<Entity> findEntitiesWithName(string name) {
+			return entities.entitiesWithName(name);
+		}
+
 
 		/// <summary>
 		/// returns the first enabled loaded component of Type T
