@@ -47,6 +47,11 @@ namespace Nez
 		public static GraphicsDeviceManager graphicsManager;
 
 		/// <summary>
+		/// The resolution given by ('width', 'height')
+		/// </summary>
+		public Point defaultResolution;
+
+		/// <summary>
 		/// global content manager for loading any assets that should stick around between scenes
 		/// </summary>
 		public static NezContentManager content;
@@ -122,6 +127,7 @@ namespace Nez
 			emitter = new Emitter<CoreEvents>( new CoreEventsComparer() );
 
 			graphicsManager = new GraphicsDeviceManager( this );
+			defaultResolution = new Point(width, height);
 			graphicsManager.PreferredBackBufferWidth = width;
 			graphicsManager.PreferredBackBufferHeight = height;
 			graphicsManager.IsFullScreen = isFullScreen;
