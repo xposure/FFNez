@@ -441,6 +441,11 @@ namespace Nez
 			component.initialize();
 			return component;
 		}
+		
+		public bool hasComponent<T>() where T : Component
+		{
+			return getComponent<T>() != null;
+		}
 
 
 		/// <summary>
