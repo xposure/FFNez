@@ -31,6 +31,14 @@ namespace Nez.UI
 		/// </summary>
 		public Keys keyboardActionKey = Keys.Enter;
 
+		public Keys keyboardLeftKey = Keys.Left;
+
+		public Keys keyboardRightKey = Keys.Right;
+		
+		public Keys keyboardUpKey = Keys.Up;
+
+		public Keys keyboardDownKey = Keys.Down;
+
 		Group root;
 		public Camera camera;
 		bool debugAll, debugUnderMouse, debugParentUnderMouse;
@@ -413,13 +421,13 @@ namespace Nez.UI
 			
 			IGamepadFocusable nextElement = null;
 			var direction = Direction.None;
-			if( Input.gamePads[0].DpadLeftPressed || Input.gamePads[0].isLeftStickLeftPressed() || ( keyboardEmulatesGamepad && Input.isKeyPressed( Keys.Left ) ) )
+			if( Input.gamePads[0].DpadLeftPressed || Input.gamePads[0].isLeftStickLeftPressed() || ( keyboardEmulatesGamepad && Input.isKeyPressed( keyboardLeftKey ) ) )
 				direction = Direction.Left;
-			else if( Input.gamePads[0].DpadRightPressed || Input.gamePads[0].isLeftStickRightPressed() || ( keyboardEmulatesGamepad && Input.isKeyPressed( Keys.Right ) ) )
+			else if( Input.gamePads[0].DpadRightPressed || Input.gamePads[0].isLeftStickRightPressed() || ( keyboardEmulatesGamepad && Input.isKeyPressed( keyboardRightKey ) ) )
 				direction = Direction.Right;
-			else if( Input.gamePads[0].DpadUpPressed || Input.gamePads[0].isLeftStickUpPressed() || ( keyboardEmulatesGamepad && Input.isKeyPressed( Keys.Up ) ) )
+			else if( Input.gamePads[0].DpadUpPressed || Input.gamePads[0].isLeftStickUpPressed() || ( keyboardEmulatesGamepad && Input.isKeyPressed( keyboardUpKey ) ) )
 				direction = Direction.Up;
-			else if( Input.gamePads[0].DpadDownPressed || Input.gamePads[0].isLeftStickDownPressed() || ( keyboardEmulatesGamepad && Input.isKeyPressed( Keys.Down ) ) )
+			else if( Input.gamePads[0].DpadDownPressed || Input.gamePads[0].isLeftStickDownPressed() || ( keyboardEmulatesGamepad && Input.isKeyPressed( keyboardDownKey ) ) )
 				direction = Direction.Down;
 
 			// make sure we have a valid direction
