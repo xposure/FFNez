@@ -45,11 +45,11 @@ namespace Nez
 		/// </summary>
 		public Vector2 mapSize;
 
-		Entity _targetEntity;
-		Collider _targetCollider;
-		Vector2 _desiredPositionDelta;
-		CameraStyle _cameraStyle;
-		RectangleF _worldSpaceDeadzone;
+		protected Entity _targetEntity;
+		protected Collider _targetCollider;
+		protected Vector2 _desiredPositionDelta;
+		protected CameraStyle _cameraStyle;
+		protected RectangleF _worldSpaceDeadzone;
 
 		
 		public FollowCamera( Entity targetEntity, Camera camera, CameraStyle cameraStyle = CameraStyle.LockOn  )
@@ -82,7 +82,7 @@ namespace Nez
 		}
 
 
-		void IUpdatable.update()
+		public virtual void update()
 		{
 			// translate the deadzone to be in world space
 			var halfScreen = entity.scene.sceneRenderTargetSize.ToVector2() * 0.5f;
