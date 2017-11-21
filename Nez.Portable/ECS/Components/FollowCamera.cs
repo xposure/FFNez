@@ -51,6 +51,8 @@ namespace Nez
 		protected CameraStyle _cameraStyle;
 		protected RectangleF _worldSpaceDeadzone;
 
+		private Vector2 _precisePosition;
+		private Vector2 _lastPosition;
 		
 		public FollowCamera( Entity targetEntity, Camera camera, CameraStyle cameraStyle = CameraStyle.LockOn  )
 		{
@@ -84,24 +86,30 @@ namespace Nez
 
 		public virtual void update()
 		{
+			// handle teleportation
+			if (_lastPosition != camera.position) {
+				_precisePosition = camera.position;
+			}
+			
 			// translate the deadzone to be in world space
 			var halfScreen = entity.scene.sceneRenderTargetSize.ToVector2() * 0.5f;
-			_worldSpaceDeadzone.x = camera.position.X - halfScreen.X + deadzone.x + focusOffset.X;
-			_worldSpaceDeadzone.y = camera.position.Y - halfScreen.Y + deadzone.y + focusOffset.Y;
+			_worldSpaceDeadzone.x = _precisePosition.X - halfScreen.X + deadzone.x + focusOffset.X;
+			_worldSpaceDeadzone.y = _precisePosition.Y - halfScreen.Y + deadzone.y + focusOffset.Y;
 			_worldSpaceDeadzone.width = deadzone.width;
 			_worldSpaceDeadzone.height = deadzone.height;
 
 			if( _targetEntity != null )
 				updateFollow();
 
-			camera.position = Vector2.Lerp( camera.position, camera.position + _desiredPositionDelta, followLerp );
-			camera.entity.transform.roundPosition();
+			_precisePosition = Vector2.Lerp( _precisePosition, _precisePosition + _desiredPositionDelta, followLerp );
 
 			if( mapLockEnabled )
 			{
-				camera.position = clampToMapSize( camera.position );
-				camera.entity.transform.roundPosition();   
+				_precisePosition = clampToMapSize( _precisePosition );
 			}
+
+			_lastPosition = camera.position = _precisePosition;
+			camera.entity.transform.roundPosition();
 		}
 
 
