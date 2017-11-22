@@ -11,6 +11,7 @@ namespace Nez
 		public const float deg2Rad = 0.0174532924f;
 		public const float rad2Deg = 57.29578f;
 
+		public const float PI = (float)Math.PI;
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float round( float f )
@@ -196,11 +197,28 @@ namespace Nez
 		/// <param name="b">The blue component.</param>
 		/// <param name="t">T.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static float lerpAngle( float a, float b, float t )
+		public static float lerpAngleDeg( float a, float b, float t )
 		{
 			float num = Mathf.repeat( b - a, 360f );
 			if( num > 180f )
 				num -= 360f;
+			
+			return a + num * clamp01( t );
+		}
+		
+		/// <summary>
+		/// lerps an angle in radians between a and b. handles wrapping around 2pi
+		/// </summary>
+		/// <returns>The angle.</returns>
+		/// <param name="a">The alpha component.</param>
+		/// <param name="b">The blue component.</param>
+		/// <param name="t">T.</param>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float lerpAngle( float a, float b, float t )
+		{
+			float num = Mathf.repeat( b - a, PI * 2 );
+			if( num > PI )
+				num -= PI * 2;
 			
 			return a + num * clamp01( t );
 		}
