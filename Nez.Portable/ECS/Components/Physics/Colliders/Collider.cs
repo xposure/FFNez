@@ -376,27 +376,49 @@ namespace Nez
 
 			return didCollide;
 		}
-
+		
 		/// <summary>
-		/// checks for collisions with other colliders. The collisionResults list will be populated with any collisions that occur.
+		/// checks to see if this Collider with motion applied (delta movement vector) collides with any collider. If it does, true will be
+		/// returned and result will be populated with collision data. Motion will be set to the maximum distance the Collider can travel
+		/// before colliding.
 		/// </summary>
-		/// <param name="collisionResults">The list to populate with collision results.</param>
-		public void getAllCollisions(List<CollisionResult> collisionResults)
+		/// <returns><c>true</c>, if with was collidesed, <c>false</c> otherwise.</returns>
+		/// <param name="motion">Motion.</param>
+		/// <param name="results">Results.</param>
+		public bool collidesWithAnyMultiple( Vector2 motion, List<CollisionResult> results )
 		{
-			// retrieve neighbors
-			var neighbors = Physics.boxcastBroadphaseExcludingSelf( this, collidesWithLayers );
+			// fetch anything that we might collide with at our new position
+			var colliderBounds = bounds;
+			colliderBounds.x += motion.X;
+			colliderBounds.y += motion.Y;
+			var neighbors = Physics.boxcastBroadphaseExcludingSelf( this, ref colliderBounds, collidesWithLayers );
 
-			foreach ( var neighbor in neighbors )
+			// alter the shapes position so that it is in the place it would be after movement so we can check for overlaps
+			var oldPosition = shape.position;
+
+			var didCollide = false;
+			foreach( var neighbor in neighbors )
 			{
-				CollisionResult result;
-				
 				// skip triggers
 				if( neighbor.isTrigger )
 					continue;
+				
+				// apply motion to shape
+				shape.position += motion;
 
-				if ( collidesWith( neighbor, out result ) )
-					collisionResults.Add(result);
+				if( collidesWith( neighbor, out var neighborResult ) )
+				{
+					// hit. back off our Shape.position
+					shape.position -= neighborResult.minimumTranslationVector;
+					didCollide = true;
+				}
+				results.Add(neighborResult);
+
+				// return the shapes position to where it was before the check
+				shape.position = oldPosition;
 			}
+
+			return didCollide;
 		}
 
 		#endregion
