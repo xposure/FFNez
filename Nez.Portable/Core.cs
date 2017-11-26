@@ -95,6 +95,8 @@ namespace Nez
 		Scene _nextScene;
 		internal SceneTransition _sceneTransition;
 
+		public bool inScreenTransition => _sceneTransition != null;
+
 		/// <summary>
 		/// used to coalesce GraphicsDeviceReset events
 		/// </summary>

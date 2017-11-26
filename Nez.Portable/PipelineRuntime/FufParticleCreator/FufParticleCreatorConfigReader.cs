@@ -12,38 +12,38 @@ namespace Nez.PipelineRuntime.FufParticleCreator
         {
             var emitterConfig = new FufParticleCreatorConfig();
 
-            emitterConfig.LaunchAngle.min = reader.ReadSingle();
-            emitterConfig.LaunchAngle.max = reader.ReadSingle();
+            emitterConfig.launchAngle.min = reader.ReadSingle();
+            emitterConfig.launchAngle.max = reader.ReadSingle();
 
-            emitterConfig.Speed.min = reader.ReadSingle();
-            emitterConfig.Speed.max = reader.ReadSingle();
+            emitterConfig.speed.min = reader.ReadSingle();
+            emitterConfig.speed.max = reader.ReadSingle();
 
-            emitterConfig.Life.min = reader.ReadSingle();
-            emitterConfig.Life.max = reader.ReadSingle();
+            emitterConfig.life.min = reader.ReadSingle();
+            emitterConfig.life.max = reader.ReadSingle();
 
-            emitterConfig.Color.start.min = reader.ReadColor();
-            emitterConfig.Color.start.max = reader.ReadColor();
-            emitterConfig.Color.end.min = reader.ReadColor();
-            emitterConfig.Color.end.max = reader.ReadColor();
+            emitterConfig.color.start.min = reader.ReadColor();
+            emitterConfig.color.start.max = reader.ReadColor();
+            emitterConfig.color.end.min = reader.ReadColor();
+            emitterConfig.color.end.max = reader.ReadColor();
 
-            emitterConfig.Alpha.start.min = reader.ReadSingle();
-            emitterConfig.Alpha.start.max = reader.ReadSingle();
-            emitterConfig.Alpha.end.min = reader.ReadSingle();
-            emitterConfig.Alpha.end.max = reader.ReadSingle();
+            emitterConfig.alpha.start.min = reader.ReadSingle();
+            emitterConfig.alpha.start.max = reader.ReadSingle();
+            emitterConfig.alpha.end.min = reader.ReadSingle();
+            emitterConfig.alpha.end.max = reader.ReadSingle();
 
-            emitterConfig.Scale.start.min = reader.ReadSingle();
-            emitterConfig.Scale.start.max = reader.ReadSingle();
-            emitterConfig.Scale.end.min = reader.ReadSingle();
-            emitterConfig.Scale.end.max = reader.ReadSingle();
+            emitterConfig.scale.start.min = reader.ReadSingle();
+            emitterConfig.scale.start.max = reader.ReadSingle();
+            emitterConfig.scale.end.min = reader.ReadSingle();
+            emitterConfig.scale.end.max = reader.ReadSingle();
 
-            emitterConfig.Offset.min = reader.ReadVector2();
-            emitterConfig.Offset.max = reader.ReadVector2();
+            emitterConfig.offset.min = reader.ReadVector2();
+            emitterConfig.offset.max = reader.ReadVector2();
 
-            emitterConfig.ParticleAngle.min = reader.ReadSingle();
-            emitterConfig.ParticleAngle.max = reader.ReadSingle();
+            emitterConfig.particleRotation.min = reader.ReadSingle();
+            emitterConfig.particleRotation.max = reader.ReadSingle();
 
             var texture = reader.ReadObject<Texture2D>();
-            emitterConfig.Subtexture = new Subtexture(texture);
+            emitterConfig.subtexture = new Subtexture(texture);
 
             return emitterConfig;
         }

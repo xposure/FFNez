@@ -116,16 +116,16 @@ namespace Nez.ECS.Components.Renderables.Particles {
             _bounds.width = boundsMax.X - boundsMin.X;
             _bounds.height = boundsMax.Y - boundsMin.Y;
 
-            _bounds.inflate(emitterConfig.Subtexture.sourceRect.Width * maxParticleScale,
-                emitterConfig.Subtexture.sourceRect.Height * maxParticleScale);
+            _bounds.inflate(emitterConfig.subtexture.sourceRect.Width * maxParticleScale,
+                emitterConfig.subtexture.sourceRect.Height * maxParticleScale);
         }
 
         public override void render(Graphics graphics, Camera camera) {
             for (var i = 0; i < _particles.Count; i++) {
                 var particle = _particles[i];
                 var referencePosition = simulateInWorldSpace ? particle.spawnPosition : rootPosition;
-                graphics.batcher.draw(emitterConfig.Subtexture, referencePosition + particle.position, particle.color,
-                    particle.rotation, emitterConfig.Subtexture.center, particle.scale, SpriteEffects.None, layerDepth);
+                graphics.batcher.draw(emitterConfig.subtexture, referencePosition + particle.position, particle.color,
+                    particle.rotation, emitterConfig.subtexture.center, particle.scale, SpriteEffects.None, layerDepth);
             }
         }
 
