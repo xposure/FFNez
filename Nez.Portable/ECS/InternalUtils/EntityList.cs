@@ -331,6 +331,15 @@ namespace Nez
 			return list;
 		}
 
+		public List<Entity> getList() {
+			var list = ListPool<Entity>.obtain();
+			for( var i = 0; i < _entities.length; i++ )
+			{
+				list.Add( _entities.buffer[i] );
+			}
+			return list;
+		}
+
 
 		/// <summary>
 		/// returns the first Component found in the Scene of type T

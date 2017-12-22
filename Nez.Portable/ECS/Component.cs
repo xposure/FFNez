@@ -42,6 +42,12 @@ namespace Nez
 			set { setEnabled( value ); }
 		}
 
+		
+		/// <summary>
+		/// Enables or disables updating this component
+		/// </summary>
+		public bool active { get; set; } = true;
+
 		/// <summary>
 		/// update order of the Components on this Entity
 		/// </summary>
