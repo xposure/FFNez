@@ -7,6 +7,7 @@ using Nez.BitmapFonts;
 using Nez.TextureAtlases;
 using Nez.Systems;
 using System.Linq;
+using Microsoft.Xna.Framework.Content;
 
 
 namespace Nez.UI
@@ -180,7 +181,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <param name="configName">the path of the UISkinConfig xnb</param>
 		/// <param name="contentManager">Content manager.</param>
-		public Skin( string configName, NezContentManager contentManager )
+		public Skin( string configName, ContentManager contentManager )
 		{
 			var config = contentManager.Load<UISkinConfig>( configName );
 			if( config.colors != null )
@@ -244,7 +245,7 @@ namespace Nez.UI
 		/// <param name="styleDict">A dictionary that represents one style name within the style config class (i.e. 'default').</param>
 		/// <param name="styleName">The style name that the dictionary represents (i.e. 'default').</param>
 		/// <typeparam name="T">The style config class type (i.e. SelectBoxStyle)</typeparam>
-		public T setStylesForStyleClass<T>( T styleClass, Dictionary<string, object> styleDict, NezContentManager contentManager, string styleName )
+		public T setStylesForStyleClass<T>( T styleClass, Dictionary<string, object> styleDict, ContentManager contentManager, string styleName )
 		{
 			foreach( var styleConfig in styleDict )
 			{
