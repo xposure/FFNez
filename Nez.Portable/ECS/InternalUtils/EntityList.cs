@@ -324,10 +324,9 @@ namespace Nez
 			}
 
 			// in case an entity is added and searched for in the same frame we check the toAdd list
-			for( var i = 0; i < _entitiesToAdd.Count; i++ )
-			{
-				if( _entitiesToAdd[i].name == name )
-					list.Add( _entitiesToAdd[i] );
+			foreach (var entityToAdd in _entitiesToAdd) {
+				if( entityToAdd.name == name )
+					list.Add( entityToAdd );
 			}
 
 			return list;
