@@ -121,6 +121,10 @@ namespace Nez.Sprites
 			return this;
 		}
 
+		public SpriteAnimation setTimePerFrame( int ms ) {
+			return setFps( 1000f / ms );
+		}
+
 
 		public SpriteAnimation setLoop( bool loop )
 		{
