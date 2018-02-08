@@ -85,7 +85,7 @@ namespace Nez
 		internal static Core _instance;
 
 		#if DEBUG
-		internal static ulong drawCalls;
+		internal static long drawCalls;
 		TimeSpan _frameCounterElapsedTime = TimeSpan.Zero;
 		int _frameCounter = 0;
 		string _windowTitle;
@@ -327,7 +327,7 @@ namespace Nez
 				TimeRuler.instance.render();
 
 			#if !FNA
-			drawCalls = (ulong) graphicsDevice.Metrics.DrawCount;
+			drawCalls = graphicsDevice.Metrics.DrawCount;
 			#endif
 			#endif
 		}
