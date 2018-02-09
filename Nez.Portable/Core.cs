@@ -10,7 +10,7 @@ using Nez.Timers;
 using Nez.BitmapFonts;
 using Nez.Analysis;
 using Nez.Textures;
-
+using System.Threading;
 
 namespace Nez
 {
@@ -121,8 +121,11 @@ namespace Nez
 
 		public Core( int width = 1280, int height = 720, bool isFullScreen = false, bool enableEntitySystems = true, string windowTitle = "Nez", string contentDirectory = "Content" )
 		{
-			#if DEBUG
-			_windowTitle = windowTitle;
+            if(SynchronizationContext.Current == null)
+                SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
+
+            #if DEBUG
+            _windowTitle = windowTitle;
 			#endif
 
 			_instance = this;
