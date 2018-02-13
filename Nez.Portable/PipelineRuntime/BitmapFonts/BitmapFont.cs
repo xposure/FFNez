@@ -80,7 +80,7 @@ namespace Nez.BitmapFonts
 		}
 
 
-		internal BitmapFont( BitmapFontRegion[] regions, int lineHeight )
+		protected internal BitmapFont( BitmapFontRegion[] regions, int lineHeight )
 		{
 			_characterMap = new Dictionary<char,BitmapFontRegion>( regions.Length, CharComparer.defaultCharComparer );
 			for( var i = 0; i < regions.Length; i++ )
