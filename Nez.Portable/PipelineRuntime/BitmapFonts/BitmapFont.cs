@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 using System;
-
+using Nez.Textures;
 
 namespace Nez.BitmapFonts
 {
@@ -80,7 +80,7 @@ namespace Nez.BitmapFonts
 		}
 
 
-		protected internal BitmapFont( BitmapFontRegion[] regions, int lineHeight )
+		internal BitmapFont( BitmapFontRegion[] regions, int lineHeight )
 		{
 			_characterMap = new Dictionary<char,BitmapFontRegion>( regions.Length, CharComparer.defaultCharComparer );
 			for( var i = 0; i < regions.Length; i++ )
@@ -474,5 +474,21 @@ namespace Nez.BitmapFonts
 
 		#endregion
 
+        public static BitmapFont GetFromBMPSpriteFont(int xOffset, int yOffset, SpriteFont font)
+        {
+            var glyphs = font.GetGlyphs().ToArray();
+            var regions = new BitmapFontRegion[glyphs.Length];
+            for (int i = 0; i < regions.Length; i++)
+            {
+                var ch = glyphs[i].Key;
+                var glyph = glyphs[i].Value;
+                var rect = glyph.BoundsInTexture;
+
+                var subtext = new Subtexture(font.Texture, rect);
+                regions[i] = new BitmapFontRegion(subtext, ch, xOffset, yOffset, (int)glyph.WidthIncludingBearings);
+            }
+
+            return new BitmapFont(regions, font.LineSpacing);
+        }
 	}
 }
