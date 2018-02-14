@@ -64,6 +64,7 @@
     <Compile Include="PipelineRuntime\FufParticleCreator\FufParticleCreatorConfigReader.cs" />
     <Compile Include="PipelineRuntime\Tiled\TiledIsometricTiledLayer.cs" />
     <Compile Include="UI\Base\ICullable.cs" />
+    <Compile Include="UI\Drawable\PrimitiveDrawable.cs" />
     <Compile Include="Utils\Bounds\ColorValueBounds.cs" />
     <Compile Include="Utils\Bounds\FloatValueBounds.cs" />
     <Compile Include="Utils\Bounds\StartEndColorValueBounds.cs" />
@@ -239,7 +240,7 @@
     <Compile Include="UI\Containers\VerticalGroup.cs" />
     <Compile Include="UI\Drawable\IDrawable.cs" />
     <Compile Include="UI\Drawable\NinePatchDrawable.cs" />
-    <Compile Include="UI\Drawable\PrimitiveDrawable.cs" />
+    <Compile Include="UI\Drawable\UnderlineDrawable.cs" />
     <Compile Include="UI\Drawable\SubtextureDrawable.cs" />
     <Compile Include="UI\Drawable\TiledDrawable.cs" />
     <Compile Include="UI\Widgets\Button.cs" />
