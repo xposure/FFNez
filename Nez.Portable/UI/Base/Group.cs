@@ -163,7 +163,7 @@ namespace Nez.UI
 		}
 
 
-		public void drawChildren( Graphics graphics, float parentAlpha )
+		public virtual void drawChildren( Graphics graphics, float parentAlpha )
 		{
 			parentAlpha *= color.A / 255.0f;
 		
