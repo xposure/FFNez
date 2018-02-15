@@ -40,7 +40,7 @@ namespace Nez.UI
 			if( color.A != 255 )
 				col *= ( color.A / 255f );
 
-				graphics.batcher.drawRect( x- 1, y + height, width + 2, 1, col );
+				graphics.batcher.drawRect( x, y + height, width, 1, col );
 		}
 	}
 }

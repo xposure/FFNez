@@ -11,7 +11,8 @@ namespace Nez.UI
 	public class SubtextureDrawable : IDrawable
 	{
 		public Color? tintColor;
-
+        public float alpha = 1f;
+        public float rotation = 0f;
 		public SpriteEffects spriteEffects = SpriteEffects.None;
 
 		/// <summary>
@@ -95,7 +96,10 @@ namespace Nez.UI
 			if( tintColor.HasValue )
 				color = color.multiply( tintColor.Value );
 
-			graphics.batcher.draw( _subtexture, new Rectangle( (int)x, (int)y, (int)width, (int)height ), _subtexture.sourceRect, color, spriteEffects );
+            if(alpha != 1)
+                color *= alpha;
+
+            graphics.batcher.draw(_subtexture.texture2D, new Rectangle((int)(x + width / 2), (int)(y + height / 2), (int)width, (int)height), _subtexture.sourceRect, color, rotation, new Vector2(width, height) * 0.5f, spriteEffects, 0f);
 		}
 
 
