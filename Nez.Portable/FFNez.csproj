@@ -240,7 +240,6 @@
     <Compile Include="UI\Containers\VerticalGroup.cs" />
     <Compile Include="UI\Drawable\IDrawable.cs" />
     <Compile Include="UI\Drawable\NinePatchDrawable.cs" />
-    <Compile Include="UI\Drawable\UnderlineDrawable.cs" />
     <Compile Include="UI\Drawable\SubtextureDrawable.cs" />
     <Compile Include="UI\Drawable\TiledDrawable.cs" />
     <Compile Include="UI\Widgets\Button.cs" />

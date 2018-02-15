@@ -1,9 +1,19 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-
 namespace Nez.UI
 {
+    public enum PrimitiveStyle : int
+    {
+        Hidden = 0,
+        Top  = 1,
+        Left = 2,
+        Right = 4,
+        Bottom = 8,
+        Hollow = Top | Left | Right | Bottom,
+        Fill = 16
+    }
+
 	public class PrimitiveDrawable : IDrawable
 	{
 		#region IDrawable implementation
@@ -27,7 +37,7 @@ namespace Nez.UI
 		#endregion
 
 		public Color? color;
-		public bool useFilledRect = true;
+		public PrimitiveStyle primitiveStyle =  PrimitiveStyle.Fill;
 
 
 		public PrimitiveDrawable( Color? color = null )
@@ -66,15 +76,28 @@ namespace Nez.UI
 
 		public virtual void draw( Graphics graphics, float x, float y, float width, float height, Color color )
 		{
+            if (primitiveStyle == PrimitiveStyle.Hidden)
+                return;
+
 			var col = this.color.HasValue ? this.color.Value : color;
 			if( color.A != 255 )
 				col *= ( color.A / 255f );
 
-			if( useFilledRect )
+			if(primitiveStyle == PrimitiveStyle.Fill)
 				graphics.batcher.drawRect( x, y, width, height, col );
-			else
+			else if (primitiveStyle == PrimitiveStyle.Hollow)
 				graphics.batcher.drawHollowRect( x, y, width, height, col );
-		}
+            else{
+                if ((primitiveStyle & PrimitiveStyle.Left) == PrimitiveStyle.Left)
+                    graphics.batcher.drawRect(x, y, 1, height, col);
+                if ((primitiveStyle & PrimitiveStyle.Right) == PrimitiveStyle.Right)
+                    graphics.batcher.drawRect(x + width - 1, y, 1, height, col);
+                if ((primitiveStyle & PrimitiveStyle.Top) == PrimitiveStyle.Top)
+                    graphics.batcher.drawRect(x, y, width, 1, col);
+                if ((primitiveStyle & PrimitiveStyle.Bottom) == PrimitiveStyle.Bottom)
+                    graphics.batcher.drawRect(x, y + height - 1, width, 1, col);
+            }
+        }
 	}
 }
 

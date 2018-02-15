@@ -478,14 +478,14 @@ namespace Nez.BitmapFonts
         {
             var glyphs = font.GetGlyphs().ToArray();
             var regions = new BitmapFontRegion[glyphs.Length];
-            for (int i = 0; i < regions.Length; i++)
+            for (var i = 0; i < regions.Length; i++)
             {
                 var ch = glyphs[i].Key;
                 var glyph = glyphs[i].Value;
                 var rect = glyph.BoundsInTexture;
 
                 var subtext = new Subtexture(font.Texture, rect);
-                regions[i] = new BitmapFontRegion(subtext, ch, xOffset, yOffset, (int)glyph.WidthIncludingBearings);
+                regions[i] = new BitmapFontRegion(subtext, ch,  xOffset, glyph.Cropping.Y - yOffset, (int)glyph.WidthIncludingBearings);
             }
 
             return new BitmapFont(regions, font.LineSpacing);
