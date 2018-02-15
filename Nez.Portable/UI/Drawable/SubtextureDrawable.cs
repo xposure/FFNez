@@ -13,6 +13,7 @@ namespace Nez.UI
 		public Color? tintColor;
         public float alpha = 1f;
         public float rotation = 0f;
+        public float scale = 1f;
 		public SpriteEffects spriteEffects = SpriteEffects.None;
 
 		/// <summary>
@@ -99,7 +100,12 @@ namespace Nez.UI
             if(alpha != 1)
                 color *= alpha;
 
-            graphics.batcher.draw(_subtexture.texture2D, new Rectangle((int)(x + width / 2), (int)(y + height / 2), (int)width, (int)height), _subtexture.sourceRect, color, rotation, new Vector2(width, height) * 0.5f, spriteEffects, 0f);
+            var newWidth = width * scale;
+            var newHeight = height * scale;
+            var newX = x + newWidth / 2 - (newWidth - width) / 2;
+            var newY = y + newHeight / 2 - (newHeight - height) / 2;
+            var destRect = new Rectangle((int)newX, (int)newY, (int)newWidth, (int)newHeight);
+            graphics.batcher.draw(_subtexture.texture2D, destRect, _subtexture.sourceRect, color, rotation, new Vector2(subtexture.sourceRect.Width, subtexture.sourceRect.Height) * 0.5f, spriteEffects, 0f);
 		}
 
 
