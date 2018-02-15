@@ -138,6 +138,11 @@ namespace Nez
 		/// </summary>
 		public int pixelPerfectScale = 1;
 
+        /// <summary>
+        /// When waiting for the scene to transition in
+        /// </summary>
+        public bool isTransitioning => _waitingForTransition;
+
 		/// <summary>
 		/// the final render to the screen can be deferred to this delegate if set. This is really only useful for cases where the final render
 		/// might need a full screen size effect even though a small back buffer is used.
@@ -202,7 +207,8 @@ namespace Nez
 		#endregion
 
 
-		RenderTarget2D _sceneRenderTarget;
+        bool _waitingForTransition = true;
+        RenderTarget2D _sceneRenderTarget;
 		RenderTarget2D _destinationRenderTarget;
 		Action<Texture2D> _screenshotRequestCallback;
 
@@ -393,6 +399,7 @@ namespace Nez
 			unload();
 		}
 
+        protected virtual void transitionedIn() { }
 
 		public virtual void update()
 		{
@@ -402,8 +409,13 @@ namespace Nez
 			// update our lists in case they have any changes
 			entities.updateLists();
 
-			// update our SceneComponents
-			for( var i = _sceneComponents.length - 1; i >= 0; i-- )
+            if (_waitingForTransition && !Core.instance.inScreenTransition) {
+                _waitingForTransition = false;
+                transitionedIn();
+            }
+
+            // update our SceneComponents
+            for ( var i = _sceneComponents.length - 1; i >= 0; i-- )
 			{
 				if( _sceneComponents.buffer[i].enabled )
 					_sceneComponents.buffer[i].update();
