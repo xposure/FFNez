@@ -124,7 +124,12 @@ namespace Nez.Analysis
 			public float beginTime;
 			public float endTime;
 			public Color color;
-		}
+
+            public override string ToString()
+            {
+                return $"{{ markerId: {markerId}, beginTime: {beginTime}, endTime: {endTime}, color: {color} }}";
+            }
+        }
 
 
 		/// <summary>
@@ -139,7 +144,12 @@ namespace Nez.Analysis
 			// Marker nest information.
 			public int[] markerNests = new int[maxNestCall];
 			public int nestCount;
-		}
+
+            public override string ToString()
+            {
+                return $"{{ markCount: {markCount}, markers: {markers.Length}, markerNests: {markerNests.Length}, nestCount: {nestCount} }}";
+            }
+        }
 
 
 		/// <summary>
@@ -157,7 +167,12 @@ namespace Nez.Analysis
 				for( int i = 0; i < maxBars; ++i )
 					bars[i] = new MarkerCollection();
 			}
-		}
+
+            public override string ToString()
+            {
+                return $"{{ bars: {bars.Length} }}";
+            }
+        }
 
 
 		/// <summary>
@@ -176,7 +191,12 @@ namespace Nez.Analysis
 			{
 				this.name = name;
 			}
-		}
+
+            public override string ToString()
+            {
+                return $"{{ name: {name}, logs: {logs.Length} }}";
+            }
+        }
 
 
 		/// <summary>
@@ -193,7 +213,12 @@ namespace Nez.Analysis
 			public int samples;
 			public Color color;
 			public bool initialized;
-		}
+
+            public override string ToString()
+            {
+                return $"{{snapMin: {snapMin}, snapMax: {snapMax}, snapAvg: {snapAvg}, min: {min}, max: {max}, avg: {avg}, samples: {samples} }}";
+            }
+        }
 
 		// Logs for each frames.
 		FrameLog[] logs;
@@ -299,7 +324,7 @@ namespace Nez.Analysis
 				prevLog = logs[frameCount++ & 0x1];
 				curLog = logs[frameCount & 0x1];
 
-				var endFrameTime = (float)stopwatch.elapsed.TotalMilliseconds;
+                var endFrameTime = (float)stopwatch.Elapsed.TotalMilliseconds;
 
 				// Update marker and create a log.
 				for( var barIdx = 0; barIdx < prevLog.bars.Length; ++barIdx )
@@ -365,8 +390,8 @@ namespace Nez.Analysis
 				}
 
 				// Start measuring.
-				stopwatch.reset();
-				stopwatch.start();
+				stopwatch.Reset();
+				stopwatch.Start();
 			}
 		}
 
@@ -431,7 +456,7 @@ namespace Nez.Analysis
 				// Fill marker parameters.
 				bar.markers[bar.markCount].markerId = markerId;
 				bar.markers[bar.markCount].color = color;
-				bar.markers[bar.markCount].beginTime = (float)stopwatch.elapsed.TotalMilliseconds;
+				bar.markers[bar.markCount].beginTime = (float)stopwatch.Elapsed.TotalMilliseconds;
 
 				bar.markers[bar.markCount].endTime = -1;
 
@@ -490,7 +515,7 @@ namespace Nez.Analysis
 						"BeginMark(A), BeginMark(B), EndMark(A), EndMark(B)." );
 				}
 
-				bar.markers[markerIdx].endTime = (float)stopwatch.elapsed.TotalMilliseconds;
+				bar.markers[markerIdx].endTime = (float)stopwatch.Elapsed.TotalMilliseconds;
 			}
 		}
 
