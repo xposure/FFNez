@@ -79,7 +79,7 @@ namespace Nez.Analysis
 		/// <summary>
 		/// Height(in pixels) of bar.
 		/// </summary>
-		const int barHeight = 8;
+		const int barHeight = 2;
 
 		/// <summary>
 		/// Padding(in pixels) of bar.
@@ -280,7 +280,7 @@ namespace Nez.Analysis
 
 			sampleFrames = targetSampleFrames = 1;
 
-			width = (int)( Core.graphicsDevice.Viewport.Width * 0.8f );
+			width = Core.graphicsDevice.Viewport.Width - 20;
 
 			Core.emitter.addObserver( CoreEvents.GraphicsDeviceReset, onGraphicsDeviceReset );
 			onGraphicsDeviceReset();
@@ -290,7 +290,8 @@ namespace Nez.Analysis
 		void onGraphicsDeviceReset()
 		{
 			var layout = new Layout( Core.graphicsDevice.Viewport );
-			_position = layout.place( new Vector2( width, barHeight ), 0, 0.01f, Alignment.BottomCenter );
+            _position = layout.place( new Vector2( width, barHeight ), 0, 0.075f, Alignment.TopCenter );
+            //_position = new Vector2(0, 50);// layout.place( new Vector2( width, barHeight ), 0, 0.05f, Alignment.TopCenter );
 		}
 
 
@@ -676,9 +677,9 @@ namespace Nez.Analysis
 				rc.X = (int)( position.X + frameSpan * (float)i * msToPs );
 				batcher.drawRect( rc, Color.White );
 			}
-				
-			// Generate log string.
-			y = startY - font.lineHeight;
+
+            // Generate log string.
+            y += height * 2;
 			logString.Length = 0;
 			foreach( var markerInfo in markers )
 			{
@@ -713,7 +714,7 @@ namespace Nez.Analysis
 
 
 			// Draw log color boxes.
-			y += (int)( (float)font.lineHeight * 0.3f );
+			//y += (int)( (float)font.lineHeight * 0.3f );
 			rc = new Rectangle( (int)position.X + 4, y, 10, 10 );
 			var rc2 = new Rectangle( (int)position.X + 5, y + 1, 8, 8 );
 			foreach( var markerInfo in markers )
