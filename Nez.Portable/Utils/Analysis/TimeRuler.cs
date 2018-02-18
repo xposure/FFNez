@@ -714,9 +714,10 @@ namespace Nez.Analysis
 
 
 			// Draw log color boxes.
-			//y += (int)( (float)font.lineHeight * 0.3f );
-			rc = new Rectangle( (int)position.X + 4, y, 10, 10 );
-			var rc2 = new Rectangle( (int)position.X + 5, y + 1, 8, 8 );
+            y +=barPadding;
+            //y += (int)( (float)font.lineHeight * 0.3f );
+            rc = new Rectangle( (int)position.X + 4, y, 10, 10 );
+			var rc2 = new Rectangle( (int)position.X + 5 , y + 1, 8, 8 );
 			foreach( var markerInfo in markers )
 			{
 				for( var i = 0; i < maxBars; ++i )
