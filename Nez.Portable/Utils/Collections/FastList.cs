@@ -39,7 +39,7 @@ namespace Nez
 		/// provided for ease of access though it is recommended to just access the buffer directly.
 		/// </summary>
 		/// <param name="index">Index.</param>
-		public T this[int index] { get { return buffer[index]; } }
+		public ref T this[int index] { get { return ref buffer[index]; } }
 
 
 		/// <summary>
