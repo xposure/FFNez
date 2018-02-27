@@ -12,7 +12,7 @@ namespace Nez
 	/// for( var i = 0; i &lt;= list.length; i++ )
 	/// 	var item = list.buffer[i];
 	/// </summary>
-	public class FastList<T>
+	public class FastList<T> : IEnumerable<T>
 	{
 		/// <summary>
 		/// direct access to the backing buffer. Do not use buffer.Length! Use FastList.length
@@ -134,11 +134,16 @@ namespace Nez
 			return false;
 		}
 
+        public object Min(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
 
-		/// <summary>
-		/// if the buffer is at its max more space will be allocated to fit additionalItemCount
-		/// </summary>
-		public void ensureCapacity( int additionalItemCount = 1 )
+
+        /// <summary>
+        /// if the buffer is at its max more space will be allocated to fit additionalItemCount
+        /// </summary>
+        public void ensureCapacity( int additionalItemCount = 1 )
 		{
 			if( length + additionalItemCount >= buffer.Length )
 				Array.Resize( ref buffer, Math.Max( buffer.Length << 1, length + additionalItemCount ) );
@@ -182,6 +187,17 @@ namespace Nez
 			Array.Sort( buffer, 0, length, comparer );
 		}
 
-	}
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        {
+            for (var i = 0; i < length; i++)
+                yield return buffer[i];
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            for (var i = 0; i < length; i++)
+                yield return buffer[i];
+        }
+    }
 }
 
