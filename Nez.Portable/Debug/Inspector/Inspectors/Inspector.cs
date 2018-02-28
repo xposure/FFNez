@@ -42,6 +42,9 @@ namespace Nez
 				if( field.Name == "enabled" )
 					continue;
 
+                if (field.Name == "active")
+                    continue;
+
 				var inspector = getInspectorForType( field.FieldType, target, field );
 				if( inspector != null )
 				{
@@ -62,6 +65,9 @@ namespace Nez
 				// skip Component.enabled which is handled elsewhere
 				if( prop.Name == "enabled" )
 					continue;
+
+                if (prop.Name == "active")
+                    continue;
 
 				var inspector = getInspectorForType( prop.PropertyType, target, prop );
 				if( inspector != null )

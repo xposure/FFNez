@@ -16,7 +16,7 @@ namespace Nez
 
 		List<Inspector> _inspectors;
 		CheckBox _enabledCheckbox;
-
+        CheckBox _activeCheckbox;
 
 		public InspectorList( object target )
 		{
@@ -37,6 +37,8 @@ namespace Nez
 		{
 			table.getRowDefaults().setPadTop( 10 );
 			table.add( name.Replace( "PostProcessor", string.Empty ) ).getElement<Label>().setFontScale( 1f ).setFontColor( new Color( 241, 156, 0 ) );
+            var stack = new HorizontalGroup();
+            table.add(stack).right();
 
 			// if we have a component, stick a bool for enabled here
 			if( target != null )
@@ -44,11 +46,24 @@ namespace Nez
 				_enabledCheckbox = new CheckBox( string.Empty, skin );
 				_enabledCheckbox.programmaticChangeEvents = false;
 
-				if( target is Component )
-					_enabledCheckbox.isChecked = ( (Component)target ).enabled;
-				else if( target is PostProcessor )
-					_enabledCheckbox.isChecked = ((PostProcessor)target ).enabled;
-				
+                if (target is Component)
+                {
+                    _enabledCheckbox.isChecked = ((Component)target).enabled;
+
+                    _activeCheckbox = new CheckBox(string.Empty, skin);
+                    _activeCheckbox.programmaticChangeEvents = false;
+                    _activeCheckbox.isChecked = ((Component)target).active;
+                    _activeCheckbox.onChanged += newValue =>
+                    {
+                        ((Component)target).active = newValue;
+                    };
+
+                    stack.addElement(_activeCheckbox);
+                }
+                else if (target is PostProcessor)
+                    _enabledCheckbox.isChecked = ((PostProcessor)target).enabled;
+
+
 				_enabledCheckbox.onChanged += newValue =>
 				{
 					if( target is Component )
@@ -57,7 +72,7 @@ namespace Nez
 						( (PostProcessor)target ).enabled = newValue;
 				};
 
-				table.add( _enabledCheckbox ).right();
+                stack.addElement( _enabledCheckbox );
 			}
 			table.row();
 
