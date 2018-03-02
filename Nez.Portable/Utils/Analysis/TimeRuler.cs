@@ -9,7 +9,7 @@ using Nez.Console;
 
 namespace Nez.Analysis
 {
-	#if DEBUG
+	//#if DEBUG
 
 	/// <summary>
 	/// Realtime CPU measuring tool
@@ -741,5 +741,5 @@ namespace Nez.Analysis
 
 	}
 
-	#endif
+	//#endif
 }

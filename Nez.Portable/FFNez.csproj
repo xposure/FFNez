@@ -16,10 +16,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;MONOGAME</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -28,6 +29,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <DefineConstants>MONOGAME</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup />
@@ -65,6 +68,48 @@
     <Compile Include="PipelineRuntime\Tiled\TiledIsometricTiledLayer.cs" />
     <Compile Include="UI\Base\ICullable.cs" />
     <Compile Include="UI\Drawable\PrimitiveDrawable.cs" />
+    <Compile Include="UI\ImGui.NET\ColorEditFlags.cs" />
+    <Compile Include="UI\ImGui.NET\ColorTarget.cs" />
+    <Compile Include="UI\ImGui.NET\ComboFlags.cs" />
+    <Compile Include="UI\ImGui.NET\Condition.cs" />
+    <Compile Include="UI\ImGui.NET\DragDropFlags.cs" />
+    <Compile Include="UI\ImGui.NET\DrawCmd.cs" />
+    <Compile Include="UI\ImGui.NET\DrawData.cs" />
+    <Compile Include="UI\ImGui.NET\DrawList.cs" />
+    <Compile Include="UI\ImGui.NET\DrawVert.cs" />
+    <Compile Include="UI\ImGui.NET\FocusedFlags.cs" />
+    <Compile Include="UI\ImGui.NET\Font.cs" />
+    <Compile Include="UI\ImGui.NET\FontAtlas.cs" />
+    <Compile Include="UI\ImGui.NET\FontConfig.cs" />
+    <Compile Include="UI\ImGui.NET\GuiKey.cs" />
+    <Compile Include="UI\ImGui.NET\HoveredFlags.cs" />
+    <Compile Include="UI\ImGui.NET\ImGui.cs" />
+    <Compile Include="UI\ImGui.NET\ImGuiNative.cs" />
+    <Compile Include="UI\ImGui.NET\ImRect.cs" />
+    <Compile Include="UI\ImGui.NET\ImVector.cs" />
+    <Compile Include="UI\ImGui.NET\InputTextFlags.cs" />
+    <Compile Include="UI\ImGui.NET\IntStructs.cs" />
+    <Compile Include="UI\ImGui.NET\IO.cs" />
+    <Compile Include="UI\ImGui.NET\MouseCursorKind.cs" />
+    <Compile Include="UI\ImGui.NET\NativeContext.cs" />
+    <Compile Include="UI\ImGui.NET\NativeDrawContext.cs" />
+    <Compile Include="UI\ImGui.NET\NativeIO.cs" />
+    <Compile Include="UI\ImGui.NET\NativePayload.cs" />
+    <Compile Include="UI\ImGui.NET\NativeSimpleColumns.cs" />
+    <Compile Include="UI\ImGui.NET\NativeStyle.cs" />
+    <Compile Include="UI\ImGui.NET\NativeTestEditState.cs" />
+    <Compile Include="UI\ImGui.NET\NativeWindow.cs" />
+    <Compile Include="UI\ImGui.NET\Payload.cs" />
+    <Compile Include="UI\ImGui.NET\SelectableFlags.cs" />
+    <Compile Include="UI\ImGui.NET\Storage.cs" />
+    <Compile Include="UI\ImGui.NET\Style.cs" />
+    <Compile Include="UI\ImGui.NET\StyleVar.cs" />
+    <Compile Include="UI\ImGui.NET\TextEditCallback.cs" />
+    <Compile Include="UI\ImGui.NET\TextEditCallbackData.cs" />
+    <Compile Include="UI\ImGui.NET\TextInputBuffer.cs" />
+    <Compile Include="UI\ImGui.NET\TreeNodeFlags.cs" />
+    <Compile Include="UI\ImGui.NET\WindowFlags.cs" />
+    <Compile Include="UI\ImGuiHelper.cs" />
     <Compile Include="Utils\Bounds\ColorValueBounds.cs" />
     <Compile Include="Utils\Bounds\FloatValueBounds.cs" />
     <Compile Include="Utils\Bounds\StartEndColorValueBounds.cs" />
@@ -469,7 +514,6 @@
     <Compile Include="Physics\Shapes\ShapeCollisions\ShapeCollisionsLine.cs" />
     <Compile Include="Physics\Shapes\ShapeCollisions\ShapeCollisionsPoint.cs" />
     <Compile Include="Debug\DebugDefaults.cs" />
-    <Compile Include="UI\IMGUI.cs" />
     <Compile Include="Physics\Verlet\Composites\Box.cs" />
     <Compile Include="Physics\Verlet\Composites\Ragdoll.cs" />
     <Compile Include="Utils\Tweens\RenderableColorTween.cs" />
@@ -522,6 +566,12 @@
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, PublicKeyToken=null">
       <HintPath>$(SolutionDir)\packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Mnemonic\packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Mnemonic\packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
       <HintPath>$(SolutionDir)packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
