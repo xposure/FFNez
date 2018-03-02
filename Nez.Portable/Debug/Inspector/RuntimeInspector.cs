@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ImGuiNET;
 using Microsoft.Xna.Framework;
 using Nez.UI;
 
@@ -85,11 +86,18 @@ namespace Nez
 
 		public void render()
 		{
-			// manually start a fresh batch and call the UICanvas Component lifecycle methods since it isnt attached to the Scene
-			Graphics.instance.batcher.begin();
-			( ui as IUpdatable ).update();
-			ui.render( Graphics.instance, _camera );
-			Graphics.instance.batcher.end();
+            // manually start a fresh batch and call the UICanvas Component lifecycle methods since it isnt attached to the Scene
+            if (ImGui.BeginWindow("inspector"))
+            {
+                foreach (var it in _inspectors)
+                    it.render();
+                Graphics.instance.batcher.begin();
+                (ui as IUpdatable).update();
+                ui.render(Graphics.instance, _camera);
+                Graphics.instance.batcher.end();
+
+                ImGui.EndWindow();
+            }
 		}
 
 

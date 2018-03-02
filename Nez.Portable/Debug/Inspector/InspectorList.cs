@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ImGuiNET;
 using Microsoft.Xna.Framework;
 using Nez.UI;
 
@@ -90,6 +91,22 @@ namespace Nez
 				i.update();
 		}
 
+        public void render()
+        {
+            var bb = false;
+            ImGui.Checkbox("", ref bb);
+            ImGui.SameLine();
+            ImGui.Selectable(name,true);
+            //if (ImGui.CollapsingHeader(name, TreeNodeFlags.DefaultOpen))
+            {
+            //    ImGui.SameLine(200,100);
+            //    var b = true;
+            //    ImGui.Checkbox("active", ref b);
+
+                foreach (var it in _inspectors)
+                    it.render();
+            }
+        }
 	}
 }
 #endif

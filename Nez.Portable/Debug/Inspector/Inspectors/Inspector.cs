@@ -378,6 +378,7 @@ namespace Nez
 		/// </summary>
 		public abstract void update();
 
+        public virtual void render() { }
 	}
 }
 #endif

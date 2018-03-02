@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace Mnemonic
@@ -22,7 +24,7 @@ namespace Mnemonic
         private static List<KeyRepeat> _repeatDelay = new List<KeyRepeat>();
 
         private static ImGuiVertex[] vertices = new ImGuiVertex[1024];
-        private static short[] indices = new short[256];
+        private static short[] indices = new short[2048];
         private static Texture2D fontTexture;
         private static KeyboardState kbState;
         private static VertexBuffer _vertexBuffer;
@@ -168,7 +170,7 @@ namespace Mnemonic
             fontTexture = new Texture2D(graphicsDevice, texData.Width, texData.Height);
             fontTexture.SetData(colorData);
 
-            io.FontAtlas.SetTexID(0);
+            io.FontAtlas.SetTexID(fontTexture.GetHashCode());
             io.FontAtlas.ClearTexData();
 
         }
@@ -270,7 +272,7 @@ namespace Mnemonic
 
             ImGui.NewFrame();
         }
-
+            
         public static unsafe void render(BasicEffect effect)
         {
             IO io = ImGui.GetIO();
@@ -280,7 +282,7 @@ namespace Mnemonic
             DrawData* draw_data = ImGui.GetDrawData();
             var graphicsDevice = _game.GraphicsDevice;
             graphicsDevice.DepthStencilState = DepthStencilState.None;
-            graphicsDevice.RasterizerState = RasterizerState.CullNone;
+            graphicsDevice.RasterizerState = new RasterizerState() { ScissorTestEnable = true, CullMode = CullMode.None };
             graphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
             graphicsDevice.BlendState = BlendState.AlphaBlend;
 
@@ -329,7 +331,7 @@ namespace Mnemonic
                     vertices[i].color = vert.col;
                 }
 
-                _vertexBuffer.SetData(vertices);
+                _vertexBuffer.SetData(vertices,0, vertexElements);
 
                 if (indices.Length < indexElements)
                 {
@@ -338,7 +340,8 @@ namespace Mnemonic
                     _indexBuffer = new IndexBuffer(graphicsDevice, IndexElementSize.SixteenBits, indices.Length, BufferUsage.WriteOnly);
                 }
 
-                for (int i = 0; i < indices.Length; i++) { indices[i] = (short)idx_buffer[i]; }
+                for (int i = 0; i < indexElements; i++) { indices[i] = (short)idx_buffer[i]; }
+                _indexBuffer.SetData(indices, 0, indexElements);
 
                 graphicsDevice.Indices = _indexBuffer;
                 graphicsDevice.SetVertexBuffer(_vertexBuffer);
@@ -352,25 +355,25 @@ namespace Mnemonic
                     }
                     else
                     {
+                        graphicsDevice.ScissorRectangle = new Rectangle((int)pcmd->ClipRect.X, (int)pcmd->ClipRect.Y, (int)(pcmd->ClipRect.Z - pcmd->ClipRect.X), (int)(pcmd->ClipRect.W - pcmd->ClipRect.Y));
+                        if (pcmd->TextureId.ToInt32() == fontTexture.GetHashCode())
+                        {
+                            effect.Texture = fontTexture;
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
+                        }
+
                         var primivites = (int)pcmd->ElemCount / 3;
-                        graphicsDevice.ScissorRectangle =
-                            new Rectangle(
-                                (int)pcmd->ClipRect.X,
-                                (int)(io.DisplaySize.Y - pcmd->ClipRect.W),
-                                (int)(pcmd->ClipRect.Z - pcmd->ClipRect.X),
-                                (int)(pcmd->ClipRect.W - pcmd->ClipRect.Y)
-                            );
-
-                        effect.Texture = fontTexture;
-
                         foreach (var pass in effect.CurrentTechnique.Passes)
                         {
                             pass.Apply();
-                            graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, idxPos, (int)pcmd->ElemCount / 3);
-                            graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertices, 0, vertexElements, indices, 0, indexElements / 3);
+                            graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, idxPos, primivites);
+                            //graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertices, 0, vertexElements, indices, 0, indexElements / 3);
                         }
                     }
-                    idxPos += (int)pcmd->ElemCount * 3;
+                    idxPos += (int)pcmd->ElemCount;
                 }
             }
         }

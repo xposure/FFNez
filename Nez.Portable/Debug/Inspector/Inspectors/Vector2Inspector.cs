@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ImGuiNET;
+using Microsoft.Xna.Framework;
 using Nez.UI;
 
 
@@ -61,6 +62,12 @@ namespace Nez
 			_textFieldY.setText( value.Y.ToString() );
 		}
 
-	}
+        public override void render()
+        {
+            var value = getValue<Vector2>();
+            ImGui.DragVector2(_name, ref value, float.MinValue, float.MaxValue);
+            setValue(value);
+        }
+    }
 }
 #endif

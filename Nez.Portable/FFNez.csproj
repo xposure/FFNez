@@ -33,7 +33,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="..\..\ImGui.NET\deps\cimgui\win-x64\cimgui.dll">
+      <Link>cimgui.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Debug\Debug.cs" />
     <Compile Include="ECS\Camera.cs" />

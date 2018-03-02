@@ -1,4 +1,5 @@
-﻿using Nez.UI;
+﻿using ImGuiNET;
+using Nez.UI;
 
 
 #if DEBUG
@@ -8,16 +9,21 @@ namespace Nez
 	{
 		TextField _textField;
 		Slider _slider;
+        private int min = int.MinValue, max = int.MaxValue;
 
 
-		public override void initialize( Table table, Skin skin )
+        public override void initialize( Table table, Skin skin )
 		{
 			// if we have a RangeAttribute we need to make a slider
 			var rangeAttr = getFieldOrPropertyAttribute<RangeAttribute>();
-			if( rangeAttr != null )
-				setupSlider( table, skin, rangeAttr.minValue, rangeAttr.maxValue, rangeAttr.stepSize );
-			else
-				setupTextField( table, skin );
+            if (rangeAttr != null)
+            {
+                setupSlider(table, skin, rangeAttr.minValue, rangeAttr.maxValue, rangeAttr.stepSize);
+                min = (int)rangeAttr.minValue;
+                max = (int)rangeAttr.maxValue;
+            }
+            else
+                setupTextField(table, skin);
 		}
 
 
@@ -61,6 +67,14 @@ namespace Nez
 			if( _slider != null )
 				_slider.setValue( getValue<int>() );
 		}
-	}
+
+        public override void render()
+        {
+            var value = getValue<int>();
+            ImGui.DragInt(_name, ref value,1, min, max, null);
+            setValue(value);
+        }
+
+    }
 }
 #endif
