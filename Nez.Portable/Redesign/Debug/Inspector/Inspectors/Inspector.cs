@@ -368,9 +368,7 @@ namespace Nez
 		/// <summary>
 		/// used to setup the UI for the Inspector
 		/// </summary>
-		/// <param name="table">Table.</param>
-		/// <param name="skin">Skin.</param>
-		public abstract void initialize( Table table, Skin skin );
+		public abstract void initialize();
 
 
 		/// <summary>

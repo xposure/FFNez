@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using ImGuiNET;
 using Microsoft.Xna.Framework;
 using Nez.IEnumerableExtensions;
 using Nez.UI;
@@ -13,12 +14,9 @@ namespace Nez
 		List<Inspector> _inspectors = new List<Inspector>();
 
 
-		public override void initialize( Table table, Skin skin )
+		public override void initialize( )
 		{
 			// add a header
-			var label = table.add( createNameLabel( table, skin ) ).setColspan( 2 ).getElement<Label>();
-			label.setStyle( label.getStyle().clone() ).setFontColor( new Color( 228, 228, 76 ) );
-			table.row().setPadLeft( 15 );
 
 			// figure out which fiedls and properties are useful to add to the inspector
 			var fields = ReflectionUtils.getFields( _valueType );
@@ -31,9 +29,8 @@ namespace Nez
 				if( inspector != null )
 				{
 					inspector.setStructTarget( _target, this, field );
-					inspector.initialize( table, skin );
+					inspector.initialize();
 					_inspectors.Add( inspector );
-					table.row().setPadLeft( 15 );
 				}
 			}
 
@@ -50,9 +47,8 @@ namespace Nez
 				if( inspector != null )
 				{
 					inspector.setStructTarget( _target, this, prop );
-					inspector.initialize( table, skin );
+					inspector.initialize();
 					_inspectors.Add( inspector );
-					table.row().setPadLeft( 15 );
 				}
 			}
 		}
@@ -64,6 +60,13 @@ namespace Nez
 				i.update();
 		}
 
-	}
+        public override void render()
+        {
+            ImGui.LabelText(null, _name);
+            foreach (var it in _inspectors)
+                it.render();
+        }
+
+    }
 }
 #endif
