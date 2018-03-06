@@ -71,6 +71,7 @@
     <Compile Include="Physics\SpatialHash.cs" />
     <Compile Include="PipelineRuntime\FufParticleCreator\FufParticleCreatorConfigReader.cs" />
     <Compile Include="PipelineRuntime\Tiled\TiledIsometricTiledLayer.cs" />
+    <Compile Include="Redesign\Debug\SceneHierarchy\SceneHierarchyWindow.cs" />
     <Compile Include="UI\Base\ICullable.cs" />
     <Compile Include="UI\Drawable\PrimitiveDrawable.cs" />
     <Compile Include="UI\ImGui.NET\ColorEditFlags.cs" />

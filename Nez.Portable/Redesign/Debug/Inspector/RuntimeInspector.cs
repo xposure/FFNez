@@ -33,13 +33,6 @@ namespace Nez
             cacheTransformInspector();
         }
 
-
-        void onSceneChanged()
-        {
-            Console.DebugConsole.instance._runtimeInspector = null;
-            Dispose();
-        }
-
         public void update()
         {
             // if we have an Entity this is an Entity inspector else it is a PostProcessor inspector
