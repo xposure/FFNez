@@ -162,8 +162,52 @@ namespace Nez.Textures
 			return subtextures;
 		}
 
+        /// <summary>
+		/// provides a List of subtextures given an atlas with equally spaced rows/columns of sprites
+		/// </summary>
+		/// <returns>The from atlas.</returns>
+		/// <param name="texture">Texture.</param>
+		/// <param name="cellWidth">Cell width.</param>
+		/// <param name="cellHeight">Cell height.</param>
+		/// <param name="cellOffset">the first cell to include while processing. 0 based indexing.</param>
+		/// <param name="maxCellsToInclude">Max cells to included.</param>
+		public static List<Subtexture> subtexturesFromAtlasWithPadding(Texture2D texture, int cols, int rows, int cellPadding, int cellOffset = 0, int maxCellsToInclude = int.MaxValue)
+        {
+            var subtextures = new List<Subtexture>();
 
-		public static implicit operator Texture2D( Subtexture tex )
+            //var cols = texture.Width / cellWidth;
+            //var rows = texture.Height / cellHeight;
+            var xSpacing = cols * cellPadding + 1;
+            var ySpacing = rows * cellPadding + 1;
+            var width = texture.Width - xSpacing;
+            var height = texture.Height - ySpacing;
+            var cellWidth = width / cols;
+            var cellHeight = height / rows;
+
+            var i = 0;
+
+            for (var y = 0; y < rows; y++)
+            {
+                var yOffset = y * cellPadding + 1;
+                for (var x = 0; x < cols; x++)
+                {
+                    var xOffset = x * cellPadding + 1;
+                    // skip everything before the first cellOffset
+                    if (i++ < cellOffset)
+                        continue;
+
+                    subtextures.Add(new Subtexture(texture, new Rectangle(x * cellWidth + xOffset, y * cellHeight + yOffset, cellWidth, cellHeight)));
+
+                    // once we hit the max number of cells to include bail out. were done.
+                    if (subtextures.Count == maxCellsToInclude)
+                        break;
+                }
+            }
+
+            return subtextures;
+        }
+
+        public static implicit operator Texture2D( Subtexture tex )
 		{
 			return tex.texture2D;
 		}
