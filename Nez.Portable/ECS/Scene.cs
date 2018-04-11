@@ -138,6 +138,8 @@ namespace Nez
 		/// </summary>
 		public int pixelPerfectScale = 1;
 
+		public Point resolution => _defaultDesignResolutionSize;
+
 		/// <summary>
 		/// the final render to the screen can be deferred to this delegate if set. This is really only useful for cases where the final render
 		/// might need a full screen size effect even though a small back buffer is used.
