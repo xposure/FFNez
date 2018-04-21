@@ -162,6 +162,18 @@ namespace Nez
 			return angle( one, two );
 		}
 
+		/// <summary>
+		/// returns a vector rotated around the origin by an angle in radians
+		/// </summary>
+		/// <param name="self">Self.</param>
+		/// <param name="angle">angle in radians.</param>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static Vector2 rotate( this Vector2 self, float angle ) {
+			var ca = Mathf.cos(angle);
+			var sa = Mathf.sin(angle);
+			return new Vector2(ca * self.X - sa * self.Y, sa * self.X + ca * self.Y);
+		}
+
 
 		/// <summary>
 		/// given two lines (ab and cd) finds the intersection point
