@@ -1,21 +1,31 @@
 // based on the FNA SpriteBatch implementation by Ethan Lee: https://github.com/FNA-XNA/FNA
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Nez.BitmapFonts;
 using System.Runtime.CompilerServices;
 using Nez.Textures;
+
 
 namespace Nez
 {
 	public class Batcher : GraphicsResource
 	{
+		/// <summary>
+		/// Matrix to be used when creating the projection matrix
+		/// </summary>
+		/// <value>The transform matrix.</value>
 		public Matrix transformMatrix { get { return _transformMatrix; } }
 
+		/// <summary>
+		/// If true, destination positions will be rounded before being drawn.
+		/// </summary>
+		public bool shouldRoundDestinations = true;
+
+
 		#region variables
+
+		bool _shouldIgnoreRoundingDestinations;
 
 		// Buffer objects used for actual drawing
 		DynamicVertexBuffer _vertexBuffer;
@@ -116,6 +126,16 @@ namespace Nez
 				_vertexBuffer.Dispose();
 			}
 			base.Dispose( disposing );
+		}
+
+
+		/// <summary>
+		/// sets if position rounding should be ignored. Useful when you are drawing primitives for debugging.
+		/// </summary>
+		/// <param name="shouldIgnore">If set to <c>true</c> should ignore.</param>
+		public void setIgnoreRoundingDestinations( bool shouldIgnore )
+		{
+			_shouldIgnoreRoundingDestinations = shouldIgnore;
 		}
 
 
@@ -274,6 +294,7 @@ namespace Nez
 			pushSprite( texture, sourceRectangle, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, destinationRectangle.Height,
 				color, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
 		}
+
 
 		public void draw( Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, SpriteEffects effects )
 		{
@@ -643,6 +664,12 @@ namespace Nez
 			// out of space, flush
 			if( _numSprites >= MAX_SPRITES )
 				flushBatch();
+
+			if( !_shouldIgnoreRoundingDestinations && shouldRoundDestinations )
+			{
+				destinationX = Mathf.round( destinationX );
+				destinationY = Mathf.round( destinationY );
+			}
 
 			// Source/Destination/Origin Calculations
 			float sourceX, sourceY, sourceW, sourceH;
