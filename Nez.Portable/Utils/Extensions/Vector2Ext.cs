@@ -98,6 +98,17 @@ namespace Nez
 			return u.Y * v.X - u.X * v.Y;
 		}
 
+		/// <summary>
+		/// compute the 2d dot product dot(u, v)
+		/// </summary>
+		/// <param name="self">self</param>
+		/// <param name="v">V.</param>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float dot( this Vector2 self, Vector2 v )
+		{
+			return Vector2.Dot(self, v);
+		}
+
 
 		/// <summary>
 		/// returns the vector perpendicular to the passed in vectors

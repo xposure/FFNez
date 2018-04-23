@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-
+using Microsoft.Xna.Framework;
 
 namespace Nez
 {
@@ -35,6 +35,25 @@ namespace Nez
 			T temp = first;
 			first = second;
 			second = temp;
+		}
+
+		/// <summary>
+		/// converts a direction to a screen-space vector
+		/// </summary>
+		public static Vector2 directionToVector( Direction direction )
+		{
+			switch (direction) {
+                case Direction.Up:
+                    return new Vector2(0, -1);
+                case Direction.Right:
+                    return new Vector2(1, 0);
+                case Direction.Down:
+                    return new Vector2(0, 1);
+                case Direction.Left:
+                    return new Vector2(-1, 0);
+                default:
+                    return Vector2.Zero;
+            }
 		}
 
 	}
