@@ -34,6 +34,12 @@ namespace Nez.AI.BehaviorTrees
 			this.updatePeriod = _elapsedTime = updatePeriod;
 		}
 
+		public BehaviorTree<T> setUpdatePeriod ( float updatePeriod )
+		{
+			this.updatePeriod = updatePeriod;
+			return this;
+		}
+
 
 		public void tick()
 		{
