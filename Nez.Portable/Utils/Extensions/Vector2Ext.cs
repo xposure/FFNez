@@ -227,6 +227,17 @@ namespace Nez
 			return new Point((int) roundedVec.X, (int) roundedVec.Y);
 		}
 
+		/// <summary>
+		/// floors and converts a Vector2 to a Point
+		/// </summary>
+		/// <returns>The point.</returns>
+		/// <param name="vec">Vec.</param>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static Point floorToPoint( this Vector2 vec )
+		{
+			return new Point(Mathf.floorToInt(vec.X), Mathf.floorToInt(vec.Y));
+		}
+
 
 		/// <summary>
 		/// converts a Vector2 to a Vector3 with a 0 z-position
