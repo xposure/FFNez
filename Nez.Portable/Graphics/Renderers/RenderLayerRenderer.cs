@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nez
 {
@@ -12,14 +13,14 @@ namespace Nez
 		/// <summary>
 		/// the renderLayers this Renderer will render
 		/// </summary>
-		public int[] renderLayers;
+		public List<int> renderLayers;
 
 
 		public RenderLayerRenderer( int renderOrder, params int[] renderLayers ) : base( renderOrder, null )
 		{
 			Array.Sort( renderLayers );
 			Array.Reverse( renderLayers );
-			this.renderLayers = renderLayers;
+			this.renderLayers = renderLayers.ToList();
 		}
 
 
