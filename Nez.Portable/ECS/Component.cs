@@ -22,6 +22,11 @@ namespace Nez
 		public Entity entity;
 
 		/// <summary>
+		/// use this however you want to.
+		/// </summary>
+		public int tag;
+
+		/// <summary>
 		/// shortcut to entity.transform
 		/// </summary>
 		/// <value>The transform.</value>
