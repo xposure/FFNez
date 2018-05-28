@@ -29,7 +29,7 @@ namespace Nez
 			var cam = camera ?? scene.camera;
 			beginRender( cam );
 
-			for( var i = 0; i < renderLayers.Length; i++ )
+			for( var i = 0; i < renderLayers.Count; i++ )
 			{
 				var renderables = scene.renderableComponents.componentsWithRenderLayer( renderLayers[i] );
 				for( var j = 0; j < renderables.length; j++ )
@@ -51,7 +51,7 @@ namespace Nez
 		{
 			base.debugRender( scene, cam );
 
-			for( var i = 0; i < renderLayers.Length; i++ )
+			for( var i = 0; i < renderLayers.Count; i++ )
 			{
 				var renderables = scene.renderableComponents.componentsWithRenderLayer( renderLayers[i] );
 				for( var j = 0; j < renderables.length; j++ )
