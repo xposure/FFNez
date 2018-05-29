@@ -236,13 +236,13 @@ namespace Nez.Sprites
 			return animation;
 		}
 
-		public bool isAnimationPlaying()
+		public bool isAnimation()
 		{
 			return _currentAnimation != null;
 		}
 
 
-		public bool isAnimationPlaying( TEnum animationKey )
+		public bool isAnimation( TEnum animationKey )
 		{
 			return _currentAnimation != null && _currentAnimationKey.Equals( animationKey );
 		}
