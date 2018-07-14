@@ -105,6 +105,8 @@ namespace Nez
 			}
 		}
 
+		public bool debugRenderEnabled = true;
+
 		protected Vector2 _localOffset;
 		protected float _layerDepth;
 		protected int _renderLayer;
