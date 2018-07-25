@@ -443,6 +443,15 @@ namespace Nez
 				0, 0, 0, 0
 			);
 		}
+		
+		public void draw(
+			Subtexture subtexture,
+			Vector2 position,
+			Color color
+		)
+		{
+			draw(subtexture, position, color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+		}
 
 
 		public void draw(
