@@ -12,7 +12,7 @@ namespace Nez.AI.Pathfinding
 	/// </summary>
 	public class AstarGridGraph : IAstarGraph<Point>
 	{
-		public static readonly Point[] DIRS = new []
+		public List<Point> dirs = new List<Point>
 		{
 			new Point( 1, 0 ),
 			new Point( 0, -1 ),
@@ -91,11 +91,11 @@ namespace Nez.AI.Pathfinding
 
 		#region IAstarGraph implementation
 
-		IEnumerable<Point> IAstarGraph<Point>.getNeighbors( Point node )
+		public IEnumerable<Point> getNeighbors( Point node )
 		{
 			_neighbors.Clear();
 
-			foreach( var dir in DIRS )
+			foreach( var dir in dirs )
 			{
 				var next = new Point( node.X + dir.X, node.Y + dir.Y );
 				if( isNodeInBounds( next ) && isNodePassable( next ) )
@@ -106,13 +106,13 @@ namespace Nez.AI.Pathfinding
 		}
 
 
-		int IAstarGraph<Point>.cost( Point from, Point to )
+		public int cost( Point from, Point to )
 		{
 			return weightedNodes.Contains( to ) ? weightedNodeWeight : defaultWeight;
 		}
 
 
-		int IAstarGraph<Point>.heuristic( Point node, Point goal )
+		public int heuristic( Point node, Point goal )
 		{
 			return Math.Abs( node.X - goal.X ) + Math.Abs( node.Y - goal.Y );
 		}

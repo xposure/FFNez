@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nez
 {
@@ -12,14 +13,14 @@ namespace Nez
 		/// <summary>
 		/// the renderLayers this Renderer will render
 		/// </summary>
-		public int[] renderLayers;
+		public List<int> renderLayers;
 
 
 		public RenderLayerRenderer( int renderOrder, params int[] renderLayers ) : base( renderOrder, null )
 		{
 			Array.Sort( renderLayers );
 			Array.Reverse( renderLayers );
-			this.renderLayers = renderLayers;
+			this.renderLayers = renderLayers.ToList();
 		}
 
 
@@ -28,7 +29,7 @@ namespace Nez
 			var cam = camera ?? scene.camera;
 			beginRender( cam );
 
-			for( var i = 0; i < renderLayers.Length; i++ )
+			for( var i = 0; i < renderLayers.Count; i++ )
 			{
 				var renderables = scene.renderableComponents.componentsWithRenderLayer( renderLayers[i] );
 				for( var j = 0; j < renderables.length; j++ )
@@ -50,7 +51,7 @@ namespace Nez
 		{
 			base.debugRender( scene, cam );
 
-			for( var i = 0; i < renderLayers.Length; i++ )
+			for( var i = 0; i < renderLayers.Count; i++ )
 			{
 				var renderables = scene.renderableComponents.componentsWithRenderLayer( renderLayers[i] );
 				for( var j = 0; j < renderables.length; j++ )

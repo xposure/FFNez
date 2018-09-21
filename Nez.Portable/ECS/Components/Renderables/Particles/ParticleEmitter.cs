@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 
 
 namespace Nez.Particles
@@ -12,13 +13,14 @@ namespace Nez.Particles
 		public bool isPaused { get { return _isPaused; } }
 		public bool isPlaying { get { return _active && !_isPaused; } }
 		public bool isStopped { get { return !_active && !_isPaused; } }
+		public bool isEmitting { get { return _emitting; } }
 		public float elapsedTime { get { return _elapsedTime; } }
 
 		/// <summary>
 		/// convenience method for setting ParticleEmitterConfig.simulateInWorldSpace. If true, particles will simulate in world space. ie when the
 		/// parent Transform moves it will have no effect on any already active Particles.
 		/// </summary>
-		public bool simulateInWorldSpace { set { emitterConfig.simulateInWorldSpace = value; } }
+		public bool simulateInWorldSpace { set { _emitterConfig.simulateInWorldSpace = value; } }
 
 		/// <summary>
 		/// config object with various properties to deal with particle collisions
@@ -26,41 +28,50 @@ namespace Nez.Particles
 		public ParticleCollisionConfig collisionConfig;
 
 		/// <summary>
+		/// event that's going to be called when particles count becomes 0 after stopping emission.
+		/// emission can stop after either we stop it manually or when we run for entire duration specified in ParticleEmitterConfig.
+		/// </summary>
+		public event Action<ParticleEmitter> onAllParticlesExpired;
+		/// <summary>
+		/// event that's going to be called when emission is stopped due to reaching duration specified in ParticleEmitterConfig
+		/// </summary>
+		public event Action<ParticleEmitter> onEmissionDurationReached;
+
+		/// <summary>
 		/// keeps track of how many particles should be emitted
 		/// </summary>
-		private float _emitCounter;
+		float _emitCounter;
 
 		/// <summary>
 		/// tracks the elapsed time of the emitter
 		/// </summary>
-		private float _elapsedTime;
+		float _elapsedTime;
 
-		private bool _active = false;
-		private bool _isPaused;
+		bool _active = false;
+		bool _isPaused;
 
 		/// <summary>
 		/// if the emitter is emitting this will be true. Note that emitting can be false while particles are still alive. emitting gets set
 		/// to false and then any live particles are allowed to finish their lifecycle.
 		/// </summary>
-		public bool emitting;
-		private List<Particle> _particles;
-		private bool _playOnAwake;
-		public ParticleEmitterConfig emitterConfig;
-		public float maxParticleThreshold = 1f;
+		bool _emitting;
+		List<Particle> _particles;
+		bool _playOnAwake;
+		ParticleEmitterConfig _emitterConfig;
 
 
 		public ParticleEmitter( ParticleEmitterConfig emitterConfig, bool playOnAwake = true )
 		{
-			this.emitterConfig = emitterConfig;
+			_emitterConfig = emitterConfig;
 			_playOnAwake = playOnAwake;
-			_particles = new List<Particle>( (int)this.emitterConfig.maxParticles );
-			Pool<Particle>.warmCache( (int)this.emitterConfig.maxParticles );
-
+			_particles = new List<Particle>( (int)_emitterConfig.maxParticles );
+			Pool<Particle>.warmCache( (int)_emitterConfig.maxParticles );
+			
 			// set some sensible defaults
 			collisionConfig.elasticity = 0.5f;
 			collisionConfig.friction = 0.5f;
 			collisionConfig.collidesWithLayers = Physics.allLayers;
-			collisionConfig.gravity = this.emitterConfig.gravity;
+			collisionConfig.gravity = _emitterConfig.gravity;
 			collisionConfig.lifetimeLoss = 0f;
 			collisionConfig.minKillSpeedSquared = float.MinValue;
 			collisionConfig.radiusScale = 0.8f;
@@ -76,8 +87,8 @@ namespace Nez.Particles
 		{
 			// prep our custom BlendState and set the Material with it
 			var blendState = new BlendState();
-			blendState.ColorSourceBlend = blendState.AlphaSourceBlend = emitterConfig.blendFuncSource;
-			blendState.ColorDestinationBlend = blendState.AlphaDestinationBlend = emitterConfig.blendFuncDestination;
+			blendState.ColorSourceBlend = blendState.AlphaSourceBlend = _emitterConfig.blendFuncSource;
+			blendState.ColorDestinationBlend = blendState.AlphaDestinationBlend = _emitterConfig.blendFuncDestination;
 
 			material = new Material( blendState );
 		}
@@ -101,31 +112,40 @@ namespace Nez.Particles
 			var rootPosition = entity.transform.position + _localOffset;
 			
 			// if the emitter is active and the emission rate is greater than zero then emit particles
-			if( _active && emitterConfig.emissionRate > 0 )
+			if( _active && _emitterConfig.emissionRate > 0 )
 			{
-				var rate = 1.0f / emitterConfig.emissionRate;
-
-				var maxParticleCount = (int) (emitterConfig.maxParticles * maxParticleThreshold);
-
-				if( _particles.Count < maxParticleCount )
-					_emitCounter += Time.deltaTime;
-
-				while( emitting && _particles.Count < maxParticleCount && _emitCounter > rate )
+				if( _emitting )
 				{
-					addParticle( rootPosition );
-					_emitCounter -= rate;
+					var rate = 1.0f / _emitterConfig.emissionRate;
+
+					if( _particles.Count < _emitterConfig.maxParticles )
+						_emitCounter += Time.deltaTime;
+
+					while( _particles.Count < _emitterConfig.maxParticles && _emitCounter > rate )
+					{
+						addParticle( rootPosition );
+						_emitCounter -= rate;
+					}
+
+					_elapsedTime += Time.deltaTime;
+
+					if( _emitterConfig.duration != -1 && _emitterConfig.duration < _elapsedTime )
+					{
+						// when we hit our duration we dont emit any more particles
+						_emitting = false;
+
+						if( onEmissionDurationReached != null )
+							onEmissionDurationReached( this );
+					}
 				}
 
-				_elapsedTime += Time.deltaTime;
-
-				if( emitterConfig.duration != -1 && emitterConfig.duration < _elapsedTime )
+				// once all our particles are done we stop the emitter
+				if( !_emitting && _particles.Count == 0 )
 				{
-					// when we hit our duration we dont emit any more particles
-					emitting = false;
+					stop();
 
-					// once all our particles are done we stop the emitter
-					if( _particles.Count == 0 )
-						stop();
+					if( onAllParticlesExpired != null )
+						onAllParticlesExpired( this );
 				}
 			}
 
@@ -140,7 +160,7 @@ namespace Nez.Particles
 				var currentParticle = _particles[i];
 
 				// if update returns true that means the particle is done
-				if( currentParticle.update( emitterConfig, ref collisionConfig, rootPosition ) )
+				if( currentParticle.update( _emitterConfig, ref collisionConfig, rootPosition ) )
 				{
 					Pool<Particle>.free( currentParticle );
 					_particles.RemoveAt( i );
@@ -148,7 +168,7 @@ namespace Nez.Particles
 				else
 				{
 					// particle is good. collect min/max positions for the bounds
-					var pos = emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
+					var pos = _emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
 					pos += currentParticle.position;
 					Vector2.Min( ref min, ref pos, out min );
 					Vector2.Max( ref max, ref pos, out max );
@@ -160,14 +180,14 @@ namespace Nez.Particles
 			_bounds.width = max.X - min.X;
 			_bounds.height = max.Y - min.Y;
 
-			if( emitterConfig.subtexture == null )
+			if( _emitterConfig.subtexture == null )
 			{
 				_bounds.inflate( 1 * maxParticleSize, 1 * maxParticleSize );
 			}
 			else
 			{
-				maxParticleSize /= emitterConfig.subtexture.sourceRect.Width;
-				_bounds.inflate( emitterConfig.subtexture.sourceRect.Width * maxParticleSize, emitterConfig.subtexture.sourceRect.Height * maxParticleSize );
+				maxParticleSize /= _emitterConfig.subtexture.sourceRect.Width;
+				_bounds.inflate( _emitterConfig.subtexture.sourceRect.Width * maxParticleSize, _emitterConfig.subtexture.sourceRect.Height * maxParticleSize );
 			}
 		}
 
@@ -184,12 +204,12 @@ namespace Nez.Particles
 			for( var i = 0; i < _particles.Count; i++ )
 			{
 				var currentParticle = _particles[i];
-				var pos = emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
+				var pos = _emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
 
-				if( emitterConfig.subtexture == null )
+				if( _emitterConfig.subtexture == null )
 					graphics.batcher.draw( graphics.pixelTexture, pos + currentParticle.position, currentParticle.color, currentParticle.rotation, Vector2.One, currentParticle.particleSize * 0.5f, SpriteEffects.None, layerDepth );
 				else
-					graphics.batcher.draw( emitterConfig.subtexture, pos + currentParticle.position, currentParticle.color, currentParticle.rotation, emitterConfig.subtexture.center, currentParticle.particleSize / emitterConfig.subtexture.sourceRect.Width, SpriteEffects.None, layerDepth );
+					graphics.batcher.draw( _emitterConfig.subtexture, pos + currentParticle.position, currentParticle.color, currentParticle.rotation, _emitterConfig.subtexture.center, currentParticle.particleSize / _emitterConfig.subtexture.sourceRect.Width, SpriteEffects.None, layerDepth );
 			}
 		}
 
@@ -221,7 +241,7 @@ namespace Nez.Particles
 			}
 
 			_active = true;
-			emitting = true;
+			_emitting = true;
 			_elapsedTime = 0;
 			_emitCounter = 0;
 		}
@@ -251,6 +271,28 @@ namespace Nez.Particles
 
 
 		/// <summary>
+		/// resumes emission of particles.
+		/// this is possible only if stop() wasn't called and emission wasn't stopped due to duration
+		/// </summary>
+		public void resumeEmission()
+		{
+			if( isStopped || ( _emitterConfig.duration != -1 && _emitterConfig.duration < _elapsedTime ) )
+				return;
+
+			_emitting = true;
+		}
+
+
+		/// <summary>
+		/// pauses emission of particles while allowing existing particles to expire
+		/// </summary>
+		public void pauseEmission()
+		{
+			_emitting = false;
+		}
+
+
+		/// <summary>
 		/// manually emit some particles
 		/// </summary>
 		/// <param name="count">Count.</param>
@@ -272,10 +314,9 @@ namespace Nez.Particles
 		{
 			// take the next particle out of the particle pool we have created and initialize it
 			var particle = Pool<Particle>.obtain();
-			particle.initialize( emitterConfig, position );
+			particle.initialize( _emitterConfig, position );
 			_particles.Add( particle );
 		}
 
 	}
 }
-

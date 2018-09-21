@@ -73,7 +73,7 @@ namespace Nez.Sprites
 		}
 
 
-		public SpriteAnimation( List<Subtexture> frames )
+		public SpriteAnimation( IEnumerable<Subtexture> frames )
 		{
 			addFrames( frames );
 		}
@@ -158,10 +158,10 @@ namespace Nez.Sprites
 		/// </summary>
 		/// <returns>The frames.</returns>
 		/// <param name="subtextures">Subtextures.</param>
-		public SpriteAnimation addFrames( List<Subtexture> subtextures )
+		public SpriteAnimation addFrames( IEnumerable<Subtexture> subtextures )
 		{
-			for( var i = 0; i < subtextures.Count; i++ )
-				addFrame( subtextures[i] );
+			foreach (var subtexture in subtextures)
+				addFrame( subtexture );
 			return this;
 		}
 

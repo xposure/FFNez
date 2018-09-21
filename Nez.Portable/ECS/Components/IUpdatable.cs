@@ -9,10 +9,7 @@ namespace Nez
 	/// </summary>
 	public interface IUpdatable
 	{
-		/// <summary>
-		/// Enables or disables updating this component
-		/// </summary>
-		bool active { get; set; }
+		bool enabled { get; }
 		int updateOrder { get; }
 
 		void update();

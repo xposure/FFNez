@@ -422,6 +422,11 @@ namespace Nez
 			return didCollide;
 		}
 
+		public bool collidesWithAnyMultiple( Vector2 motion, out List<CollisionResult> results ) {
+			results = new List<CollisionResult>();
+			return collidesWithAnyMultiple(motion, results);
+		}
+
 		#endregion
 
 

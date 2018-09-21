@@ -174,7 +174,7 @@ namespace Nez
 
 		#region Colliders
 
-		public void addColliders()
+		public void addColliders(int tag = 0)
 		{
 			if( collisionLayer == null || !_shouldCreateColliders )
 				return;
@@ -189,6 +189,7 @@ namespace Nez
 				var collider = new BoxCollider( collisionRects[i].X + _localOffset.X, collisionRects[i].Y + _localOffset.Y, collisionRects[i].Width, collisionRects[i].Height );
 				collider.physicsLayer = physicsLayer;
 				collider.entity = entity;
+				collider.tag = tag;
 				_colliders[i] = collider;
 
 				Physics.addCollider( collider );

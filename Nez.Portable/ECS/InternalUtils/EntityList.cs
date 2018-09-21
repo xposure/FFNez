@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Nez
@@ -146,16 +146,21 @@ namespace Nez
 		internal void addToTagList( Entity entity )
 		{
 			var list = getTagList( entity.tag );
-			Assert.isFalse( list.contains( entity ), "Entity tag list already contains this entity: {0}", entity );
-
-			list.add( entity );
-			_unsortedTags.Add( entity.tag );
+			if( !list.contains( entity ) )
+			{
+				list.add( entity );
+				_unsortedTags.Add( entity.tag );
+			}
 		}
 
 
 		internal void removeFromTagList( Entity entity )
 		{
-			_entityDict[entity.tag].remove( entity );
+			FastList<Entity> list = null;
+			if( _entityDict.TryGetValue( entity.tag, out list ) )
+			{
+				list.remove( entity );
+			}
 		}
 
 
@@ -227,10 +232,9 @@ namespace Nez
 			// sort our tagList if needed
 			if( _unsortedTags.Count > 0 )
 			{
-                foreach(var tag in _unsortedTags)
+				foreach( var tag in _unsortedTags )
 					_entityDict[tag].sort();
-
-                _unsortedTags.Clear();
+				_unsortedTags.Clear();
 			}
 		}
 
@@ -253,9 +257,7 @@ namespace Nez
 			foreach( var entity in _entitiesToAdd )
 			{
 				if( entity.name == name )
-				{
 					return entity;
-				}
 			}
 
 			return null;
@@ -275,7 +277,7 @@ namespace Nez
 			returnList.Capacity = _entities.length;
 			for( var i = 0; i < list.length; i++ )
 			{
-				returnList.Add( _entities.buffer[i] );
+				returnList.Add( list[i] );
 			}
 
 			return returnList;
@@ -327,15 +329,6 @@ namespace Nez
 					list.Add( entityToAdd );
 			}
 
-			return list;
-		}
-
-		public List<Entity> getList() {
-			var list = ListPool<Entity>.obtain();
-			for( var i = 0; i < _entities.length; i++ )
-			{
-				list.Add( _entities.buffer[i] );
-			}
 			return list;
 		}
 

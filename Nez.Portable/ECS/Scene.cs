@@ -142,6 +142,7 @@ namespace Nez
         /// When waiting for the scene to transition in
         /// </summary>
         public bool isTransitioning => _waitingForTransition;
+		public Point resolution => _defaultDesignResolutionSize;
 
 		/// <summary>
 		/// the final render to the screen can be deferred to this delegate if set. This is really only useful for cases where the final render
@@ -782,7 +783,17 @@ namespace Nez
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
 		public T addSceneComponent<T>() where T : SceneComponent, new()
 		{
-			var component = new T();
+			return addSceneComponent( new T() );
+		}
+
+
+		/// <summary>
+		/// Adds and returns a SceneComponent to the components list
+		/// </summary>
+		/// <returns>Scene.</returns>
+		/// <typeparam name="T">The 1st type parameter.</typeparam>
+		public T addSceneComponent<T>( T component ) where T : SceneComponent
+		{
 			component.scene = this;
 			component.onEnabled();
 			_sceneComponents.add( component );

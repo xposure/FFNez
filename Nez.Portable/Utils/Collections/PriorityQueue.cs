@@ -67,6 +67,16 @@ namespace System.Collections.Generic
 			return ( _nodes[node.QueueIndex] == node );
 		}
 
+		/// <summary>
+		/// Returns whether the given node is in the queue by iterating through the nodes. O(n)
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public bool ContainsIterate(T node)
+		{
+			return _nodes.contains( node );
+		}
+
 
 		/// <summary>
 		/// Enqueue a node to the priority queue.  Lower values are placed in front. Ties are broken by first-in-first-out.

@@ -22,6 +22,11 @@ namespace Nez
 		public Entity entity;
 
 		/// <summary>
+		/// use this however you want to.
+		/// </summary>
+		public int tag;
+
+		/// <summary>
 		/// shortcut to entity.transform
 		/// </summary>
 		/// <value>The transform.</value>
@@ -41,12 +46,6 @@ namespace Nez
 			get { return entity != null ? entity.enabled && _enabled : _enabled; }
 			set { setEnabled( value ); }
 		}
-
-		
-		/// <summary>
-		/// Enables or disables updating this component
-		/// </summary>
-		public bool active { get; set; } = true;
 
 		/// <summary>
 		/// update order of the Components on this Entity

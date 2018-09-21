@@ -98,6 +98,17 @@ namespace Nez
 			return u.Y * v.X - u.X * v.Y;
 		}
 
+		/// <summary>
+		/// compute the 2d dot product dot(u, v)
+		/// </summary>
+		/// <param name="self">self</param>
+		/// <param name="v">V.</param>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static float dot( this Vector2 self, Vector2 v )
+		{
+			return Vector2.Dot(self, v);
+		}
+
 
 		/// <summary>
 		/// returns the vector perpendicular to the passed in vectors
@@ -162,6 +173,18 @@ namespace Nez
 			return angle( one, two );
 		}
 
+		/// <summary>
+		/// returns a vector rotated around the origin by an angle in radians
+		/// </summary>
+		/// <param name="self">Self.</param>
+		/// <param name="angle">angle in radians.</param>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static Vector2 rotate( this Vector2 self, float angle ) {
+			var ca = Mathf.cos(angle);
+			var sa = Mathf.sin(angle);
+			return new Vector2(ca * self.X - sa * self.Y, sa * self.X + ca * self.Y);
+		}
+
 
 		/// <summary>
 		/// given two lines (ab and cd) finds the intersection point
@@ -190,6 +213,29 @@ namespace Nez
 
 			intersection = new Vector2( x, y );
 			return true;
+		}
+
+		/// <summary>
+		/// rounds and converts a Vector2 to a Point
+		/// </summary>
+		/// <returns>The point.</returns>
+		/// <param name="vec">Vec.</param>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static Point roundToPoint( this Vector2 vec )
+		{
+			var roundedVec = vec.round();
+			return new Point((int) roundedVec.X, (int) roundedVec.Y);
+		}
+
+		/// <summary>
+		/// floors and converts a Vector2 to a Point
+		/// </summary>
+		/// <returns>The point.</returns>
+		/// <param name="vec">Vec.</param>
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static Point floorToPoint( this Vector2 vec )
+		{
+			return new Point(Mathf.floorToInt(vec.X), Mathf.floorToInt(vec.Y));
 		}
 
 
