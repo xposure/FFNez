@@ -1,4 +1,5 @@
-﻿using ImGuiNET;
+#if FEATURE_UI
+using ImGuiNET;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -546,3 +547,4 @@ namespace Mnemonic
         //}
     }
 }
+#endif

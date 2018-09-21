@@ -64,12 +64,14 @@ namespace Nez.Console
 		Keys? _repeatKey = null;
 		bool _canOpen;
 		public static Keys consoleKey = Keys.OemTilde;
-		#if DEBUG
+#if DEBUG
+#if FEATURE_UI
 		internal RuntimeInspector _runtimeInspector;
-		#endif
+#endif
+#endif
 
 
-		static DebugConsole()
+        static DebugConsole()
 		{
 			instance = new DebugConsole();
 		}
@@ -503,15 +505,17 @@ namespace Nez.Console
 
 		internal void render()
 		{
-			#if DEBUG
+#if DEBUG
+#if FEATURE_UI
 			if( _runtimeInspector != null )
 			{
 				_runtimeInspector.update();
 				_runtimeInspector.render();
 			}
-			#endif
+#endif
+#endif
 
-			if( !isOpen )
+            if ( !isOpen )
 				return;
 
 			var screenWidth = Screen.width;

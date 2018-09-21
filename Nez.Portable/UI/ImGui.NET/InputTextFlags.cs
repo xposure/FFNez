@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     /// <summary>
     /// Flags for ImGui.InputText()
@@ -80,3 +81,4 @@
         Multiline = 1 << 20
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using Nez.BitmapFonts;
 using Microsoft.Xna.Framework;
 using System.Text;
@@ -1362,3 +1363,4 @@ namespace Nez.UI
 
 }
 
+#endif

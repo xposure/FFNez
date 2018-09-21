@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     /// <summary>
     /// Enumeration for ColorEdit3() / ColorEdit4() / ColorPicker3() / ColorPicker4() / ColorButton()
@@ -27,3 +28,4 @@
         PickerHueWheel = 1 << 19,
     }
 }
+#endif

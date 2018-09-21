@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     /// <summary>
     /// Enumeration for GetMouseCursor()
@@ -32,3 +33,4 @@
         ResizeNWSE,
     }
 }
+#endif

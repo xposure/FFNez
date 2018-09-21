@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using System.Runtime.InteropServices;
 
 namespace ImGuiNET
@@ -65,3 +66,4 @@ namespace ImGuiNET
         public bool HasSelection() { return SelectionStart != SelectionEnd; }
     }
 }
+#endif

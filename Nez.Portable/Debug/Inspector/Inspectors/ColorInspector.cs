@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_UI
+using Microsoft.Xna.Framework;
 using Nez.UI;
 
 
@@ -99,4 +100,5 @@ namespace Nez
 
 	}
 }
+#endif
 #endif

@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using Nez.UI;
 using System.Collections.Generic;
 
@@ -40,4 +41,5 @@ namespace Nez
 		}
 	}
 }
+#endif
 #endif

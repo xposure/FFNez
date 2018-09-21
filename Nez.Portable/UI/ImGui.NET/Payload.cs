@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 
 namespace ImGuiNET
 {
@@ -11,3 +12,4 @@ namespace ImGuiNET
         public int DataSize => NativePtr->DataSize;
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using Nez.UI;
+#if FEATURE_UI
+using Nez.UI;
 
 
 #if DEBUG
@@ -63,4 +64,5 @@ namespace Nez
 		}
 	}
 }
+#endif
 #endif

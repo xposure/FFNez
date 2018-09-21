@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     public enum DragDropFlags
     {
@@ -41,3 +42,4 @@
         AcceptPeekOnly = AcceptBeforeDelivery | AcceptNoDrawDefaultRect
     }
 }
+#endif

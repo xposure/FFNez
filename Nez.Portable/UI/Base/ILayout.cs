@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 
 
 namespace Nez.UI
@@ -84,3 +85,4 @@ namespace Nez.UI
 	}
 }
 
+#endif

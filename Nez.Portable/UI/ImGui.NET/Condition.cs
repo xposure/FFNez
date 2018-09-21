@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     /// <summary>
     /// Condition flags for ImGui::SetWindow***(), SetNextWindow***(), SetNextTreeNode***() functions.
@@ -24,3 +25,4 @@
         Appearing = 1 << 3
     }
 }
+#endif

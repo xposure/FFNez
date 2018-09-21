@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
@@ -1248,3 +1249,4 @@ namespace ImGuiNET
         }
     }
 }
+#endif

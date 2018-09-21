@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using System.Buffers;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -193,3 +194,4 @@ namespace ImGuiNET
         public ImVector _Channels;
     }
 }
+#endif

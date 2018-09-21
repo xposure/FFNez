@@ -26,6 +26,7 @@ namespace Nez.Console
 
 
 #if DEBUG
+#if FEATURE_UI
 namespace Nez.Console
 {
 	public partial class DebugConsole
@@ -282,4 +283,5 @@ namespace Nez.Console
 
 	}
 }
+#endif
 #endif

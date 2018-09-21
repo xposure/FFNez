@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     public enum ComboFlags
     {
@@ -25,3 +26,4 @@
         HeightMask_ = HeightSmall | HeightRegular | HeightLarge | HeightLargest
     }
 }
+#endif

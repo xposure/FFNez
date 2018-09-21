@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 
 namespace ImGuiNET
 {
@@ -52,3 +53,4 @@ namespace ImGuiNET
         CollapsingHeader = Framed | NoAutoOpenOnLog
     };
 }
+#endif

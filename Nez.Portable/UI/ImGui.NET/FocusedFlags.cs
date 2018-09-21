@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     // Flags for ImGui::IsWindowFocused()
     public enum FocusedFlags
@@ -8,3 +9,4 @@
         RootAndChildWindows = RootWindow | ChildWindows
     }
 }
+#endif

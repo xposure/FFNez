@@ -7,11 +7,13 @@ namespace Nez
 {
 	public class GaussianBlurEffect : Effect
 	{
-		/// <summary>
-		/// amount to blur. A range of 0.5 - 6 works well. Defaults to 2.
-		/// </summary>
-		/// <value>The blur amount.</value>
+        /// <summary>
+        /// amount to blur. A range of 0.5 - 6 works well. Defaults to 2.
+        /// </summary>
+        /// <value>The blur amount.</value>
+#if FEATURE_UI
 		[Range( 0f, 6f, 0.2f )]
+#endif
 		public float blurAmount
 		{
 			get { return _blurAmount; }

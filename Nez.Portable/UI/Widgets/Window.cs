@@ -1,3 +1,4 @@
+#if FEATURE_UI
 using System;
 using Microsoft.Xna.Framework;
 using Nez.BitmapFonts;
@@ -398,3 +399,4 @@ namespace Nez.UI
 	}
 }
 
+#endif

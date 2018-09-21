@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+#if FEATURE_UI
+using System.Runtime.InteropServices;
 using System;
 
 #if MONOGAME
@@ -1057,3 +1058,4 @@ namespace ImGuiNET
     public delegate bool ItemSelectedCallback(IntPtr data, int index, string out_text);
     public unsafe delegate void ImDrawCallback(DrawList* parent_list, DrawCmd* cmd);
 }
+#endif

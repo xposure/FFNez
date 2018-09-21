@@ -1,4 +1,5 @@
-﻿using Nez.UI;
+#if FEATURE_UI
+using Nez.UI;
 using System.Globalization;
 
 
@@ -64,4 +65,5 @@ namespace Nez
 		}
 	}
 }
+#endif
 #endif

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+#if FEATURE_AI
+using System.Collections.Generic;
 
 
 namespace Nez.AI.Pathfinding
@@ -24,3 +25,4 @@ namespace Nez.AI.Pathfinding
 	}
 }
 
+#endif

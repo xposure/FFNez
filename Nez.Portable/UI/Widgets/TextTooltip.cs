@@ -1,4 +1,5 @@
-﻿namespace Nez.UI
+#if FEATURE_UI
+namespace Nez.UI
 {
 	public class TextTooltip : Tooltip
 	{
@@ -42,3 +43,4 @@
 	}
 }
 
+#endif

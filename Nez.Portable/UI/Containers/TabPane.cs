@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -281,3 +282,4 @@ namespace Nez.UI
         public LabelStyle labelStyle;
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     // Flags for ImGui::IsItemHovered(), ImGui::IsWindowHovered()
     public enum HoveredFlags
@@ -13,3 +14,4 @@
         RootAndChildWindows = RootWindow | ChildWindows
     }
 }
+#endif

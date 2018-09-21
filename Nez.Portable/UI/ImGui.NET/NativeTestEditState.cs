@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     public unsafe struct ImGuiTextEditState
     {
@@ -70,3 +71,4 @@
         public short char_storage;
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     /// <summary>
     /// Enumeration for PushStyleVar() / PopStyleVar()
@@ -76,3 +77,4 @@
         ButtonTextAlign,
     };
 }
+#endif

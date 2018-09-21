@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_AI
+using System;
 
 
 namespace Nez.AI.UtilityAI
@@ -9,3 +10,4 @@ namespace Nez.AI.UtilityAI
 	}
 }
 
+#endif

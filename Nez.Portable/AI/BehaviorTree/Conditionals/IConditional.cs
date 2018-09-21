@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_AI
+using System;
 
 
 namespace Nez.AI.BehaviorTrees
@@ -11,3 +12,4 @@ namespace Nez.AI.BehaviorTrees
 		TaskStatus update( T context );
 	}
 }
+#endif

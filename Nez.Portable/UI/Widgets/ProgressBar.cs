@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -401,3 +402,4 @@ namespace Nez.UI
 	}
 }
 
+#endif

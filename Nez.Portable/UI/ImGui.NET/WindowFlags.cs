@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     /// <summary>
     /// Flags for ImGui::Begin()
@@ -78,3 +79,4 @@
 
     }
 }
+#endif

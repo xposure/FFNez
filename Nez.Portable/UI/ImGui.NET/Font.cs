@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using System.Runtime.InteropServices;
 
 #if MONOGAME
@@ -98,3 +99,4 @@ namespace ImGuiNET
         public float Ascent, Descent;
     };
 }
+#endif

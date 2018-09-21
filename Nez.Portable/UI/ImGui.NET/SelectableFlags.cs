@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     /// <summary>
     /// Flags for ImGui::Selectable()
@@ -17,3 +18,4 @@
         SpanAllColumns = 1 << 1
     }
 }
+#endif

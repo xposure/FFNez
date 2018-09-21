@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+#if FEATURE_UI
+using System.Runtime.InteropServices;
 
 namespace ImGuiNET
 {
@@ -11,3 +12,4 @@ namespace ImGuiNET
         public void* Data;
     }
 }
+#endif

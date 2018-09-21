@@ -33,7 +33,9 @@ namespace Nez
 		public float skewRightY { get { return _skewRightY; } }
 
 		float _width, _height;
-		[Inspectable]
+#if FEATURE_UI
+        [Inspectable]
+#endif
 		float _skewTopX, _skewBottomX, _skewLeftY, _skewRightY;
 
 

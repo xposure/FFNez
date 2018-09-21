@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
@@ -323,3 +324,4 @@ namespace ImGuiNET
         }
     }
 }
+#endif

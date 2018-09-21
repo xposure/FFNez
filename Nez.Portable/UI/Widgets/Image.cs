@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nez.Textures;
@@ -148,3 +149,4 @@ namespace Nez.UI
 	}
 }
 
+#endif

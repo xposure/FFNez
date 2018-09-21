@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_AI
+using System;
 using System.Text;
 
 
@@ -86,3 +87,4 @@ namespace Nez.AI.GOAP
 	}
 }
 
+#endif

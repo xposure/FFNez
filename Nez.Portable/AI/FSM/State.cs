@@ -1,4 +1,5 @@
-﻿namespace Nez.AI.FSM
+#if FEATURE_AI
+namespace Nez.AI.FSM
 {
 	public abstract class State<T>
 	{
@@ -50,3 +51,4 @@
 	}
 }
 
+#endif

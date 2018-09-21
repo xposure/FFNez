@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+#if FEATURE_UI
+using System.Runtime.InteropServices;
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
@@ -20,3 +21,4 @@ namespace ImGuiNET
         public const int ColOffset = 16;
     };
 }
+#endif

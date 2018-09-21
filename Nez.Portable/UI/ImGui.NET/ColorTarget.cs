@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     /// <summary>
     /// Enumeration for PushStyleColor() / PopStyleColor()
@@ -57,3 +58,4 @@
         Count,
     };
 }
+#endif

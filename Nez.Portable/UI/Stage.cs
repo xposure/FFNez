@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_UI
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
@@ -815,3 +816,4 @@ namespace Nez.UI
 	}
 }
 
+#endif

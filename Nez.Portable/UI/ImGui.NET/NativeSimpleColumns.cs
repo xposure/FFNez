@@ -1,4 +1,5 @@
-﻿namespace ImGuiNET
+#if FEATURE_UI
+namespace ImGuiNET
 {
     public unsafe struct NativeSimpleColumns
     {
@@ -8,3 +9,4 @@
         public fixed float Pos[8], NextWidths[8];
     };
 }
+#endif

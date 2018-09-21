@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UI
+using System;
 using System.Reflection;
 using Nez.UI;
 
@@ -103,4 +104,5 @@ namespace Nez
 
 	}
 }
+#endif
 #endif

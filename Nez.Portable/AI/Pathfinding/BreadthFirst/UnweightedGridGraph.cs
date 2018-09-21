@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+#if FEATURE_AI
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Nez.Tiled;
 
@@ -101,3 +102,4 @@ namespace Nez.AI.Pathfinding
 
 	}
 }
+#endif

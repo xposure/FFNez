@@ -6,7 +6,9 @@ namespace Nez
 {
 	public class ScanlinesEffect : Effect
 	{
+#if FEATURE_UI
 		[Range( 0.001f, 1f, 0.001f )]
+#endif
 		public float attenuation
 		{
 			get { return _attenuation; }
@@ -20,7 +22,9 @@ namespace Nez
 			}
 		}
 
+#if FEATURE_UI
 		[Range( 10, 1000, 1 )]
+#endif
 		public float linesFactor
 		{
 			get { return _linesFactor; }
