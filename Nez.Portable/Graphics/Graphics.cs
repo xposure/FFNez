@@ -46,7 +46,11 @@ namespace Atma
 
 			// the bottom/right pixel is white on the default font so we'll use that for the pixelTexture
 			var fontTex = bitmapFont.defaultCharacterRegion.subtexture.texture2D;
-			pixelTexture = new Subtexture( fontTex, fontTex.Width - 1, fontTex.Height - 1, 1, 1 );
+            //pixelTexture = new Subtexture( fontTex, fontTex.Width - 1, fontTex.Height - 1, 1, 1 );
+            var t = new Texture2D(Core.graphicsDevice, 1, 1);
+            t.SetData(new Color[] { Color.White });
+
+            pixelTexture = new Subtexture(t, 0, 0, 1, 1);
 		}
 
 

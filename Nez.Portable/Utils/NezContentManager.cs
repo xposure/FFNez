@@ -315,7 +315,7 @@ namespace Atma.Systems
         /// <param name="assetName">Asset name.</param>
         protected override Stream OpenStream(string assetName)
         {
-            if (assetName.StartsWith("nez://"))
+            if (assetName.StartsWith("atma://"))
             {
                 var assembly = ReflectionUtils.getAssembly(this.GetType());
 
@@ -325,12 +325,12 @@ namespace Atma.Systems
 				{
 					if( item.EndsWith( assetName.Substring( assetName.Length - 20 ) ) )
 					{
-						assetName = "nez://" + item;
+						assetName = "atma://" + item;
 						break;
 					}
 				}
 #endif
-                return assembly.GetManifestResourceStream(assetName.Substring(6));
+                return assembly.GetManifestResourceStream(assetName.Substring(7));
             }
 
             return base.OpenStream(assetName);

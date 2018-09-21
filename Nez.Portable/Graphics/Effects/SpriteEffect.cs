@@ -16,7 +16,11 @@ namespace Atma
 		}
 
 
-		public void setMatrixTransform( ref mat4 matrixTransform )
+		public void setMatrixTransform( Matrix matrixTransform)
+        {
+            _matrixTransformParam.SetValue(matrixTransform);
+        }
+        public void setMatrixTransform( ref mat4 matrixTransform )
 		{
 			_matrixTransformParam.SetValue( matrixTransform );
 		}

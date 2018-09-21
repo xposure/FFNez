@@ -29,10 +29,10 @@
         {
             _packedValue = 0;
             var scalar = 255;
-            A = (byte)glm.Clamp(v.x * scalar, 0, 255);
-            R = (byte)glm.Clamp(v.y * scalar, 0, 255);
-            G = (byte)glm.Clamp(v.z * scalar, 0, 255);
-            B = (byte)glm.Clamp(v.w * scalar, 0, 255);
+            A = (byte)glm.Clamp(v.w * scalar, 0, 255);
+            R = (byte)glm.Clamp(v.x * scalar, 0, 255);
+            G = (byte)glm.Clamp(v.y * scalar, 0, 255);
+            B = (byte)glm.Clamp(v.z * scalar, 0, 255);
         }
 #endif
 

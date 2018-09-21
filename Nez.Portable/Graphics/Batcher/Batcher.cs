@@ -3,7 +3,6 @@
 using System;
 using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using System.Runtime.CompilerServices;
 using Atma.Textures;
 
@@ -1030,10 +1029,10 @@ namespace Atma
 
 		void prepRenderState()
 		{
-			graphicsDevice.BlendState = _blendState;
-			graphicsDevice.SamplerStates[0] = _samplerState;
-			graphicsDevice.DepthStencilState = _depthStencilState;
-			graphicsDevice.RasterizerState = _rasterizerState;
+			//graphicsDevice.BlendState = _blendState;
+			//graphicsDevice.SamplerStates[0] = _samplerState;
+			//graphicsDevice.DepthStencilState = _depthStencilState;
+			//graphicsDevice.RasterizerState = _rasterizerState;
 
 			graphicsDevice.SetVertexBuffer( _vertexBuffer );
 			graphicsDevice.Indices = _indexBuffer;
@@ -1052,12 +1051,14 @@ namespace Atma
 			_projectionMatrix.M41 = -1 - 0.5f * _projectionMatrix.M11;
 			_projectionMatrix.M42 = 1 - 0.5f * _projectionMatrix.M22;
 
-            _matrixTransformMatrix = _projectionMatrix * _transformMatrix;// glm.Mul(transformMatrix, _projectionMatrix);
-			//mat4.Multiply( ref _transformMatrix, ref _projectionMatrix, out _matrixTransformMatrix );
-			_spriteEffect.setMatrixTransform( ref _matrixTransformMatrix );
+            _matrixTransformMatrix = _transformMatrix * _projectionMatrix;// glm.Mul(transformMatrix, _projectionMatrix);
+                                                                          //mat4.Multiply( ref _transformMatrix, ref _projectionMatrix, out _matrixTransformMatrix );
+                                                                          //_spriteEffect.setMatrixTransform( ref _matrixTransformMatrix );
+            var m = mat4.Ortho(0, viewport.Width, viewport.Height, 0, 1, -1);
+			_spriteEffect.setMatrixTransform(mat4.Identity);
 
 			// we have to Apply here because custom effects often wont have a vertex shader and we need the default SpriteEffect's
-			_spriteEffectPass.Apply();
+			//_spriteEffectPass.Apply();
 		}
 
 

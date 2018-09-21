@@ -3,9 +3,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Atma.Textures;
 using Microsoft.Xna.Framework;
+using Atma.BitmapFonts;
+using Atma;
 
-
-namespace Atma.BitmapFonts
+namespace Nez.BitmapFonts
 {
 	public class BitmapFontReader : ContentTypeReader<BitmapFont>
 	{
