@@ -1,4 +1,6 @@
-﻿namespace Atma
+﻿#if ATMA_PHYSICS
+
+namespace Atma
 {
     using System;
     using System.Diagnostics;
@@ -16,20 +18,20 @@
     /// </remarks>
     public struct AxisAlignedBox3 : ICloneable
     {
-        #region Fields
+#region Fields
 
         internal vec3 minVector;
         internal vec3 maxVector;
-        private vec3[] corners;// = new Vector3[8];
+        private vec3[] corners;// = new vec3[8];
         private bool isNull;
         private bool isInfinite;
 
-        #endregion
+#endregion
 
-        #region Constructors
+#region Constructors
 
         //public AxisAlignedBox3()
-        //    : this(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(0.5f, 0.5f, 0.5f))
+        //    : this(new vec3(-0.5f, -0.5f, -0.5f), new vec3(0.5f, 0.5f, 0.5f))
         //{
         //    isNull = true;
         //    isInfinite = false;
@@ -57,9 +59,9 @@
             UpdateCorners();
         }
 
-        #endregion
+#endregion
 
-        #region Public methods
+#region Public methods
 
         /// <summary>
         /// 
@@ -263,9 +265,9 @@
             }
         }
 
-        #endregion
+#endregion
 
-        #region Contain methods
+#region Contain methods
 
         /// <summary>
         /// Tests whether the given point contained by this box.
@@ -288,9 +290,9 @@
                    Minimum.z <= v.z && v.z <= Maximum.z;
         }
 
-        #endregion Contain methods
+#endregion Contain methods
 
-        #region Intersection Methods
+#region Intersection Methods
 
         /// <summary>
         ///		Returns whether or not this box intersects another.
@@ -442,9 +444,9 @@
             return new AxisAlignedBox3(intMin, intMax);
         }
 
-        #endregion Intersection Methods
+#endregion Intersection Methods
 
-        #region Properties
+#region Properties
 
         public vec3 HalfSize
         {
@@ -627,9 +629,9 @@
             }
         }
 
-        #endregion
+#endregion
 
-        #region Operator Overloads
+#region Operator Overloads
 
         public static bool operator ==(AxisAlignedBox3 left, AxisAlignedBox3 right)
         {
@@ -692,15 +694,16 @@
             return String.Format("{0}:{1}", this.minVector, this.maxVector);
         }
 
-        #endregion
+#endregion
 
-        #region ICloneable Members
+#region ICloneable Members
 
         public object Clone()
         {
             return new AxisAlignedBox3(this);
         }
 
-        #endregion
+#endregion
     }
 }
+#endif

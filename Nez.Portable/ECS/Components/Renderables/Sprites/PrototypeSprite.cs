@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Sprites;
+using Atma.Sprites;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// skewable rectangle sprite for prototyping
@@ -89,7 +90,7 @@ namespace Nez
 
         public override void onAddedToEntity()
         {
-            originNormalized = new Vector2(0.5f, 0.5f);
+            originNormalized = new vec2(0.5f, 0.5f);
         }
 
         public override void render( Graphics graphics, Camera camera )
@@ -103,3 +104,4 @@ namespace Nez
 	}
 }
 
+#endif

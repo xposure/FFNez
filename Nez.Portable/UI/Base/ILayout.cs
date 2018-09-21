@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// Provides methods for an element to participate in layout and to provide a minimum, preferred, and maximum size.

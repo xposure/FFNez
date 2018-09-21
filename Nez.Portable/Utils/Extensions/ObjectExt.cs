@@ -1,9 +1,10 @@
-﻿using System.Runtime.CompilerServices;
+#if FEATURE_UTILS
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
-using Nez.Tweens;
+using Atma.Tweens;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class ObjectExt
 	{
@@ -38,23 +39,24 @@ namespace Nez
 
 
 		/// <summary>
-		/// tweens a Vector2 field or property
+		/// tweens a vec2 field or property
 		/// </summary>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static ITween<Vector2> tween( this object self, string memberName, Vector2 to, float duration )
+		public static ITween<vec2> tween( this object self, string memberName, vec2 to, float duration )
 		{
 			return PropertyTweens.vector2PropertyTo( self, memberName, to, duration );
 		}
 
 
 		/// <summary>
-		/// tweens a Vector3 field or property
+		/// tweens a vec3 field or property
 		/// </summary>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static ITween<Vector3> tween( this object self, string memberName, Vector3 to, float duration )
+		public static ITween<vec3> tween( this object self, string memberName, vec3 to, float duration )
 		{
 			return PropertyTweens.vector3PropertyTo( self, memberName, to, duration );
 		}
 	}
 }
 
+#endif

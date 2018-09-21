@@ -1,12 +1,13 @@
-﻿using System;
-using Nez.Systems;
-using Nez.Textures;
+#if FEATURE_GRAPHICS
+using System;
+using Atma.Systems;
+using Atma.Textures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nez;
+using Atma;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// this PostProcessor expects that the layerRenderTarget is the top-most layer and that it contains 
@@ -60,3 +61,4 @@ namespace Nez
 	}
 }
 
+#endif

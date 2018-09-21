@@ -1,17 +1,18 @@
+#if FEATURE_PIPELINE
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Textures;
+using Atma.Textures;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.BitmapFonts
+namespace Atma.BitmapFonts
 {
 	public class BitmapFontReader : ContentTypeReader<BitmapFont>
 	{
 		protected override BitmapFont Read( ContentReader reader, BitmapFont existingInstance )
 		{
 			Texture2D[] textures = null;
-			Vector2[] atlasOrigins = null;
+			vec2[] atlasOrigins = null;
 
 			var hasTextures = reader.ReadBoolean();
 			if( hasTextures )
@@ -24,7 +25,7 @@ namespace Nez.BitmapFonts
 			else
 			{
 				var totalTextureNames = reader.ReadInt32();
-				atlasOrigins = new Vector2[totalTextureNames];
+				atlasOrigins = new vec2[totalTextureNames];
 				textures = new Texture2D[totalTextureNames];
 				for( var i = 0; i < totalTextureNames; i++ )
 				{
@@ -75,3 +76,4 @@ namespace Nez.BitmapFonts
 		}
 	}
 }
+#endif

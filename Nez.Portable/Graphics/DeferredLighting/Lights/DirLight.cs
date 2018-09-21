@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework;
 
 
-namespace Nez.DeferredLighting
+namespace Atma.DeferredLighting
 {
 	/// <summary>
 	/// directional light with a shortended name to avoid clashes with the XNA DirectionalLight. This light type has only a direction and is
@@ -15,7 +16,7 @@ namespace Nez.DeferredLighting
 		/// <summary>
 		/// direction of the light
 		/// </summary>
-		public Vector3 direction = new Vector3( 50, 20, 100 );
+		public vec3 direction = new vec3( 50, 20, 100 );
 
 		/// <summary>
 		/// specular intensity. 0 - 1 range
@@ -40,13 +41,13 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public DirLight( Color color, Vector3 lightDirection ) : this( color )
+		public DirLight( Color color, vec3 lightDirection ) : this( color )
 		{
 			this.direction = lightDirection;
 		}
 
 
-		public DirLight setDirection( Vector3 direction )
+		public DirLight setDirection( vec3 direction )
 		{
 			this.direction = direction;
 			return this;
@@ -74,7 +75,7 @@ namespace Nez.DeferredLighting
 		public override void debugRender( Graphics graphics )
 		{
 			// figure out a starting corner for the line
-			var root = Vector2.Zero;
+			var root = vec2.Zero;
 			if( direction.Y > 0 )
 				root.Y = 10f;
 			else
@@ -91,3 +92,4 @@ namespace Nez.DeferredLighting
 	}
 }
 
+#endif

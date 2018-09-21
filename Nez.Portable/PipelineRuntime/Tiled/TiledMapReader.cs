@@ -1,12 +1,13 @@
+#if FEATURE_PIPELINE
 using System;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Pipeline.Content;
+using Atma.Pipeline.Content;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledMapReader : ContentTypeReader<TiledMap>
 	{
@@ -21,7 +22,7 @@ namespace Nez.Tiled
 										 tileHeight: reader.ReadInt32(),
 										 orientation: (TiledMapOrientation)reader.ReadInt32() )
 			{
-				backgroundColor = backgroundColor,
+				backgroundColor = new Color(backgroundColor.PackedValue),
 				renderOrder = renderOrder
 			};
 			tiledMap.largestTileWidth = reader.ReadInt32();
@@ -265,10 +266,10 @@ namespace Nez.Tiled
 		}
 
 
-		static Vector2[] readVector2Array( ContentReader reader )
+		static vec2[] readVector2Array( ContentReader reader )
 		{
 			var pointCount = reader.ReadInt32();
-			var points = new Vector2[pointCount];
+			var points = new vec2[pointCount];
 
 			for( var i = 0; i < pointCount; i++ )
 				points[i] = reader.ReadVector2();
@@ -278,3 +279,4 @@ namespace Nez.Tiled
 
 	}
 }
+#endif

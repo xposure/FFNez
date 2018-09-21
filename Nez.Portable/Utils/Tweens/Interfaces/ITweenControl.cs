@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	/// <summary>
 	/// more specific tween playback controls here.
@@ -38,3 +39,4 @@ namespace Nez.Tweens
 	}
 }
 
+#endif

@@ -21,6 +21,37 @@ namespace Atma
     [StructLayout(LayoutKind.Sequential)]
     public struct mat4 : IReadOnlyList<float>, IEquatable<mat4>
     {
+#if DEBUG
+        public static mat4 Invert(mat4 m) => m.Inverse;
+
+        public static implicit operator Microsoft.Xna.Framework.Matrix(mat4 m) => new Microsoft.Xna.Framework.Matrix(m.Row0, m.Row1, m.Row2, m.Row3);
+        public static implicit operator mat4(Microsoft.Xna.Framework.Matrix m) => new mat4(m.M11, m.M12, m.M13,m.M14,
+                                                                                            m.M21, m.M22, m.M23, m.M24,
+                                                                                            m.M31, m.M32, m.M33, m.M34,
+                                                                                            m.M41, m.M42, m.M43, m.M44);
+
+        public float M11 { get => m00; set => m00 = value; }
+        public float M12 { get => m01; set => m01 = value; }
+        public float M13 { get => m02; set => m02 = value; }
+        public float M14 { get => m03; set => m03 = value; }
+
+        public float M21 { get => m10; set => m10 = value; }
+        public float M22 { get => m11; set => m11 = value; }
+        public float M23 { get => m12; set => m12 = value; }
+        public float M24 { get => m13; set => m13 = value; }
+
+        public float M31 { get => m20; set => m20 = value; }
+        public float M32 { get => m21; set => m21 = value; }
+        public float M33 { get => m22; set => m22 = value; }
+        public float M34 { get => m23; set => m23 = value; }
+
+        public float M41 { get => m30; set => m30 = value; }
+        public float M42 { get => m31; set => m31 = value; }
+        public float M43 { get => m33; set => m32 = value; }
+        public float M44 { get => m33; set => m33 = value; }
+
+
+#endif
 
         #region Fields
 

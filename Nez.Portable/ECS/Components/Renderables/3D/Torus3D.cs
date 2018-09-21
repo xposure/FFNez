@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class Torus3D : GeometricPrimitive3D
 	{
@@ -27,11 +28,11 @@ namespace Nez
 					var dy = (float)Math.Sin( innerAngle );
 
 					// Create a vertex. 
-					var normal = new Vector3( dx, dy, 0 );
+					var normal = new vec3( dx, dy, 0 );
 					var pos = normal * thickness / 2;
 
-					pos = Vector3.Transform( pos, vertTransform );
-					normal = Vector3.TransformNormal( normal, vertTransform );
+					pos = vec3.Transform( pos, vertTransform );
+					normal = vec3.TransformNormal( normal, vertTransform );
 
 					addVertex( pos, color, normal );
 
@@ -53,3 +54,4 @@ namespace Nez
 		}
 	}
 }
+#endif

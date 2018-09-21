@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Microsoft.Xna.Framework;
-using Nez.UI;
+using Atma.UI;
 using System;
 
-namespace Nez.UISkinImporter
+namespace Atma.UISkinImporter
 {
 	[ContentProcessor( DisplayName = "UISkin Processor" )]
 	public class UISkinProcessor : ContentProcessor<Dictionary<string, object>, UISkinConfig>

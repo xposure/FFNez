@@ -1,11 +1,12 @@
-﻿using System;
-using Nez.Textures;
+#if FEATURE_PIPELINE
+using System;
+using Atma.Textures;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledImageCollectionTileset : TiledTileset
 	{
@@ -21,3 +22,4 @@ namespace Nez.Tiled
 	}
 }
 
+#endif

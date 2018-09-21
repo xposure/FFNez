@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_UTILS
+using Microsoft.Xna.Framework;
 
-namespace Nez
+namespace Atma
 {
     public class StartEndColorValueBounds : StartEndValueBounds<Color>
     {
@@ -24,3 +25,4 @@ namespace Nez
         }
     }
 }
+#endif

@@ -1,11 +1,11 @@
 #if FEATURE_UI
 using System;
 using System.Reflection;
-using Nez.UI;
+using Atma.UI;
 
 
 #if DEBUG
-namespace Nez
+namespace Atma
 {
 	public class MethodInspector : Inspector
 	{

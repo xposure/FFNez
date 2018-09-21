@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Textures;
+using Atma.Textures;
 using Microsoft.Xna.Framework;
 using System.Runtime.CompilerServices;
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Renderers are added to a Scene and handle all of the actual calls to RenderableComponent.render and Entity.debugRender.
@@ -84,7 +85,7 @@ namespace Nez
 
 		/// <summary>
 		/// if a RenderTarget is used this will set it up. The Batcher is also started. The passed in Camera will be used to set the ViewPort
-		/// (if a ViewportAdapter is present) and for the Batcher transform Matrix.
+		/// (if a ViewportAdapter is present) and for the Batcher transform mat4.
 		/// </summary>
 		/// <param name="cam">Cam.</param>
 		protected virtual void beginRender( Camera cam )
@@ -202,3 +203,4 @@ namespace Nez
 	}
 }
 
+#endif

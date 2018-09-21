@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Textures
+namespace Atma.Textures
 {
 	public class GaussianBlur
 	{
@@ -203,3 +204,4 @@ namespace Nez.Textures
 	}
 }
 
+#endif

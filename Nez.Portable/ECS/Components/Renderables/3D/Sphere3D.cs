@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class Sphere3D : GeometricPrimitive3D
 	{
@@ -12,8 +13,8 @@ namespace Nez
 
 			var latitudeBands = tessellation;
 			var longitudeBands = tessellation * 2;
-			var normal = new Vector3();
-			var uv = new Vector3();
+			var normal = new vec3();
+			var uv = new vec3();
 
 			for( var latNumber = 0; latNumber <= latitudeBands; latNumber++ )
 			{
@@ -58,3 +59,4 @@ namespace Nez
 		}
 	}
 }
+#endif

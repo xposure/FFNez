@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// helper class illustrating one way to handle movement taking into account all Collisions including triggers. The ITriggerListener
@@ -26,7 +27,7 @@ namespace Nez
 		/// <returns><c>true</c>, if move actor was newed, <c>false</c> otherwise.</returns>
 		/// <param name="motion">Motion.</param>
 		/// <param name="collisionResult">Collision result.</param>
-		public bool move( Vector2 motion, out CollisionResult collisionResult )
+		public bool move( vec2 motion, out CollisionResult collisionResult )
 		{
 			collisionResult = new CollisionResult();
 
@@ -80,3 +81,4 @@ namespace Nez
 	}
 }
 
+#endif

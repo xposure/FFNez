@@ -1,13 +1,13 @@
 #if FEATURE_UI
 using System;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 using Microsoft.Xna.Framework;
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// A single-line text input field.
@@ -120,7 +120,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			if( disabled )
 				return false;
@@ -137,7 +137,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{
 			if( distanceOutsideBoundsToPoint( mousePos ) > textFieldBoundaryThreshold )
 			{
@@ -151,7 +151,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{
 			if( selectionStart == cursor )
 				hasSelection = false;
@@ -603,7 +603,7 @@ namespace Nez.UI
 				{
 					var messageFontColor = style.messageFontColor.HasValue ? style.messageFontColor.Value : new Color( 180, 180, 180, (int)(color.A * parentAlpha) );
 					var messageFont = style.messageFont != null ? style.messageFont : font;
-					graphics.batcher.drawString( messageFont, messageText, new Vector2( x + bgLeftWidth, y + textY + yOffset ), messageFontColor );
+					graphics.batcher.drawString( messageFont, messageText, new vec2( x + bgLeftWidth, y + textY + yOffset ), messageFontColor );
 					//messageFont.draw( graphics.batcher, messageText, x + bgLeftWidth, y + textY + yOffset, 0, messageText.length(),
 					//	width - bgLeftWidth - bgRightWidth, textHAlign, false, "..." );
 				}
@@ -612,7 +612,7 @@ namespace Nez.UI
 			{
 				var col = new Color( fontColor, (int)(fontColor.A * parentAlpha) );
 				var t = displayText.Substring( visibleTextStart, visibleTextEnd - visibleTextStart );
-				graphics.batcher.drawString( font, t, new Vector2( x + bgLeftWidth + textOffset, y + textY + yOffset ), col );
+				graphics.batcher.drawString( font, t, new vec2( x + bgLeftWidth + textOffset, y + textY + yOffset ), col );
 			}
 
 			if( _isFocused && !disabled )
@@ -853,16 +853,16 @@ namespace Nez.UI
 			if( stage == null )
 				return;
 
-			var tmp2 = Vector2.Zero;
-			var tmp1 = getParent().localToStageCoordinates( new Vector2( getX(), getY() ) );
+			var tmp2 = vec2.Zero;
+			var tmp1 = getParent().localToStageCoordinates( new vec2( getX(), getY() ) );
 			var textField = findNextTextField( stage.getElements(), null, tmp2, tmp1, up );
 			if( textField == null )
 			{
 				// Try to wrap around.
 				if( up )
-					tmp1 = new Vector2( float.MinValue, float.MinValue );
+					tmp1 = new vec2( float.MinValue, float.MinValue );
 				else
-					tmp1 = new Vector2( float.MaxValue, float.MaxValue );
+					tmp1 = new vec2( float.MaxValue, float.MaxValue );
 				textField = findNextTextField( getStage().getElements(), null, tmp2, tmp1, up );
 			}
 
@@ -871,9 +871,9 @@ namespace Nez.UI
 		}
 
 
-		TextField findNextTextField( List<Element> elements, TextField best, Vector2 bestCoords, Vector2 currentCoords, bool up )
+		TextField findNextTextField( List<Element> elements, TextField best, vec2 bestCoords, vec2 currentCoords, bool up )
 		{
-			bestCoords = Vector2.Zero;
+			bestCoords = vec2.Zero;
 			for( int i = 0, n = elements.Count; i < n; i++ )
 			{
 				var element = elements[i];
@@ -886,7 +886,7 @@ namespace Nez.UI
 					if( textField.isDisabled() || !textField.focusTraversal )
 						continue;
 					
-					var elementCoords = element.getParent().localToStageCoordinates( new Vector2( element.getX(), element.getY() ) );
+					var elementCoords = element.getParent().localToStageCoordinates( new vec2( element.getX(), element.getY() ) );
 					if( ( elementCoords.Y < currentCoords.Y || ( elementCoords.Y == currentCoords.Y && elementCoords.X > currentCoords.X ) ) ^ up )
 					{
 						if( best == null

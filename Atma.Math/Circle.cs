@@ -1,4 +1,6 @@
-﻿#region LGPL License
+﻿#if ATMA_PHYSICS
+
+#region LGPL License
 
 /*
 Axiom Graphics Engine Library
@@ -58,14 +60,14 @@ namespace Atma
     /// </remarks>
     public sealed class Circle
     {
-        #region Protected member variables
+#region Protected member variables
 
         private float radius;
         private vec2 center;
 
-        #endregion
+#endregion
 
-        #region Constructors
+#region Constructors
 
         /// <summary>
         ///		Creates a unit Circle centered at the origin.
@@ -87,9 +89,9 @@ namespace Atma
             this.radius = radius;
         }
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         /// <summary>
         ///		Gets/Sets the center of the Circle.
@@ -101,9 +103,9 @@ namespace Atma
         /// </summary>
         public float Radius { get { return radius; } set { radius = value; } }
 
-        #endregion
+#endregion
 
-        #region Intersection methods
+#region Intersection methods
 
         public static bool operator ==(Circle sphere1, Circle sphere2)
         {
@@ -163,7 +165,7 @@ namespace Atma
         //}
 
         /// <summary>
-        ///		Returns whether or not this Circle interects a Vector2.
+        ///		Returns whether or not this Circle interects a vec2.
         /// </summary>
         /// <param name="vector"></param>
         /// <returns>True if the vector intersects, false otherwise.</returns>
@@ -172,6 +174,7 @@ namespace Atma
             return (vector - center).Length <= radius;
         }
 
-        #endregion Intersection methods
+#endregion Intersection methods
     }
 }
+#endif

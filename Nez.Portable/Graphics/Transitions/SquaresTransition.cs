@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
-using Nez.Tweens;
+using Atma.Tweens;
 using System.Collections;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// builds up a cover of squares then removes them
@@ -18,7 +19,7 @@ namespace Nez
 		/// <value>The color of the square.</value>
 		public Color squareColor
 		{
-			set { _squaresEffect.Parameters["_color"].SetValue( value.ToVector4() ); }
+			set { _squaresEffect.Parameters["_color"].SetValue( value ); }
 		}
 
 		public float smoothness
@@ -30,7 +31,7 @@ namespace Nez
 		/// size of the squares. If you want perfect squares use size, size / aspectRatio_of_screen
 		/// </summary>
 		/// <value>The size.</value>
-		public Vector2 size
+		public vec2 size
 		{
 			set { _squaresEffect.Parameters["_size"].SetValue( value ); }
 		}
@@ -70,7 +71,7 @@ namespace Nez
 			smoothness = 0.5f;
 
 			var aspectRatio = (float)Screen.width / (float)Screen.height;
-			size = new Vector2( 30, 30 / aspectRatio );
+			size = new vec2( 30, 30 / aspectRatio );
 		}
 
 
@@ -123,3 +124,4 @@ namespace Nez
 	}
 }
 
+#endif

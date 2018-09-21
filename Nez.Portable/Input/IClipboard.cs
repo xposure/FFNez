@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_INPUT
+using System;
 
 
-namespace Nez
+namespace Atma
 {
 	public interface IClipboard
 	{
@@ -10,3 +11,4 @@ namespace Nez
 	}
 }
 
+#endif

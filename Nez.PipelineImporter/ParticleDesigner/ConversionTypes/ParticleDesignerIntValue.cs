@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 
 
-namespace Nez.ParticleDesignerImporter
+namespace Atma.ParticleDesignerImporter
 {
 	public class ParticleDesignerIntValue
 	{

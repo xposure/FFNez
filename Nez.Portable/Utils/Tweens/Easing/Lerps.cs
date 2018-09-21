@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_UTILS
+using Microsoft.Xna.Framework;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	/// <summary>
 	/// series of static methods to handle all common tween type structs along with unclamped lerps for them.
@@ -48,36 +49,36 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector2 lerp( Vector2 from, Vector2 to, float t )
+		public static vec2 lerp( vec2 from, vec2 to, float t )
 		{
-			return new Vector2( from.X + ( to.X - from.X ) * t, from.Y + ( to.Y - from.Y ) * t );
+			return new vec2( from.X + ( to.X - from.X ) * t, from.Y + ( to.Y - from.Y ) * t );
 		}
 
 
 		// remainingFactorPerSecond is the percentage of the distance it covers every second. should be between 0 and 1.
 		// if it's 0.25 it means it covers 75% of the remaining distance every second independent of the framerate
-		public static Vector2 lerpTowards( Vector2 from, Vector2 to, float remainingFactorPerSecond, float deltaTime )
+		public static vec2 lerpTowards( vec2 from, vec2 to, float remainingFactorPerSecond, float deltaTime )
 		{
 			return lerp( from, to, 1f - Mathf.pow( remainingFactorPerSecond, deltaTime ) );
 		}
 
 
-		public static Vector3 lerp( Vector3 from, Vector3 to, float t )
+		public static vec3 lerp( vec3 from, vec3 to, float t )
 		{
-			return new Vector3( from.X + ( to.X - from.X ) * t, from.Y + ( to.Y - from.Y ) * t, from.Z + ( to.Z - from.Z ) * t );
+			return new vec3( from.X + ( to.X - from.X ) * t, from.Y + ( to.Y - from.Y ) * t, from.Z + ( to.Z - from.Z ) * t );
 		}
 
 
 		// remainingFactorPerSecond is the percentage of the distance it covers every second. should be between 0 and 1.
 		// if it's 0.25 it means it covers 75% of the remaining distance every second independent of the framerate
-		public static Vector3 lerpTowards( Vector3 from, Vector3 to, float remainingFactorPerSecond, float deltaTime )
+		public static vec3 lerpTowards( vec3 from, vec3 to, float remainingFactorPerSecond, float deltaTime )
 		{
 			return lerp( from, to, 1f - Mathf.pow( remainingFactorPerSecond, deltaTime ) );
 		}
 
 
 		// a different variant that requires the target details to calculate the lerp
-		public static Vector3 lerpTowards( Vector3 followerCurrentPosition, Vector3 targetPreviousPosition, Vector3 targetCurrentPosition, float smoothFactor, float deltaTime )
+		public static vec3 lerpTowards( vec3 followerCurrentPosition, vec3 targetPreviousPosition, vec3 targetCurrentPosition, float smoothFactor, float deltaTime )
 		{
 			var targetDiff = targetCurrentPosition - targetPreviousPosition;
 			var temp = followerCurrentPosition - targetPreviousPosition + targetDiff / ( smoothFactor * deltaTime );
@@ -85,11 +86,11 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector2 angleLerp( Vector2 from, Vector2 to, float t )
+		public static vec2 angleLerp( vec2 from, vec2 to, float t )
 		{
 			// we calculate the shortest difference between the angles for this lerp
-			var toMinusFrom = new Vector2( Mathf.deltaAngle( from.X, to.X ), Mathf.deltaAngle( from.Y, to.Y ) );
-			return new Vector2( from.X + toMinusFrom.X * t, from.Y + toMinusFrom.Y * t );
+			var toMinusFrom = new vec2( Mathf.deltaAngle( from.X, to.X ), Mathf.deltaAngle( from.Y, to.Y ) );
+			return new vec2( from.X + toMinusFrom.X * t, from.Y + toMinusFrom.Y * t );
 		}
 
 
@@ -147,19 +148,19 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector2 ease( EaseType easeType, Vector2 from, Vector2 to, float t, float duration )
+		public static vec2 ease( EaseType easeType, vec2 from, vec2 to, float t, float duration )
 		{
 			return lerp( from, to, EaseHelper.ease( easeType, t, duration ) );
 		}
 
 
-		public static Vector3 ease( EaseType easeType, Vector3 from, Vector3 to, float t, float duration )
+		public static vec3 ease( EaseType easeType, vec3 from, vec3 to, float t, float duration )
 		{
 			return lerp( from, to, EaseHelper.ease( easeType, t, duration ) );
 		}
 
 
-		public static Vector2 easeAngle( EaseType easeType, Vector2 from, Vector2 to, float t, float duration )
+		public static vec2 easeAngle( EaseType easeType, vec2 from, vec2 to, float t, float duration )
 		{
 			return angleLerp( from, to, EaseHelper.ease( easeType, t, duration ) );
 		}
@@ -267,7 +268,7 @@ namespace Nez.Tweens
 		/// should be between 0.01f, 1f to avoid unstable systems.</param>
 		/// <param name="angularFrequency">An angular frequency of 2pi (radians per second) means the oscillation completes one
 		/// full period over one second, i.e. 1Hz. should be less than 35 or so to remain stable</param>
-		public static Vector2 fastSpring( Vector2 currentValue, Vector2 targetValue, ref Vector2 velocity, float dampingRatio, float angularFrequency )
+		public static vec2 fastSpring( vec2 currentValue, vec2 targetValue, ref vec2 velocity, float dampingRatio, float angularFrequency )
 		{
 			velocity += -2.0f * Time.deltaTime * dampingRatio * angularFrequency * velocity + Time.deltaTime * angularFrequency * angularFrequency * ( targetValue - currentValue );
 			currentValue += Time.deltaTime * velocity;
@@ -288,7 +289,7 @@ namespace Nez.Tweens
 		/// should be between 0.01f, 1f to avoid unstable systems.</param>
 		/// <param name="angularFrequency">An angular frequency of 2pi (radians per second) means the oscillation completes one
 		/// full period over one second, i.e. 1Hz. should be less than 35 or so to remain stable</param>
-		public static Vector2 stableSpring( Vector2 currentValue, Vector2 targetValue, ref Vector2 velocity, float dampingRatio, float angularFrequency )
+		public static vec2 stableSpring( vec2 currentValue, vec2 targetValue, ref vec2 velocity, float dampingRatio, float angularFrequency )
 		{
 			var f = 1f + 2f * Time.deltaTime * dampingRatio * angularFrequency;
 			var oo = angularFrequency * angularFrequency;
@@ -308,3 +309,4 @@ namespace Nez.Tweens
 
 	}
 }
+#endif

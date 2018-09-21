@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
 
-namespace Nez.Overlap2D.Runtime
+namespace Atma.Overlap2D.Runtime
 {
 	public class MainItemVO
 	{

@@ -1,13 +1,14 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Nez.Console;
+using Atma.Console;
 
 
-namespace Nez.Analysis
+namespace Atma.Analysis
 {
 	//#if DEBUG
 
@@ -258,7 +259,7 @@ namespace Nez.Analysis
 
 
 		// TimerRuler draw position.
-		Vector2 _position;
+		vec2 _position;
 
 		#endregion
 
@@ -290,8 +291,8 @@ namespace Nez.Analysis
 		void onGraphicsDeviceReset()
 		{
 			var layout = new Layout( Core.graphicsDevice.Viewport );
-            _position = layout.place( new Vector2( width, barHeight ), 0, 0.075f, Alignment.TopCenter );
-            //_position = new Vector2(0, 50);// layout.place( new Vector2( width, barHeight ), 0, 0.05f, Alignment.TopCenter );
+            _position = layout.place( new vec2( width, barHeight ), 0, 0.075f, Alignment.TopCenter );
+            //_position = new vec2(0, 50);// layout.place( new vec2( width, barHeight ), 0, 0.05f, Alignment.TopCenter );
 		}
 
 
@@ -581,7 +582,7 @@ namespace Nez.Analysis
 
 
 		[Conditional( "DEBUG" )]
-		public void render( Vector2 position, int width )
+		public void render( vec2 position, int width )
 		{
 			// Reset update count.
 			Interlocked.Exchange( ref updateCount, 0 );
@@ -710,7 +711,7 @@ namespace Nez.Analysis
 			batcher.drawRect( rc, new Color( 0, 0, 0, 128 ) );
 
 			// Draw log string.
-			batcher.drawString( font, logString, new Vector2( position.X + 22, y + 3 ), Color.White );
+			batcher.drawString( font, logString, new vec2( position.X + 22, y + 3 ), Color.White );
 
 
 			// Draw log color boxes.
@@ -743,3 +744,4 @@ namespace Nez.Analysis
 
 	//#endif
 }
+#endif

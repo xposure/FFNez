@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Nez.AI.Pathfinding
+namespace Atma.AI.Pathfinding
 {
 	/// <summary>
 	/// interface for a graph that can be fed to the DijkstraPathfinder.search method

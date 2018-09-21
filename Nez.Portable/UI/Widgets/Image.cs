@@ -2,10 +2,10 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Textures;
+using Atma.Textures;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class Image : Element
 	{

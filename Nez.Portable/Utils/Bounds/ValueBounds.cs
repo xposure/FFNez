@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_UTILS
+namespace Atma
 {
     public class ValueBounds<T>
     {
@@ -30,3 +31,4 @@
         }
     }
 }
+#endif

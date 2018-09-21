@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// draws the sprite with just vertical or horizonal lines of the specified color. The effect works in screen space.
@@ -19,7 +20,7 @@ namespace Nez
 			get { return new Color( _lineColor ); }
 			set
 			{
-				var blinkVec = value.ToVector4();
+				var blinkVec = value;
 				if( _lineColor != blinkVec )
 				{
 					_lineColor = blinkVec;
@@ -81,3 +82,4 @@ namespace Nez
 	}
 }
 
+#endif

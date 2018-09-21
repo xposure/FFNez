@@ -1,4 +1,6 @@
-﻿#region LGPL License
+﻿#if ATMA_PHYSICS
+
+#region LGPL License
 
 /*
 Axiom Graphics Engine Library
@@ -78,7 +80,7 @@ namespace Atma
     [StructLayout(LayoutKind.Sequential)]
     public struct Plane
     {
-        #region Fields
+#region Fields
 
         /// <summary>
         ///		Distance from the origin.
@@ -93,13 +95,13 @@ namespace Atma
         private static readonly Plane nullPlane = new Plane(vec3.Zero, 0);
         public static Plane Null { get { return nullPlane; } }
 
-        #endregion Fields
+#endregion Fields
 
-        #region Constructors
+#region Constructors
 
         //public Plane()
         //{
-        //    this.Normal = Vector3.Zero;
+        //    this.Normal = vec3.Zero;
         //    this.D = float.NaN;
         //}
 
@@ -141,9 +143,9 @@ namespace Atma
             this.D = -vec3.Dot(this.Normal, point0);
         }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         /// <summary>
         /// 
@@ -284,9 +286,9 @@ namespace Atma
             return xform * point;
         }
 
-        #endregion Methods
+#endregion Methods
 
-        #region Object overrides
+#region Object overrides
 
         /// <summary>
         ///		Object method for testing equality.
@@ -316,9 +318,9 @@ namespace Atma
             return string.Format("Distance: {0} Normal: {1}", this.D, this.Normal);
         }
 
-        #endregion
+#endregion
 
-        #region Operator Overloads
+#region Operator Overloads
 
         /// <summary>
         ///		Compares 2 Planes for equality.
@@ -366,6 +368,7 @@ namespace Atma
             return (left.D != right.D) || (left.Normal != right.Normal);
         }
 
-        #endregion
+#endregion
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_MATH
+namespace Atma
 {
 	/// <summary>
 	/// simple helper class that manages a float value. It stores the value until the total accumulated is greater than 1. Once it exceeds
@@ -43,3 +44,4 @@
 
 	}
 }
+#endif

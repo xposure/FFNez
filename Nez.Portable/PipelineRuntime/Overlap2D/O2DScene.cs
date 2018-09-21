@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Overlap2D
+namespace Atma.Overlap2D
 {
 	public class O2DScene
 	{
@@ -19,3 +20,4 @@ namespace Nez.Overlap2D
 	}
 }
 
+#endif

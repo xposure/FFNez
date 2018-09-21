@@ -1,11 +1,11 @@
 #if FEATURE_UI
 using System;
-using Nez.UI;
+using Atma.UI;
 using System.Collections.Generic;
 
 
 #if DEBUG
-namespace Nez
+namespace Atma
 {
 	public class EnumInspector : Inspector
 	{

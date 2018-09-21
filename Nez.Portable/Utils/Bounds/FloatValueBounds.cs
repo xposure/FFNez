@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_UTILS
+namespace Atma
 {
     public class FloatValueBounds : ValueBounds<float>
     {
@@ -23,3 +24,4 @@
         }
     }
 }
+#endif

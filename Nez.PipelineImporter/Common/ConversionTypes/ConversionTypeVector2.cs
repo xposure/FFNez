@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 
 
-namespace Nez.ConversionTypes
+namespace Atma.ConversionTypes
 {
     public class ConversionTypeVector2
     {
@@ -12,9 +12,9 @@ namespace Nez.ConversionTypes
         [XmlAttribute] [JsonProperty] public float y;
 
 
-        public static implicit operator Vector2(ConversionTypeVector2 pdvec)
+        public static implicit operator vec2(ConversionTypeVector2 pdvec)
         {
-            return new Vector2(pdvec.x, pdvec.y);
+            return new vec2(pdvec.x, pdvec.y);
         }
     }
 }

@@ -1,4 +1,5 @@
-namespace Nez.Tiled
+#if FEATURE_PIPELINE
+namespace Atma.Tiled
 {
     public enum TiledRenderOrder
     {
@@ -8,3 +9,4 @@ namespace Nez.Tiled
         LeftUp
     }
 }
+#endif

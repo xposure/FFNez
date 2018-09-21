@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_PHYSICS
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Nez.Spatial;
+using Atma.Spatial;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class Physics
 	{
@@ -17,7 +18,7 @@ namespace Nez
 		/// <summary>
 		/// convenience field for storing a gravity value globally 
 		/// </summary>
-		public static Vector2 gravity = new Vector2( 0, 300f );
+		public static vec2 gravity = new vec2( 0, 300f );
 
 		/// <summary>
 		/// cell size used when reset is called and a new SpatialHash is created
@@ -125,7 +126,7 @@ namespace Nez
 		/// <param name="start">Start.</param>
 		/// <param name="end">End.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public static RaycastHit linecast( Vector2 start, Vector2 end, int layerMask = allLayers )
+		public static RaycastHit linecast( vec2 start, vec2 end, int layerMask = allLayers )
 		{
 			// cleanse the collider before proceeding
 			_hitArray[0].reset();
@@ -142,7 +143,7 @@ namespace Nez
 		/// <param name="end">End.</param>
 		/// <param name="hits">Hits.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public static int linecastAll( Vector2 start, Vector2 end, RaycastHit[] hits, int layerMask = allLayers )
+		public static int linecastAll( vec2 start, vec2 end, RaycastHit[] hits, int layerMask = allLayers )
 		{
 			Assert.isFalse( hits.Length == 0, "An empty hits array was passed in. No hits will ever be returned." );
 			return _spatialHash.linecast( start, end, hits, layerMask );
@@ -196,7 +197,7 @@ namespace Nez
 		/// <param name="center">Center.</param>
 		/// <param name="radius">Radius.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public static Collider overlapCircle( Vector2 center, float radius, int layerMask = allLayers )
+		public static Collider overlapCircle( vec2 center, float radius, int layerMask = allLayers )
 		{
 			_colliderArray[0] = null;
 			_spatialHash.overlapCircle( center, radius, _colliderArray, layerMask );
@@ -212,7 +213,7 @@ namespace Nez
 		/// <param name="radius">Radius.</param>
 		/// <param name="results">Results.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public static int overlapCircleAll( Vector2 center, float radius, Collider[] results, int layerMask = allLayers )
+		public static int overlapCircleAll( vec2 center, float radius, Collider[] results, int layerMask = allLayers )
 		{
 			Assert.isFalse( results.Length == 0, "An empty results array was passed in. No results will ever be returned." );
 			return _spatialHash.overlapCircle( center, radius, results, layerMask );
@@ -288,3 +289,4 @@ namespace Nez
 	}
 }
 
+#endif

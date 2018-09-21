@@ -1,4 +1,6 @@
-﻿namespace Atma
+﻿#if ATMA_PHYSICS
+
+namespace Atma
 {
     public struct LineSegment
     {
@@ -161,3 +163,4 @@
         }
     }
 }
+#endif

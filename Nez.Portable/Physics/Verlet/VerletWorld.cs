@@ -1,9 +1,10 @@
+#if FEATURE_PHYSICS
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
-using Nez.PhysicsShapes;
+using Atma.PhysicsShapes;
 
 
-namespace Nez.Verlet
+namespace Atma.Verlet
 {
 	/// <summary>
 	/// the root of the Verlet simulation. Create a World and call its update method each frame.
@@ -13,7 +14,7 @@ namespace Nez.Verlet
 		/// <summary>
 		/// gravity for the simulation
 		/// </summary>
-		public Vector2 gravity = new Vector2( 0, 980f );
+		public vec2 gravity = new vec2( 0, 980f );
 
 		/// <summary>
 		/// number of iterations that will be used for Constraint solving
@@ -242,7 +243,7 @@ namespace Nez.Verlet
 		/// <returns>The nearest particle.</returns>
 		/// <param name="position">Position.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public Particle getNearestParticle( Vector2 position )
+		public Particle getNearestParticle( vec2 position )
 		{
 			// less than 64 and we count it
 			var nearestSquaredDistance = selectionRadiusSquared;
@@ -255,7 +256,7 @@ namespace Nez.Verlet
 				for( var i = 0; i < particles.length; i++ )
 				{
 					var p = particles.buffer[i];
-					var squaredDistanceToParticle = Vector2.DistanceSquared( p.position, position );
+					var squaredDistanceToParticle = vec2.DistanceSquared( p.position, position );
 					if( squaredDistanceToParticle <= selectionRadiusSquared && ( particle == null || squaredDistanceToParticle < nearestSquaredDistance ) )
 					{
 						particle = p;
@@ -291,3 +292,4 @@ namespace Nez.Verlet
 
 	}
 }
+#endif

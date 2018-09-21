@@ -3,7 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class SplitPane : Group, IInputListener
 	{
@@ -46,8 +46,8 @@ namespace Nez.UI
 		RectangleF _handleBounds;
 
 		bool _vertical;
-		Vector2 _lastPoint;
-		Vector2 _handlePosition;
+		vec2 _lastPoint;
+		vec2 _handlePosition;
 
 
 		public SplitPane( Element firstWidget, Element secondWidget, SplitPaneStyle style, bool vertical = false )
@@ -81,7 +81,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			if( _handleBounds.contains( mousePos ) )
 			{
@@ -93,7 +93,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{
 			if( _vertical )
 			{
@@ -125,7 +125,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{
 		}
 

@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// utility methods that don't yet have a proper home that makes sense
@@ -40,22 +41,23 @@ namespace Nez
 		/// <summary>
 		/// converts a direction to a screen-space vector
 		/// </summary>
-		public static Vector2 directionToVector( Direction direction )
+		public static vec2 directionToVector( Direction direction )
 		{
 			switch (direction) {
                 case Direction.Up:
-                    return new Vector2(0, -1);
+                    return new vec2(0, -1);
                 case Direction.Right:
-                    return new Vector2(1, 0);
+                    return new vec2(1, 0);
                 case Direction.Down:
-                    return new Vector2(0, 1);
+                    return new vec2(0, 1);
                 case Direction.Left:
-                    return new Vector2(-1, 0);
+                    return new vec2(-1, 0);
                 default:
-                    return Vector2.Zero;
+                    return vec2.Zero;
             }
 		}
 
 	}
 }
 
+#endif

@@ -1,9 +1,9 @@
 #if FEATURE_UI
 using System;
 using System.Collections.Generic;
-using Nez.Tweens;
+using Atma.Tweens;
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class TooltipManager
 	{

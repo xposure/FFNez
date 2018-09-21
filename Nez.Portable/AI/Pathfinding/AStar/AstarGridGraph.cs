@@ -2,10 +2,10 @@
 using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Nez.Tiled;
+using Atma.Tiled;
 
 
-namespace Nez.AI.Pathfinding
+namespace Atma.AI.Pathfinding
 {
 	/// <summary>
 	/// basic static grid graph for use with A*. Add walls to the walls HashSet and weighted nodes to the weightedNodes HashSet. This provides

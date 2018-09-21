@@ -1,10 +1,10 @@
 #if FEATURE_UI
-using Nez.UI;
+using Atma.UI;
 using System.Globalization;
 
 
 #if DEBUG
-namespace Nez
+namespace Atma
 {
 	public class FloatInspector : Inspector
 	{

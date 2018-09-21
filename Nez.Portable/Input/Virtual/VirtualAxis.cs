@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+#if FEATURE_INPUT
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// A virtual input represented as a float between -1 and 1
@@ -275,3 +276,4 @@ namespace Nez
 	}
 }
 
+#endif

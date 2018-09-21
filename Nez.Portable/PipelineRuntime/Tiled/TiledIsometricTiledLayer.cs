@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledIsometricTiledLayer : TiledLayer
 	{
@@ -56,7 +57,7 @@ namespace Nez.Tiled
 		}
 
 
-		public override void draw( Batcher batcher, Vector2 position, float layerDepth, RectangleF cameraClipBounds )
+		public override void draw( Batcher batcher, vec2 position, float layerDepth, RectangleF cameraClipBounds )
 		{
 			// offset render position by the layer offset, used for isometric layer depth
 			position += offset;
@@ -67,8 +68,8 @@ namespace Nez.Tiled
 			{
 				// we expand our cameraClipBounds by the excess tile width/height of the largest tiles to ensure we include tiles whose
 				// origin might be outside of the cameraClipBounds
-				cameraClipBounds.location -= new Vector2( tiledMap.largestTileWidth, tiledMap.largestTileHeight - tiledMap.tileHeight );
-				cameraClipBounds.size += new Vector2( tiledMap.largestTileWidth, tiledMap.largestTileHeight - tiledMap.tileHeight );
+				cameraClipBounds.location -= new vec2( tiledMap.largestTileWidth, tiledMap.largestTileHeight - tiledMap.tileHeight );
+				cameraClipBounds.size += new vec2( tiledMap.largestTileWidth, tiledMap.largestTileHeight - tiledMap.tileHeight );
 			}
 
 			Point min, max;
@@ -104,7 +105,7 @@ namespace Nez.Tiled
 		}
 
 
-		public void drawTile( Batcher batcher, Vector2 position, float layerDepth, int x, int y, float scale )
+		public void drawTile( Batcher batcher, vec2 position, float layerDepth, int x, int y, float scale )
 		{
 			var tile = getTile( x, y );
 			if( tile == null )
@@ -158,9 +159,9 @@ namespace Nez.Tiled
 				t.Y += ( tiledMap.tileHeight - tileRegion.sourceRect.Height );
 
             // Scale the tile's relative position, but not the origin
-            t = t * new Vector2(scale) + position;
+            t = t * new vec2(scale) + position;
 
-			batcher.draw( tileRegion.texture2D, t, tileRegion.sourceRect, color, rotation, Vector2.Zero, scale, spriteEffects, layerDepth );
+			batcher.draw( tileRegion.texture2D, t, tileRegion.sourceRect, color, rotation, vec2.Zero, scale, spriteEffects, layerDepth );
 		}
 
 
@@ -231,13 +232,13 @@ namespace Nez.Tiled
 
 
 		/// <summary>
-		/// note that world position assumes that the Vector2 was normalized to be in the tilemaps coordinates. i.e. if the tilemap
+		/// note that world position assumes that the vec2 was normalized to be in the tilemaps coordinates. i.e. if the tilemap
 		/// is not at 0,0 then the world position should be moved so that it takes into consideration the tilemap offset from 0,0.
 		/// Example: if the tilemap is at 300,300 then the passed in value should be worldPos - (300,300)
 		/// </summary>
 		/// <returns>The tile at world position.</returns>
 		/// <param name="pos">Position.</param>
-		public TiledTile getTileAtWorldPosition( Vector2 pos )
+		public TiledTile getTileAtWorldPosition( vec2 pos )
 		{
 			Point tilePos = tiledMap.isometricWorldToTilePosition( pos );
 			return getTile( tilePos.X, tilePos.Y );
@@ -366,7 +367,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <param name="start">Start.</param>
 		/// <param name="end">End.</param>
-		public TiledTile linecast( Vector2 start, Vector2 end )
+		public TiledTile linecast( vec2 start, vec2 end )
 		{
 			var direction = end - start;
 
@@ -436,3 +437,4 @@ namespace Nez.Tiled
 
 	}
 }
+#endif

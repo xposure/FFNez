@@ -1,7 +1,8 @@
+#if FEATURE_PHYSICS
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// helper class used by the Movers to manage trigger colliders interactions and calling ITriggerListeners.
@@ -120,3 +121,4 @@ namespace Nez
 	}
 }
 
+#endif

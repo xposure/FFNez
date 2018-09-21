@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_GRAPHICS
+namespace Atma
 {
 	public class PaletteCyclerMaterial : Material<PaletteCyclerEffect>
 	{
@@ -16,3 +17,4 @@
 	}
 }
 
+#endif

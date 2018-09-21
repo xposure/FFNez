@@ -1,3 +1,4 @@
+#if FEATURE_PIPELINE
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Pipeline.Content
+namespace Atma.Pipeline.Content
 {
 	internal static class ContentReaderExtensions
 	{
@@ -41,3 +42,4 @@ namespace Nez.Pipeline.Content
 		}
 	}
 }
+#endif

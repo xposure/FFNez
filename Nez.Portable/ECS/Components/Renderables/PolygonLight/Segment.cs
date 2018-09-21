@@ -1,4 +1,5 @@
-﻿namespace Nez.Shadows
+#if FEATURE_ESC
+namespace Atma.Shadows
 {
 	/// <summary>
 	/// Represents an occluding line segment in the visibility mesh
@@ -47,3 +48,4 @@
 		}
 	}
 }
+#endif

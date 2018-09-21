@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
-using Nez.ConversionTypes;
+using Atma.ConversionTypes;
 
-namespace Nez.PipelineImporter.FufParticle
+namespace Atma.PipelineImporter.FufParticle
 {
     public class FufParticleCreatorEmitterConfig
     {

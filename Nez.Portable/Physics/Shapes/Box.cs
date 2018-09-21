@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_PHYSICS
+using Microsoft.Xna.Framework;
 
 
-namespace Nez.PhysicsShapes
+namespace Atma.PhysicsShapes
 {
 	/// <summary>
 	/// special case of a Polygon. When doing SAT collision checks we only need to check 2 axes instead of 8
@@ -26,17 +27,17 @@ namespace Nez.PhysicsShapes
 		/// <returns>The box.</returns>
 		/// <param name="width">Width.</param>
 		/// <param name="height">Height.</param>
-		static Vector2[] buildBox( float width, float height )
+		static vec2[] buildBox( float width, float height )
 		{
 			// we create our points around a center of 0,0
 			var halfWidth = width / 2;
 			var halfHeight = height / 2;
-			var verts = new Vector2[4];
+			var verts = new vec2[4];
 
-			verts[0] = new Vector2( -halfWidth, -halfHeight );
-			verts[1] = new Vector2( halfWidth, -halfHeight );
-			verts[2] = new Vector2( halfWidth, halfHeight );
-			verts[3] = new Vector2( -halfWidth, halfHeight );
+			verts[0] = new vec2( -halfWidth, -halfHeight );
+			verts[1] = new vec2( halfWidth, -halfHeight );
+			verts[2] = new vec2( halfWidth, halfHeight );
+			verts[3] = new vec2( -halfWidth, halfHeight );
 
 			return verts;
 		}
@@ -56,10 +57,10 @@ namespace Nez.PhysicsShapes
 			var halfWidth = width / 2;
 			var halfHeight = height / 2;
 
-			points[0] = new Vector2( -halfWidth, -halfHeight );
-			points[1] = new Vector2( halfWidth, -halfHeight );
-			points[2] = new Vector2( halfWidth, halfHeight );
-			points[3] = new Vector2( -halfWidth, halfHeight );
+			points[0] = new vec2( -halfWidth, -halfHeight );
+			points[1] = new vec2( halfWidth, -halfHeight );
+			points[2] = new vec2( halfWidth, halfHeight );
+			points[3] = new vec2( -halfWidth, halfHeight );
 
 			for( var i = 0; i < points.Length; i++ )
 				_originalPoints[i] = points[i];
@@ -99,7 +100,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public override bool containsPoint( Vector2 point )
+		public override bool containsPoint( vec2 point )
 		{
 			if( isUnrotated )
 				return bounds.contains( point );
@@ -108,7 +109,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public override bool pointCollidesWithShape( Vector2 point, out CollisionResult result )
+		public override bool pointCollidesWithShape( vec2 point, out CollisionResult result )
 		{
 			if( isUnrotated )
 				return ShapeCollisions.pointToBox( point, this, out result );
@@ -121,3 +122,4 @@ namespace Nez.PhysicsShapes
 	}
 }
 
+#endif

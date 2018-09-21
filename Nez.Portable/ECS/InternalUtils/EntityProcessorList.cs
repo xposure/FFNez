@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	public class EntityProcessorList
 	{
@@ -96,3 +97,4 @@ namespace Nez
 	}
 }
 
+#endif

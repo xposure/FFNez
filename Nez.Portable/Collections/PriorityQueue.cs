@@ -1,5 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-using Nez;
+#if FEATURE_UTILS
+using System.Runtime.CompilerServices;
+using Atma;
 
 
 // sourced from: https://github.com/BlueRaja/High-Speed-Priority-Queue-for-C-Sharp
@@ -356,3 +357,4 @@ namespace System.Collections.Generic
 	
 	}
 }
+#endif

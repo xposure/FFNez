@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// displays textual items and highlights the currently selected item
@@ -80,7 +80,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			if( _selection.isDisabled() || _items.Count == 0 )
 				return false;
@@ -98,11 +98,11 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{}
 
 
@@ -112,7 +112,7 @@ namespace Nez.UI
 		}
 
 
-		int getItemIndexUnderMousePosition( Vector2 mousePos )
+		int getItemIndexUnderMousePosition( vec2 mousePos )
 		{
 			if( _selection.isDisabled() || _items.Count == 0 )
 				return -1;
@@ -216,7 +216,7 @@ namespace Nez.UI
 						fontColor = unselectedFontColor;
 					}
 
-					var textPos = new Vector2( x + _textOffsetX, y + itemY + _textOffsetY );
+					var textPos = new vec2( x + _textOffsetX, y + itemY + _textOffsetY );
 					graphics.batcher.drawString( font, item.ToString(), textPos, fontColor );
 				}
 				else if( itemY < _cullingArea.Value.Y )

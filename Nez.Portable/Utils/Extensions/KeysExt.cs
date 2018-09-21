@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class KeysExt
 	{
@@ -253,3 +254,4 @@ namespace Nez
 	}
 }
 
+#endif

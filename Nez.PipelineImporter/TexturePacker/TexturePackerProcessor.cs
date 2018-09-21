@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 
 
-namespace Nez.TexturePackerImporter
+namespace Atma.TexturePackerImporter
 {
 	[ContentProcessor( DisplayName = "TexturePacker Processor" )]
 	public class TexturePackerProcessor : ContentProcessor<TexturePackerFile, TexturePackerFile>

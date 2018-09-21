@@ -6,12 +6,13 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 
 
-namespace Nez.TextureAtlasGenerator
+namespace Atma.TextureAtlasGenerator
 {
-	/// <summary>
-	/// Helper for arranging many small sprites into a single larger sheet.
-	/// </summary>
-	public static class TextureAtlasPacker
+    using Color = Microsoft.Xna.Framework.Color;
+    /// <summary>
+    /// Helper for arranging many small sprites into a single larger sheet.
+    /// </summary>
+    public static class TextureAtlasPacker
 	{
 		/// <summary>
 		/// Packs a list of sprites into a single big texture,

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if ATMA_PHYSICS
+
+using System;
 
 namespace Atma
 {
@@ -10,7 +12,7 @@ namespace Atma
 
         public vec2 integrate(vec2 p, vec2 velocity, float maxForce, float maxVelocity, float mass)
         {
-            //if (steering == Vector2.Zero)
+            //if (steering == vec2.Zero)
             //{
             //    velocity *= drag;
             //    if (Math.Abs(velocity.X) < 0.1f)
@@ -149,16 +151,16 @@ namespace Atma
     //    public float maxVelocity = 2.5f;
     //    public float drag = 0.99f;
 
-    //    //public Vector2 direction = Vector2.Zero;
-    //    public Vector2 velocity = Vector2.Zero;
-    //    public Vector2 desiredVelocity = Vector2.Zero;
-    //    public Vector2 steering = Vector2.Zero;
-    //    public Vector2 lastSteering = Vector2.Zero;
-    //    //public Vector2 daesiredVelocity = Vector2.Zero;
+    //    //public vec2 direction = vec2.Zero;
+    //    public vec2 velocity = vec2.Zero;
+    //    public vec2 desiredVelocity = vec2.Zero;
+    //    public vec2 steering = vec2.Zero;
+    //    public vec2 lastSteering = vec2.Zero;
+    //    //public vec2 daesiredVelocity = vec2.Zero;
 
     //    private float _wanderAngle = 0f;
 
-    //    public Vector2 truncate(Vector2 p, float len)
+    //    public vec2 truncate(vec2 p, float len)
     //    {
     //        var i = len / p.Length;
     //        i = i < 1.0f ? i : 1.0f;
@@ -166,7 +168,7 @@ namespace Atma
     //        return p * i;
     //    }
 
-    //    //public void face(Vector2 from, Vector2 target, float mass)
+    //    //public void face(vec2 from, vec2 target, float mass)
     //    //{
     //    //    //don't want to modify the real steering
     //    //    var steering = (target - from).ToNormalized() * maxVelocity;
@@ -177,22 +179,22 @@ namespace Atma
     //    //    direction = truncate(velocity + steering, maxVelocity);
     //    //}
 
-    //    public void seek(Vector2 from, Vector2 target)
+    //    public void seek(vec2 from, vec2 target)
     //    {
     //        seek(from, target, 1f);
     //    }
 
-    //    public void seek(Vector2 from, Vector2 target, float influence)
+    //    public void seek(vec2 from, vec2 target, float influence)
     //    {
     //        steering += (target - from).ToNormalized() * maxVelocity * influence;
     //    }
 
-    //    public void arrive(Vector2 from, Vector2 target, float radius, float stopModifier)
+    //    public void arrive(vec2 from, vec2 target, float radius, float stopModifier)
     //    {
     //        arrive(from, target, radius, stopModifier, 1f);
     //    }
 
-    //    public void arrive(Vector2 from, Vector2 target, float radius, float stopModifier, float influence)
+    //    public void arrive(vec2 from, vec2 target, float radius, float stopModifier, float influence)
     //    {
     //        var direction = (target - from).ToNormalized();
     //        desiredVelocity = direction * maxVelocity;
@@ -205,12 +207,12 @@ namespace Atma
     //        steering += (desiredVelocity - velocity) * influence;
     //    }
 
-    //    public void flee(Vector2 from, Vector2 target)
+    //    public void flee(vec2 from, vec2 target)
     //    {
     //        flee(from, target, 1f);
     //    }
 
-    //    public void flee(Vector2 from, Vector2 target, float influence)
+    //    public void flee(vec2 from, vec2 target, float influence)
     //    {
     //        var direction = (from - target).ToNormalized();
     //        desiredVelocity = direction * maxVelocity;
@@ -218,45 +220,45 @@ namespace Atma
     //        steering += (desiredVelocity - velocity) * influence;
     //    }
 
-    //    public void wander(Vector2 from, float distance, float radius, float angleChange)
+    //    public void wander(vec2 from, float distance, float radius, float angleChange)
     //    {
     //        wander(from, distance, radius, angleChange, 1f);
     //    }
 
-    //    public void wander(Vector2 from, float distance, float radius, float angleChange, float influence)
+    //    public void wander(vec2 from, float distance, float radius, float angleChange, float influence)
     //    {
     //        var circleCenter = velocity.ToNormalized() * distance;
-    //        if (circleCenter == Vector2.Zero)
+    //        if (circleCenter == vec2.Zero)
     //        {
     //            _wanderAngle = (float)random.NextDouble() * Utility.TwoPi;
-    //            circleCenter = new Vector2(Utility.Cos(_wanderAngle), Utility.Sin(_wanderAngle)) * distance;
+    //            circleCenter = new vec2(Utility.Cos(_wanderAngle), Utility.Sin(_wanderAngle)) * distance;
     //        }
 
-    //        var displacement = new Vector2(Utility.Cos(_wanderAngle), Utility.Sin(_wanderAngle)) * radius;
+    //        var displacement = new vec2(Utility.Cos(_wanderAngle), Utility.Sin(_wanderAngle)) * radius;
     //        _wanderAngle += (float)random.NextDouble() * angleChange - angleChange * 0.5f;
 
     //        displacement = truncate(circleCenter + displacement, maxForce);
     //        seek(from, from + displacement, influence);
     //    }
 
-    //    public void pursue(Vector2 from, Vector2 target, Vector2 targetVelocity)
+    //    public void pursue(vec2 from, vec2 target, vec2 targetVelocity)
     //    {
     //        pursue(from, target, targetVelocity, 1f);
     //    }
 
-    //    public void pursue(Vector2 from, Vector2 target, Vector2 targetVelocity, float influence)
+    //    public void pursue(vec2 from, vec2 target, vec2 targetVelocity, float influence)
     //    {
     //        var distance = (from - target);
     //        var t = distance.Length / maxVelocity;
     //        seek(from, target + t * targetVelocity, influence);
     //    }
 
-    //    public void evade(Vector2 from, Vector2 target, Vector2 targetVelocity)
+    //    public void evade(vec2 from, vec2 target, vec2 targetVelocity)
     //    {
     //        evade(from, target, targetVelocity, 1f);
     //    }
 
-    //    public void evade(Vector2 from, Vector2 target, Vector2 targetVelocity, float influence)
+    //    public void evade(vec2 from, vec2 target, vec2 targetVelocity, float influence)
     //    {
     //        var distance = (from - target);
     //        var t = distance.Length / maxVelocity;
@@ -265,9 +267,9 @@ namespace Atma
 
 
 
-    //    public Vector2 integrate(Vector2 p, float mass)
+    //    public vec2 integrate(vec2 p, float mass)
     //    {
-    //        if (steering == Vector2.Zero)
+    //        if (steering == vec2.Zero)
     //        {
     //            velocity *= drag;
     //            if (Math.Abs(velocity.X) < 0.1f)
@@ -284,13 +286,14 @@ namespace Atma
 
     //        velocity = truncate(velocity + steering, maxVelocity);
 
-    //        //if (steering != Vector2.Zero)
+    //        //if (steering != vec2.Zero)
     //        //    direction = velocity;
 
     //        lastSteering = steering;
-    //        steering = Vector2.Zero;
+    //        steering = vec2.Zero;
 
     //        return p + velocity;
     //    }
     //}
 }
+#endif

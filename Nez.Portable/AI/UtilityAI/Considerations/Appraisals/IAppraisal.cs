@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.UtilityAI
+namespace Atma.AI.UtilityAI
 {
 	/// <summary>
 	/// scorer for use with a Consideration

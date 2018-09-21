@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 
-namespace Nez.TexturePackerImporter
+namespace Atma.TexturePackerImporter
 {
 	public class TexturePackerPoint
 	{

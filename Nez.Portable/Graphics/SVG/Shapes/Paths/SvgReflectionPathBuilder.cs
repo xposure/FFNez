@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+#if FEATURE_GRAPHICS
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	/// <summary>
 	/// helper class used to parse paths and also fetch the drawing points from a series of SvgPathSegments. This is an insanely slow way
@@ -12,11 +13,11 @@ namespace Nez.Svg
 	public class SvgReflectionPathBuilder : ISvgPathBuilder
 	{
 		/// <summary>
-		/// helper to convert a Vector2 into a Point
+		/// helper to convert a vec2 into a Point
 		/// </summary>
 		/// <returns>The draw point.</returns>
 		/// <param name="vec">Vec.</param>
-		static object toDrawPoint( Vector2 vec )
+		static object toDrawPoint( vec2 vec )
 		{
 			var args = new object[] { (int)vec.X, (int)vec.Y };
 			return System.Activator.CreateInstance( System.Type.GetType( "System.Drawing.Point, System.Drawing" ), args );
@@ -28,7 +29,7 @@ namespace Nez.Svg
 		/// </summary>
 		/// <returns>The drawing points.</returns>
 		/// <param name="segments">Segments.</param>
-		public Vector2[] getDrawingPoints( List<SvgPathSegment> segments, float flatness = 3 )
+		public vec2[] getDrawingPoints( List<SvgPathSegment> segments, float flatness = 3 )
 		{
 			var path = new FauxGraphicsPath();
 			for( var j = 0; j < segments.Count; j++ )
@@ -72,7 +73,7 @@ namespace Nez.Svg
 				}
 			}
 
-			var matrix = System.Activator.CreateInstance( System.Type.GetType( "System.Drawing.Drawing2D.Matrix, System.Drawing" ) );
+			var matrix = System.Activator.CreateInstance( System.Type.GetType( "System.Drawing.Drawing2D.mat4, System.Drawing" ) );
 			path.Flatten( matrix, flatness );
 
 			return path.pathPointsAsVectors();
@@ -81,3 +82,4 @@ namespace Nez.Svg
 	}
 
 }
+#endif

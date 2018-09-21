@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	/// <summary>
 	/// any object that wants to be tweened needs to implement this. TweenManager internally likes to make a simple object
@@ -28,3 +29,4 @@ namespace Nez.Tweens
 	}
 }
 
+#endif

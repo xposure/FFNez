@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 
 
-namespace Nez.AI.GOAP
+namespace Atma.AI.GOAP
 {
 	/// <summary>
 	/// GOAP based on https://github.com/stolk/GPGOAP

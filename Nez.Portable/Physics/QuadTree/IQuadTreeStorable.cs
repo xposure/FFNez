@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_PHYSICS
+using Microsoft.Xna.Framework;
 
 
-namespace Nez.Spatial
+namespace Atma.Spatial
 {
 	/// <summary>
 	/// Interface to define Rect, so that QuadTree knows how to store the object.
@@ -15,3 +16,4 @@ namespace Nez.Spatial
 	}
 }
 
+#endif

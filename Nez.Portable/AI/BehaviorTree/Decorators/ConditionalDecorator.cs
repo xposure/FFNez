@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.BehaviorTrees
+namespace Atma.AI.BehaviorTrees
 {
 	/// <summary>
 	/// decorator that will only run its child if a condition is met. By default, the condition will be reevaluated every tick.

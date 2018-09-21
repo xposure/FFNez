@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	/// <summary>
 	/// assists in debugging the data from an SVG file. All the supported shapes will be displayed.
@@ -176,7 +177,7 @@ namespace Nez.Svg
 					else
 					{
 						var rect = image.rect;
-						var origin = new Vector2( 0.5f * rect.width, 0.5f * rect.height );
+						var origin = new vec2( 0.5f * rect.width, 0.5f * rect.height );
 						rect.location += origin;
 
 						batcher.draw( tex, rect, null, Color.White, rotation, origin, SpriteEffects.None, layerDepth );
@@ -191,3 +192,4 @@ namespace Nez.Svg
 
 	}
 }
+#endif

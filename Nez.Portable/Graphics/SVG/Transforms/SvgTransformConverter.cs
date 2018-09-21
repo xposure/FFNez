@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	/// <summary>
 	/// helpers for converting the transform string into SvgTransform objects
@@ -111,7 +112,7 @@ namespace Nez.Svg
 						var points = contents.Split( new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries );
 
 						if( points.Length != 6 )
-							throw new FormatException( "Matrix transforms must be in the format 'matrix(m11, m12, m21, m22, dx, dy)'" );
+							throw new FormatException( "mat4 transforms must be in the format 'matrix(m11, m12, m21, m22, dx, dy)'" );
 
 						var mPoints = new List<float>();
 						foreach( string point in points )
@@ -163,3 +164,4 @@ namespace Nez.Svg
 	
 	}
 }
+#endif

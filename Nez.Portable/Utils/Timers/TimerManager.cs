@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections.Generic;
 
 
-namespace Nez.Timers
+namespace Atma.Timers
 {
 	public class TimerManager : IUpdatableManager
 	{
@@ -41,3 +42,4 @@ namespace Nez.Timers
 	}
 }
 
+#endif

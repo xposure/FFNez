@@ -1,10 +1,11 @@
-﻿using System;
-using Nez.Textures;
+#if FEATURE_GRAPHICS
+using System;
+using Atma.Textures;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.DeferredLighting
+namespace Atma.DeferredLighting
 {
 	/// <summary>
 	/// handles deferred lighting. This Renderer should be ordered after any of your Renderers that render to a RenderTexture. Any renderLayers
@@ -259,7 +260,7 @@ namespace Nez.DeferredLighting
 
 			Core.graphicsDevice.setRenderTarget( scene.sceneRenderTarget );
 			Graphics.instance.batcher.begin( BlendState.Opaque );
-			Graphics.instance.batcher.draw( tempRT, Vector2.Zero );
+			Graphics.instance.batcher.draw( tempRT, vec2.Zero );
 			Graphics.instance.batcher.end();
 
 			RenderTarget.releaseTemporary( tempRT );
@@ -347,3 +348,4 @@ namespace Nez.DeferredLighting
 	}
 }
 
+#endif

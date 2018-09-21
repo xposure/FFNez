@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public enum Colorchannels
 	{
@@ -139,3 +140,4 @@ namespace Nez
 	
 	}
 }
+#endif

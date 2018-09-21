@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.TiledMaps
+namespace Atma.TiledMaps
 {
 	public class TmxTilesetTile
 	{

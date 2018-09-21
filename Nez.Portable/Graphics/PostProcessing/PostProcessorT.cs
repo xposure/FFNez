@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// helper subclass for strongly typed Effects loaded from EffectResource. The effect will automatically be unloaded when the scene
@@ -44,3 +45,4 @@ namespace Nez
 	}
 }
 
+#endif

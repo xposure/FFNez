@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Nez.AI.UtilityAI
+namespace Atma.AI.UtilityAI
 {
 	/// <summary>
 	/// Scores by summing child Appraisals until a child scores below the threshold

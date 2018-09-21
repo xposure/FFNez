@@ -21,9 +21,15 @@ namespace Atma
     [StructLayout(LayoutKind.Sequential)]
     public struct vec4 : IReadOnlyList<float>, IEquatable<vec4>
     {
+#if DEBUG
+        public static implicit operator Microsoft.Xna.Framework.Vector4(vec4 v) => new Microsoft.Xna.Framework.Vector4(v.x, v.y, v.z, v.w);
+        public static implicit operator vec4(Microsoft.Xna.Framework.Vector4 v) => new vec4(v.X, v.Y, v.Z, v.W);
+        public static implicit operator Microsoft.Xna.Framework.Color(vec4 v) => new Microsoft.Xna.Framework.Color(v);
+#endif
+
 
         #region Fields
-        
+
         /// <summary>
         /// x-component
         /// </summary>

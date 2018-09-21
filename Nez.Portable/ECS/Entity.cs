@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class Entity : IComparable<Entity>
 	{
@@ -94,7 +95,7 @@ namespace Nez
 			get { return transform.childCount; }
 		}
 
-		public Vector2 position
+		public vec2 position
 		{
 			[MethodImpl( MethodImplOptions.AggressiveInlining )]
 			get { return transform.position; }
@@ -102,7 +103,7 @@ namespace Nez
 			set { transform.setPosition( value ); }
 		}
 
-		public Vector2 localPosition
+		public vec2 localPosition
 		{
 			[MethodImpl( MethodImplOptions.AggressiveInlining )]
 			get { return transform.localPosition; }
@@ -142,7 +143,7 @@ namespace Nez
 			set { transform.setLocalRotationDegrees( value ); }
 		}
 
-		public Vector2 scale
+		public vec2 scale
 		{
 			[MethodImpl( MethodImplOptions.AggressiveInlining )]
 			get { return transform.scale; }
@@ -150,7 +151,7 @@ namespace Nez
 			set { transform.setScale( value ); }
 		}
 
-		public Vector2 localScale
+		public vec2 localScale
 		{
 			[MethodImpl( MethodImplOptions.AggressiveInlining )]
 			get { return transform.localScale; }
@@ -326,7 +327,7 @@ namespace Nez
 		/// the copyFrom method should be called which will clone all Components, Colliders and Transform children for you. Note that cloned
 		/// objects will not be added to any Scene! You must add them yourself!
 		/// </summary>
-		public virtual Entity clone( Vector2 position = default( Vector2 ) )
+		public virtual Entity clone( vec2 position = default( vec2 ) )
 		{
 			var entity = Activator.CreateInstance( GetType() ) as Entity;
 			entity.name = name + "(clone)";
@@ -608,3 +609,4 @@ namespace Nez
 	}
 }
 
+#endif

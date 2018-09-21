@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Nez.PhysicsShapes;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
+using Atma.PhysicsShapes;
 
 
-namespace Nez
+namespace Atma
 {
 	public class CircleCollider : Collider
 	{
@@ -85,3 +86,4 @@ namespace Nez
 	}
 }
 
+#endif

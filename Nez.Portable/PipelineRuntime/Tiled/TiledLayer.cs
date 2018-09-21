@@ -1,12 +1,13 @@
+#if FEATURE_PIPELINE
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public abstract class TiledLayer
 	{
-		public Vector2 offset;
+		public vec2 offset;
 		public string name;
 		public Dictionary<string,string> properties;
 		public bool visible = true;
@@ -20,7 +21,8 @@ namespace Nez.Tiled
 		}
 
 
-		public abstract void draw( Batcher batcher, Vector2 position, float layerDepth, RectangleF cameraClipBounds );
+		public abstract void draw( Batcher batcher, vec2 position, float layerDepth, RectangleF cameraClipBounds );
 
 	}
 }
+#endif

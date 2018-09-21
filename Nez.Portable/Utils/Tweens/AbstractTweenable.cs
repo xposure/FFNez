@@ -1,6 +1,7 @@
-﻿
+#if FEATURE_UTILS
 
-namespace Nez.Tweens
+
+namespace Atma.Tweens
 {
 	/// <summary>
 	/// AbstractTweenable serves as a base for any custom classes you might want to make that can be ticked. These differ from
@@ -73,3 +74,4 @@ namespace Nez.Tweens
 
 	}
 }
+#endif

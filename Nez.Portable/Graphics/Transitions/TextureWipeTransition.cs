@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
-using Nez.Tweens;
+using Atma.Tweens;
 using System.Collections;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// uses a texture (transitionTexture) to control a wipe animation. the blue channel of the texture determines if color is shown or the
@@ -29,7 +30,7 @@ namespace Nez
 		/// <value>The color.</value>
 		public Color color
 		{
-			set { _textureWipeEffect.Parameters["_color"].SetValue( value.ToVector4() ); }
+			set { _textureWipeEffect.Parameters["_color"].SetValue( value ); }
 		}
 
 		/// <summary>
@@ -132,3 +133,4 @@ namespace Nez
 	}
 }
 
+#endif

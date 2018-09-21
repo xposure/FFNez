@@ -2,10 +2,10 @@
 using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Nez.Tiled;
+using Atma.Tiled;
 
 
-namespace Nez.AI.Pathfinding
+namespace Atma.AI.Pathfinding
 {
 	/// <summary>
 	/// basic grid graph with support for one type of weighted node

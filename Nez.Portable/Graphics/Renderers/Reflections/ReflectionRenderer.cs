@@ -1,9 +1,10 @@
-﻿using System;
-using Nez.Textures;
+#if FEATURE_GRAPHICS
+using System;
+using Atma.Textures;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// assists in creating a mirror effect. To use the ReflectionRenderer do the following:
@@ -40,9 +41,10 @@ namespace Nez
 			base.onSceneBackBufferSizeChanged( newWidth, newHeight );
 
 			// keep our Camera in sync with the normal Scene Camera. This will ensure the origin is updated with screen size changes.
-			camera.origin = new Vector2( newWidth / 2f, newHeight / 2f );
+			camera.origin = new vec2( newWidth / 2f, newHeight / 2f );
 		}
 
 	}
 }
 
+#endif

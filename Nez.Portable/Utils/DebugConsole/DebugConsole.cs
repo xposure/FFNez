@@ -1,3 +1,4 @@
+#if FEATURE_UTILS
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
@@ -6,10 +7,9 @@ using Microsoft.Xna.Framework;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
-using Nez.IEnumerableExtensions;
 
 
-namespace Nez.Console
+namespace Atma.Console
 {
 	public partial class DebugConsole
 	{
@@ -536,8 +536,8 @@ namespace Nez.Console
 			if( _underscore )
 				commandLineString += "_";
 
-			var commandTextPosition = commandEntryRect.Location.ToVector2() + new Vector2( TEXT_PADDING_X, TEXT_PADDING_Y );
-			Graphics.instance.batcher.drawString( Graphics.instance.bitmapFont, commandLineString, commandTextPosition, Color.White, 0, Vector2.Zero, new Vector2( renderScale ), SpriteEffects.None, 0 );
+			var commandTextPosition = commandEntryRect.Location + new vec2( TEXT_PADDING_X, TEXT_PADDING_Y );
+			Graphics.instance.batcher.drawString( Graphics.instance.bitmapFont, commandLineString, commandTextPosition, Color.White, 0, vec2.Zero, new vec2( renderScale ), SpriteEffects.None, 0 );
 
 			if( _drawCommands.Count > 0 )
 			{
@@ -552,9 +552,9 @@ namespace Nez.Console
 				for( var i = 0; i < _drawCommands.Count; i++ )
 				{
 					var yPosCurrentLineAddition = ( i * LINE_HEIGHT * renderScale ) + ( i * TEXT_PADDING_Y );
-					var position = new Vector2( HORIZONTAL_PADDING + TEXT_PADDING_X, yPosFirstLine - yPosCurrentLineAddition );
+					var position = new vec2( HORIZONTAL_PADDING + TEXT_PADDING_X, yPosFirstLine - yPosCurrentLineAddition );
 					var color = _drawCommands[i].IndexOf( ">" ) == 0 ? Color.Yellow : Color.White;
-					Graphics.instance.batcher.drawString( Graphics.instance.bitmapFont, _drawCommands[i], position, color, 0, Vector2.Zero, new Vector2( renderScale ), SpriteEffects.None, 0 );
+					Graphics.instance.batcher.drawString( Graphics.instance.bitmapFont, _drawCommands[i], position, color, 0, vec2.Zero, new vec2( renderScale ), SpriteEffects.None, 0 );
 				}
 			}
 
@@ -807,3 +807,4 @@ namespace Nez.Console
 	}
 }
 
+#endif

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class ProgressBar : Element
     {

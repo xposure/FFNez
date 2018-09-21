@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class SelectBox<T> : Element, IInputListener where T : class
 	{
@@ -118,7 +118,7 @@ namespace Nez.UI
 				}
 
 				fontColor = new Color( fontColor, (int)(fontColor.A * parentAlpha) );
-				graphics.batcher.drawString( font, str, new Vector2( x, y ), fontColor );
+				graphics.batcher.drawString( font, str, new vec2( x, y ), fontColor );
 			}
 		}
 
@@ -160,7 +160,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			if( _isDisabled )
 				return false;
@@ -174,11 +174,11 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{ }
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{ }
 
 

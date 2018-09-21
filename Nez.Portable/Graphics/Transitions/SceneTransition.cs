@@ -1,13 +1,14 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
 using System.Threading;
-using Nez.Tweens;
+using Atma.Tweens;
 using System.Threading.Tasks;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// SceneTransition is used to transition from one Scene to another or within a scene with an effect. If sceneLoadAction is null Nez
@@ -172,7 +173,7 @@ namespace Nez
 		{
 			Core.graphicsDevice.setRenderTarget( null );
 			graphics.batcher.begin( BlendState.Opaque, Core.defaultSamplerState, DepthStencilState.None, null );
-			graphics.batcher.draw( previousSceneRender, Vector2.Zero, Color.White );
+			graphics.batcher.draw( previousSceneRender, vec2.Zero, Color.White );
 			graphics.batcher.end();
 		}
 
@@ -221,3 +222,4 @@ namespace Nez
 	}
 }
 
+#endif

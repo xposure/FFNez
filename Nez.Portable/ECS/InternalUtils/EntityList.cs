@@ -1,7 +1,8 @@
+#if FEATURE_ESC
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Nez
+namespace Atma
 {
 	public class EntityList
 	{
@@ -394,3 +395,4 @@ namespace Nez
 	}
 }
 
+#endif

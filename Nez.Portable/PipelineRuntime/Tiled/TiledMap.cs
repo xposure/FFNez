@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledMap
 	{
@@ -281,7 +282,7 @@ namespace Nez.Tiled
 		/// <param name="position">Position.</param>
 		/// <param name="layerDepth">Layer depth.</param>
 		/// <param name="cameraClipBounds">Camera clip bounds.</param>
-		public void draw( Batcher batcher, Vector2 position, float layerDepth, RectangleF cameraClipBounds )
+		public void draw( Batcher batcher, vec2 position, float layerDepth, RectangleF cameraClipBounds )
 		{
 			// render any visible image or tile layer
 			foreach( var layer in layers )
@@ -301,7 +302,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <returns>The to tile position.</returns>
 		/// <param name="pos">Position.</param>
-		public Point worldToTilePosition( Vector2 pos, bool clampToTilemapBounds = true )
+		public Point worldToTilePosition( vec2 pos, bool clampToTilemapBounds = true )
 		{
 			return new Point( worldToTilePositionX( pos.X, clampToTilemapBounds ), worldToTilePositionY( pos.Y, clampToTilemapBounds ) );
 		}
@@ -311,7 +312,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <returns>The to tile position.</returns>
 		/// <param name="pos">Position.</param>
-		public Point isometricWorldToTilePosition( Vector2 pos, bool clampToTilemapBounds = true )
+		public Point isometricWorldToTilePosition( vec2 pos, bool clampToTilemapBounds = true )
 		{
 			return isometricWorldToTilePosition( pos.X, pos.Y, clampToTilemapBounds );
 		}
@@ -336,7 +337,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <returns>The to world position.</returns>
 		/// <param name="pos">Position.</param>
-		public Vector2 isometricTileToWorldPosition( Point pos )
+		public vec2 isometricTileToWorldPosition( Point pos )
 		{
 			return isometricTileToWorldPosition( pos.X, pos.Y );
 		}
@@ -347,11 +348,11 @@ namespace Nez.Tiled
 		/// <returns>The to world position.</returns>
 		/// <param name="x">The x coordinate.</param>
 		/// <param name="y">The y coordinate.</param>
-		public Vector2 isometricTileToWorldPosition( int x, int y )
+		public vec2 isometricTileToWorldPosition( int x, int y )
 		{
 			var worldX = x * tileWidth / 2 - y * tileWidth / 2 + ( height - 1 ) * tileWidth / 2;
 			var worldY = y * tileHeight / 2 + x * tileHeight / 2;
-			return new Vector2( worldX, worldY );
+			return new vec2( worldX, worldY );
 		}
 
 		/// <summary>
@@ -386,9 +387,9 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <returns>The to world position.</returns>
 		/// <param name="pos">Position.</param>
-		public Vector2 tileToWorldPosition( Point pos )
+		public vec2 tileToWorldPosition( Point pos )
 		{
-			return new Vector2( tileToWorldPositionX( pos.X ), tileToWorldPositionY( pos.Y ) );
+			return new vec2( tileToWorldPositionX( pos.X ), tileToWorldPositionY( pos.Y ) );
 		}
 
 		/// <summary>
@@ -416,3 +417,4 @@ namespace Nez.Tiled
 
 	}
 }
+#endif

@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Nez.PhysicsShapes;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
+using Atma.PhysicsShapes;
 
 
-namespace Nez.Shadows
+namespace Atma.Shadows
 {
 	/// <summary>
 	/// WIP: still has some odd rendering bugs that need to get worked out
@@ -85,11 +86,11 @@ namespace Nez.Shadows
 			var sides = Mathf.ceilToInt( _spotAngle / 25 ) + 1;
 			var stepSize = ( _spotAngle * Mathf.deg2Rad ) / sides;
 
-			var verts = new Vector2[sides + 2];
-			verts[0] = Vector2.Zero;
+			var verts = new vec2[sides + 2];
+			verts[0] = vec2.Zero;
 
 			for( var i = 0; i <= sides; i++ )
-				verts[i + 1] = new Vector2( expandedRadius * Mathf.cos( stepSize * i ), expandedRadius * Mathf.sin( stepSize * i ) );
+				verts[i + 1] = new vec2( expandedRadius * Mathf.cos( stepSize * i ), expandedRadius * Mathf.sin( stepSize * i ) );
 
 			if( _polygon == null )
 				_polygon = new Polygon( verts );
@@ -168,3 +169,4 @@ namespace Nez.Shadows
 
 	}
 }
+#endif

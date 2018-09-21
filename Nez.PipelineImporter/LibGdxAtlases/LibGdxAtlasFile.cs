@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace Nez.LibGdxAtlases
+namespace Atma.LibGdxAtlases
 {
 	public class LibGdxAtlasFile
 	{

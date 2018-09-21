@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class Selection<T> where T : class
 	{

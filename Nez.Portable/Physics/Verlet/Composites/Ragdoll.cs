@@ -1,4 +1,5 @@
-﻿namespace Nez.Verlet
+#if FEATURE_PHYSICS
+namespace Atma.Verlet
 {
 	public class Ragdoll : Composite
 	{
@@ -72,3 +73,4 @@
 		}
 	}
 }
+#endif

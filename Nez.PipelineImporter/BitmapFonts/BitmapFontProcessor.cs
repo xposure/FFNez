@@ -5,10 +5,10 @@ using System.ComponentModel;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using Microsoft.Xna.Framework;
-using Nez.PipelineImporter;
+using Atma.PipelineImporter;
 
 
-namespace Nez.BitmapFontImporter
+namespace Atma.BitmapFontImporter
 {
 	[ContentProcessor( DisplayName = "BMFont Processor" )]
 	public class BitmapFontProcessor : ContentProcessor<BitmapFontFile,BitmapFontProcessorResult>
@@ -57,7 +57,7 @@ namespace Nez.BitmapFontImporter
 						textureFilename = Path.ChangeExtension( textureFilename, null );
 						context.Logger.LogMessage( "Not writing texture but it is expected to exist and be processed: {0}", textureFilename );
 						result.textureNames.Add( textureFilename );
-						result.textureOrigins.Add( new Vector2( fontPage.x, fontPage.y ) );
+						result.textureOrigins.Add( new vec2( fontPage.x, fontPage.y ) );
 					}
 				}
 

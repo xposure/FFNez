@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class Cell : IPoolable
 	{

@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// basic follow camera. LockOn mode uses no deadzone and just centers the camera on the target. CameraWindow mode wraps a deadzone
@@ -33,7 +34,7 @@ namespace Nez
 		/// <summary>
 		/// offset from the screen center that the camera will focus on
 		/// </summary>
-		public Vector2 focusOffset;
+		public vec2 focusOffset;
 
 		/// <summary>
 		/// If true, the camera position will not got out of the map rectangle (0,0, mapwidth, mapheight)
@@ -43,16 +44,16 @@ namespace Nez
 		/// <summary>
 		/// Contains the width and height of the current map.
 		/// </summary>
-		public Vector2 mapSize;
+		public vec2 mapSize;
 
 		protected Entity _targetEntity;
 		protected Collider _targetCollider;
-		protected Vector2 _desiredPositionDelta;
+		protected vec2 _desiredPositionDelta;
 		protected CameraStyle _cameraStyle;
 		protected RectangleF _worldSpaceDeadzone;
 
-		private Vector2 _precisePosition;
-		private Vector2 _lastPosition;
+		private vec2 _precisePosition;
+		private vec2 _lastPosition;
 		
 		public FollowCamera( Entity targetEntity, Camera camera, CameraStyle cameraStyle = CameraStyle.LockOn  )
 		{
@@ -101,7 +102,7 @@ namespace Nez
 			if( _targetEntity != null )
 				updateFollow();
 
-			_precisePosition = Vector2.Lerp( _precisePosition, _precisePosition + _desiredPositionDelta, followLerp );
+			_precisePosition = vec2.Lerp( _precisePosition, _precisePosition + _desiredPositionDelta, followLerp );
 
 			if( mapLockEnabled )
 			{
@@ -118,12 +119,12 @@ namespace Nez
 		/// </summary>
 		/// <returns>The to map size.</returns>
 		/// <param name="position">Position.</param>
-		Vector2 clampToMapSize( Vector2 position )
+		vec2 clampToMapSize( vec2 position )
 		{
-			var halfScreen = new Vector2( camera.bounds.width, camera.bounds.height ) * 0.5f;
-			var cameraMax = new Vector2( mapSize.X - halfScreen.X, mapSize.Y - halfScreen.Y );
+			var halfScreen = new vec2( camera.bounds.width, camera.bounds.height ) * 0.5f;
+			var cameraMax = new vec2( mapSize.X - halfScreen.X, mapSize.Y - halfScreen.Y );
 
-			return Vector2.Clamp( position, halfScreen, cameraMax );
+			return vec2.Clamp( position, halfScreen, cameraMax );
 		}
 
 
@@ -232,3 +233,4 @@ namespace Nez
 	}
 }
 
+#endif

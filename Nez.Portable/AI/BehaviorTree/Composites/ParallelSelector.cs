@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.BehaviorTrees
+namespace Atma.AI.BehaviorTrees
 {
 	/// <summary>
 	/// Similar to the selector task, the ParallelSelector task will return success as soon as a child task returns success. The difference

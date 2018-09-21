@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Xml.Serialization;
-using Nez.ConversionTypes;
+using Atma.ConversionTypes;
 
 
-namespace Nez.ParticleDesignerImporter
+namespace Atma.ParticleDesignerImporter
 {
 	[XmlRoot( "particleEmitterConfig" )]
 	public class ParticleDesignerEmitterConfig

@@ -1,10 +1,11 @@
-﻿//#define DEBUG_MOVER
+#if FEATURE_ESC
+//#define DEBUG_MOVER
 using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	/// <summary>
 	/// WIP
@@ -63,7 +64,7 @@ namespace Nez.Tiled
 			/// resets collision state and does sub-pixel movement calculations
 			/// </summary>
 			/// <param name="motion">Motion.</param>
-			public void reset( ref Vector2 motion )
+			public void reset( ref vec2 motion )
 			{
 				if( motion.X == 0 )
 					right = left = false;
@@ -75,8 +76,8 @@ namespace Nez.Tiled
 				slopeAngle = 0f;
 
 				// deal with subpixel movement, storing off any non-integar remainder for the next frame
-				_movementRemainderX.update( ref motion.X );
-				_movementRemainderY.update( ref motion.Y );
+				_movementRemainderX.update( ref motion.x );
+				_movementRemainderY.update( ref motion.y );
 
 				// due to subpixel movement we might end up with 0 gravity when we really want there to be at least 1 pixel so slopes can work
 				if( below && motion.Y == 0 && _movementRemainderY.remainder > 0 )
@@ -139,7 +140,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <param name="motion">Motion.</param>
 		/// <param name="boxCollider">Box collider.</param>
-		public void move( Vector2 motion, BoxCollider boxCollider, CollisionState collisionState )
+		public void move( vec2 motion, BoxCollider boxCollider, CollisionState collisionState )
 		{
 			// test for collisions then move the Entity
 			testCollisions( ref motion, boxCollider.bounds, collisionState );
@@ -150,7 +151,7 @@ namespace Nez.Tiled
 		}
 
 
-		public void testCollisions( ref Vector2 motion, Rectangle boxColliderBounds, CollisionState collisionState )
+		public void testCollisions( ref vec2 motion, Rectangle boxColliderBounds, CollisionState collisionState )
 		{
 			_boxColliderBounds = boxColliderBounds;
 
@@ -525,3 +526,4 @@ namespace Nez.Tiled
 	}
 }
 
+#endif

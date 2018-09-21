@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework;
 
 
-namespace Nez.DeferredLighting
+namespace Atma.DeferredLighting
 {
 	/// <summary>
 	/// AreaLights work like DirLights except they only affect a specific area specified by the width/height. Note that Transform.scale
@@ -16,7 +17,7 @@ namespace Nez.DeferredLighting
 		/// <summary>
 		/// direction of the light
 		/// </summary>
-		public Vector3 direction = new Vector3( 500, 500, 50 );
+		public vec3 direction = new vec3( 500, 500, 50 );
 
 		/// <summary>
 		/// brightness of the light
@@ -49,7 +50,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public AreaLight setDirection( Vector3 direction )
+		public AreaLight setDirection( vec3 direction )
 		{
 			this.direction = direction;
 			return this;
@@ -64,3 +65,4 @@ namespace Nez.DeferredLighting
 	}
 }
 
+#endif

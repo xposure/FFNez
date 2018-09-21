@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class ListExt
 	{
@@ -17,7 +18,7 @@ namespace Nez
 			while( n > 1 )
 			{
 				n--;
-				int k = Nez.Random.range( 0, n + 1 );
+				int k = Atma.Random.range( 0, n + 1 );
 				T value = list[k];
 				list[k] = list[n];
 				list[n] = value;
@@ -61,7 +62,7 @@ namespace Nez
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
 		public static T randomItem<T>( this IList<T> list )
 		{
-			return list[Nez.Random.range( 0, list.Count )];
+			return list[Atma.Random.range( 0, list.Count )];
 		}
 
 
@@ -90,3 +91,4 @@ namespace Nez
 	}
 }
 
+#endif

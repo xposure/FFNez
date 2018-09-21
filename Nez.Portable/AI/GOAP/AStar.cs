@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Nez.AI.GOAP
+namespace Atma.AI.GOAP
 {
 	public class AStarNode : IComparable<AStarNode>, IEquatable<AStarNode>, IPoolable
 	{

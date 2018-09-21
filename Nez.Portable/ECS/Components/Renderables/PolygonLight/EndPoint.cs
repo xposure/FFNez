@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 
-namespace Nez.Shadows
+namespace Atma.Shadows
 {
 	/// <summary>    
 	/// The end-point of a segment    
@@ -12,7 +13,7 @@ namespace Nez.Shadows
 		/// <summary>
 		/// Position of the segment
 		/// </summary>
-		internal Vector2 position;
+		internal vec2 position;
 
 		/// <summary>
 		/// If this end-point is a begin or end end-point
@@ -33,7 +34,7 @@ namespace Nez.Shadows
 
 		internal EndPoint()
 		{
-			position = Vector2.Zero;
+			position = vec2.Zero;
 			begin = false;
 			segment = null;
 			angle = 0;
@@ -94,3 +95,4 @@ namespace Nez.Shadows
 	}
 
 }
+#endif

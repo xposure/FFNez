@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nez.UI.Containers
+namespace Atma.UI.Containers
 {
     public class Tree : Group, IInputListener
     {
@@ -444,7 +444,7 @@ namespace Nez.UI.Containers
             //if (toActor == null || !toActor.isDescendantOf(Tree.this)) setOverNode(null);
         }
 
-        bool IInputListener.onMousePressed( Vector2 mousePos )
+        bool IInputListener.onMousePressed( vec2 mousePos )
         {
             var node = getNodeAt( mousePos.Y );
             if( node == null )
@@ -498,12 +498,12 @@ namespace Nez.UI.Containers
             return true;
         }
 
-        void IInputListener.onMouseMoved( Vector2 mousePos )
+        void IInputListener.onMouseMoved( vec2 mousePos )
         {
             setOverNode( getNodeAt( mousePos.Y ) );
         }
 
-        void IInputListener.onMouseUp( Vector2 mousePos )
+        void IInputListener.onMouseUp( vec2 mousePos )
         {
         }
 

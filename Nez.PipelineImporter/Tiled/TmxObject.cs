@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 
-namespace Nez.TiledMaps
+namespace Atma.TiledMaps
 {
 	public class TmxObject
 	{
@@ -74,11 +74,11 @@ namespace Nez.TiledMaps
 				foreach( var p in parts )
 				{
 					var pair = p.Split( new char[]{ ',' } );
-					points.Add( new Vector2( float.Parse( pair[0], System.Globalization.CultureInfo.InvariantCulture ), float.Parse( pair[1], System.Globalization.CultureInfo.InvariantCulture ) ) );
+					points.Add( new vec2( float.Parse( pair[0], System.Globalization.CultureInfo.InvariantCulture ), float.Parse( pair[1], System.Globalization.CultureInfo.InvariantCulture ) ) );
 				}
 			}
 		}
-		public List<Vector2> points = new List<Vector2>();
+		public List<vec2> points = new List<vec2>();
 
 
 		public override string ToString()

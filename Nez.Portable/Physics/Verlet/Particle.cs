@@ -1,19 +1,20 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_PHYSICS
+using Microsoft.Xna.Framework;
 
 
-namespace Nez.Verlet
+namespace Atma.Verlet
 {
 	public class Particle
 	{
 		/// <summary>
 		/// the current position of the Particle
 		/// </summary>
-		public Vector2 position;
+		public vec2 position;
 
 		/// <summary>
 		/// the position of the Particle prior to its latest move
 		/// </summary>
-		public Vector2 lastPosition;
+		public vec2 lastPosition;
 
 		/// <summary>
 		/// the mass of the Particle. Taken into account for all forces and constraints
@@ -31,18 +32,18 @@ namespace Nez.Verlet
 		public bool collidesWithColliders = true;
 
 		internal bool isPinned;
-		internal Vector2 acceleration;
-		internal Vector2 pinnedPosition;
+		internal vec2 acceleration;
+		internal vec2 pinnedPosition;
 
 
-		public Particle( Vector2 position )
+		public Particle( vec2 position )
 		{
 			this.position = position;
 			lastPosition = position;
 		}
 
 
-		public Particle( float x, float y ) : this( new Vector2( x, y ) )
+		public Particle( float x, float y ) : this( new vec2( x, y ) )
 		{}
 
 
@@ -50,7 +51,7 @@ namespace Nez.Verlet
 		/// applies a force taking mass into account to the Particle
 		/// </summary>
 		/// <param name="force">Force.</param>
-		public void applyForce( Vector2 force )
+		public void applyForce( vec2 force )
 		{
 			// acceleration = (1 / mass) * force
 			acceleration += force / mass;
@@ -72,7 +73,7 @@ namespace Nez.Verlet
 		/// pins the particle to the specified position
 		/// </summary>
 		/// <param name="position">Position.</param>
-		public Particle pinTo( Vector2 position )
+		public Particle pinTo( vec2 position )
 		{
 			isPinned = true;
 			pinnedPosition = position;
@@ -92,3 +93,4 @@ namespace Nez.Verlet
 
 	}
 }
+#endif

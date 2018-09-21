@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	/// <summary>
 	/// these exist only for tiles with properties or animations
@@ -74,3 +75,4 @@ namespace Nez.Tiled
 	}
 }
 
+#endif

@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_DEBUG
+using System;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 
 
-namespace Nez
+namespace Atma
 {
 	// TODO: add Conditionals for all log levels
 	public static partial class Debug
@@ -150,7 +151,7 @@ namespace Nez
 
 			if( _screenSpaceDebugDrawItems.Count > 0 )
 			{
-				var pos = drawTextFromBottom ? new Vector2( 0, Core.scene.sceneRenderTargetSize.Y ) : Vector2.Zero;
+				var pos = drawTextFromBottom ? new vec2( 0, Core.scene.sceneRenderTargetSize.Y ) : vec2.Zero;
 				Graphics.instance.batcher.begin();
 
 				for( var i = _screenSpaceDebugDrawItems.Count - 1; i >= 0; i-- )
@@ -159,7 +160,7 @@ namespace Nez
 					var itemHeight = item.getHeight();
 
 					if( drawTextFromBottom )
-						item.position = pos - new Vector2( 0, itemHeight );
+						item.position = pos - new vec2( 0, itemHeight );
 					else
 						item.position = pos;
 
@@ -178,7 +179,7 @@ namespace Nez
 
 
 		[Conditional( "DEBUG" )]
-		public static void drawLine( Vector2 start, Vector2 end, Color color, float duration = 0f )
+		public static void drawLine( vec2 start, vec2 end, Color color, float duration = 0f )
 		{
 			if( !Core.debugRenderEnabled )
 				return;
@@ -196,7 +197,7 @@ namespace Nez
 
 
 		[Conditional( "DEBUG" )]
-		public static void drawPixel( Vector2 position, int size, Color color, float duration = 0f )
+		public static void drawPixel( vec2 position, int size, Color color, float duration = 0f )
 		{
 			if( !Core.debugRenderEnabled )
 				return;
@@ -214,7 +215,7 @@ namespace Nez
 
 
 		[Conditional( "DEBUG" )]
-		public static void drawHollowBox( Vector2 center, int size, Color color, float duration = 0f )
+		public static void drawHollowBox( vec2 center, int size, Color color, float duration = 0f )
 		{
 			if( !Core.debugRenderEnabled )
 				return;
@@ -224,7 +225,7 @@ namespace Nez
 
 
 		[Conditional( "DEBUG" )]
-		public static void drawText( BitmapFont font, string text, Vector2 position, Color color, float duration = 0f, float scale = 1f )
+		public static void drawText( BitmapFont font, string text, vec2 position, Color color, float duration = 0f, float scale = 1f )
 		{
 			if( !Core.debugRenderEnabled )
 				return;
@@ -233,7 +234,7 @@ namespace Nez
 
 
 		[Conditional( "DEBUG" )]
-		public static void drawText( NezSpriteFont font, string text, Vector2 position, Color color, float duration = 0f, float scale = 1f )
+		public static void drawText( NezSpriteFont font, string text, vec2 position, Color color, float duration = 0f, float scale = 1f )
 		{
 			if( !Core.debugRenderEnabled )
 				return;
@@ -305,3 +306,4 @@ namespace Nez
 	}
 }
 
+#endif

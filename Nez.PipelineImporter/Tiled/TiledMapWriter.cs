@@ -4,10 +4,10 @@ using System.Globalization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
-using Nez.Tiled;
+using Atma.Tiled;
 
 
-namespace Nez.TiledMaps
+namespace Atma.TiledMaps
 {
 	[ContentTypeWriter]
 	public class TiledMapWriter : ContentTypeWriter<TmxMap>
@@ -99,7 +99,7 @@ namespace Nez.TiledMaps
 				writer.Write( layer.name );
 				writer.Write( layer.visible );
 				writer.Write( layer.opacity );
-				writer.Write( new Vector2( layer.offsetx, layer.offsety ) );
+				writer.Write( new vec2( layer.offsetx, layer.offsety ) );
 
 				var tileLayer = layer as TmxTileLayer;
 				if( tileLayer != null )
@@ -200,7 +200,7 @@ namespace Nez.TiledMaps
 		}
 
 
-		static void writePointList( ContentWriter writer, TmxObject obj, List<Vector2> points )
+		static void writePointList( ContentWriter writer, TmxObject obj, List<vec2> points )
 		{
 			writer.Write( points.Count );
 			for( var i = 0; i < points.Count; i++ )
@@ -247,13 +247,13 @@ namespace Nez.TiledMaps
 
 		public override string GetRuntimeType( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.Tiled.TiledMap ).AssemblyQualifiedName;
+			return typeof( Atma.Tiled.TiledMap ).AssemblyQualifiedName;
 		}
 
 
 		public override string GetRuntimeReader( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.Tiled.TiledMapReader ).AssemblyQualifiedName;
+			return typeof( Atma.Tiled.TiledMapReader ).AssemblyQualifiedName;
 		}
 
 	}

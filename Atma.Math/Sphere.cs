@@ -1,4 +1,5 @@
-﻿
+﻿#if ATMA_PHYSICS
+
 #region LGPL License
 
 /*
@@ -60,14 +61,14 @@ namespace Atma
     /// </remarks>
     public struct Sphere
     {
-        #region Protected member variables
+#region Protected member variables
 
         private float radius;
         private vec3 center;
 
-        #endregion
+#endregion
 
-        #region Constructors
+#region Constructors
 
         ///// <summary>
         /////		Creates a unit sphere centered at the origin.
@@ -75,7 +76,7 @@ namespace Atma
         //public Sphere()
         //{
         //    radius = 1.0f;
-        //    center = Vector3.Zero;
+        //    center = vec3.Zero;
         //}
 
         /// <summary>
@@ -89,9 +90,9 @@ namespace Atma
             this.radius = radius;
         }
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         /// <summary>
         ///		Gets/Sets the center of the sphere.
@@ -103,9 +104,9 @@ namespace Atma
         /// </summary>
         public float Radius { get { return radius; } set { radius = value; } }
 
-        #endregion
+#endregion
 
-        #region Intersection methods
+#region Intersection methods
 
         public static bool operator ==(Sphere sphere1, Sphere sphere2)
         {
@@ -158,7 +159,7 @@ namespace Atma
         }
 
         /// <summary>
-        ///		Returns whether or not this sphere interects a Vector3.
+        ///		Returns whether or not this sphere interects a vec3.
         /// </summary>
         /// <param name="vector"></param>
         /// <returns>True if the vector intersects, false otherwise.</returns>
@@ -167,7 +168,8 @@ namespace Atma
             return (vector - center).Length <= radius;
         }
 
-        #endregion Intersection methods
+#endregion Intersection methods
     }
 }
 
+#endif

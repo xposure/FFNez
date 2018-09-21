@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.IEnumerableExtensions;
-using Nez.UI;
+using Atma.UI;
 
 
 #if DEBUG
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// the heart of the inspector system. Subclasses of Inspector are responsible for setting up and managing the UI. Currently,
@@ -130,7 +129,7 @@ namespace Nez
 				return new BoolInspector();
 			if( valueType == typeof( string ) )
 				return new StringInspector();
-			if( valueType == typeof( Vector2 ) )
+			if( valueType == typeof( vec2 ) )
 				return new Vector2Inspector();
 			if( valueType == typeof( Color ) )
 				return new ColorInspector();

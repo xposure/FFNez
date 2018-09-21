@@ -1,13 +1,14 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Nez.Textures;
+using Atma.Textures;
 using System.Diagnostics;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// wrapper class that holds in instance of a Batcher and helpers so that it can be passed around and draw anything.
@@ -80,3 +81,4 @@ namespace Nez
 
 	}
 }
+#endif

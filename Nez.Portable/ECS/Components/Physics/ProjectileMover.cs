@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// moves taking collision into account only for reporting to any ITriggerListeners. The object will always move the full amount so it is up
@@ -26,7 +27,7 @@ namespace Nez
 		/// </summary>
 		/// <returns><c>true</c>, if move actor was newed, <c>false</c> otherwise.</returns>
 		/// <param name="motion">Motion.</param>
-		public bool move( Vector2 motion )
+		public bool move( vec2 motion )
 		{
 			var didCollide = false;
 
@@ -67,3 +68,4 @@ namespace Nez
 	}
 }
 
+#endif

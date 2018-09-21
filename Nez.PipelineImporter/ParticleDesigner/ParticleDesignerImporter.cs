@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml.Serialization;
 
 
-namespace Nez.ParticleDesignerImporter
+namespace Atma.ParticleDesignerImporter
 {
 	[ContentImporter( ".pex", DefaultProcessor = "ParticleDesignerProcessor", DisplayName = "Particle Designer Importer" )]
 	public class ParticleDesignerImporter : ContentImporter<ParticleDesignerContent>

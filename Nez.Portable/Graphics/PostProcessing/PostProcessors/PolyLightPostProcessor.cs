@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Nez.Textures;
+using Atma.Textures;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// post processor to assist with making blended poly lights. Usage is as follows:
@@ -187,3 +188,4 @@ namespace Nez
 	}
 }
 
+#endif

@@ -1,10 +1,11 @@
-﻿using System;
-using Nez;
+#if FEATURE_GRAPHICS
+using System;
+using Atma;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Textures;
+using Atma.Textures;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// used by the WaterReflectionPlane
@@ -43,3 +44,4 @@ namespace Nez
 	}
 }
 
+#endif

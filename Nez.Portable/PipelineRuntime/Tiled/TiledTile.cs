@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Nez.Textures;
+#if FEATURE_PIPELINE
+using Microsoft.Xna.Framework;
+using Atma.Textures;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledTile
 	{
@@ -87,9 +88,9 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <returns>The world position.</returns>
 		/// <param name="tilemap">Tilemap.</param>
-		public Vector2 getWorldPosition( TiledMap tilemap )
+		public vec2 getWorldPosition( TiledMap tilemap )
 		{
-			return new Vector2( x * tilemap.tileWidth, y * tilemap.tileHeight );
+			return new vec2( x * tilemap.tileWidth, y * tilemap.tileHeight );
 		}
 
 
@@ -100,3 +101,4 @@ namespace Nez.Tiled
 
 	}
 }
+#endif

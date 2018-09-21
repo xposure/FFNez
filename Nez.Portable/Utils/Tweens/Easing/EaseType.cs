@@ -1,7 +1,8 @@
-﻿using System.Collections;
+#if FEATURE_UTILS
+using System.Collections;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	public enum EaseType
 	{
@@ -234,3 +235,4 @@ namespace Nez.Tweens
 	}
 
 }
+#endif

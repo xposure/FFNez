@@ -1,9 +1,10 @@
-﻿using Nez.Textures;
+#if FEATURE_GRAPHICS
+using Atma.Textures;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// overlays a mosaic on top of the final render. Useful only for pixel perfect pixel art.
@@ -79,7 +80,7 @@ namespace Nez
 			// use the mosaic to render to a full sized RenderTarget repeating the mosaic
 			Core.graphicsDevice.setRenderTarget( _mosaicRenderTex );
 			Graphics.instance.batcher.begin( BlendState.Opaque, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone );
-			Graphics.instance.batcher.draw( _mosaicTexture, Vector2.Zero, new Rectangle( 0, 0, _mosaicRenderTex.Width, _mosaicRenderTex.Height ), Color.White );
+			Graphics.instance.batcher.draw( _mosaicTexture, vec2.Zero, new Rectangle( 0, 0, _mosaicRenderTex.Width, _mosaicRenderTex.Height ), Color.White );
 			Graphics.instance.batcher.end();
 
 			// let our Effect know about our rendered, full screen mosaic
@@ -107,3 +108,4 @@ namespace Nez
 	}
 }
 
+#endif

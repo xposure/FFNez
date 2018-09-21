@@ -8,6 +8,11 @@ namespace Atma
 {
     public struct Rectangle : IEquatable<Rectangle>
     {
+#if DEBUG
+        public static implicit operator Microsoft.Xna.Framework.Rectangle(Rectangle r) => new Microsoft.Xna.Framework.Rectangle(r.X, r.Y, r.Width, r.Height);
+        public static implicit operator Rectangle(Microsoft.Xna.Framework.Rectangle r) => new Rectangle(r.X, r.Y, r.Width, r.Height);
+#endif
+
         #region Private Fields
 
         private static Rectangle emptyRectangle = new Rectangle();

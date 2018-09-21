@@ -1,14 +1,15 @@
+#if FEATURE_PHYSICS
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Verlet
+namespace Atma.Verlet
 {
 	/// <summary>
 	/// a series of points connected with DistanceConstraints
 	/// </summary>
 	public class LineSegments : Composite
 	{
-		public LineSegments( Vector2[] vertices, float stiffness )
+		public LineSegments( vec2[] vertices, float stiffness )
 		{
 			for( var i = 0; i < vertices.Length; i++ )
 			{
@@ -33,3 +34,4 @@ namespace Nez.Verlet
 
 	}
 }
+#endif

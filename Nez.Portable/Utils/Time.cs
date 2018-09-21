@@ -1,7 +1,8 @@
-﻿using System.Runtime.CompilerServices;
+#if FEATURE_UTILS
+using System.Runtime.CompilerServices;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// provides frame timing information
@@ -80,3 +81,4 @@ namespace Nez
 	}
 }
 
+#endif

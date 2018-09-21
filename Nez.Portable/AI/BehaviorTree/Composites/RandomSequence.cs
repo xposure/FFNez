@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.BehaviorTrees
+namespace Atma.AI.BehaviorTrees
 {
 	/// <summary>
 	/// Same as Sequence except it shuffles the children when started

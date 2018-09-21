@@ -3,7 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// A group with a single child that sizes and positions the child using constraints. This provides layout similar to a
@@ -1107,7 +1107,7 @@ namespace Nez.UI
 		}
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			if( _clip )
 			{

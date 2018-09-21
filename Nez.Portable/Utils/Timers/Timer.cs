@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 
 
-namespace Nez.Timers
+namespace Atma.Timers
 {
 	/// <summary>
 	/// private class hiding the implementation of ITimer
@@ -74,3 +75,4 @@ namespace Nez.Timers
 	}
 }
 
+#endif

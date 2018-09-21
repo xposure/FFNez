@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+#if FEATURE_DEBUG
+using System.Diagnostics;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class Assert
 	{
@@ -151,3 +152,4 @@ namespace Nez
 	}
 }
 
+#endif

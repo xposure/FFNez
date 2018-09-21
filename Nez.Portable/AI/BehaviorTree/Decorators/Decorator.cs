@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.BehaviorTrees
+namespace Atma.AI.BehaviorTrees
 {
 	public abstract class Decorator<T> : Behavior<T>
 	{

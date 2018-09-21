@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+#if FEATURE_GRAPHICS
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	/// <summary>
 	/// base class for all SVG elements. Has some helpers for parsing colors and dealing with transforms.
@@ -93,3 +94,4 @@ namespace Nez.Svg
 
 	}
 }
+#endif

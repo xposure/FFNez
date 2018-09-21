@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// basic class that can be used to create simple meshes. For more advanced usage subclass and override what is needed. The general gist
@@ -23,7 +24,7 @@ namespace Nez
 			{
 				if( _areBoundsDirty )
 				{
-					_bounds.calculateBounds( entity.transform.position + _topLeftVertPosition, Vector2.Zero, Vector2.Zero, entity.transform.scale, entity.transform.rotation, _width, _height );
+					_bounds.calculateBounds( entity.transform.position + _topLeftVertPosition, vec2.Zero, vec2.Zero, entity.transform.scale, entity.transform.rotation, _width, _height );
 					_areBoundsDirty = false;
 				}
 
@@ -36,7 +37,7 @@ namespace Nez
 		BasicEffect _basicEffect;
 
 		int _primitiveCount;
-		Vector2 _topLeftVertPosition;
+		vec2 _topLeftVertPosition;
 		float _width;
 		float _height;
 		int[] _triangles;
@@ -52,8 +53,8 @@ namespace Nez
 		/// <param name="recalculateUVs">If set to <c>true</c> recalculate U vs.</param>
 		public Mesh recalculateBounds( bool recalculateUVs )
 		{
-			_topLeftVertPosition = new Vector2( float.MaxValue, float.MaxValue );
-			var max = new Vector2( float.MinValue, float.MinValue );
+			_topLeftVertPosition = new vec2( float.MaxValue, float.MaxValue );
+			var max = new vec2( float.MinValue, float.MinValue );
 
 			for( var i = 0; i < _verts.Length; i++ )
 			{
@@ -160,7 +161,7 @@ namespace Nez
 		/// sets the vert positions. If the positions array does not match the verts array size the verts array will be recreated.
 		/// </summary>
 		/// <param name="positions">Positions.</param>
-		public Mesh setVertPositions( Vector2[] positions )
+		public Mesh setVertPositions( vec2[] positions )
 		{
 			if( _verts == null || _verts.Length != positions.Length )
 				_verts = new VertexPositionColorTexture[positions.Length];
@@ -175,7 +176,7 @@ namespace Nez
 		/// sets the vert positions. If the positions array does not match the verts array size the verts array will be recreated.
 		/// </summary>
 		/// <param name="positions">Positions.</param>
-		public Mesh setVertPositions( Vector3[] positions )
+		public Mesh setVertPositions( vec3[] positions )
 		{
 			if( _verts == null || _verts.Length != positions.Length )
 				_verts = new VertexPositionColorTexture[positions.Length];
@@ -260,3 +261,4 @@ namespace Nez
 	}
 }
 
+#endif

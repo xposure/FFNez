@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Newtonsoft.Json;
 
-namespace Nez.PipelineImporter.FufParticle
+namespace Atma.PipelineImporter.FufParticle
 {
     [ContentImporter(".fpx", DefaultProcessor = nameof(FufParticleCreatorProcessor),
         DisplayName = "Fuf Particle Importer")]

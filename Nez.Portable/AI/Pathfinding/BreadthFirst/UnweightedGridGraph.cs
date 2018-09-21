@@ -1,10 +1,10 @@
 #if FEATURE_AI
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Nez.Tiled;
+using Atma.Tiled;
 
 
-namespace Nez.AI.Pathfinding
+namespace Atma.AI.Pathfinding
 {
 	/// <summary>
 	/// basic unweighted grid graph for use with the BreadthFirstPathfinder

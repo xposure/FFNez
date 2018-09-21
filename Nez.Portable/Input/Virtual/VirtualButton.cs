@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+#if FEATURE_INPUT
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// A virtual input that is represented as a boolean. As well as simply checking the current button state, you can ask whether
@@ -610,3 +611,4 @@ namespace Nez
 	}
 }
 
+#endif

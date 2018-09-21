@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Textures
+namespace Atma.Textures
 {
 	/// <summary>
 	/// wrapper for a RenderTarget2D that optionally takes care of resizing itself automatcially when the screen size changes
@@ -157,3 +158,4 @@ namespace Nez.Textures
 	}
 }
 
+#endif

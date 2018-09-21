@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_DEBUG
+using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public static partial class Debug
 	{
@@ -39,3 +40,4 @@ namespace Nez
 		}
 	}
 }
+#endif

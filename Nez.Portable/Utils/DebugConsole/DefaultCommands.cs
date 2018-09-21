@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Text;
 using System.Collections.Generic;
 
 
 
-namespace Nez.Console
+namespace Atma.Console
 {
 	/// <summary>
 	/// add this attribute to any static method
@@ -27,7 +28,7 @@ namespace Nez.Console
 
 #if DEBUG
 #if FEATURE_UI
-namespace Nez.Console
+namespace Atma.Console
 {
 	public partial class DebugConsole
 	{
@@ -283,5 +284,6 @@ namespace Nez.Console
 
 	}
 }
+#endif
 #endif
 #endif

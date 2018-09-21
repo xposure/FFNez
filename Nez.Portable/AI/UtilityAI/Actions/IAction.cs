@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.UtilityAI
+namespace Atma.AI.UtilityAI
 {
 	public interface IAction<T>
 	{

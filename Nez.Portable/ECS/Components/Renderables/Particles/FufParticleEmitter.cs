@@ -1,15 +1,16 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Nez.ECS.Components.Renderables.Particles {
+namespace Atma.ECS.Components.Renderables.Particles {
     public class FufParticleEmitter : RenderableComponent, IUpdatable {
         public override RectangleF bounds {
             get { return _bounds; }
         }
 
-        private Vector2 rootPosition => entity.transform.position + _localOffset;
+        private vec2 rootPosition => entity.transform.position + _localOffset;
         private List<FufParticle> _particles;
         public FufParticleCreatorConfig emitterConfig;
         public bool emitting = true;
@@ -92,8 +93,8 @@ namespace Nez.ECS.Components.Renderables.Particles {
                 }
             }
 
-            var boundsMin = new Vector2(float.MaxValue, float.MaxValue);
-            var boundsMax = new Vector2(float.MinValue, float.MinValue);
+            var boundsMin = new vec2(float.MaxValue, float.MaxValue);
+            var boundsMax = new vec2(float.MinValue, float.MinValue);
             var maxParticleScale = 0f;
 
             // update particles
@@ -106,8 +107,9 @@ namespace Nez.ECS.Components.Renderables.Particles {
                     _particles.RemoveAt(i);
                 } else {
                     var pos = particle.position + (simulateInWorldSpace ? particle.spawnPosition : rootPosition);
-                    Vector2.Min(ref boundsMin, ref pos, out boundsMin);
-                    Vector2.Max(ref boundsMax, ref pos, out boundsMax);
+                    
+                    vec2.Min(ref boundsMin, ref pos, out boundsMin);
+                    vec2.Max(ref boundsMax, ref pos, out boundsMax);
                     maxParticleScale = Math.Max(maxParticleScale, particle.scale);
                 }
             }
@@ -129,10 +131,11 @@ namespace Nez.ECS.Components.Renderables.Particles {
             }
         }
 
-        protected void addParticle(Vector2 spawnPosition) {
+        protected void addParticle(vec2 spawnPosition) {
             var particle = Pool<FufParticle>.obtain();
             particle.initialize(emitterConfig, spawnPosition);
             _particles.Add(particle);
         }
     }
 }
+#endif

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	public enum CoreEvents
 	{

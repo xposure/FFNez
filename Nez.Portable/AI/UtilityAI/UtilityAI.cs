@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Nez.AI.UtilityAI
+namespace Atma.AI.UtilityAI
 {
 	public class UtilityAI<T>
 	{

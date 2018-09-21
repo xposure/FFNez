@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class ComponentTypeManager
 	{
@@ -43,3 +44,4 @@ namespace Nez
 	}
 }
 
+#endif

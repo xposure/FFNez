@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_UTILS
+using Microsoft.Xna.Framework;
 
-namespace Nez
+namespace Atma
 {
     public class ColorValueBounds : ValueBounds<Color>
     {
@@ -23,3 +24,4 @@ namespace Nez
         }
     }
 }
+#endif

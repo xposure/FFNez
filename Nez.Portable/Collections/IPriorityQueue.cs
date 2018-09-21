@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+#if FEATURE_UTILS
+using System.Collections.Generic;
 
 
 namespace System.Collections.Generic
@@ -52,3 +53,4 @@ namespace System.Collections.Generic
 		int Count { get; }
 	}
 }
+#endif

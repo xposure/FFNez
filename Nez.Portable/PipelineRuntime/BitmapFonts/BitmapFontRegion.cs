@@ -1,7 +1,8 @@
-using Nez.Textures;
+#if FEATURE_PIPELINE
+using Atma.Textures;
 
 
-namespace Nez.BitmapFonts
+namespace Atma.BitmapFonts
 {
 	public class BitmapFontRegion
 	{
@@ -33,3 +34,4 @@ namespace Nez.BitmapFonts
 
 	}
 }
+#endif

@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+#if FEATURE_ESC
+using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// interface that when added to a Component lets Nez know that it wants the update method called each frame as long as the Component
@@ -28,3 +29,4 @@ namespace Nez
 	}
 }
 
+#endif

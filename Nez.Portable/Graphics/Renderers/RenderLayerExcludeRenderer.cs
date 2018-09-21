@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_GRAPHICS
+namespace Atma
 {
 	/// <summary>
 	/// Renderer that only renders all but one renderLayer. Useful to keep UI rendering separate from the rest of the game when used in conjunction
@@ -50,3 +51,4 @@
 	}
 }
 
+#endif

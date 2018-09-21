@@ -1,21 +1,22 @@
-﻿using System.Runtime.InteropServices;
+#if FEATURE_ESC
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	[StructLayout( LayoutKind.Sequential, Pack = 1 )]
 	public struct VertexPositionColorNormal : IVertexType
 	{
-		public Vector3 position;
+		public vec3 position;
 		public Color color;
-		public Vector3 normal;
+		public vec3 normal;
 
 
 		static readonly VertexDeclaration _vertexDeclaration = new VertexDeclaration
 		(
-			new VertexElement( 0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0 ),
+			new VertexElement( 0, VertexElementFormat.Vector2, VertexElementUsage.Position, 0 ),
 			new VertexElement( 12, VertexElementFormat.Color, VertexElementUsage.Color, 0 ),
 			new VertexElement( 16, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0 )
 		);
@@ -23,7 +24,7 @@ namespace Nez
 		VertexDeclaration IVertexType.VertexDeclaration { get { return _vertexDeclaration; } }
 
 
-		public VertexPositionColorNormal( Vector3 position, Color color, Vector3 normal )
+		public VertexPositionColorNormal( vec3 position, Color color, vec3 normal )
 		{
 			this.position = position;
 			this.color = color;
@@ -35,3 +36,4 @@ namespace Nez
 
 	}
 }
+#endif

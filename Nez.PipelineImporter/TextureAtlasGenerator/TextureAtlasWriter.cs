@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using System.ComponentModel;
 using System;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
-using Nez.TextureAtlases;
+using Atma.TextureAtlases;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.TextureAtlasGenerator
+namespace Atma.TextureAtlasGenerator
 {
 	[ContentTypeWriter]
 	public class TextureAtlasWriter : ContentTypeWriter<TextureAtlasContent>

@@ -3,7 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public struct DebugRectangleF
 	{

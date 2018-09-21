@@ -1,10 +1,10 @@
 #if FEATURE_UI
 using System;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class TextButton : Button
 	{

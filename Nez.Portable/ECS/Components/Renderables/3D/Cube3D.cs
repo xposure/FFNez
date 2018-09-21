@@ -1,20 +1,21 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class Cube3D : GeometricPrimitive3D
 	{
 		public Cube3D()
 		{
-			Vector3[] normals =
+			vec3[] normals =
 			{
-				new Vector3( 0, 0, 1 ),
-				new Vector3( 0, 0, -1 ),
-				new Vector3( 1, 0, 0 ),
-				new Vector3( -1, 0, 0 ),
-				new Vector3( 0, 1, 0 ),
-				new Vector3( 0, -1, 0 ),
+				new vec3( 0, 0, 1 ),
+				new vec3( 0, 0, -1 ),
+				new vec3( 1, 0, 0 ),
+				new vec3( -1, 0, 0 ),
+				new vec3( 0, 1, 0 ),
+				new vec3( 0, -1, 0 ),
 			};
 
 			Color[] colors =
@@ -31,8 +32,8 @@ namespace Nez
 			{
 				var vertColor = colors[i];
 				var normal = normals[i];
-				var side1 = new Vector3( normal.Y, normal.Z, normal.X );
-				var side2 = Vector3.Cross( normal, side1 );
+				var side1 = new vec3( normal.Y, normal.Z, normal.X );
+				var side2 = vec3.Cross( normal, side1 );
 
 				addIndex( _vertices.Count + 0 );
 				addIndex( _vertices.Count + 1 );
@@ -52,3 +53,4 @@ namespace Nez
 		}
 	}
 }
+#endif

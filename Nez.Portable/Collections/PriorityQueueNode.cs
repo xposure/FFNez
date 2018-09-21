@@ -1,4 +1,5 @@
-﻿namespace System.Collections.Generic
+#if FEATURE_UTILS
+namespace System.Collections.Generic
 {
     public class PriorityQueueNode
     {
@@ -20,3 +21,4 @@
         public int QueueIndex { get; set; }
     }
 }
+#endif

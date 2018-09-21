@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.BehaviorTrees
+namespace Atma.AI.BehaviorTrees
 {
 	/// <summary>
 	/// wraps a Func so that you can avoid having to subclass to create new actions

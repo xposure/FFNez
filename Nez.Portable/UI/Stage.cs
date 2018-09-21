@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class Stage
 	{
@@ -45,7 +45,7 @@ namespace Nez.UI
 		bool debugAll, debugUnderMouse, debugParentUnderMouse;
 		Table.TableDebug debugTableUnderMouse = Table.TableDebug.None;
 
-		Vector2 _lastMousePosition;
+		vec2 _lastMousePosition;
 		Element _mouseOverElement;
 		private Dictionary<int, Element> _touchOverElement = new Dictionary<int, Element>();
 		List<Element> _inputFocusListeners = new List<Element>();
@@ -98,7 +98,7 @@ namespace Nez.UI
 		{
 			if( debugUnderMouse || debugParentUnderMouse || debugTableUnderMouse != Table.TableDebug.None )
 			{
-				var mousePos = screenToStageCoordinates( Input.rawMousePosition.ToVector2() );
+				var mousePos = screenToStageCoordinates( Input.rawMousePosition );
 				var element = hit( mousePos );
 				if( element == null )
 				{
@@ -167,9 +167,9 @@ namespace Nez.UI
 		/// gets the appropriate mouse position (scaled vs raw) based on if this isFullScreen and if we have an entity
 		/// </summary>
 		/// <returns>The mouse position.</returns>
-		public Vector2 getMousePosition()
+		public vec2 getMousePosition()
 		{
-			return entity != null && !isFullScreen ? Input.scaledMousePosition : Input.rawMousePosition.ToVector2();
+			return entity != null && !isFullScreen ? Input.scaledMousePosition : Input.rawMousePosition;
 		}
 
 
@@ -226,7 +226,7 @@ namespace Nez.UI
 				Microsoft.Xna.Framework.Input.Touch.TouchLocation prevTouch;
 				if( touch.TryGetPreviousLocation( out prevTouch ) )
 				{
-					if( Vector2.Distance( touch.Position, prevTouch.Position ) >= float.Epsilon )
+					if( vec2.Distance( touch.Position, prevTouch.Position ) >= float.Epsilon )
 						inputMoved = true;
 				}
 				Element lastOver;
@@ -254,7 +254,7 @@ namespace Nez.UI
 		/// <param name="inputReleased">up this frame</param>
 		/// <param name="inputMoved">cursor in a different location</param>
 		/// <param name="lastOver">last element that the cursor was over, ref is saved here for next update</param>
-		void updateInputPoint( Vector2 inputPos, bool inputPressed, bool inputReleased, bool inputMoved, ref Element lastOver )
+		void updateInputPoint( vec2 inputPos, bool inputPressed, bool inputReleased, bool inputMoved, ref Element lastOver )
 		{
 			var over = hit( inputPos );
 			if( over != null )
@@ -282,7 +282,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <param name="inputPos">location of cursor</param>
 		/// <param name="over">element under cursor</param>
-		void updateInputDown( Vector2 inputPos, Element over )
+		void updateInputDown( vec2 inputPos, Element over )
 		{
 			// lose keyboard focus if we click outside of the keyboardFocusElement
 			if( _keyboardFocusElement != null && over != _keyboardFocusElement )
@@ -306,7 +306,7 @@ namespace Nez.UI
 		/// <param name="inputPos">location of cursor</param>
 		/// <param name="over">element under cursor</param>
 		/// <param name="lastOver">element that was previously under the cursor</param>
-		void updateInputMoved( Vector2 inputPos, Element over, Element lastOver )
+		void updateInputMoved( vec2 inputPos, Element over, Element lastOver )
 		{
 			for( var i = _inputFocusListeners.Count - 1; i >= 0; i-- )
 				( (IInputListener)_inputFocusListeners[i] ).onMouseMoved( _inputFocusListeners[i].stageToLocalCoordinates( inputPos ) );
@@ -323,7 +323,7 @@ namespace Nez.UI
 		/// Mouse or touch is being released this frame.
 		/// </summary>
 		/// <param name="inputPos">location under cursor</param>
-		void updateInputReleased( Vector2 inputPos )
+		void updateInputReleased( vec2 inputPos )
 		{
 			for( var i = _inputFocusListeners.Count - 1; i >= 0; i-- )
 				( (IInputListener)_inputFocusListeners[i] ).onMouseUp( _inputFocusListeners[i].stageToLocalCoordinates( inputPos ) );
@@ -679,7 +679,7 @@ namespace Nez.UI
 		#endregion
 
 
-		public Element hit( Vector2 point )
+		public Element hit( vec2 point )
 		{
 			point = root.parentToLocalCoordinates( point );
 			return root.hit( point );
@@ -691,7 +691,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to stage coordinates.</returns>
 		/// <param name="screenCoords">Screen coords.</param>
-		public Vector2 screenToStageCoordinates( Vector2 screenCoords )
+		public vec2 screenToStageCoordinates( vec2 screenCoords )
 		{
 			if( camera == null )
 				return screenCoords;
@@ -704,7 +704,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to screen coordinates.</returns>
 		/// <param name="stageCoords">Stage coords.</param>
-		public Vector2 stageToScreenCoordinates( Vector2 stageCoords )
+		public vec2 stageToScreenCoordinates( vec2 stageCoords )
 		{
 			if( camera == null )
 				return stageCoords;
@@ -734,7 +734,7 @@ namespace Nez.UI
 			var distanceToNextButton = float.MaxValue;
 
 			var focusableEle = relativeToFocusable as Element;
-			var currentCoords = focusableEle.getParent().localToStageCoordinates( new Vector2( focusableEle.getX(), focusableEle.getY() ) );
+			var currentCoords = focusableEle.getParent().localToStageCoordinates( new vec2( focusableEle.getX(), focusableEle.getY() ) );
 			var buttons = findAllElementsOfType<IGamepadFocusable>();
 			for( var i = 0; i < buttons.Count; i++ )
 			{
@@ -743,7 +743,7 @@ namespace Nez.UI
 				
 				// filter out buttons that are not in the disired direction
 				var element = buttons[i] as Element;
-				var buttonCoords = element.getParent().localToStageCoordinates( new Vector2( element.getX(), element.getY() ) );
+				var buttonCoords = element.getParent().localToStageCoordinates( new vec2( element.getX(), element.getY() ) );
 				var isDirectionMatch = false;
 				switch( direction )
 				{
@@ -771,11 +771,11 @@ namespace Nez.UI
 					if( nextFocusable == null )
 					{
 						nextFocusable = buttons[i];
-						distanceToNextButton = Vector2.DistanceSquared( currentCoords, buttonCoords );
+						distanceToNextButton = vec2.DistanceSqr( currentCoords, buttonCoords );
 					}
 					else
 					{
-						var distance = Vector2.DistanceSquared( currentCoords, buttonCoords );
+						var distance = vec2.DistanceSqr( currentCoords, buttonCoords );
 						if( distance < distanceToNextButton )
 						{
 							nextFocusable = buttons[i];

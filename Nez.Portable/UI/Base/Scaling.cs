@@ -3,7 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public enum Scaling
 	{
@@ -65,9 +65,9 @@ namespace Nez.UI
 		/// <param name="sourceHeight">Source height.</param>
 		/// <param name="targetWidth">Target width.</param>
 		/// <param name="targetHeight">Target height.</param>
-		public static Vector2 apply( this Scaling self, float sourceWidth, float sourceHeight, float targetWidth, float targetHeight )
+		public static vec2 apply( this Scaling self, float sourceWidth, float sourceHeight, float targetWidth, float targetHeight )
 		{
-			var temp = new Vector2();
+			var temp = new vec2();
 			switch ( self )
 			{
 				case Scaling.Fit:

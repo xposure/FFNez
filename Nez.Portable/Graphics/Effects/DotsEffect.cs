@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	public class DotsEffect : Effect
 	{
@@ -49,3 +50,4 @@ namespace Nez
 	}
 }
 
+#endif

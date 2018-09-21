@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Nez.AI.GOAP
+namespace Atma.AI.GOAP
 {
 	/// <summary>
 	/// Agent provides a simple and concise way to use the planner. It is not necessary to use at all since it is just a convenince wrapper

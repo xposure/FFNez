@@ -1,13 +1,14 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class CameraShake : Component, IUpdatable
 	{
-		Vector2 _shakeDirection;
-		Vector2 _shakeOffset;
+		vec2 _shakeDirection;
+		vec2 _shakeOffset;
 		float _shakeIntensity = 0f;
 		float _shakeDegredation = 0.95f;
 
@@ -18,9 +19,9 @@ namespace Nez
 		/// </summary>
 		/// <param name="shakeIntensity">how much should we shake it</param>
 		/// <param name="shakeDegredation">higher values cause faster degradation</param>
-		/// <param name="shakeDirection">Vector3.zero will result in a shake on just the x/y axis. any other values will result in the passed
+		/// <param name="shakeDirection">vec3.zero will result in a shake on just the x/y axis. any other values will result in the passed
 		/// in shakeDirection * intensity being the offset the camera is moved</param>
-		public void shake( float shakeIntensity = 15f, float shakeDegredation = 0.9f, Vector2 shakeDirection = default( Vector2 ) )
+		public void shake( float shakeIntensity = 15f, float shakeDegredation = 0.9f, vec2 shakeDirection = default( vec2 ) )
 		{
 			enabled = true;
 			if( _shakeIntensity < shakeIntensity )
@@ -65,3 +66,4 @@ namespace Nez
 	}
 }
 
+#endif

@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// A basic processing system that doesn't rely on entities.
@@ -32,3 +33,4 @@ namespace Nez
 	}
 }
 
+#endif

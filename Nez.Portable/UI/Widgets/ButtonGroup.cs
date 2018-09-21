@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// Manages a group of buttons to enforce a minimum and maximum number of checked buttons. This enables "radio button"

@@ -1,4 +1,5 @@
-﻿/* BitSet.cs -- A vector of bits.
+#if FEATURE_UTILS
+/* BitSet.cs -- A vector of bits.
     Copyright (C) 1998, 1999, 2000, 2001, 2004, 2005  Free Software Foundation, Inc.
  
  This file is part of GNU Classpath.
@@ -47,7 +48,7 @@ using System.Text;
 using System.Runtime.Serialization;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// This class can be thought of in two ways.  You can see it as a vector of bits or as a set of non-negative integers. The name
@@ -733,3 +734,4 @@ namespace Nez
 
 	}
 }
+#endif

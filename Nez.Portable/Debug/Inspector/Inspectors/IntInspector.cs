@@ -1,9 +1,9 @@
 #if FEATURE_UI
-using Nez.UI;
+using Atma.UI;
 
 
 #if DEBUG
-namespace Nez
+namespace Atma
 {
 	public class IntInspector : Inspector
 	{

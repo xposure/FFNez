@@ -1,12 +1,13 @@
-﻿using System;
-using Nez.Particles;
+#if FEATURE_PIPELINE
+using System;
+using Atma.Particles;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
-using Nez.Textures;
+using Atma.Textures;
 
 
-namespace Nez.ParticleDesigner
+namespace Atma.ParticleDesigner
 {
 	public class ParticleEmitterConfigReader : ContentTypeReader<ParticleEmitterConfig>
 	{
@@ -57,7 +58,7 @@ namespace Nez.ParticleDesigner
 
 
 			var texture = reader.ReadObject<Texture2D>();
-			emitterConfig.subtexture = new Nez.Textures.Subtexture( texture );
+			emitterConfig.subtexture = new Atma.Textures.Subtexture( texture );
 
 			#if USE_RAW_TIFFS
 			// raw tiffs from a byte[] were originally used. Leaving this here for now just in case textures dont end up working
@@ -79,3 +80,4 @@ namespace Nez.ParticleDesigner
 	}
 }
 
+#endif

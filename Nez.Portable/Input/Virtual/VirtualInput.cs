@@ -1,5 +1,6 @@
-﻿
-namespace Nez
+#if FEATURE_INPUT
+
+namespace Atma
 {
 	/// <summary>
 	/// Represents a virtual button, axis or joystick whose state is determined by the state of its VirtualInputNodes
@@ -56,3 +57,4 @@ namespace Nez
 	}
 }
 
+#endif

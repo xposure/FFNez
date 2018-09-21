@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 
-namespace Nez.Textures
+namespace Atma.Textures
 {
 	/// <summary>
 	/// represents a single element in a texture atlas consisting of a texture and the source rectangle for the frame
@@ -29,19 +30,19 @@ namespace Nez.Textures
 		/// center of the sourceRect if it had a 0,0 origin. This is basically the center in sourceRect-space.
 		/// </summary>
 		/// <value>The center.</value>
-		public readonly Vector2 center;
+		public readonly vec2 center;
 
 		/// <summary>
 		/// the origin that a RenderableComponent should use when using this Subtexture. Defaults to the center.
 		/// </summary>
-		public Vector2 origin;
+		public vec2 origin;
 
 
-		public Subtexture( Texture2D texture, Rectangle sourceRect, Vector2 origin )
+		public Subtexture( Texture2D texture, Rectangle sourceRect, vec2 origin )
 		{
 			texture2D = texture;
 			this.sourceRect = sourceRect;
-			center = new Vector2( sourceRect.Width * 0.5f, sourceRect.Height * 0.5f );
+			center = new vec2( sourceRect.Width * 0.5f, sourceRect.Height * 0.5f );
 			this.origin = origin;
 
 			var inverseTexW = 1.0f / texture2D.Width;
@@ -220,3 +221,4 @@ namespace Nez.Textures
 
 	}
 }
+#endif

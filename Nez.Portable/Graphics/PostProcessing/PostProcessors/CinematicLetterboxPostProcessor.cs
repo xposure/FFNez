@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections;
-using Nez.Tweens;
+using Atma.Tweens;
 
 
-namespace Nez
+namespace Atma
 {
 	public class CinematicLetterboxPostProcessor : PostProcessor
 	{
@@ -23,7 +24,7 @@ namespace Nez
 					_color = value;
 
 					if( effect != null )
-						_colorParam.SetValue( _color.ToVector4() );
+						_colorParam.SetValue( _color );
 				}
 			}
 		}
@@ -64,7 +65,7 @@ namespace Nez
 
 			_colorParam = effect.Parameters["_color"];
 			_letterboxSizeParam = effect.Parameters["_letterboxSize"];
-			_colorParam.SetValue( _color.ToVector4() );
+			_colorParam.SetValue( _color );
 			_letterboxSizeParam.SetValue( _letterboxSize );
 		}
 
@@ -120,3 +121,4 @@ namespace Nez
 	}
 }
 
+#endif

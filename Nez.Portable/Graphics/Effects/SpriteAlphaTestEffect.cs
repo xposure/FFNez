@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class SpriteAlphaTestEffect : Effect
 	{
@@ -60,7 +61,7 @@ namespace Nez
 
 		void updateEffectParameter()
 		{
-			var value = new Vector3();
+			var value = new vec3();
 
 			// reference alpha is packed in the x param
 			value.X = _referenceAlpha;
@@ -90,3 +91,4 @@ namespace Nez
 	}
 }
 
+#endif

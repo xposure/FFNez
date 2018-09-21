@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using Microsoft.Xna.Framework.Content.Pipeline;
 
 
-namespace Nez.ParticleDesignerImporter
+namespace Atma.ParticleDesignerImporter
 {
 	public class ParticleDesignerContent
 	{

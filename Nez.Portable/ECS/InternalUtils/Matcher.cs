@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 
-namespace Nez
+namespace Atma
 {
 	public class Matcher
 	{
@@ -137,3 +138,4 @@ namespace Nez
 	}
 }
 
+#endif

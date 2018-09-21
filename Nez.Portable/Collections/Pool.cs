@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// simple static class that can be used to pool any object
@@ -84,3 +85,4 @@ namespace Nez
 		void reset();
 	}
 }
+#endif

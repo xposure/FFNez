@@ -1,8 +1,9 @@
-﻿using System.Runtime.CompilerServices;
+#if FEATURE_UTILS
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class EntityExt
 	{
@@ -23,7 +24,7 @@ namespace Nez
 
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Entity setPosition( this Entity self, Vector2 position )
+		public static Entity setPosition( this Entity self, vec2 position )
 		{
 			self.transform.setPosition( position );
 			return self;
@@ -39,7 +40,7 @@ namespace Nez
 
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Entity setLocalPosition( this Entity self, Vector2 localPosition )
+		public static Entity setLocalPosition( this Entity self, vec2 localPosition )
 		{
 			self.transform.setLocalPosition( localPosition );
 			return self;
@@ -79,7 +80,7 @@ namespace Nez
 
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Entity setScale( this Entity self, Vector2 scale )
+		public static Entity setScale( this Entity self, vec2 scale )
 		{
 			self.transform.setScale( scale );
 			return self;
@@ -95,7 +96,7 @@ namespace Nez
 
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Entity setLocalScale( this Entity self, Vector2 scale )
+		public static Entity setLocalScale( this Entity self, vec2 scale )
 		{
 			self.transform.setLocalScale( scale );
 			return self;
@@ -111,3 +112,4 @@ namespace Nez
 
 	}
 }
+#endif

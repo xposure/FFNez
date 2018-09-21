@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 
 
-namespace Nez
+namespace Atma
 {
 	public class SceneComponent : IComparable<SceneComponent>
 	{
@@ -109,3 +110,4 @@ namespace Nez
 
 	}
 }
+#endif

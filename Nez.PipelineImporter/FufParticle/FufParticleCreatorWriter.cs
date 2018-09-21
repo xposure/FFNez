@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
-using Nez.ECS.Components.Renderables.Particles;
-using Nez.PipelineRuntime.FufParticleCreator;
+using Atma.ECS.Components.Renderables.Particles;
+using Atma.PipelineRuntime.FufParticleCreator;
 
-namespace Nez.PipelineImporter.FufParticle
+namespace Atma.PipelineImporter.FufParticle
 {
     [ContentTypeWriter]
     public class FufParticleCreatorWriter : ContentTypeWriter<FufParticleEmitterProcessorResult>

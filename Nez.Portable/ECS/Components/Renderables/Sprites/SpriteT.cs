@@ -1,9 +1,10 @@
-﻿using System;
-using Nez.Textures;
+#if FEATURE_ESC
+using System;
+using Atma.Textures;
 using System.Collections.Generic;
 
 
-namespace Nez.Sprites
+namespace Atma.Sprites
 {
 	/// <summary>
 	/// Sprite class handles the display and animation of a sprite. It uses a suggested Enum as a key (you can use an int as well if you
@@ -283,3 +284,4 @@ namespace Nez.Sprites
 	}
 }
 
+#endif

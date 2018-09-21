@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Renderer that only renders the specified renderLayers. Useful to keep UI rendering separate from the rest of the game when used in conjunction
@@ -66,3 +67,4 @@ namespace Nez
 	}
 }
 
+#endif

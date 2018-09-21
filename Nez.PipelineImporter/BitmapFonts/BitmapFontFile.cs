@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
-namespace Nez.BitmapFontImporter
+namespace Atma.BitmapFontImporter
 {
 	// ---- AngelCode BmFont XML serializer ----------------------
 	// ---- By DeadlyDan @ deadlydan@gmail.com -------------------

@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Basic entity processing system. Use this as the base for processing many entities with specific components
@@ -43,3 +44,4 @@ namespace Nez
     }
 }
 
+#endif

@@ -1,10 +1,11 @@
+#if FEATURE_GRAPHICS
 using System;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// this class exists only so that we can sneak the Batcher through and have it work just like SpriteBatch with regard to resource handling.
@@ -103,3 +104,4 @@ namespace Nez
 	}
 }
 
+#endif

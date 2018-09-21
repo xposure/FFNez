@@ -1,12 +1,13 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using System.IO;
 using System.Xml.Serialization;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Systems;
+using Atma.Systems;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	/// <summary>
 	/// represents the image tag in an SVG document. This class will do its best to load the image from the href attribute. It will check for
@@ -104,3 +105,4 @@ namespace Nez.Svg
 
 	}
 }
+#endif

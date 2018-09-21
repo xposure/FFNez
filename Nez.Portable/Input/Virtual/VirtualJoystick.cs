@@ -1,26 +1,27 @@
-﻿using System.Collections.Generic;
+#if FEATURE_INPUT
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
-	/// A virtual input that is represented as a Vector2, with both X and Y as values between -1 and 1
+	/// A virtual input that is represented as a vec2, with both X and Y as values between -1 and 1
 	/// </summary>
 	public class VirtualJoystick : VirtualInput
 	{
 		public List<Node> nodes = new List<Node>();
 		public bool normalized;
 
-		public Vector2 value
+		public vec2 value
 		{
 			get
 			{
 				for( int i = 0; i < nodes.Count; i++ )
 				{
 					var val = nodes[i].value;
-					if( val != Vector2.Zero )
+					if( val != vec2.Zero )
 					{
 						if( normalized )
 							val.Normalize();
@@ -28,7 +29,7 @@ namespace Nez
 					}
 				}
 
-				return Vector2.Zero;
+				return vec2.Zero;
 			}
 		}
 
@@ -112,7 +113,7 @@ namespace Nez
 		#endregion
 
 
-		static public implicit operator Vector2( VirtualJoystick joystick )
+		static public implicit operator vec2( VirtualJoystick joystick )
 		{
 			return joystick.value;
 		}
@@ -122,7 +123,7 @@ namespace Nez
 
 		public abstract class Node : VirtualInputNode
 		{
-			public abstract Vector2 value { get; }
+			public abstract vec2 value { get; }
 		}
 
 
@@ -139,7 +140,7 @@ namespace Nez
 			}
 
 
-			public override Vector2 value
+			public override vec2 value
 			{
 				get
 				{
@@ -161,7 +162,7 @@ namespace Nez
 				this.deadzone = deadzone;
 			}
 
-			public override Vector2 value
+			public override vec2 value
 			{
 				get
 				{
@@ -182,11 +183,11 @@ namespace Nez
 			}
 
 
-			public override Vector2 value
+			public override vec2 value
 			{
 				get
 				{
-					var _value = Vector2.Zero;
+					var _value = vec2.Zero;
 
 					if( Input.gamePads[gamepadIndex].DpadRightDown )
 						_value.X = 1f;
@@ -214,7 +215,7 @@ namespace Nez
 
 			private bool _turnedX;
 			private bool _turnedY;
-			private Vector2 _value;
+			private vec2 _value;
 
 
 			public KeyboardKeys( OverlapBehavior overlapBehavior, Keys left, Keys right, Keys up, Keys down )
@@ -311,7 +312,7 @@ namespace Nez
 			}
 
 
-			public override Vector2 value
+			public override vec2 value
 			{
 				get { return _value; }
 			}
@@ -322,3 +323,4 @@ namespace Nez
 	}
 }
 
+#endif

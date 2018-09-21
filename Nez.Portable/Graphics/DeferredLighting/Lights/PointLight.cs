@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework;
 
 
-namespace Nez.DeferredLighting
+namespace Atma.DeferredLighting
 {
 	/// <summary>
 	/// PointLights radiate light in a circle. Note that PointLights are affected by Transform.scale. The Transform.scale.X value is multiplied
@@ -17,7 +18,7 @@ namespace Nez.DeferredLighting
                 {
 					// the size of the light only uses the x scale value
 					var size = radius * entity.transform.scale.X * 2;
-                    _bounds.calculateBounds( entity.transform.position, _localOffset, _radius * entity.transform.scale, Vector2.One, 0, size, size );
+                    _bounds.calculateBounds( entity.transform.position, _localOffset, _radius * entity.transform.scale, vec2.One, 0, size, size );
                     _areBoundsDirty = false;
                 }
 
@@ -100,3 +101,4 @@ namespace Nez.DeferredLighting
 	}
 }
 
+#endif

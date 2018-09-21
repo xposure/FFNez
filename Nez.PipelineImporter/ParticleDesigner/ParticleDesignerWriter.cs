@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 using Microsoft.Xna.Framework.Content.Pipeline;
-using Nez.Particles;
-using Nez.ParticleDesigner;
+using Atma.Particles;
+using Atma.ParticleDesigner;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.ParticleDesignerImporter
+namespace Atma.ParticleDesignerImporter
 {
     [ContentTypeWriter]
     public class ParticleDesignerWriter : ContentTypeWriter<ParticleDesignerProcessorResult>
@@ -25,15 +25,15 @@ namespace Nez.ParticleDesignerImporter
             // Write out all the members
             try
             {
-                writer.Write((Vector2) value.particleEmitterConfig.sourcePosition);
-                writer.Write((Vector2) value.particleEmitterConfig.sourcePositionVariance);
+                writer.Write((vec2) value.particleEmitterConfig.sourcePosition);
+                writer.Write((vec2) value.particleEmitterConfig.sourcePositionVariance);
                 writer.Write(value.particleEmitterConfig.speed.value);
                 writer.Write(value.particleEmitterConfig.speedVariance.value);
                 writer.Write(value.particleEmitterConfig.particleLifeSpan.value);
                 writer.Write(value.particleEmitterConfig.particleLifespanVariance.value);
                 writer.Write(value.particleEmitterConfig.angle.value);
                 writer.Write(value.particleEmitterConfig.angleVariance.value);
-                writer.Write((Vector2) value.particleEmitterConfig.gravity);
+                writer.Write((vec2) value.particleEmitterConfig.gravity);
                 writer.Write(value.particleEmitterConfig.radialAcceleration.value);
                 writer.Write(value.particleEmitterConfig.radialAccelVariance.value);
                 writer.Write(value.particleEmitterConfig.tangentialAcceleration.value);

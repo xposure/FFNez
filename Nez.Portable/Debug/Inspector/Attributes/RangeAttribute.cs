@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Range attribute.

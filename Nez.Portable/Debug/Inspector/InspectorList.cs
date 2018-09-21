@@ -1,11 +1,11 @@
 #if FEATURE_UI
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Nez.UI;
+using Atma.UI;
 
 
 #if DEBUG
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// container for a Component/PostProcessor/Transform and all of its inspectable properties

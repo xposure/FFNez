@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 
 
-namespace Nez
+namespace Atma
 {
 	public class ScreenSpaceCamera : Camera
 	{
@@ -13,3 +14,4 @@ namespace Nez
 	}
 }
 
+#endif

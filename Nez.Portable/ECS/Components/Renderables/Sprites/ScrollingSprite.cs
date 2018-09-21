@@ -1,8 +1,9 @@
-﻿using Nez.Textures;
+#if FEATURE_ESC
+using Atma.Textures;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Sprites
+namespace Atma.Sprites
 {
 	/// <summary>
 	/// Scrolling sprite. Note that ScrollingSprite overrides the Material so that it can wrap the UVs. This class requires the texture
@@ -43,3 +44,4 @@ namespace Nez.Sprites
 	}
 }
 
+#endif

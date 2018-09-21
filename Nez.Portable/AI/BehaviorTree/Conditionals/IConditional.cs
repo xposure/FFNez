@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.BehaviorTrees
+namespace Atma.AI.BehaviorTrees
 {
 	/// <summary>
 	/// interface used just to identify if a Behavior is a conditional. it will always be applied to a Behavior which already has the update method.

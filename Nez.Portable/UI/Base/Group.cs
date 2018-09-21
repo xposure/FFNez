@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class Group : Element, ICullable
 	{
 		internal List<Element> children = new List<Element>();
 		protected bool transform = false;
-		Matrix _previousBatcherTransform;
+		mat4 _previousBatcherTransform;
 		Rectangle? _cullingArea;
 
 		public T addElement<T>( T element ) where T : Element
@@ -126,7 +126,7 @@ namespace Nez.UI
 		}
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			if( touchable == Touchable.Disabled )
 				return null;
@@ -347,7 +347,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <param name="graphics">Graphics.</param>
 		/// <param name="transform">Transform.</param>
-		protected void applyTransform( Graphics graphics, Matrix transform )
+		protected void applyTransform( Graphics graphics, mat4 transform )
 		{
 			_previousBatcherTransform = graphics.batcher.transformMatrix;
 			graphics.batcher.end();

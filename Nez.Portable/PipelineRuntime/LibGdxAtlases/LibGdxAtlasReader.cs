@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+#if FEATURE_PIPELINE
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Pipeline.Content;
+using Atma.Pipeline.Content;
 using Microsoft.Xna.Framework;
-using Nez.TextureAtlases;
-using Nez.Textures;
+using Atma.TextureAtlases;
+using Atma.Textures;
 
 
-namespace Nez.LibGdxAtlases
+namespace Atma.LibGdxAtlases
 {
 	public class LibGdxAtlasReader : ContentTypeReader<LibGdxAtlas>
 	{
@@ -77,3 +78,4 @@ namespace Nez.LibGdxAtlases
 	}
 }
 
+#endif

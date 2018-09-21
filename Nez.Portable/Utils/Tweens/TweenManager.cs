@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+#if FEATURE_UTILS
+using System.Collections.Generic;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	public class TweenManager : IUpdatableManager
 	{
@@ -202,3 +203,4 @@ namespace Nez.Tweens
 
 	}
 }
+#endif

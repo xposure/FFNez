@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 
-namespace Nez.UISkinImporter
+namespace Atma.UISkinImporter
 {
 	class JsonDictionaryConverter : CustomCreationConverter<IDictionary<string, object>>
 	{

@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledTileAnimationFrame
 	{
@@ -24,3 +25,4 @@ namespace Nez.Tiled
 	}
 }
 
+#endif

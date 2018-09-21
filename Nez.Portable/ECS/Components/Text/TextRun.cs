@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// provides a cached run of text for super fast text drawing. Note that this is only appropriate for text that doesnt change often
@@ -15,22 +16,22 @@ namespace Nez
 		struct CharDetails
 		{
 			public Texture2D texture;
-			public Vector3[] verts;
-			public Vector2[] texCoords;
+			public vec3[] verts;
+			public vec2[] texCoords;
 			public Color color;
 
 			public void initialize()
 			{
-				verts = new Vector3[4];
-				texCoords = new Vector2[4];
+				verts = new vec3[4];
+				texCoords = new vec2[4];
 			}
 		}
 
 		public float width { get { return _size.X; } }
 		public float height { get { return _size.Y; } }
-		public Vector2 origin { get { return _origin; } }
+		public vec2 origin { get { return _origin; } }
 		public float rotation;
-		public Vector2 position;
+		public vec2 position;
 
 		/// <summary>
 		/// text to draw
@@ -67,10 +68,10 @@ namespace Nez
 		VerticalAlign _verticalAlign;
 		BitmapFont _font;
 		string _text;
-		Vector2 _size;
+		vec2 _size;
 		Color _color = Color.White;
-		Vector2 _origin;
-		Vector2 _scale = Vector2.One;
+		vec2 _origin;
+		vec2 _scale = vec2.One;
 		CharDetails[] _charDetails;
 
 		static readonly float[] _cornerOffsetX = { 0.0f, 1.0f, 0.0f, 1.0f };
@@ -131,7 +132,7 @@ namespace Nez
 
 		void updateCentering()
 		{
-			var newOrigin = Vector2.Zero;
+			var newOrigin = vec2.Zero;
 
 			if( _horizontalAlign == HorizontalAlign.Left )
 				newOrigin.X = 0;
@@ -147,7 +148,7 @@ namespace Nez
 			else
 				newOrigin.Y = _size.Y;
 
-			_origin = new Vector2( (int)( newOrigin.X * _scale.X ), (int)( newOrigin.Y * _scale.Y ) );
+			_origin = new vec2( (int)( newOrigin.X * _scale.X ), (int)( newOrigin.Y * _scale.Y ) );
 		}
 
 
@@ -162,7 +163,7 @@ namespace Nez
 			var effects = (byte)SpriteEffects.None;
 
 			var _transformationMatrix = Matrix2D.identity;
-			var requiresTransformation = rotation != 0f || _scale != Vector2.One;
+			var requiresTransformation = rotation != 0f || _scale != vec2.One;
 			if( requiresTransformation )
 			{
 				Matrix2D temp;
@@ -175,7 +176,7 @@ namespace Nez
 				Matrix2D.multiply( ref _transformationMatrix, ref temp, out _transformationMatrix );
 			}
 
-			var offset = requiresTransformation ? Vector2.Zero : position - _origin;
+			var offset = requiresTransformation ? vec2.Zero : position - _origin;
 
 			for( var i = 0; i < _text.Length; ++i )
 			{
@@ -314,3 +315,4 @@ namespace Nez
 	}
 }
 
+#endif

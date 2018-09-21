@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using System;
-using Nez.PipelineImporter;
+using Atma.PipelineImporter;
 
 
-namespace Nez.BitmapFontImporter
+namespace Atma.BitmapFontImporter
 {
 	[ContentTypeWriter]
 	public class BitmapFontWriter : ContentTypeWriter<BitmapFontProcessorResult>
@@ -79,13 +79,13 @@ namespace Nez.BitmapFontImporter
 
 		public override string GetRuntimeType( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.BitmapFonts.BitmapFont ).AssemblyQualifiedName;
+			return typeof( Atma.BitmapFonts.BitmapFont ).AssemblyQualifiedName;
 		}
 
 
 		public override string GetRuntimeReader( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.BitmapFonts.BitmapFontReader ).AssemblyQualifiedName;
+			return typeof( Atma.BitmapFonts.BitmapFontReader ).AssemblyQualifiedName;
 		}
 	}
 }

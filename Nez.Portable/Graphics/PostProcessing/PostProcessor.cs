@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Post Processing step for rendering actions after everthing done.
@@ -120,3 +121,4 @@ namespace Nez
 	}
 }
 
+#endif

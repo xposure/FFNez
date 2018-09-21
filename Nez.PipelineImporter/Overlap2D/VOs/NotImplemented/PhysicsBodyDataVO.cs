@@ -2,14 +2,14 @@
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Overlap2D.Runtime
+namespace Atma.Overlap2D.Runtime
 {
 	public class PhysicsBodyDataVO
 	{
 		public int bodyType = 0;
 
 		public float mass;
-		public Vector2 centerOfMass;
+		public vec2 centerOfMass;
 		public float rotationalInertia;
 		public float damping;
 		public float gravityScale;

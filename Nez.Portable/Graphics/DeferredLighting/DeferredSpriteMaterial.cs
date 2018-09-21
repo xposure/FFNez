@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.DeferredLighting
+namespace Atma.DeferredLighting
 {
 	public class DeferredSpriteMaterial : Material<DeferredSpriteEffect>
 	{
@@ -19,3 +20,4 @@ namespace Nez.DeferredLighting
 
 	}
 }
+#endif

@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
 using System.Collections;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Tweens;
+using Atma.Tweens;
 
 
-namespace Nez
+namespace Atma
 {
 	public class TransformTransition : SceneTransition
 	{
@@ -113,3 +114,4 @@ namespace Nez
 	}
 }
 
+#endif

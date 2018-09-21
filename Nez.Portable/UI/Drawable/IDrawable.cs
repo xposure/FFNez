@@ -3,7 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// A drawable knows how to draw itself at a given rectangular size. It provides border sizes and a minimum size so that other code

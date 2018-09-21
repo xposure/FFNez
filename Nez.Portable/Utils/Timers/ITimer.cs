@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 
 
-namespace Nez
+namespace Atma
 {
 	public interface ITimer
 	{
@@ -28,3 +29,4 @@ namespace Nez
 	}
 }
 
+#endif

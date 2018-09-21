@@ -1,11 +1,13 @@
-﻿namespace Atma
+﻿#if ATMA_PHYSICS
+
+namespace Atma
 {
     /// <summary>
     ///		Simple struct to allow returning a complex intersection result.
     /// </summary>
     public struct IntersectResult
     {
-        #region Fields
+#region Fields
 
         /// <summary>
         ///		Did the intersection test result in a hit?
@@ -19,7 +21,7 @@
         /// </summary>
         public float Distance;
 
-        #endregion Fields
+#endregion Fields
 
         /// <summary>
         ///		Constructor.
@@ -33,3 +35,4 @@
         }
     }
 }
+#endif

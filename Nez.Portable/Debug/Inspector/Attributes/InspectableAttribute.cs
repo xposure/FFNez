@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Attribute that is used to indicate that the field/property should be present in the inspector

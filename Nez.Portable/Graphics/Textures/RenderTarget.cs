@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 
-namespace Nez.Textures
+namespace Atma.Textures
 {
 	public class RenderTarget : IUpdatableManager
 	{
@@ -168,3 +169,4 @@ namespace Nez.Textures
 	}
 }
 
+#endif

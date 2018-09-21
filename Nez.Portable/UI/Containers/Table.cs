@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// A group that sizes and positions children using table constraints. By default, {@link #getTouchable()} is
@@ -175,7 +175,7 @@ namespace Nez.UI
 		}
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			if( clip )
 			{

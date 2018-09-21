@@ -1,6 +1,7 @@
-﻿// common storage location for generic enums
+#if FEATURE_UTILS
+// common storage location for generic enums
 
-namespace Nez
+namespace Atma
 {
 	public enum HorizontalAlign
 	{
@@ -36,3 +37,4 @@ namespace Nez
 	}
 }
 
+#endif

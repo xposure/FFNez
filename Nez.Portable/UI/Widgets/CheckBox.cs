@@ -1,10 +1,10 @@
 #if FEATURE_UI
 using System;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// A checkbox is a button that contains an image indicating the checked or unchecked state and a label

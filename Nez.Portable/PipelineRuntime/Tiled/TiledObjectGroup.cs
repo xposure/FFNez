@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledObjectGroup
 	{
@@ -75,3 +76,4 @@ namespace Nez.Tiled
 	}
 }
 
+#endif

@@ -1,9 +1,10 @@
+#if FEATURE_PIPELINE
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Textures;
+using Atma.Textures;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledTileset
 	{
@@ -65,3 +66,4 @@ namespace Nez.Tiled
 		}
 	}
 }
+#endif

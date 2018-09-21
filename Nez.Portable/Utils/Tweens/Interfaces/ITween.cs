@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	/// <summary>
 	/// a series of strongly typed, chainable methods to setup various tween properties
@@ -112,3 +113,4 @@ namespace Nez.Tweens
 	}
 
 }
+#endif

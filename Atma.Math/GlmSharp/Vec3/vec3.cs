@@ -21,9 +21,35 @@ namespace Atma
     [StructLayout(LayoutKind.Sequential)]
     public struct vec3 : IReadOnlyList<float>, IEquatable<vec3>
     {
+#if DEBUG
+        public static implicit operator Microsoft.Xna.Framework.Vector3(vec3 v) => new Microsoft.Xna.Framework.Vector3(v.x, v.y, v.z);
+
+        public static float DistanceSquared(vec3 a, vec3 b)
+        {
+            return DistanceSqr(a, b);
+        }
+        public static vec3 Normalize(vec3 v)
+        {
+            return v.Normalized;
+        }
+
+        public static vec3 TransformNormal(vec3 v, mat4 m)
+        {
+            return m * v;
+        }
+
+        public static vec3 Transform(vec3 v, mat4 m)
+        {
+            return (m * new vec4(v, 1)).xyz;
+        }
+
+        public float X { get => x; set => y = value; }
+        public float Y { get => y; set => y = value; }
+        public float Z { get => z; set => z = value; }
+#endif
 
         #region Fields
-        
+
         /// <summary>
         /// x-component
         /// </summary>

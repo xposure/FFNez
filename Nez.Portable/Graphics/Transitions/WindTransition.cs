@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
-using Nez.Tweens;
+using Atma.Tweens;
 using System.Collections;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// sweeps wind accross the screen revealing the new Scene
@@ -84,3 +85,4 @@ namespace Nez
 	}
 }
 
+#endif

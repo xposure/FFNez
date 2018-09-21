@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Nez.AI.Pathfinding
+namespace Atma.AI.Pathfinding
 {
 	/// <summary>
 	/// calculates paths given an IWeightedGraph and start/goal positions

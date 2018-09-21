@@ -1,45 +1,46 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// helper methods for drawing text with NezSpriteFonts
 	/// </summary>
 	public static class BatcherSpriteFontExt
 	{
-		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, StringBuilder text, Vector2 position, Color color )
+		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, StringBuilder text, vec2 position, Color color )
 		{
-			batcher.drawString( spriteFont, text, position, color, 0.0f, Vector2.Zero, new Vector2( 1.0f ), SpriteEffects.None, 0.0f );
+			batcher.drawString( spriteFont, text, position, color, 0.0f, vec2.Zero, new vec2( 1.0f ), SpriteEffects.None, 0.0f );
 		}
 
 
-		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, StringBuilder text, Vector2 position, Color color,
-			float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth )
+		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, StringBuilder text, vec2 position, Color color,
+			float rotation, vec2 origin, float scale, SpriteEffects effects, float layerDepth )
 		{
-			batcher.drawString( spriteFont, text, position, color, rotation, origin, new Vector2( scale ), effects, layerDepth );
+			batcher.drawString( spriteFont, text, position, color, rotation, origin, new vec2( scale ), effects, layerDepth );
 		}
 
 
-		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, string text, Vector2 position, Color color )
+		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, string text, vec2 position, Color color )
 		{
-			batcher.drawString( spriteFont, text, position, color, 0.0f, Vector2.Zero, new Vector2( 1.0f ), SpriteEffects.None, 0.0f );
+			batcher.drawString( spriteFont, text, position, color, 0.0f, vec2.Zero, new vec2( 1.0f ), SpriteEffects.None, 0.0f );
 		}
 
 
-		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, string text, Vector2 position, Color color, float rotation,
-			Vector2 origin, float scale, SpriteEffects effects, float layerDepth )
+		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, string text, vec2 position, Color color, float rotation,
+			vec2 origin, float scale, SpriteEffects effects, float layerDepth )
 		{
-			batcher.drawString( spriteFont, text, position, color, rotation, origin, new Vector2( scale ), effects, layerDepth );
+			batcher.drawString( spriteFont, text, position, color, rotation, origin, new vec2( scale ), effects, layerDepth );
 		}
 
 
-		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, StringBuilder text, Vector2 position, Color color,
-			float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth )
+		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, StringBuilder text, vec2 position, Color color,
+			float rotation, vec2 origin, vec2 scale, SpriteEffects effects, float layerDepth )
 		{
 			Assert.isFalse( text == null );
 
@@ -51,8 +52,8 @@ namespace Nez
 		}
 
 
-		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, string text, Vector2 position, Color color, float rotation,
-			Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth )
+		public static void drawString( this Batcher batcher, NezSpriteFont spriteFont, string text, vec2 position, Color color, float rotation,
+			vec2 origin, vec2 scale, SpriteEffects effects, float layerDepth )
 		{
 			Assert.isFalse( text == null );
 
@@ -66,3 +67,4 @@ namespace Nez
 	}
 }
 
+#endif

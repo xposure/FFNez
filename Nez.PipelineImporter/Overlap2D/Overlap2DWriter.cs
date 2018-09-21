@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
-using Nez.Overlap2D.Runtime;
+using Atma.Overlap2D.Runtime;
 using Microsoft.Xna.Framework;
 using System.Linq;
 
-namespace Nez.Overlap2D
+namespace Atma.Overlap2D
 {
 	[ContentTypeWriter]
 	public class Overlap2DWriter : ContentTypeWriter<SceneVO>
@@ -108,7 +108,7 @@ namespace Nez.Overlap2D
 			//write polygon
 
 			// we have to multiply by our scenes pixelToWorld and invert y
-			var vectorFix = new Vector2( scene.pixelToWorld, -scene.pixelToWorld );
+			var vectorFix = new vec2( scene.pixelToWorld, -scene.pixelToWorld );
 			var polygon = colorPrim.shape.polygons[0];
 
 			writer.Write( polygon.Length );
@@ -120,13 +120,13 @@ namespace Nez.Overlap2D
 
 		public override string GetRuntimeType( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.Overlap2D.O2DScene ).AssemblyQualifiedName;
+			return typeof( Atma.Overlap2D.O2DScene ).AssemblyQualifiedName;
 		}
 
 
 		public override string GetRuntimeReader( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.Overlap2D.O2DSceneReader ).AssemblyQualifiedName;
+			return typeof( Atma.Overlap2D.O2DSceneReader ).AssemblyQualifiedName;
 		}
 	}
 }

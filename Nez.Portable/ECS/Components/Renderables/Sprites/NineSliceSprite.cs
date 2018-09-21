@@ -1,10 +1,11 @@
-﻿using Nez.Sprites;
-using Nez.Textures;
+#if FEATURE_ESC
+using Atma.Sprites;
+using Atma.Textures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	public class NineSliceSprite : Sprite
 	{
@@ -91,3 +92,4 @@ namespace Nez
 	}
 }
 
+#endif

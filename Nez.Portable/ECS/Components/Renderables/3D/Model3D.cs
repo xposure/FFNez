@@ -1,5 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Nez;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework.Graphics;
+using Atma;
 
 
 namespace Nez3D
@@ -80,3 +81,4 @@ namespace Nez3D
 
 	}
 }
+#endif

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Xna.Framework;
-using Nez.IEnumerableExtensions;
-using Nez.UI;
+using Atma.UI;
 
 
 #if DEBUG
-namespace Nez
+namespace Atma
 {
 	public class StructInspector : Inspector
 	{

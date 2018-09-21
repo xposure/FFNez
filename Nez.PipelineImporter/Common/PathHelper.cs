@@ -2,7 +2,7 @@
 using System.IO;
 
 
-namespace Nez.PipelineImporter
+namespace Atma.PipelineImporter
 {
 	public static class PathHelper
 	{

@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using Nez.Textures;
+#if FEATURE_ESC
+using System.Collections.Generic;
+using Atma.Textures;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Sprites
+namespace Atma.Sprites
 {
 	public enum AnimationCompletionBehavior
 	{
@@ -106,7 +107,7 @@ namespace Nez.Sprites
 		/// sets the origin for all frames in this animation
 		/// </summary>
 		/// <param name="origin"></param>
-		public SpriteAnimation setOrigin( Vector2 origin )
+		public SpriteAnimation setOrigin( vec2 origin )
 		{
 			for( var i = 0; i < frames.Count; i++ )
 				frames[i].origin = origin;
@@ -168,3 +169,4 @@ namespace Nez.Sprites
 	}
 }
 
+#endif

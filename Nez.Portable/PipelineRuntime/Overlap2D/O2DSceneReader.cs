@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Overlap2D
+namespace Atma.Overlap2D
 {
 	public class O2DSceneReader : ContentTypeReader<O2DScene>
 	{
@@ -85,7 +86,7 @@ namespace Nez.Overlap2D
 
 			// special care needs to be taken here. if we have 4 verts everything will be fine. If we have any other number we need to
 			// reverse the array
-			colorPrim.polygon = new Vector2[count];
+			colorPrim.polygon = new vec2[count];
 
 			for( var i = 0; i < count; i++ )
 				colorPrim.polygon[i] = reader.ReadVector2();
@@ -97,3 +98,4 @@ namespace Nez.Overlap2D
 	}
 }
 
+#endif

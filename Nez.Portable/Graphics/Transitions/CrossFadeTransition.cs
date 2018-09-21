@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using System.Collections;
 using Microsoft.Xna.Framework;
-using Nez.Tweens;
+using Atma.Tweens;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// fades from the current Scene to the new Scene
@@ -59,9 +60,10 @@ namespace Nez
 		{
 			Core.graphicsDevice.setRenderTarget( null );
 			graphics.batcher.begin( BlendState.NonPremultiplied, Core.defaultSamplerState, DepthStencilState.None, null );
-			graphics.batcher.draw( previousSceneRender, Vector2.Zero, _color );
+			graphics.batcher.draw( previousSceneRender, vec2.Zero, _color );
 			graphics.batcher.end();
 		}
 	}
 }
 
+#endif

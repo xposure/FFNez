@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	public enum LoopType
 	{
@@ -416,3 +417,4 @@ namespace Nez.Tweens
 	}
 
 }
+#endif

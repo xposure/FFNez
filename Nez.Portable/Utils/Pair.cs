@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// simple DTO for managing a pair of objects
@@ -44,3 +45,4 @@ namespace Nez
 	}
 }
 
+#endif

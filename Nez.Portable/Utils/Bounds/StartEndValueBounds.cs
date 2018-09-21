@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_UTILS
+namespace Atma
 {
     public class StartEndValueBounds<T>
     {
@@ -22,3 +23,4 @@
         }
     }
 }
+#endif

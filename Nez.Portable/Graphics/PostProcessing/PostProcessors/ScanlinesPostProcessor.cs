@@ -1,6 +1,7 @@
-﻿
+#if FEATURE_GRAPHICS
 
-namespace Nez
+
+namespace Atma
 {
 	public class ScanlinesPostProcessor : PostProcessor<ScanlinesEffect>
 	{
@@ -11,3 +12,4 @@ namespace Nez
 	}
 }
 
+#endif

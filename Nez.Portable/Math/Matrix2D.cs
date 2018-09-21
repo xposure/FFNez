@@ -1,10 +1,11 @@
+#if FEATURE_MATH
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Represents the right-handed 3x3 floating point matrix, which can store translation, scale and rotation information.
@@ -39,11 +40,11 @@ namespace Nez
 		/// <summary>
 		/// Position stored in this matrix.
 		/// </summary>
-		public Vector2 translation
+		public vec2 translation
 		{
 			get
 			{
-				return new Vector2( M31, M32 );
+				return new vec2( M31, M32 );
 			}
 			set
 			{
@@ -84,11 +85,11 @@ namespace Nez
 		/// <summary>
 		/// Scale stored in this matrix.
 		/// </summary>
-		public Vector2 scale
+		public vec2 scale
 		{
 			get
 			{
-				return new Vector2( M11, M22 );
+				return new vec2( M11, M22 );
 			}
 			set
 			{
@@ -261,10 +262,10 @@ namespace Nez
 		/// <summary>
 		/// Creates a new scaling <see cref="Matrix2D"/>.
 		/// </summary>
-		/// <param name="scale"><see cref="Vector2"/> representing x and y scale values.</param>
+		/// <param name="scale"><see cref="vec2"/> representing x and y scale values.</param>
 		/// <returns>The scaling <see cref="Matrix2D"/>.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Matrix2D createScale( Vector2 scale )
+		public static Matrix2D createScale( vec2 scale )
 		{
 			Matrix2D result;
 			createScale( ref scale, out result );
@@ -275,10 +276,10 @@ namespace Nez
 		/// <summary>
 		/// Creates a new scaling <see cref="Matrix2D"/>.
 		/// </summary>
-		/// <param name="scale"><see cref="Vector3"/> representing x,y and z scale values.</param>
+		/// <param name="scale"><see cref="vec3"/> representing x,y and z scale values.</param>
 		/// <param name="result">The scaling <see cref="Matrix2D"/> as an output parameter.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static void createScale( ref Vector2 scale, out Matrix2D result )
+		public static void createScale( ref vec2 scale, out Matrix2D result )
 		{
 			result.M11 = scale.X;
 			result.M12 = 0;
@@ -312,7 +313,7 @@ namespace Nez
 		/// <param name="position">X,Y and Z coordinates of translation.</param>
 		/// <param name="result">The translation <see cref="Matrix2D"/> as an output parameter.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static void createTranslation( ref Vector2 position, out Matrix2D result )
+		public static void createTranslation( ref vec2 position, out Matrix2D result )
 		{
 			result.M11 = 1;
 			result.M12 = 0;
@@ -331,7 +332,7 @@ namespace Nez
 		/// <param name="position">X,Y and Z coordinates of translation.</param>
 		/// <returns>The translation <see cref="Matrix2D"/>.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Matrix2D createTranslation( Vector2 position )
+		public static Matrix2D createTranslation( vec2 position )
 		{
 			Matrix2D result;
 			createTranslation( ref position, out result );
@@ -471,7 +472,7 @@ namespace Nez
 		/// Creates a new <see cref="Matrix2D"/> that contains linear interpolation of the values in specified matrixes.
 		/// </summary>
 		/// <param name="matrix1">The first <see cref="Matrix2D"/>.</param>
-		/// <param name="matrix2">The second <see cref="Vector2"/>.</param>
+		/// <param name="matrix2">The second <see cref="vec2"/>.</param>
 		/// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
 		/// <returns>>The result of linear interpolation of the specified matrixes.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
@@ -493,7 +494,7 @@ namespace Nez
 		/// Creates a new <see cref="Matrix2D"/> that contains linear interpolation of the values in specified matrixes.
 		/// </summary>
 		/// <param name="matrix1">The first <see cref="Matrix2D"/>.</param>
-		/// <param name="matrix2">The second <see cref="Vector2"/>.</param>
+		/// <param name="matrix2">The second <see cref="vec2"/>.</param>
 		/// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
 		/// <param name="result">The result of linear interpolation of the specified matrixes as an output parameter.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
@@ -948,9 +949,9 @@ namespace Nez
 		}
 
 
-		public static implicit operator Matrix( Matrix2D mat )
+		public static implicit operator mat4( Matrix2D mat )
 		{
-			return new Matrix
+			return new mat4
 			(
 				mat.M11, mat.M12, 0, 0,
 				mat.M21, mat.M22, 0, 0,
@@ -959,8 +960,19 @@ namespace Nez
 			);
 		}
 
+        public static implicit operator Matrix(Matrix2D mat)
+        {
+            return new mat4
+            (
+                mat.M11, mat.M12, 0, 0,
+                mat.M21, mat.M22, 0, 0,
+                0, 0, 1, 0,
+                mat.M31, mat.M32, 0, 1
+            );
+        }
 
-		internal string debugDisplayString
+
+        internal string debugDisplayString
 		{
 			get
 			{
@@ -983,3 +995,4 @@ namespace Nez
 
 	}
 }
+#endif

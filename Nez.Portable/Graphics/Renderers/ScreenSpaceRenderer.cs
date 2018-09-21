@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Renderer that renders using its own Camera which doesnt move.
@@ -54,3 +55,4 @@ namespace Nez
 	}
 }
 
+#endif

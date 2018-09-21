@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// putting this attribute on a class and specifying a subclass of Inspector lets you create custom inspectors for any type. When

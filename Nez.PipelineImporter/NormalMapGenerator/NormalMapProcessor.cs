@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Processors;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using Microsoft.Xna.Framework;
-using Nez.PipelineImporter;
+using Atma.PipelineImporter;
 using System.ComponentModel;
-using Nez.Textures;
+using Atma.Textures;
 
 
-namespace Nez.NormalMapGenerator
+namespace Atma.NormalMapGenerator
 {
 	[ContentProcessor( DisplayName = "Normal Map Generator" )]
 	public class NormalMapProcessor : TextureProcessor

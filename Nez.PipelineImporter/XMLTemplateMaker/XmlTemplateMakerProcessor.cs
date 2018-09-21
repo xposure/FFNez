@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 using System.Text;
 
 
-namespace Nez.XmlTemplateMaker
+namespace Atma.XmlTemplateMaker
 {
 	/// <summary>
 	/// Simple little importer that's sole purpose is to print out a template XML file for any class. The template XML can then be used to

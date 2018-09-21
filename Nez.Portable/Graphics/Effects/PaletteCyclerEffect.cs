@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// retro palette swap/cycle effect. If cycleSpeed is 0 (the default) this works as a plain old palette swap. It should be used with
@@ -57,3 +58,4 @@ namespace Nez
 	}
 }
 
+#endif

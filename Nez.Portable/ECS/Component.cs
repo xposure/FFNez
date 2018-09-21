@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Runtime.CompilerServices;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Execution order:
@@ -168,3 +169,4 @@ namespace Nez
 	}
 }
 
+#endif

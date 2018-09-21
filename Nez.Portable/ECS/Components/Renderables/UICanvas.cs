@@ -1,10 +1,10 @@
 ﻿#if FEATURE_UI
 using System;
-using Nez.UI;
+using Atma.UI;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// simple component that houses a Stage and delegates update/render/debugRender calls

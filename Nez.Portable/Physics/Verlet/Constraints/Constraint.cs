@@ -1,6 +1,7 @@
+#if FEATURE_PHYSICS
 
 
-namespace Nez.Verlet
+namespace Atma.Verlet
 {
 	public abstract class Constraint
 	{
@@ -35,3 +36,4 @@ namespace Nez.Verlet
 
 	}
 }
+#endif

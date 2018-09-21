@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class UISkinConfigReader : ContentTypeReader<UISkinConfig>
 	{
@@ -29,3 +30,4 @@ namespace Nez.UI
 	}
 }
 
+#endif

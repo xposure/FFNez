@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Nez.LibGdxAtlases
+namespace Atma.LibGdxAtlases
 {
 	public class LibGdxAtlasPage
 	{

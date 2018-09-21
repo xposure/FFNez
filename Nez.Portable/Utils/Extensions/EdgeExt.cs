@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Runtime.CompilerServices;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class EdgeExt
 	{
@@ -75,3 +76,4 @@ namespace Nez
 	}
 }
 
+#endif

@@ -1,9 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using Nez;
-using Nez.IEnumerableExtensions;
+using Atma;
 
 namespace System.Collections.Generic
 {
@@ -98,8 +98,8 @@ namespace System.Collections.Generic
 					return;
 				}
 
-				// Create a new array and copy the old values.
-				var powOfTwo = Mathf.closestPowerOfTwoGreaterThan( value );
+                // Create a new array and copy the old values.
+                var powOfTwo = value * 3 / 2;// Mathf.closestPowerOfTwoGreaterThan( value );
 
 				value = powOfTwo;
 
@@ -830,3 +830,4 @@ namespace System.Collections.Generic
 
 	}
 }
+#endif

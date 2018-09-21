@@ -1,11 +1,12 @@
-using Nez.Textures;
-using Nez.Sprites;
+#if FEATURE_PIPELINE
+using Atma.Textures;
+using Atma.Sprites;
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.TextureAtlases
+namespace Atma.TextureAtlases
 {
 	/// <summary>
 	/// runtime component of the TextureAtlasGenerator. Stores the main Texture2D and all relevant metadata
@@ -106,3 +107,4 @@ namespace Nez.TextureAtlases
 
 	}
 }
+#endif

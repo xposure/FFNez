@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// batcher that draws vertex colored triangles
@@ -30,7 +31,7 @@ namespace Nez
 
 			// set up a new basic effect, and enable vertex colors.
 			_basicEffect = new BasicEffect( Core.graphicsDevice );
-			_basicEffect.World = Matrix.Identity;
+			_basicEffect.World = mat4.Identity;
 			_basicEffect.VertexColorEnabled = true;
 		}
 			
@@ -58,8 +59,8 @@ namespace Nez
 		/// </summary>
 		public void begin()
 		{
-			var projection = Matrix.CreateOrthographicOffCenter( 0, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0, 0, -1 );
-			var view = Matrix.CreateLookAt( Vector3.Zero, Vector3.Forward, Vector3.Up );
+			var projection = mat4.Ortho( 0, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0, 0, -1 );
+			var view = mat4.LookAt( vec3.Zero, vec3.UnitZ, vec3.UnitY );
 
 			begin( ref projection, ref view );
 		}
@@ -71,7 +72,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="projection">The projection.</param>
 		/// <param name="view">The view.</param>
-		public void begin( ref Matrix projection, ref Matrix view )
+		public void begin( ref mat4 projection, ref mat4 view )
 		{
 			Assert.isFalse( _hasBegun, "Invalid state. End must be called before Begin can be called again." );
 
@@ -91,7 +92,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="projection">The projection.</param>
 		/// <param name="view">The view.</param>
-		public void begin( Matrix projection, Matrix view )
+		public void begin( mat4 projection, mat4 view )
 		{
 			begin( ref projection, ref view );
 		}
@@ -114,7 +115,7 @@ namespace Nez
 		}
 
 
-		public void addVertex( Vector2 vertex, Color color, PrimitiveType primitiveType )
+		public void addVertex( vec2 vertex, Color color, PrimitiveType primitiveType )
 		{
 			Assert.isTrue( _hasBegun, "Invalid state. Begin must be called before AddVertex can be called." );
 			Assert.isFalse( primitiveType == PrimitiveType.LineStrip || primitiveType == PrimitiveType.TriangleStrip, "The specified primitiveType is not supported by PrimitiveBatch" );
@@ -124,7 +125,7 @@ namespace Nez
 				if( _triangleVertsCount >= _triangleVertices.Length )
 					flushTriangles();
 
-				_triangleVertices[_triangleVertsCount].Position = new Vector3( vertex, 0 );
+				_triangleVertices[_triangleVertsCount].Position = new vec3( vertex, 0 );
 				_triangleVertices[_triangleVertsCount].Color = color;
 				_triangleVertsCount++;
 			}
@@ -134,7 +135,7 @@ namespace Nez
 				if( _lineVertsCount >= _lineVertices.Length )
 					flushLines();
 
-				_lineVertices[_lineVertsCount].Position = new Vector3( vertex, 0 );
+				_lineVertices[_lineVertsCount].Position = new vec3( vertex, 0 );
 				_lineVertices[_lineVertsCount].Color = color;
 				_lineVertsCount++;
 			}
@@ -177,11 +178,11 @@ namespace Nez
 
 		public void drawRectangle( float x, float y, float width, float height, Color color )
 		{
-			var verts = new Vector2[4];
-			verts[2] = new Vector2( x + width, y + height );
-			verts[1] = new Vector2( x + width, y );
-			verts[0] = new Vector2( x, y );
-			verts[3] = new Vector2( x, y + height );
+			var verts = new vec2[4];
+			verts[2] = new vec2( x + width, y + height );
+			verts[1] = new vec2( x + width, y );
+			verts[0] = new vec2( x, y );
+			verts[3] = new vec2( x, y + height );
 
 			drawPolygon( verts, 4, color );
 		}
@@ -189,17 +190,17 @@ namespace Nez
 
 		public void drawRectangle( ref Rectangle rect, Color color )
 		{
-			var verts = new Vector2[4];
-			verts[0] = new Vector2( rect.Left, rect.Top );
-			verts[1] = new Vector2( rect.Right, rect.Top );
-			verts[2] = new Vector2( rect.Right, rect.Bottom );
-			verts[3] = new Vector2( rect.Left, rect.Bottom );
+			var verts = new vec2[4];
+			verts[0] = new vec2( rect.Left, rect.Top );
+			verts[1] = new vec2( rect.Right, rect.Top );
+			verts[2] = new vec2( rect.Right, rect.Bottom );
+			verts[3] = new vec2( rect.Left, rect.Bottom );
 
 			drawPolygon( verts, 4, color );
 		}
 
 
-		public void drawPolygon( Vector2[] vertices, int count, Color color )
+		public void drawPolygon( vec2[] vertices, int count, Color color )
 		{
 			for( int i = 1; i < count - 1; i++ )
 			{
@@ -210,7 +211,7 @@ namespace Nez
 		}
 
 
-		public void drawPolygon( Vector2 position, Vector2[] vertices, Color color )
+		public void drawPolygon( vec2 position, vec2[] vertices, Color color )
 		{
 			var v0 = vertices[0];
 			var v1 = v0;
@@ -232,18 +233,18 @@ namespace Nez
 		}
 
 
-		public void drawCircle( Vector2 center, float radius, Color color, int circleSegments = 32 )
+		public void drawCircle( vec2 center, float radius, Color color, int circleSegments = 32 )
 		{
 			var increment = MathHelper.Pi * 2.0f / circleSegments;
 			var theta = 0.0f;
 
-			var v0 = center + radius * new Vector2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
+			var v0 = center + radius * new vec2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
 			theta += increment;
 
 			for( int i = 1; i < circleSegments - 1; i++ )
 			{
-				var v1 = center + radius * new Vector2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
-				var v2 = center + radius * new Vector2( (float)Math.Cos( theta + increment ), (float)Math.Sin( theta + increment ) );
+				var v1 = center + radius * new vec2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
+				var v2 = center + radius * new vec2( (float)Math.Cos( theta + increment ), (float)Math.Sin( theta + increment ) );
 
 				addVertex( v0, color, PrimitiveType.TriangleList );
 				addVertex( v1, color, PrimitiveType.TriangleList );
@@ -254,7 +255,7 @@ namespace Nez
 		}
 
 
-		public void drawArrow( Vector2 start, Vector2 end, float length, float width, bool drawStartIndicator, Color color )
+		public void drawArrow( vec2 start, vec2 end, float length, float width, bool drawStartIndicator, Color color )
 		{
 			// Draw connection segment between start- and end-point
 			//drawLine( start, end, color );
@@ -263,7 +264,7 @@ namespace Nez
 			var halfWidth = width / 2;
 
 			// Create directional reference
-			Vector2 rotation = ( start - end );
+			vec2 rotation = ( start - end );
 			rotation.Normalize();
 
 			// Calculate angle of directional vector
@@ -274,10 +275,10 @@ namespace Nez
 			Matrix2D endMatrix = Matrix2D.createTranslation( end.X, end.Y );
 
 			// Setup arrow end shape
-			Vector2[] verts = new Vector2[3];
-			verts[0] = new Vector2( 0, 0 );
-			verts[1] = new Vector2( -halfWidth, -length );
-			verts[2] = new Vector2( halfWidth, -length );
+			vec2[] verts = new vec2[3];
+			verts[0] = new vec2( 0, 0 );
+			verts[1] = new vec2( -halfWidth, -length );
+			verts[2] = new vec2( halfWidth, -length );
 
 			// Rotate end shape
 			Vector2Ext.transform( verts, ref rotMatrix, verts );
@@ -292,11 +293,11 @@ namespace Nez
 				// Create translation matrix for start
 				Matrix2D startMatrix = Matrix2D.createTranslation( start.X, start.Y );
 				// Setup arrow start shape
-				Vector2[] baseVerts = new Vector2[4];
-				baseVerts[0] = new Vector2( -halfWidth, length / 4 );
-				baseVerts[1] = new Vector2( halfWidth, length / 4 );
-				baseVerts[2] = new Vector2( halfWidth, 0 );
-				baseVerts[3] = new Vector2( -halfWidth, 0 );
+				vec2[] baseVerts = new vec2[4];
+				baseVerts[0] = new vec2( -halfWidth, length / 4 );
+				baseVerts[1] = new vec2( halfWidth, length / 4 );
+				baseVerts[2] = new vec2( halfWidth, 0 );
+				baseVerts[3] = new vec2( -halfWidth, 0 );
 
 				// Rotate start shape
 				Vector2Ext.transform( baseVerts, ref rotMatrix, baseVerts );
@@ -311,3 +312,4 @@ namespace Nez
 
 	}
 }
+#endif

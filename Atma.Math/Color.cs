@@ -10,6 +10,32 @@
     [StructLayout(LayoutKind.Sequential)]
     public struct Color : IComparable
     {
+#if DEBUG
+        public static explicit operator vec4(Color v) => new vec4(v.R / 255f, v.G / 255f, v.B / 255f, v.A / 255f);
+        public static implicit operator Microsoft.Xna.Framework.Vector4(Color v) => new Microsoft.Xna.Framework.Vector4(v.R / 255f, v.G / 255f, v.B / 255f, v.A / 255f);
+        public static implicit operator Microsoft.Xna.Framework.Color(Color v) => new Microsoft.Xna.Framework.Color(v.PackedValue);
+        public static implicit operator Color(Microsoft.Xna.Framework.Color v) => new Color(v.PackedValue);
+        public vec3 ToVector3() => ((vec4)this).xyz;
+        public Color(vec3 v)
+        {
+            _packedValue = 0;
+            var scalar = 255;
+            A = 255;
+            R = (byte)glm.Clamp(v.x * scalar, 0, 255);
+            G = (byte)glm.Clamp(v.y * scalar, 0, 255);
+            B = (byte)glm.Clamp(v.z * scalar, 0, 255);
+        }
+        public Color(vec4 v)
+        {
+            _packedValue = 0;
+            var scalar = 255;
+            A = (byte)glm.Clamp(v.x * scalar, 0, 255);
+            R = (byte)glm.Clamp(v.y * scalar, 0, 255);
+            G = (byte)glm.Clamp(v.z * scalar, 0, 255);
+            B = (byte)glm.Clamp(v.w * scalar, 0, 255);
+        }
+#endif
+
         #region Member variables
         internal uint _packedValue;
         public uint PackedValue => _packedValue;
@@ -278,15 +304,15 @@
         //    return retVal;
         //}
 
-        //public static Color operator *(Color left, float scalar)
-        //{
-        //    Color retVal = left;
-        //    retVal.A *= scalar;
-        //    retVal.R *= scalar;
-        //    retVal.G *= scalar;
-        //    retVal.B *= scalar;
-        //    return retVal;
-        //}
+        public static Color operator *(Color left, float scalar)
+        {
+            Color retVal = left;
+            retVal.A = (byte)glm.Clamp(retVal.A * scalar, 0, 255);
+            retVal.R = (byte)glm.Clamp(retVal.R * scalar, 0, 255);
+            retVal.G = (byte)glm.Clamp(retVal.G * scalar, 0, 255);
+            retVal.B = (byte)glm.Clamp(retVal.B * scalar, 0, 255);
+            return retVal;
+        }
 
         //public static Color operator /(Color left, Color right)
         //{

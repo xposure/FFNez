@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class ArraySelection<T> : Selection<T> where T : class
 	{

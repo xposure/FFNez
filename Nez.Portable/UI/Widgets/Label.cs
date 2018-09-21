@@ -1,11 +1,11 @@
 #if FEATURE_UI
 using System;
 using Microsoft.Xna.Framework;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class Label : Element
 	{
@@ -55,8 +55,8 @@ namespace Nez.UI
 		string _wrappedString;
 		bool _prefSizeInvalid;
 		float _lastPrefHeight;
-		Vector2 _prefSize;
-		Vector2 _textPosition;
+		vec2 _prefSize;
+		vec2 _textPosition;
 
 
 		public Label( string text, LabelStyle style )
@@ -134,7 +134,7 @@ namespace Nez.UI
 				_wrappedString = _text;
 			}
 
-			_prefSize = _style.font.measureString( _wrappedString ) * new Vector2( _fontScaleX, _fontScaleY );
+			_prefSize = _style.font.measureString( _wrappedString ) * new vec2( _fontScaleX, _fontScaleY );
 		}
 
 
@@ -357,7 +357,7 @@ namespace Nez.UI
 			if( _style.background != null )
 				_style.background.draw( graphics, x, y, width == 0 ? _prefSize.X : width, height, color );
 
-			graphics.batcher.drawString( _style.font, _wrappedString, new Vector2( x, y ) + _textPosition, _style.fontColor, 0, Vector2.Zero, new Vector2( _fontScaleX, _fontScaleY ), SpriteEffects.None, 0 );
+			graphics.batcher.drawString( _style.font, _wrappedString, new vec2( x, y ) + _textPosition, _style.fontColor, 0, vec2.Zero, new vec2( _fontScaleX, _fontScaleY ), SpriteEffects.None, 0 );
 		}
 
 	}

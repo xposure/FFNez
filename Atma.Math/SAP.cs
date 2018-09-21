@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if ATMA_PHYSICS
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,3 +30,4 @@ namespace Atma
         
     }
 }
+#endif

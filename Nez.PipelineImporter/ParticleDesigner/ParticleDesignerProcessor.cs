@@ -5,11 +5,11 @@ using System.IO;
 using System.Collections.Generic;
 using System.IO.Compression;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Particles;
+using Atma.Particles;
 using Microsoft.Xna.Framework.Content.Pipeline.Processors;
 
 
-namespace Nez.ParticleDesignerImporter
+namespace Atma.ParticleDesignerImporter
 {
 	[ContentProcessor( DisplayName = "Particle Designer Processor" )]
 	public class ParticleDesignerProcessor : ContentProcessor<ParticleDesignerContent, ParticleDesignerProcessorResult>

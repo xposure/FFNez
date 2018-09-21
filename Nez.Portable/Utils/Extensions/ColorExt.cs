@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class ColorExt
 	{
@@ -110,3 +111,4 @@ namespace Nez
 	}
 }
 
+#endif

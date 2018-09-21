@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// glitch effect where the screen is divided into rows verticalSize high. Each row is shifted horizonalAmount left or right. It is best used
@@ -71,14 +72,15 @@ namespace Nez
 
 			_verticalSizeParam.SetValue( _verticalSize );
 			_horizontalOffsetParam.SetValue( _horizontalOffset );
-			_screenSizeParam.SetValue( new Vector2( Screen.width, Screen.height ) );
+			_screenSizeParam.SetValue( new vec2( Screen.width, Screen.height ) );
 		}
 
 
 		public override void onSceneBackBufferSizeChanged( int newWidth, int newHeight )
 		{
-			_screenSizeParam.SetValue( new Vector2( newWidth, newHeight ) );
+			_screenSizeParam.SetValue( new vec2( newWidth, newHeight ) );
 		}
 	}
 }
 
+#endif

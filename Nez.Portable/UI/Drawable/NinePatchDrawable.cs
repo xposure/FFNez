@@ -1,10 +1,10 @@
 #if FEATURE_UI
 using Microsoft.Xna.Framework;
-using Nez.Textures;
+using Atma.Textures;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// The drawable sizes are set when the ninepatch is set, but they are separate values. Eg, {@link Drawable#getLeftWidth()} could

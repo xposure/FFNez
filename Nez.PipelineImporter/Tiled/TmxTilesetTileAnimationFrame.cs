@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 
 
-namespace Nez.TiledMaps
+namespace Atma.TiledMaps
 {
 	[XmlRoot( ElementName = "frame" )]
 	public class TmxTilesetTileAnimationFrame

@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_MATH
+using System;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class Mathf
 	{
@@ -674,19 +675,19 @@ namespace Nez
 		#endregion
 
 
-		#region Vector2
+		#region vec2
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		static public float angleBetweenVectors( Vector2 from, Vector2 to )
+		static public float angleBetweenVectors( vec2 from, vec2 to )
 		{
 			return Mathf.atan2( to.Y - from.Y, to.X - from.X );
 		}
 
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		static public Vector2 angleToVector( float angleRadians, float length )
+		static public vec2 angleToVector( float angleRadians, float length )
 		{
-			return new Vector2( cos( angleRadians ) * length, sin( angleRadians ) * length );
+			return new vec2( cos( angleRadians ) * length, sin( angleRadians ) * length );
 		}
 
 
@@ -694,14 +695,14 @@ namespace Nez
 		/// helper for moving a value around in a circle.
 		/// </summary>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		static public Vector2 rotateAround( Vector2 position, float speed )
+		static public vec2 rotateAround( vec2 position, float speed )
 		{
 			var time = Time.time * speed;
 
 			var x = cos( time );
 			var y = sin( time );
 
-			return new Vector2( position.X + x, position.Y + y );
+			return new vec2( position.X + x, position.Y + y );
 		}
 
 
@@ -714,7 +715,7 @@ namespace Nez
 		/// <param name="center">Center.</param>
 		/// <param name="angleInDegrees">Angle in degrees.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Vector2 rotateAround( Vector2 point, Vector2 center, float angleInDegrees )
+		public static vec2 rotateAround( vec2 point, vec2 center, float angleInDegrees )
 		{
 			angleInDegrees = MathHelper.ToRadians( angleInDegrees );
 			var cos = Mathf.cos( angleInDegrees );
@@ -722,7 +723,7 @@ namespace Nez
 			var rotatedX = cos * ( point.X - center.X ) - sin * ( point.Y - center.Y ) + center.X;
 			var rotatedY = sin * ( point.X - center.X ) + cos * ( point.Y - center.Y ) + center.Y;
 
-			return new Vector2( rotatedX, rotatedY );
+			return new vec2( rotatedX, rotatedY );
 		}
 
 
@@ -734,10 +735,10 @@ namespace Nez
 		/// <param name="radius">Radius.</param>
 		/// <param name="angleInDegrees">Angle in degrees.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Vector2 pointOnCircle( Vector2 circleCenter, float radius, float angleInDegrees )
+		public static vec2 pointOnCircle( vec2 circleCenter, float radius, float angleInDegrees )
 		{
 			var radians = MathHelper.ToRadians( angleInDegrees );
-			return new Vector2
+			return new vec2
 			{
 				X = cos( radians ) * radius + circleCenter.X,
 				Y = sin( radians ) * radius + circleCenter.Y
@@ -754,12 +755,12 @@ namespace Nez
 		/// <param name="yMagnitude">Y magnitude.</param>
 		/// <param name="phase">Phase.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Vector2 lissajou( float xFrequency = 2f, float yFrequency = 3f, float xMagnitude = 1, float yMagnitude = 1, float phase = 0 )
+		public static vec2 lissajou( float xFrequency = 2f, float yFrequency = 3f, float xMagnitude = 1, float yMagnitude = 1, float phase = 0 )
 		{
 			var x = Mathf.sin( Time.time * xFrequency + phase ) * xMagnitude;
 			var y = Mathf.cos( Time.time * yFrequency ) * yMagnitude;
 
-			return new Vector2( x, y );
+			return new vec2( x, y );
 		}
 
 
@@ -776,7 +777,7 @@ namespace Nez
 		/// <param name="damping">Damping.</param>
 		/// <param name="oscillationInterval">Oscillation interval.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Vector2 lissajouDamped( float xFrequency = 2f, float yFrequency = 3f, float xMagnitude = 1, float yMagnitude = 1, float phase = 0.5f, float damping = 0f, float oscillationInterval = 5f )
+		public static vec2 lissajouDamped( float xFrequency = 2f, float yFrequency = 3f, float xMagnitude = 1, float yMagnitude = 1, float phase = 0.5f, float damping = 0f, float oscillationInterval = 5f )
 		{
 			var wrappedTime = Mathf.pingPong( Time.time, oscillationInterval );
 			var damped = Mathf.pow( MathHelper.E, -damping * wrappedTime );
@@ -784,7 +785,7 @@ namespace Nez
 			var x = damped * Mathf.sin( Time.time * xFrequency + phase ) * xMagnitude;
 			var y = damped * Mathf.cos( Time.time * yFrequency ) * yMagnitude;
 
-			return new Vector2( x, y );
+			return new vec2( x, y );
 		}
 
 		#endregion
@@ -792,3 +793,4 @@ namespace Nez
 	}
 }
 
+#endif

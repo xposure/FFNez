@@ -2,7 +2,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// A group that scrolls a child widget using scrollbars and/or mouse or touch dragging.
@@ -49,7 +49,7 @@ namespace Nez.UI
 		bool _variableSizeKnobs = true;
 
 		// input data
-		Vector2 _lastMousePos;
+		vec2 _lastMousePos;
 		float _lastHandlePosition;
 
 
@@ -357,7 +357,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			if( _scrollX && _hScrollBounds.Contains( mousePos ) )
 			{
@@ -390,7 +390,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{
 			resetFade();
 
@@ -427,7 +427,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{
 			cancel();
 		}
@@ -1015,7 +1015,7 @@ namespace Nez.UI
 		}
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			// first we do a bounds check, then check our x and y scroll bars
 			if( point.X < 0 || point.X >= getWidth() || point.Y < 0 || point.Y >= getHeight() )

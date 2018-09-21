@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_PHYSICS
+using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public struct RaycastHit
 	{
@@ -24,31 +25,31 @@ namespace Nez
 		/// <summary>
 		/// The point in world space where the ray hit the collider's surface
 		/// </summary>
-		public Vector2 point;
+		public vec2 point;
 
 		/// <summary>
 		/// The normal vector of the surface hit by the ray
 		/// </summary>
-		public Vector2 normal;
+		public vec2 normal;
 
 		/// <summary>
 		/// The centroid of the primitive used to perform the cast. Where the shape would be positioned for it to contact.
 		/// </summary>
-		public Vector2 centroid;
+		public vec2 centroid;
 
 
-		public RaycastHit( Collider collider, float fraction, float distance, Vector2 point, Vector2 normal )
+		public RaycastHit( Collider collider, float fraction, float distance, vec2 point, vec2 normal )
 		{
 			this.collider = collider;
 			this.fraction = fraction;
 			this.distance = distance;
 			this.point = point;
 			this.normal = normal;
-			this.centroid = Vector2.Zero;
+			this.centroid = vec2.Zero;
 		}
 
 
-		internal void setValues( Collider collider, float fraction, float distance, Vector2 point )
+		internal void setValues( Collider collider, float fraction, float distance, vec2 point )
 		{
 			this.collider = collider;
 			this.fraction = fraction;
@@ -57,7 +58,7 @@ namespace Nez
 		}
 
 
-		internal void setValues( float fraction, float distance, Vector2 point, Vector2 normal )
+		internal void setValues( float fraction, float distance, vec2 point, vec2 normal )
 		{
 			this.fraction = fraction;
 			this.distance = distance;
@@ -81,3 +82,4 @@ namespace Nez
 	}
 }
 
+#endif

@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Text;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// helper that wraps either a string or StringBuilder and provides a common API to read them for measuring/drawing
@@ -42,3 +43,4 @@ namespace Nez
 	}
 }
 
+#endif

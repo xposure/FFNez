@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_PHYSICS
+using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.PhysicsShapes
+namespace Atma.PhysicsShapes
 {
 	public class Circle : Shape
 	{
@@ -24,7 +25,7 @@ namespace Nez.PhysicsShapes
 		/// </summary>
 		/// <param name="radius">Radius.</param>
 		/// <param name="position">Position.</param>
-		internal void recalculateBounds( float radius, Vector2 position )
+		internal void recalculateBounds( float radius, vec2 position )
 		{
 			_originalRadius = radius;
 			this.radius = radius;
@@ -50,8 +51,8 @@ namespace Nez.PhysicsShapes
 				{
 					// to deal with rotation with an offset origin we just move our center in a circle around 0,0 with our offset making the 0 angle
 					var offsetAngle = Mathf.atan2( collider.localOffset.Y, collider.localOffset.X ) * Mathf.rad2Deg;
-					var offsetLength = hasUnitScale ? collider._localOffsetLength : ( collider.localOffset * collider.entity.transform.scale ).Length();
-					center = Mathf.pointOnCircle( Vector2.Zero, offsetLength, collider.entity.transform.rotationDegrees + offsetAngle );
+					var offsetLength = hasUnitScale ? collider._localOffsetLength : ( collider.localOffset * collider.entity.transform.scale ).Length;
+					center = Mathf.pointOnCircle( vec2.Zero, offsetLength, collider.entity.transform.rotationDegrees + offsetAngle );
 				}
 			}
 
@@ -93,7 +94,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public override bool collidesWithLine( Vector2 start, Vector2 end, out RaycastHit hit )
+		public override bool collidesWithLine( vec2 start, vec2 end, out RaycastHit hit )
 		{
 			hit = new RaycastHit();
 			return ShapeCollisions.lineToCircle( start, end, this, out hit );
@@ -105,9 +106,9 @@ namespace Nez.PhysicsShapes
 		/// </summary>
 		/// <param name="point">the point</param>
 		/// <returns><c>true</c> if the provided coordinates lie inside this <see cref="Circle"/>; <c>false</c> otherwise.</returns>
-		public override bool containsPoint( Vector2 point )
+		public override bool containsPoint( vec2 point )
 		{
-			return ( ( point - position ).LengthSquared() <= radius * radius );
+			return ( ( point - position ).LengthSqr <= radius * radius );
 		}
 
 		#endregion
@@ -117,10 +118,10 @@ namespace Nez.PhysicsShapes
 		/// Gets the point at the edge of this <see cref="Circle"/> from the provided angle
 		/// </summary>
 		/// <param name="angle">an angle in radians</param>
-		/// <returns><see cref="Vector2"/> representing the point on this <see cref="Circle"/>'s surface at the specified angle</returns>
-		public Vector2 getPointAlongEdge( float angle )
+		/// <returns><see cref="vec2"/> representing the point on this <see cref="Circle"/>'s surface at the specified angle</returns>
+		public vec2 getPointAlongEdge( float angle )
 		{
-			return new Vector2( position.X + ( radius * Mathf.cos( angle ) ), position.Y + ( radius * Mathf.sin( angle ) ) );
+			return new vec2( position.X + ( radius * Mathf.cos( angle ) ), position.Y + ( radius * Mathf.sin( angle ) ) );
 		}
 
 
@@ -132,21 +133,21 @@ namespace Nez.PhysicsShapes
 		/// <returns><c>true</c> if the provided coordinates lie inside this <see cref="Circle"/>; <c>false</c> otherwise.</returns>
 		public bool containsPoint( float x, float y )
 		{
-			return containsPoint( new Vector2( x, y ) );
+			return containsPoint( new vec2( x, y ) );
 		}
 
 
 		/// <summary>
-		/// Gets whether or not the provided <see cref="Vector2"/> lies within the bounds of this <see cref="Circle"/>.
+		/// Gets whether or not the provided <see cref="vec2"/> lies within the bounds of this <see cref="Circle"/>.
 		/// </summary>
 		/// <param name="point">Point.</param>
-		public bool containsPoint( ref Vector2 point )
+		public bool containsPoint( ref vec2 point )
 		{
-			return ( point - position ).LengthSquared() <= radius * radius;
+			return ( point - position ).LengthSqr <= radius * radius;
 		}
 
 
-		public override bool pointCollidesWithShape( Vector2 point, out CollisionResult result )
+		public override bool pointCollidesWithShape( vec2 point, out CollisionResult result )
 		{
 			return ShapeCollisions.pointToCircle( point, this, out result );
 		}
@@ -154,3 +155,4 @@ namespace Nez.PhysicsShapes
 	}
 }
 
+#endif

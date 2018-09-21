@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Nez.AI.FSM
+namespace Atma.AI.FSM
 {
 	/// <summary>
 	/// Simple state machine with an enum constraint. There are some rules you must follow when using this:

@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Threading;
 using System.Reflection;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using System.IO;
 
 
-namespace Nez.Systems
+namespace Atma.Systems
 {
     /// <summary>
     /// ContentManager subclass that also manages Effects from ogl files. Adds asynchronous loading of assets as well.
@@ -339,3 +340,4 @@ namespace Nez.Systems
 
 }
 
+#endif

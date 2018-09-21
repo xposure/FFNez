@@ -1,11 +1,11 @@
 #if FEATURE_UI
 using Microsoft.Xna.Framework;
-using Nez.UI;
+using Atma.UI;
 using System.Globalization;
 
 
 #if DEBUG
-namespace Nez
+namespace Atma
 {
 	public class Vector2Inspector : Inspector
 	{
@@ -14,7 +14,7 @@ namespace Nez
 
 		public override void initialize( Table table, Skin skin, float leftCellWidth )
 		{
-			var value = getValue<Vector2>();
+			var value = getValue<vec2>();
 			var label = createNameLabel( table, skin, leftCellWidth );
 
 			var labelX = new Label( "x", skin );
@@ -25,7 +25,7 @@ namespace Nez
 				float newX;
 				if( float.TryParse( str, NumberStyles.Float, CultureInfo.InvariantCulture, out newX ) )
 				{
-					var newValue = getValue<Vector2>();
+					var newValue = getValue<vec2>();
 					newValue.X = newX;
 					setValue( newValue );
 				}
@@ -39,7 +39,7 @@ namespace Nez
 				float newY;
 				if( float.TryParse( str, NumberStyles.Float, CultureInfo.InvariantCulture, out newY ) )
 				{
-					var newValue = getValue<Vector2>();
+					var newValue = getValue<vec2>();
 					newValue.Y = newY;
 					setValue( newValue );
 				}
@@ -58,7 +58,7 @@ namespace Nez
 
 		public override void update()
 		{
-			var value = getValue<Vector2>();
+			var value = getValue<vec2>();
 			_textFieldX.setText( value.X.ToString( CultureInfo.InvariantCulture ) );
 			_textFieldY.setText( value.Y.ToString( CultureInfo.InvariantCulture ) );
 		}

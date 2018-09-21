@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
-namespace Nez.TiledMaps
+namespace Atma.TiledMaps
 {
 	public class TmxData
 	{

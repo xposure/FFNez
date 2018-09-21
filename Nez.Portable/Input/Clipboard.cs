@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_INPUT
+using System;
 using System.Runtime.InteropServices;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// prep for a proper multi-platform clipboard system. For now it just mocks the clipboard and will only work in-app
@@ -54,3 +55,4 @@ namespace Nez
 	}
 }
 
+#endif

@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace Nez.LibGdxAtlases
+namespace Atma.LibGdxAtlases
 {
 	[ContentImporter( ".atlas", DefaultProcessor = "LibGdxAtlasProcessor", DisplayName = "libGDX Atlas Importer" )]
 	public class LibGdxAtlasImporter : ContentImporter<LibGdxAtlasFile>

@@ -1,10 +1,11 @@
+#if FEATURE_PHYSICS
 using System;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
-using Nez.PhysicsShapes;
+using Atma.PhysicsShapes;
 
 
-namespace Nez.Verlet
+namespace Atma.Verlet
 {
 	/// <summary>
 	/// maintains a specified distance betweeen two Particles. The stiffness adjusts how rigid or springy the constraint will be.
@@ -64,7 +65,7 @@ namespace Nez.Verlet
 			if( distance > -1 )
 				restingDistance = distance;
 			else
-				restingDistance = Vector2.Distance( first.position, second.position );
+				restingDistance = vec2.Distance( first.position, second.position );
 		}
 
 
@@ -78,8 +79,8 @@ namespace Nez.Verlet
 		/// <param name="angleInDegrees">Angle in degrees.</param>
 		public static DistanceConstraint create( Particle a, Particle center, Particle c, float stiffness, float angleInDegrees )
 		{
-			var aToCenter = Vector2.Distance( a.position, center.position );
-			var cToCenter = Vector2.Distance( c.position, center.position );
+			var aToCenter = vec2.Distance( a.position, center.position );
+			var cToCenter = vec2.Distance( c.position, center.position );
 			var distance = Mathf.sqrt( aToCenter * aToCenter + cToCenter * cToCenter - ( 2 * aToCenter * cToCenter * Mathf.cos( angleInDegrees * Mathf.deg2Rad ) ) );
 
 			return new DistanceConstraint( a, c, stiffness, distance );
@@ -128,7 +129,7 @@ namespace Nez.Verlet
 		{
 			// calculate the distance between the two Particles
 			var diff = _particleOne.position - _particleTwo.position;
-			var d = diff.Length();
+			var d = diff.Length;
 
 			// find the difference, or the ratio of how far along the restingDistance the actual distance is.
 			var difference = ( restingDistance - d ) / d;
@@ -169,7 +170,7 @@ namespace Nez.Verlet
 			var maxY = Math.Max( _particleOne.position.Y, _particleTwo.position.Y );
 			_polygon.bounds = RectangleF.fromMinMax( minX, minY, maxX, maxY );
 
-			Vector2 midPoint;
+			vec2 midPoint;
 			preparePolygonForCollisionChecks( out midPoint );
 
 			var colliders = Physics.boxcastBroadphase( ref _polygon.bounds, collidesWithLayers );
@@ -184,7 +185,7 @@ namespace Nez.Verlet
 					// center. If it is, we flip the result.
 					//if( collider.shape is Circle )
 					//{
-					//	var dot = Vector2.Dot( midPoint - collider.shape.position, result.normal );
+					//	var dot = vec2.Dot( midPoint - collider.shape.position, result.normal );
 					//	if( dot < 0 )
 					//		result.invertResult();
 					//}
@@ -199,10 +200,10 @@ namespace Nez.Verlet
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		void approximateCollisionsWithPoints( int collidesWithLayers )
 		{
-			Vector2 pt;
+			vec2 pt;
 			for( var j = 0; j < totalPointsToApproximateCollisionsWith - 1; j++ )
 			{
-				pt = Vector2.Lerp( _particleOne.position, _particleTwo.position, ( j + 1 ) / (float)totalPointsToApproximateCollisionsWith );
+				pt = vec2.Lerp( _particleOne.position, _particleTwo.position, ( j + 1 ) / (float)totalPointsToApproximateCollisionsWith );
 				var collidedCount = Physics.overlapCircleAll( pt, 3, VerletWorld._colliders, collidesWithLayers );
 				for( var i = 0; i < collidedCount; i++ )
 				{
@@ -219,10 +220,10 @@ namespace Nez.Verlet
 
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		void preparePolygonForCollisionChecks( out Vector2 midPoint )
+		void preparePolygonForCollisionChecks( out vec2 midPoint )
 		{
 			// set our Polygon points
-			midPoint = Vector2.Lerp( _particleOne.position, _particleTwo.position, 0.5f );
+			midPoint = vec2.Lerp( _particleOne.position, _particleTwo.position, 0.5f );
 			_polygon.position = midPoint;
 			_polygon.points[0] = _particleOne.position - _polygon.position;
 			_polygon.points[1] = _particleTwo.position - _polygon.position;
@@ -237,3 +238,4 @@ namespace Nez.Verlet
 
 	}
 }
+#endif

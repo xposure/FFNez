@@ -1,10 +1,11 @@
-﻿using Nez.Sprites;
-using Nez.Textures;
+#if FEATURE_ESC
+using Atma.Sprites;
+using Atma.Textures;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Tiled sprite. Note that TiledSprite overrides the Material so that it can wrap the UVs. This class requires the texture
@@ -36,7 +37,7 @@ namespace Nez
 		/// scale of the texture
 		/// </summary>
 		/// <value>The texture scale.</value>
-		public Vector2 textureScale
+		public vec2 textureScale
 		{
 			get { return _textureScale; }
 			set
@@ -44,7 +45,7 @@ namespace Nez
 				_textureScale = value;
 
 				// recalulcate our inverseTextureScale and the source rect size
-				_inverseTexScale = new Vector2( 1f / _textureScale.X, 1f / _textureScale.Y );
+				_inverseTexScale = new vec2( 1f / _textureScale.X, 1f / _textureScale.Y );
 				_sourceRect.Width = (int)( subtexture.sourceRect.Width * _inverseTexScale.X );
 				_sourceRect.Height = (int)( subtexture.sourceRect.Height * _inverseTexScale.Y );
 			}
@@ -74,8 +75,8 @@ namespace Nez
 		/// we keep a copy of the sourceRect so that we dont change the Subtexture in case it is used elsewhere
 		/// </summary>
 		protected Rectangle _sourceRect;
-		Vector2 _textureScale = Vector2.One;
-		Vector2 _inverseTexScale = Vector2.One;
+		vec2 _textureScale = vec2.One;
+		vec2 _inverseTexScale = vec2.One;
 
 
 		public TiledSprite( Subtexture subtexture ) : base( subtexture )
@@ -103,3 +104,4 @@ namespace Nez
 	}
 }
 
+#endif

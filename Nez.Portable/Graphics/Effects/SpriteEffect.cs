@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	public class SpriteEffect : Effect
 	{
@@ -15,7 +16,7 @@ namespace Nez
 		}
 
 
-		public void setMatrixTransform( ref Matrix matrixTransform )
+		public void setMatrixTransform( ref mat4 matrixTransform )
 		{
 			_matrixTransformParam.SetValue( matrixTransform );
 		}
@@ -23,3 +24,4 @@ namespace Nez
 	}
 }
 
+#endif

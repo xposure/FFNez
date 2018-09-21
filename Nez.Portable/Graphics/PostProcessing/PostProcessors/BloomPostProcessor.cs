@@ -1,11 +1,12 @@
-﻿using System;
-using Nez;
-using Nez.Textures;
+#if FEATURE_GRAPHICS
+using System;
+using Atma;
+using Atma.Textures;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class BloomPostProcessor : PostProcessor
 	{
@@ -140,3 +141,4 @@ namespace Nez
 	}
 }
 
+#endif

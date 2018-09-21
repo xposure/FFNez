@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class WaterReflectionEffect : ReflectionEffect
 	{
@@ -18,7 +19,7 @@ namespace Nez
 		/// the color for the sparkly wave peaks
 		/// </summary>
 		/// <value>The color of the sparkle.</value>
-		public Vector3 sparkleColor { set { _sparkleColorParam.SetValue( value ); } }
+		public vec3 sparkleColor { set { _sparkleColorParam.SetValue( value ); } }
 
 		/// <summary>
 		/// position in screen space of the top of the water plane
@@ -82,7 +83,7 @@ namespace Nez
 			_secondDisplacementScaleParam = Parameters["_secondDisplacementScale"];
 
 			_sparkleIntensityParam.SetValue( _sparkleIntensity );
-			_sparkleColorParam.SetValue( Vector3.One );
+			_sparkleColorParam.SetValue( vec3.Ones );
 			_perspectiveCorrectionIntensityParam.SetValue( _perspectiveCorrectionIntensity );
 			firstDisplacementSpeed = _firstDisplacementSpeed;
 			secondDisplacementSpeed = _secondDisplacementSpeed;
@@ -101,3 +102,4 @@ namespace Nez
 	}
 }
 
+#endif

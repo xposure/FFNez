@@ -1,8 +1,8 @@
 ﻿using System;
-using Nez.Overlap2D.Runtime;
+using Atma.Overlap2D.Runtime;
 
 
-namespace Nez.Overlap2D.Runtime
+namespace Atma.Overlap2D.Runtime
 {
 	public class SceneInfoVO
 	{

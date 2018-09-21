@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+#if FEATURE_PIPELINE
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class UISkinConfig
 	{
@@ -57,3 +58,4 @@ namespace Nez.UI
 	}
 }
 
+#endif

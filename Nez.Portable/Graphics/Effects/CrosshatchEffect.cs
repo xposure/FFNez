@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	public class CrosshatchEffect : Effect
 	{
@@ -39,3 +40,4 @@ namespace Nez
 	}
 }
 
+#endif

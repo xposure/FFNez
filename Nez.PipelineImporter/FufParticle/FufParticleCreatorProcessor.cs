@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 
-namespace Nez.PipelineImporter.FufParticle
+namespace Atma.PipelineImporter.FufParticle
 {
     [ContentProcessor(DisplayName = "Fuf Particle Importer")]
     public class

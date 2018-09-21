@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System.Text;
 
 
-namespace Nez
+namespace Atma
 {
 #if !FNA
 	public class NezSpriteFont : IFont
@@ -34,10 +35,10 @@ namespace Nez
 		/// <param name="text">The text to measure.</param>
 		/// <returns>The size, in pixels, of 'text' when rendered in
 		/// this font.</returns>
-		public Vector2 measureString( string text )
+		public vec2 measureString( string text )
 		{
 			var source = new FontCharacterSource( text );
-			Vector2 size;
+			vec2 size;
 			measureString( ref source, out size );
 			return size;
 		}
@@ -50,20 +51,20 @@ namespace Nez
 		/// <param name="text">The text to measure.</param>
 		/// <returns>The size, in pixels, of 'text' when rendered in
 		/// this font.</returns>
-		public Vector2 measureString( StringBuilder text )
+		public vec2 measureString( StringBuilder text )
 		{
 			var source = new FontCharacterSource( text );
-			Vector2 size;
+			vec2 size;
 			measureString( ref source, out size );
 			return size;
 		}
 
 
-		void measureString( ref FontCharacterSource text, out Vector2 size )
+		void measureString( ref FontCharacterSource text, out vec2 size )
 		{
 			if( text.Length == 0 )
 			{
-				size = Vector2.Zero;
+				size = vec2.Zero;
 				return;
 			}
 
@@ -76,7 +77,7 @@ namespace Nez
 			var finalLineHeight = (float)_font.LineSpacing;
 
 			var currentGlyph = SpriteFont.Glyph.Empty;
-			var offset = Vector2.Zero;
+			var offset = vec2.Zero;
 			var firstGlyphOfLine = true;
 
 			for( var i = 0; i < text.Length; ++i )
@@ -129,8 +130,7 @@ namespace Nez
 					finalLineHeight = currentGlyph.Cropping.Height;
 			}
 
-			size.X = width;
-			size.Y = offset.Y + finalLineHeight;
+            size = new vec2(width, offset.Y + finalLineHeight);
 		}
 
 
@@ -171,33 +171,33 @@ namespace Nez
 
 		#region drawing
 
-		void IFont.drawInto( Batcher batcher, string text, Vector2 position, Color color,
-			float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth )
+		void IFont.drawInto( Batcher batcher, string text, vec2 position, Color color,
+			float rotation, vec2 origin, vec2 scale, SpriteEffects effect, float depth )
 		{
 			var source = new FontCharacterSource( text );
 			drawInto( batcher, ref source, position, color, rotation, origin, scale, effect, depth );
 		}
 
 
-		void IFont.drawInto( Batcher batcher, StringBuilder text, Vector2 position, Color color,
-			float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth )
+		void IFont.drawInto( Batcher batcher, StringBuilder text, vec2 position, Color color,
+			float rotation, vec2 origin, vec2 scale, SpriteEffects effect, float depth )
 		{
 			var source = new FontCharacterSource( text );
 			drawInto( batcher, ref source, position, color, rotation, origin, scale, effect, depth );
 		}
 		
 
-		public void drawInto( Batcher batcher, ref FontCharacterSource text, Vector2 position, Color color,
-		                        float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth )
+		public void drawInto( Batcher batcher, ref FontCharacterSource text, vec2 position, Color color,
+		                        float rotation, vec2 origin, vec2 scale, SpriteEffects effect, float depth )
 		{
-			var flipAdjustment = Vector2.Zero;
+			var flipAdjustment = vec2.Zero;
 
 			var flippedVert = ( effect & SpriteEffects.FlipVertically ) == SpriteEffects.FlipVertically;
 			var flippedHorz = ( effect & SpriteEffects.FlipHorizontally ) == SpriteEffects.FlipHorizontally;
 
 			if( flippedVert || flippedHorz )
 			{
-				Vector2 size;
+				vec2 size;
 				measureString( ref text, out size );
 
 				if( flippedHorz )
@@ -214,7 +214,7 @@ namespace Nez
 			}
 
 			// TODO: This looks excessive... i suspect we could do most of this with simple vector math and avoid this much matrix work.
-			var requiresTransformation = flippedHorz || flippedVert || rotation != 0f || scale != Vector2.One;
+			var requiresTransformation = flippedHorz || flippedVert || rotation != 0f || scale != vec2.One;
 			if( requiresTransformation )
 			{
 				Matrix2D temp;
@@ -235,7 +235,7 @@ namespace Nez
 				defaultGlyph = _glyphs[_font.DefaultCharacter.Value];
 
 			var currentGlyph = SpriteFont.Glyph.Empty;
-			var offset = requiresTransformation ? Vector2.Zero : position - origin;
+			var offset = requiresTransformation ? vec2.Zero : position - origin;
 			var firstGlyphOfLine = true;
 
 			for( var i = 0; i < text.Length; ++i )
@@ -292,7 +292,7 @@ namespace Nez
 					               currentGlyph.BoundsInTexture.Width * scale.X,
 					               currentGlyph.BoundsInTexture.Height * scale.Y );
 
-				batcher.draw( _font.Texture, destRect, currentGlyph.BoundsInTexture, color, rotation, Vector2.Zero, effect, depth );
+				batcher.draw( _font.Texture, destRect, currentGlyph.BoundsInTexture, color, rotation, vec2.Zero, effect, depth );
 
 				offset.X += currentGlyph.Width + currentGlyph.RightSideBearing;
 			}
@@ -314,7 +314,7 @@ namespace Nez
 		/// this sucker gets used a lot so we cache it to avoid having to create it every frame
 		/// </summary>
 		#pragma warning disable 0414
-		Matrix _transformationMatrix = Matrix.Identity;
+		mat4 _transformationMatrix = mat4.Identity;
 		#pragma warning restore 0414
 
 
@@ -324,21 +324,21 @@ namespace Nez
 		}
 
 
-		public void drawInto( Batcher batcher, StringBuilder text, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth )
+		public void drawInto( Batcher batcher, StringBuilder text, vec2 position, Color color, float rotation, vec2 origin, vec2 scale, SpriteEffects effect, float depth )
 		{
 			var source = new FontCharacterSource( text );
 			drawInto( batcher, ref source, position, color, rotation, origin, scale, effect, depth );
 		}
 
 
-		public void drawInto( Batcher batcher, string text, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth )
+		public void drawInto( Batcher batcher, string text, vec2 position, Color color, float rotation, vec2 origin, vec2 scale, SpriteEffects effect, float depth )
 		{
 			var source = new FontCharacterSource( text );
 			drawInto( batcher, ref source, position, color, rotation, origin, scale, effect, depth );
 		}
 
 
-		public void drawInto( Batcher batcher, ref FontCharacterSource text, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float depth )
+		public void drawInto( Batcher batcher, ref FontCharacterSource text, vec2 position, Color color, float rotation, vec2 origin, vec2 scale, SpriteEffects effect, float depth )
 		{
 			throw new NotImplementedException();
 		}
@@ -350,13 +350,13 @@ namespace Nez
 		}
 
 
-		public Vector2 measureString( StringBuilder text )
+		public vec2 measureString( StringBuilder text )
 		{
 			return _font.MeasureString( text );
 		}
 
 
-		public Vector2 measureString( string text )
+		public vec2 measureString( string text )
 		{
 			return _font.MeasureString( text );
 		}
@@ -366,3 +366,4 @@ namespace Nez
 #endif
 }
 
+#endif

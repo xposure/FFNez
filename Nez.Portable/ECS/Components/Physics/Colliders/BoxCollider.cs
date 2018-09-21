@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Nez.PhysicsShapes;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
+using Atma.PhysicsShapes;
 
 
-namespace Nez
+namespace Atma
 {
 	public class BoxCollider : Collider
 	{
@@ -41,7 +42,7 @@ namespace Nez
 		/// <param name="height">Height.</param>
 		public BoxCollider( float x, float y, float width, float height )
 		{
-			_localOffset = new Vector2( x + width / 2, y + height / 2 );
+			_localOffset = new vec2( x + width / 2, y + height / 2 );
 			shape = new Box( width, height );
 		}
 
@@ -147,3 +148,4 @@ namespace Nez
 	}
 }
 
+#endif

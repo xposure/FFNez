@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
-using Nez.Tweens;
+using Atma.Tweens;
 using System.Collections;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// fades to fadeToColor then fades to the new Scene
@@ -108,3 +109,4 @@ namespace Nez
 	}
 }
 
+#endif

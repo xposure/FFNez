@@ -1,10 +1,11 @@
+#if FEATURE_GRAPHICS
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.DeferredLighting
+namespace Atma.DeferredLighting
 {
 	public class QuadMesh : IDisposable
 	{
@@ -16,17 +17,17 @@ namespace Nez.DeferredLighting
 		{
 			var verts = new VertexPositionTexture[] {
 				new VertexPositionTexture(
-					new Vector3( 1, -1, 0 ),
-					new Vector2( 1, 1 ) ),
+					new vec3( 1, -1, 0 ),
+					new vec2( 1, 1 ) ),
 				new VertexPositionTexture(
-					new Vector3( -1, -1, 0 ),
-					new Vector2( 0, 1 ) ),
+					new vec3( -1, -1, 0 ),
+					new vec2( 0, 1 ) ),
 				new VertexPositionTexture(
-					new Vector3( -1, 1, 0 ),
-					new Vector2( 0, 0 ) ),
+					new vec3( -1, 1, 0 ),
+					new vec2( 0, 0 ) ),
 				new VertexPositionTexture(
-					new Vector3( 1, 1, 0 ),
-					new Vector2( 1, 0 ) )
+					new vec3( 1, 1, 0 ),
+					new vec2( 1, 0 ) )
 			};
 
 			var indices = new short[] { 0, 1, 2, 2, 3, 0 };
@@ -53,3 +54,4 @@ namespace Nez.DeferredLighting
 		}
 	}
 }
+#endif

@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using Nez.PhysicsShapes;
+using Atma.PhysicsShapes;
 using System.Runtime.CompilerServices;
 
-namespace Nez.Shadows
+namespace Atma.Shadows
 {
 	/// <summary>
 	/// Class which computes a mesh that represents which regions are visibile from the origin point given a set of occluders. Usage is as
@@ -25,7 +26,7 @@ namespace Nez.Shadows
 		public int lineCountForCircleApproximation = 10;
 
 		float _radius;
-		Vector2 _origin;
+		vec2 _origin;
 		bool _isSpotLight;
 		float _spotStartAngle, _spotEndAngle;
 
@@ -34,7 +35,7 @@ namespace Nez.Shadows
 		List<Segment> _segments = new List<Segment>();
 		EndPointComparer _radialComparer;
 
-		static Vector2[] _cornerCache = new Vector2[4];
+		static vec2[] _cornerCache = new vec2[4];
 		static LinkedList<Segment> _openSegments = new LinkedList<Segment>();
 
 
@@ -44,7 +45,7 @@ namespace Nez.Shadows
 		}
 
 
-		public VisibilityComputer( Vector2 origin, float radius ) : this()
+		public VisibilityComputer( vec2 origin, float radius ) : this()
 		{
 			_origin = origin;
 			_radius = radius;
@@ -85,7 +86,7 @@ namespace Nez.Shadows
 		/// <summary>
 		/// Add a square shaped occluder
 		/// </summary>        
-		public void addSquareOccluder( Vector2 position, float width, float rotation )
+		public void addSquareOccluder( vec2 position, float width, float rotation )
 		{
 			var x = position.X;
 			var y = position.Y;
@@ -98,7 +99,7 @@ namespace Nez.Shadows
 
 			for( var i = 0; i < 4; i++ )
 			{
-				_cornerCache[i] = new Vector2(
+				_cornerCache[i] = new vec2(
 					(float)Math.Cos( rotation + i * Math.PI * 0.5 ) * radius + x,
 					(float)Math.Sin( rotation + i * Math.PI * 0.5 ) * radius + y
 				);
@@ -116,9 +117,9 @@ namespace Nez.Shadows
 		/// </summary>        
 		public void addSquareOccluder( RectangleF bounds )
 		{
-			var tr = new Vector2( bounds.right, bounds.top );
-			var bl = new Vector2( bounds.left, bounds.bottom );
-			var br = new Vector2( bounds.right, bounds.bottom );
+			var tr = new vec2( bounds.right, bounds.top );
+			var bl = new vec2( bounds.left, bounds.bottom );
+			var br = new vec2( bounds.right, bounds.bottom );
 
 			addSegment( bounds.location, tr );
 			addSegment( tr, br );
@@ -132,7 +133,7 @@ namespace Nez.Shadows
 		/// </summary>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void addCircleOccluder( Vector2 position, float radius )
+		public void addCircleOccluder( vec2 position, float radius )
 		{
 			var dirToCircle = position - _origin;
 			var angle = Mathf.atan2( dirToCircle.Y, dirToCircle.X );
@@ -152,7 +153,7 @@ namespace Nez.Shadows
 		/// <summary>
 		/// Add a line shaped occluder
 		/// </summary>        
-		public void addLineOccluder( Vector2 p1, Vector2 p2 )
+		public void addLineOccluder( vec2 p1, vec2 p2 )
 		{
 			addSegment( p1, p2 );
 		}
@@ -161,7 +162,7 @@ namespace Nez.Shadows
 		// Add a segment, where the first point shows up in the
 		// visualization but the second one does not. (Every endpoint is
 		// part of two segments, but we want to only show them once.)
-		void addSegment( Vector2 p1, Vector2 p2 )
+		void addSegment( vec2 p1, vec2 p2 )
 		{
 			var segment = new Segment();
 			var endPoint1 = new EndPoint();
@@ -197,7 +198,7 @@ namespace Nez.Shadows
 		/// </summary>
 		/// <param name="origin">Origin.</param>
 		/// <param name="radius">Radius.</param>
-		public void begin( Vector2 origin, float radius )
+		public void begin( vec2 origin, float radius )
 		{
 			_origin = origin;
 			_radius = radius;
@@ -209,9 +210,9 @@ namespace Nez.Shadows
 		/// Computes the visibility polygon and returns the vertices of the triangle fan (minus the center vertex). Returned List is from the
 		/// ListPool.
 		/// </summary>        
-		public List<Vector2> end()
+		public List<vec2> end()
 		{
-			var output = ListPool<Vector2>.obtain();
+			var output = ListPool<vec2>.obtain();
 			updateSegments();
 			_endpoints.Sort( _radialComparer );
 
@@ -306,30 +307,30 @@ namespace Nez.Shadows
 		public void loadRectangleBoundaries()
 		{
 			//Top
-			addSegment( new Vector2( _origin.X - _radius, _origin.Y - _radius ),
-				new Vector2( _origin.X + _radius, _origin.Y - _radius ) );
+			addSegment( new vec2( _origin.X - _radius, _origin.Y - _radius ),
+				new vec2( _origin.X + _radius, _origin.Y - _radius ) );
 
 			//Bottom
-			addSegment( new Vector2( _origin.X - _radius, _origin.Y + _radius ),
-				new Vector2( _origin.X + _radius, _origin.Y + _radius ) );
+			addSegment( new vec2( _origin.X - _radius, _origin.Y + _radius ),
+				new vec2( _origin.X + _radius, _origin.Y + _radius ) );
 
 			//Left
-			addSegment( new Vector2( _origin.X - _radius, _origin.Y - _radius ),
-				new Vector2( _origin.X - _radius, _origin.Y + _radius ) );
+			addSegment( new vec2( _origin.X - _radius, _origin.Y - _radius ),
+				new vec2( _origin.X - _radius, _origin.Y + _radius ) );
 
 			//Right
-			addSegment( new Vector2( _origin.X + _radius, _origin.Y - _radius ),
-				new Vector2( _origin.X + _radius, _origin.Y + _radius ) );
+			addSegment( new vec2( _origin.X + _radius, _origin.Y - _radius ),
+				new vec2( _origin.X + _radius, _origin.Y + _radius ) );
 		}
 
 
-		public void loadSpotLightBoundaries( Vector2[] points )
+		public void loadSpotLightBoundaries( vec2[] points )
 		{
 			_isSpotLight = true;
 
 			// add the two outer edges of the polygon but lerp them a bit so they dont start at the origin
-			var first = Vector2.Lerp( _origin, _origin + points[1], 0.1f );
-			var second = Vector2.Lerp( _origin, _origin + points[points.Length - 1], 0.1f );
+			var first = vec2.Lerp( _origin, _origin + points[1], 0.1f );
+			var second = vec2.Lerp( _origin, _origin + points[points.Length - 1], 0.1f );
 			addSegment( first, _origin + points[1] );
 			addSegment( second, _origin + points[points.Length - 1] );
 
@@ -382,7 +383,7 @@ namespace Nez.Shadows
 		/// <param name="a">The alpha component.</param>
 		/// <param name="b">The blue component.</param>
 		/// <param name="relativeTo">Relative to.</param>
-		bool isSegmentInFrontOf( Segment a, Segment b, Vector2 relativeTo )
+		bool isSegmentInFrontOf( Segment a, Segment b, vec2 relativeTo )
 		{
 			// NOTE: we slightly shorten the segments so that intersections of the endpoints (common) don't count as intersections in this algorithm
 			var a1 = isLeftOf( a.p2.position, a.p1.position, interpolate( b.p1.position, b.p2.position, 0.01f ) );
@@ -416,12 +417,12 @@ namespace Nez.Shadows
 		}
 
 
-		void addTriangle( List<Vector2> triangles, float angle1, float angle2, Segment segment )
+		void addTriangle( List<vec2> triangles, float angle1, float angle2, Segment segment )
 		{
 			var p1 = _origin;
-			var p2 = new Vector2( _origin.X + Mathf.cos( angle1 ), _origin.Y + Mathf.sin( angle1 ) );
-			var p3 = Vector2.Zero;
-			var p4 = Vector2.Zero;
+			var p2 = new vec2( _origin.X + Mathf.cos( angle1 ), _origin.Y + Mathf.sin( angle1 ) );
+			var p3 = vec2.Zero;
+			var p4 = vec2.Zero;
 
 			if( segment != null )
 			{
@@ -455,19 +456,19 @@ namespace Nez.Shadows
 		/// <summary>
 		/// Computes the intersection point of the line p1-p2 with p3-p4
 		/// </summary>        
-		static Vector2 lineLineIntersection( Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4 )
+		static vec2 lineLineIntersection( vec2 p1, vec2 p2, vec2 p3, vec2 p4 )
 		{
 			// From http://paulbourke.net/geometry/lineline2d/
 			var s = ( ( p4.X - p3.X ) * ( p1.Y - p3.Y ) - ( p4.Y - p3.Y ) * ( p1.X - p3.X ) )
 				/ ( ( p4.Y - p3.Y ) * ( p2.X - p1.X ) - ( p4.X - p3.X ) * ( p2.Y - p1.Y ) );
-			return new Vector2( p1.X + s * ( p2.X - p1.X ), p1.Y + s * ( p2.Y - p1.Y ) );
+			return new vec2( p1.X + s * ( p2.X - p1.X ), p1.Y + s * ( p2.Y - p1.Y ) );
 		}
 
 
 		/// <summary>
 		/// Returns if the point is 'left' of the line p1-p2
 		/// </summary>        
-		static bool isLeftOf( Vector2 p1, Vector2 p2, Vector2 point )
+		static bool isLeftOf( vec2 p1, vec2 p2, vec2 point )
 		{
 			float cross = ( p2.X - p1.X ) * ( point.Y - p1.Y )
 				- ( p2.Y - p1.Y ) * ( point.X - p1.X );
@@ -480,10 +481,11 @@ namespace Nez.Shadows
 		/// Returns a slightly shortened version of the vector:
 		/// p * (1 - f) + q * f
 		/// </summary>        
-		static Vector2 interpolate( Vector2 p, Vector2 q, float f )
+		static vec2 interpolate( vec2 p, vec2 q, float f )
 		{
-			return new Vector2( p.X * ( 1.0f - f ) + q.X * f, p.Y * ( 1.0f - f ) + q.Y * f );
+			return new vec2( p.X * ( 1.0f - f ) + q.X * f, p.Y * ( 1.0f - f ) + q.Y * f );
 		}
 
 	}
 }
+#endif

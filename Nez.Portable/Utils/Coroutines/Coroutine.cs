@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_UTILS
+namespace Atma
 {
 	/// <summary>
 	/// interface returned by startCoroutine which provides the ability to stop the coroutine mid-flight
@@ -50,3 +51,4 @@
 	}
 }
 
+#endif

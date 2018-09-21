@@ -1,4 +1,6 @@
-﻿#region LGPL License
+﻿#if ATMA_PHYSICS
+
+#region LGPL License
 
 /*
 Axiom Graphics Engine Library
@@ -57,14 +59,14 @@ namespace Atma
     /// </summary>
     public struct Ray
     {
-        #region Fields
+#region Fields
 
         internal vec2 origin;
         internal vec2 direction;
 
-        #endregion
+#endregion
 
-        #region Constructors
+#region Constructors
 
         /// <summary>
         ///    Default constructor.
@@ -72,7 +74,7 @@ namespace Atma
         //public Ray()
         //    : base()
         //{
-        //    origin = Vector2.Zero;
+        //    origin = vec2.Zero;
         //    direction = Transform.forward;
         //}
 
@@ -87,9 +89,9 @@ namespace Atma
             this.direction = direction;
         }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         /// <summary>
         /// Gets the position of a point t units along the ray.
@@ -108,9 +110,9 @@ namespace Atma
         /// <returns></returns>
         public vec2 this[float t] { get { return origin + (direction * t); } }
 
-        #endregion Methods
+#endregion Methods
 
-        #region Intersection Methods
+#region Intersection Methods
 
         /// <summary>
         ///    Tests whether this ray intersects the given box.
@@ -164,9 +166,9 @@ namespace Atma
         //    return Utility.Intersects(this, volume);
         //}
 
-        #endregion Intersection Methods
+#endregion Intersection Methods
 
-        #region Operator Overloads
+#region Operator Overloads
 
         /// <summary>
         /// Gets the position of a point t units along the ray.
@@ -199,9 +201,9 @@ namespace Atma
             return direction.GetHashCode() ^ origin.GetHashCode();
         }
 
-        #endregion Operator Overloads
+#endregion Operator Overloads
 
-        #region Properties
+#region Properties
 
         /// <summary>
         ///    Gets/Sets the origin of the ray.
@@ -219,6 +221,7 @@ namespace Atma
 
         public float Angle { get { return (float)Math.Atan2(direction.y, direction.x); } }
 
-        #endregion
+#endregion
     }
 }
+#endif

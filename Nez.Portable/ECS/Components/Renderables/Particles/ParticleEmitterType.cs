@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 
 
-namespace Nez.Particles
+namespace Atma.Particles
 {
 	public enum ParticleEmitterType
 	{
@@ -10,3 +11,4 @@ namespace Nez.Particles
 	}
 }
 
+#endif

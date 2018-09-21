@@ -1,7 +1,8 @@
-﻿using System.Xml.Serialization;
+#if FEATURE_GRAPHICS
+using System.Xml.Serialization;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	/// <summary>
 	/// container in SVG. The 'g' XML tag.
@@ -39,3 +40,4 @@ namespace Nez.Svg
 		public SvgImage[] images;
 	}
 }
+#endif

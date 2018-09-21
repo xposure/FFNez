@@ -3,7 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class Slider : ProgressBar, IInputListener, IGamepadFocusable
 	{
@@ -57,7 +57,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			calculatePositionAndValue( mousePos );
 			_mouseDown = true;
@@ -65,7 +65,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{
 			if( distanceOutsideBoundsToPoint( mousePos ) > sliderBoundaryThreshold )
 			{
@@ -79,7 +79,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{
 			_mouseDown = false;
 		}
@@ -222,7 +222,7 @@ namespace Nez.UI
 		}
 
 
-		void calculatePositionAndValue( Vector2 mousePos )
+		void calculatePositionAndValue( vec2 mousePos )
 		{
 			var knob = getKnobDrawable();
 

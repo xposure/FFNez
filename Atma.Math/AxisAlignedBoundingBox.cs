@@ -1,4 +1,6 @@
-﻿namespace Atma
+﻿#if ATMA_PHYSICS
+
+namespace Atma
 {
     using System;
     using System.Collections.Generic;
@@ -7,16 +9,16 @@
 
     public struct AxisAlignedBox 
     {
-        #region Fields
+#region Fields
 
         internal vec2 maxVector;
         internal vec2 minVector;
         private bool isInfinite;
         private bool isNull;
 
-        #endregion Fields
+#endregion Fields
 
-        #region Constructors
+#region Constructors
 
         public AxisAlignedBox(float x0, float y0, float x1, float y1)
         {
@@ -47,9 +49,9 @@
             isInfinite = box.IsInfinite;
         }
 
-        #endregion Constructors
+#endregion Constructors
 
-        #region Public methods
+#region Public methods
 
         public float Height
         {
@@ -201,9 +203,9 @@
 
         }
 
-        #endregion Public methods
+#endregion Public methods
 
-        #region Contain methods
+#region Contain methods
 
         /// <summary>
         /// Tests whether the given point contained by this box.
@@ -226,9 +228,9 @@
             return Contains(box.minVector) && Contains(box.maxVector);
         }
 
-        #endregion Contain methods
+#endregion Contain methods
 
-        #region Intersection Methods
+#region Intersection Methods
 
         public MinimumTranslationVector collide(AxisAlignedBox box2)
         {
@@ -419,9 +421,9 @@
                 vector.y >= minVector.y && vector.y <= maxVector.y);
         }
 
-        #endregion Intersection Methods
+#endregion Intersection Methods
 
-        #region Properties
+#region Properties
 
         /// <summary>
         ///		Returns a null box
@@ -581,9 +583,9 @@
             }
         }
 
-        #endregion Properties
+#endregion Properties
 
-        #region Operator Overloads
+#region Operator Overloads
 
         public static bool operator !=(AxisAlignedBox left, AxisAlignedBox right)
         {
@@ -643,7 +645,7 @@
             return String.Format("{0}:{1}", this.minVector, this.maxVector);
         }
 
-        #endregion Operator Overloads
+#endregion Operator Overloads
 
      
 
@@ -709,3 +711,4 @@
         }
     }
 }
+#endif

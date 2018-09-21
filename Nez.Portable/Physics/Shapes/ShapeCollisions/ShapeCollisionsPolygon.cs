@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_PHYSICS
+using System;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.PhysicsShapes
+namespace Atma.PhysicsShapes
 {
 	public static partial class ShapeCollisions
 	{
@@ -21,9 +22,9 @@ namespace Nez.PhysicsShapes
 			var firstEdges = first.edgeNormals;
 			var secondEdges = second.edgeNormals;
 			var minIntervalDistance = float.PositiveInfinity;
-			var translationAxis = new Vector2();
+			var translationAxis = new vec2();
 			var polygonOffset = first.position - second.position;
-			Vector2 axis;
+			vec2 axis;
 
 			// Loop through all the edges of both polygons
 			for( var edgeIndex = 0; edgeIndex < firstEdges.Length + secondEdges.Length; edgeIndex++ )
@@ -43,7 +44,7 @@ namespace Nez.PhysicsShapes
 
 				// get our interval to be space of the second Polygon. Offset by the difference in position projected on the axis.
 				float relativeIntervalOffset;
-				Vector2.Dot( ref polygonOffset, ref axis, out relativeIntervalOffset );
+				vec2.Dot( ref polygonOffset, ref axis, out relativeIntervalOffset );
 				minA += relativeIntervalOffset;
 				maxA += relativeIntervalOffset;
 
@@ -53,12 +54,12 @@ namespace Nez.PhysicsShapes
 					isIntersecting = false;
 
 
-				// for Poly-to-Poly casts add a Vector2? parameter called deltaMovement. In the interest of speed we do not use it here
+				// for Poly-to-Poly casts add a vec2? parameter called deltaMovement. In the interest of speed we do not use it here
 				// 2. Now find if the polygons *will* intersect. only bother checking if we have some velocity
 				//if( deltaMovement.HasValue )
 				//{
 				//	// Project the velocity on the current axis
-				//	var velocityProjection = Vector2.Dot( axis, deltaMovement.Value );
+				//	var velocityProjection = vec2.Dot( axis, deltaMovement.Value );
 
 				//	// Get the projection of polygon A during the movement
 				//	if( velocityProjection < 0 )
@@ -85,7 +86,7 @@ namespace Nez.PhysicsShapes
 					minIntervalDistance = intervalDist;
 					translationAxis = axis;
 
-					if( Vector2.Dot( translationAxis, polygonOffset ) < 0 )
+					if( vec2.Dot( translationAxis, polygonOffset ) < 0 )
 						translationAxis = -translationAxis;
 				}
 			}
@@ -123,16 +124,16 @@ namespace Nez.PhysicsShapes
 		/// <param name="min">Minimum.</param>
 		/// <param name="max">Max.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		static void getInterval( Vector2 axis, Polygon polygon, ref float min, ref float max )
+		static void getInterval( vec2 axis, Polygon polygon, ref float min, ref float max )
 		{
 			// To project a point on an axis use the dot product
 			float dot;
-			Vector2.Dot( ref polygon.points[0], ref axis, out dot );
+			vec2.Dot( ref polygon.points[0], ref axis, out dot );
 			min = max = dot;
 
 			for( var i = 1; i < polygon.points.Length; i++ )
 			{
-				Vector2.Dot( ref polygon.points[i], ref axis, out dot );
+				vec2.Dot( ref polygon.points[i], ref axis, out dot );
 				if( dot < min )
 					min = dot;
 				else if( dot > max )
@@ -142,3 +143,4 @@ namespace Nez.PhysicsShapes
 
 	}
 }
+#endif

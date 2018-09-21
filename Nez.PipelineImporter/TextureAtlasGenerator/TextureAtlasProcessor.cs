@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using System;
 
 
-namespace Nez.TextureAtlasGenerator
+namespace Atma.TextureAtlasGenerator
 {
 	/// <summary>
 	/// Custom content processor takes an array of individual sprite filenames (which

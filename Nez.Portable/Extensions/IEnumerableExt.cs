@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections.Generic;
 using System.Collections;
 
 
-namespace Nez.IEnumerableExtensions
+namespace Atma
 {
 	public static class IEnumerableExt
 	{
@@ -42,3 +43,4 @@ namespace Nez.IEnumerableExtensions
 	}
 }
 
+#endif

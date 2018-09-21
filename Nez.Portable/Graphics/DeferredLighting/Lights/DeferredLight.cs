@@ -1,4 +1,5 @@
-﻿namespace Nez.DeferredLighting
+#if FEATURE_GRAPHICS
+namespace Atma.DeferredLighting
 {
 	public abstract class DeferredLight : RenderableComponent
 	{
@@ -13,3 +14,4 @@
 	}
 }
 
+#endif

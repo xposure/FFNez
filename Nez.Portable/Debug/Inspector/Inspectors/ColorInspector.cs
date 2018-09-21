@@ -1,10 +1,10 @@
 #if FEATURE_UI
 using Microsoft.Xna.Framework;
-using Nez.UI;
+using Atma.UI;
 
 
 #if DEBUG
-namespace Nez
+namespace Atma
 {
 	public class ColorInspector : Inspector
 	{

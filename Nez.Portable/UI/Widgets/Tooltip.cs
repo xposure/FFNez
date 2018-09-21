@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// A listener that shows a tooltip Element when another Element is hovered over with the mouse.
@@ -110,7 +110,7 @@ namespace Nez.UI
 		#endregion
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			// we do some rejiggering here by checking for hits on our target and using that
 			var local = _targetElement.screenToLocalCoordinates( point );
@@ -140,9 +140,9 @@ namespace Nez.UI
 
 			_container.pack();
 			float offsetX = _manager.offsetX, offsetY = _manager.offsetY, dist = _manager.edgeDistance;
-			var point = _targetElement.localToStageCoordinates( new Vector2( x + offsetX - _container.getWidth() / 2, y - offsetY - _container.getHeight() ) );
+			var point = _targetElement.localToStageCoordinates( new vec2( x + offsetX - _container.getWidth() / 2, y - offsetY - _container.getHeight() ) );
 			if( point.Y < dist )
-				point = _targetElement.localToStageCoordinates( new Vector2( x + offsetX, y + offsetY ) );
+				point = _targetElement.localToStageCoordinates( new vec2( x + offsetX, y + offsetY ) );
 			if( point.X < dist )
 				point.X = dist;
 			if( point.X + _container.getWidth() > stage.getWidth() - dist )
@@ -151,8 +151,8 @@ namespace Nez.UI
 				point.Y = stage.getHeight() - dist - _container.getHeight();
 			_container.setPosition( point.X, point.Y );
 
-			point = _targetElement.localToStageCoordinates( new Vector2( _targetElement.getWidth() / 2, _targetElement.getHeight() / 2 ) );
-			point -= new Vector2( _container.getX(), _container.getY() );
+			point = _targetElement.localToStageCoordinates( new vec2( _targetElement.getWidth() / 2, _targetElement.getHeight() / 2 ) );
+			point -= new vec2( _container.getX(), _container.getY() );
 			_container.setOrigin( point.X, point.Y );
 		}
 

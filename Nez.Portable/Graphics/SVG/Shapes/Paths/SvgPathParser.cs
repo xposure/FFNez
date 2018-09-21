@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+#if FEATURE_GRAPHICS
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	public static class SvgPathParser
 	{
@@ -199,7 +200,7 @@ namespace Nez.Svg
 		/// <param name="y">The y coordinate.</param>
 		/// <param name="segments">Segments.</param>
 		/// <param name="areBothRelative">If set to <c>true</c> is relative both.</param>
-		static Vector2 toAbsolute( float x, float y, List<SvgPathSegment> segments, bool areBothRelative )
+		static vec2 toAbsolute( float x, float y, List<SvgPathSegment> segments, bool areBothRelative )
 		{
 			return toAbsolute( x, y, segments, areBothRelative, areBothRelative );
 		}
@@ -213,10 +214,10 @@ namespace Nez.Svg
 		/// <param name="segments">Current path segments.</param>
 		/// <param name="isRelativeX"><b>true</b> if <paramref name="x"/> contains relative coordinate value, otherwise <b>false</b>.</param>
 		/// <param name="isRelativeY"><b>true</b> if <paramref name="y"/> contains relative coordinate value, otherwise <b>false</b>.</param>
-		/// <returns><see cref="Vector2"/> that contains absolute coordinates.</returns>
-		static Vector2 toAbsolute( float x, float y, List<SvgPathSegment> segments, bool isRelativeX, bool isRelativeY )
+		/// <returns><see cref="vec2"/> that contains absolute coordinates.</returns>
+		static vec2 toAbsolute( float x, float y, List<SvgPathSegment> segments, bool isRelativeX, bool isRelativeY )
 		{
-			var point = new Vector2( x, y );
+			var point = new vec2( x, y );
 
 			if( ( isRelativeX || isRelativeY ) && segments.Count > 0 )
 			{
@@ -237,7 +238,7 @@ namespace Nez.Svg
 		}
 
 
-		static Vector2 reflect( Vector2 point, Vector2 mirror )
+		static vec2 reflect( vec2 point, vec2 mirror )
 		{
 			float x, y, dx, dy;
 			dx = System.Math.Abs( mirror.X - point.X );
@@ -253,7 +254,7 @@ namespace Nez.Svg
 			else
 				y = mirror.Y - dy;
 
-			return new Vector2( x, y );
+			return new vec2( x, y );
 		}
 
 
@@ -287,3 +288,4 @@ namespace Nez.Svg
 
 	}
 }
+#endif

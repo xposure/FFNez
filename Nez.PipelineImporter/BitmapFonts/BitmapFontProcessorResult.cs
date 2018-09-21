@@ -3,13 +3,13 @@ using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.BitmapFontImporter
+namespace Atma.BitmapFontImporter
 {
 	public class BitmapFontProcessorResult
 	{
 		public List<Texture2DContent> textures = new List<Texture2DContent>();
 		public List<string> textureNames = new List<string>();
-		public List<Vector2> textureOrigins = new List<Vector2>();
+		public List<vec2> textureOrigins = new List<vec2>();
 		public BitmapFontFile fontFile;
 		public bool packTexturesIntoXnb;
 

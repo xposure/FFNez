@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -9,7 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// MarkupText lets you set fonts, textures and conditionals and provide some XML text to render that uses them. You must first
@@ -144,7 +145,7 @@ namespace Nez
 				_compiledMarkup.Clear();
 
 			var reader = XmlReader.Create( new StringReader( _text ) );
-			var position = Vector2.Zero;
+			var position = vec2.Zero;
 			var formatingStack = new Stack<FormatInstruction>();
 			var conditionalsStack = new Stack<bool>();
 			var alignStack = new Stack<HorizontalAlign>();
@@ -178,7 +179,7 @@ namespace Nez
 							else if( formatingStack.Count > 0 )
 								color = formatingStack.Peek().color;
 
-							var scale = Vector2.One;
+							var scale = vec2.One;
 							s = reader.GetAttribute( "scale" );
 							if( !string.IsNullOrEmpty( s ) )
 								scale = parseVector2( s );
@@ -257,7 +258,7 @@ namespace Nez
 							if( !string.IsNullOrEmpty( s ) )
 								color = parseColor( s );
 
-							var scale = Vector2.One;
+							var scale = vec2.One;
 							s = reader.GetAttribute( "scale" );
 							if( !string.IsNullOrEmpty( s ) )
 								scale = parseVector2( s );
@@ -390,7 +391,7 @@ namespace Nez
 				for( var i = 0; i < lineBuffer.Count; i++ )
 				{
 					var element = lineBuffer[i];
-					element.position = new Vector2( element.position.X, position.Y + currentLineHeight / 2f );
+					element.position = new vec2( element.position.X, position.Y + currentLineHeight / 2f );
 				}
 				currentTotalHeight += currentLineHeight;
 				_compiledMarkup.AddRange( lineBuffer );
@@ -401,7 +402,7 @@ namespace Nez
 		}
 
 
-		Vector2 wrapLine( Vector2 position, List<ICompiledElement> lineBuffer, HorizontalAlign alignment, out float currentLineHeight )
+		vec2 wrapLine( vec2 position, List<ICompiledElement> lineBuffer, HorizontalAlign alignment, out float currentLineHeight )
 		{
 			currentLineHeight = 0;
 			var lineWidth = 0f;
@@ -427,7 +428,7 @@ namespace Nez
 
 			// run back through and reset the y position of all the items to match the currentLineHeight and apply the xOffset
 			for( var i = 0; i < lineBuffer.Count; i++ )
-				lineBuffer[i].position = new Vector2( lineBuffer[i].position.X + xOffset, position.Y + currentLineHeight / 2f );
+				lineBuffer[i].position = new vec2( lineBuffer[i].position.X + xOffset, position.Y + currentLineHeight / 2f );
 
 			_compiledMarkup.AddRange( lineBuffer );
 			lineBuffer.Clear();
@@ -466,10 +467,10 @@ namespace Nez
 		}
 
 
-		static Vector2 parseVector2( string vectorString )
+		static vec2 parseVector2( string vectorString )
 		{
 			var split = Regex.Split( vectorString, @"[\\s,]+" );
-			return new Vector2( float.Parse( split[0], CultureInfo.InvariantCulture ), float.Parse( split[1], CultureInfo.InvariantCulture ) );
+			return new vec2( float.Parse( split[0], CultureInfo.InvariantCulture ), float.Parse( split[1], CultureInfo.InvariantCulture ) );
 		}
 
 	}
@@ -481,10 +482,10 @@ namespace Nez
 	{
 		public readonly Color color;
 		public readonly IFont font;
-		public readonly Vector2 scale;
+		public readonly vec2 scale;
 
 
-		public FormatInstruction( IFont font, Color color, Vector2 scale )
+		public FormatInstruction( IFont font, Color color, vec2 scale )
 		{
 			this.font = font;
 			this.color = color;
@@ -495,22 +496,22 @@ namespace Nez
 
 	interface ICompiledElement
 	{
-		Vector2 size { get; }
-		Vector2 position { get; set; }
-		void render( Graphics graphics, Vector2 offset );
+		vec2 size { get; }
+		vec2 position { get; set; }
+		void render( Graphics graphics, vec2 offset );
 	}
 
 
 	struct CompiledTextElement : ICompiledElement
 	{
-		public Vector2 position { get; set; }
-		public Vector2 size { get; set; }
+		public vec2 position { get; set; }
+		public vec2 size { get; set; }
 
 		readonly FormatInstruction _formatInstruction;
 		readonly string _text;
 
 
-		public CompiledTextElement( string text, Vector2 position, FormatInstruction formatInstruction )
+		public CompiledTextElement( string text, vec2 position, FormatInstruction formatInstruction )
 		{
 			_text = text;
 			this.position = position;
@@ -519,9 +520,9 @@ namespace Nez
 		}
 
 
-		public void render( Graphics graphics, Vector2 offset )
+		public void render( Graphics graphics, vec2 offset )
 		{
-			var origin = new Vector2( 0, size.Y / ( 2 * _formatInstruction.scale.Y ) );
+			var origin = new vec2( 0, size.Y / ( 2 * _formatInstruction.scale.Y ) );
 			graphics.batcher.drawString( _formatInstruction.font, _text, offset + position, _formatInstruction.color, 0, origin, _formatInstruction.scale, SpriteEffects.None, 0 );
 		}
 
@@ -530,27 +531,27 @@ namespace Nez
 
 	struct CompiledImageElement : ICompiledElement
 	{
-		public Vector2 position { get; set; }
-		public Vector2 size { get; set; }
+		public vec2 position { get; set; }
+		public vec2 size { get; set; }
 
 		readonly Color _color;
 		readonly Texture2D _image;
-		readonly Vector2 _scale;
+		readonly vec2 _scale;
 
 
-		public CompiledImageElement( Texture2D image, Color color, Vector2 position, Vector2 scale )
+		public CompiledImageElement( Texture2D image, Color color, vec2 position, vec2 scale )
 		{
 			_image = image;
 			this.position = position;
 			_color = color;
 			_scale = scale;
-			size = new Vector2( image.Width, image.Height ) * scale;
+			size = new vec2( image.Width, image.Height ) * scale;
 		}
 
 
-		public void render( Graphics graphics, Vector2 offset )
+		public void render( Graphics graphics, vec2 offset )
 		{
-			var origin = new Vector2( 0, _image.Height / 2f );
+			var origin = new vec2( 0, _image.Height / 2f );
 			graphics.batcher.draw( _image, offset + position, null, _color, 0, origin, _scale, SpriteEffects.None, 0 );
 		}
 
@@ -559,3 +560,4 @@ namespace Nez
 	#endregion
 
 }
+#endif

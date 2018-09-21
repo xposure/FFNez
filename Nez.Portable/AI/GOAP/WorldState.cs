@@ -3,7 +3,7 @@ using System;
 using System.Text;
 
 
-namespace Nez.AI.GOAP
+namespace Atma.AI.GOAP
 {
 	public struct WorldState : IEquatable<WorldState>
 	{

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+#if FEATURE_INPUT
+using System.Collections.Generic;
 #if !FNA
 using Microsoft.Xna.Framework.Input.Touch;
 #endif
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// to enable touch input you must first call enableTouchSupport()
@@ -92,3 +93,4 @@ namespace Nez
 	}
 }
 
+#endif

@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.BehaviorTrees
+namespace Atma.AI.BehaviorTrees
 {
 	/// <summary>
 	/// returns success when the random probability is above the successProbability probability. It will otherwise return failure.
@@ -24,7 +24,7 @@ namespace Nez.AI.BehaviorTrees
 
 		public override TaskStatus update( T context )
 		{
-			if( Nez.Random.nextFloat() > _successProbability )
+			if( Atma.Random.nextFloat() > _successProbability )
 				return TaskStatus.Success;
 			return TaskStatus.Failure;
 		}

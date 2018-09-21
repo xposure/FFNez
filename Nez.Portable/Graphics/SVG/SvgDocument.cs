@@ -1,9 +1,10 @@
-﻿using System.IO;
+#if FEATURE_GRAPHICS
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	/// <summary>
 	/// handles parsing out groups, paths, rects, lines, circles, ellipses, polygons, polylines and images. This is just a small subset of the SVG
@@ -38,3 +39,4 @@ namespace Nez.Svg
 
 	}
 }
+#endif

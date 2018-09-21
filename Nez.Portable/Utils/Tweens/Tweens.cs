@@ -1,8 +1,9 @@
+#if FEATURE_UTILS
 using Microsoft.Xna.Framework;
 
 
 // concrete implementations of all tweenable types
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	public class IntTween : Tween<int>
 	{
@@ -88,7 +89,7 @@ namespace Nez.Tweens
 	}
 
 
-	public class Vector2Tween : Tween<Vector2>
+	public class Vector2Tween : Tween<vec2>
 	{
 		public static Vector2Tween create()
 		{
@@ -100,13 +101,13 @@ namespace Nez.Tweens
 		{ }
 
 
-		public Vector2Tween( ITweenTarget<Vector2> target, Vector2 to, float duration )
+		public Vector2Tween( ITweenTarget<vec2> target, vec2 to, float duration )
 		{
 			initialize( target, to, duration );
 		}
 
 
-		public override ITween<Vector2> setIsRelative()
+		public override ITween<vec2> setIsRelative()
 		{
 			_isRelative = true;
 			_toValue += _fromValue;
@@ -130,7 +131,7 @@ namespace Nez.Tweens
 	}
 
 
-	public class Vector3Tween : Tween<Vector3>
+	public class Vector3Tween : Tween<vec3>
 	{
 		public static Vector3Tween create()
 		{
@@ -142,13 +143,13 @@ namespace Nez.Tweens
 		{ }
 
 
-		public Vector3Tween( ITweenTarget<Vector3> target, Vector3 to, float duration )
+		public Vector3Tween( ITweenTarget<vec3> target, vec3 to, float duration )
 		{
 			initialize( target, to, duration );
 		}
 
 
-		public override ITween<Vector3> setIsRelative()
+		public override ITween<vec3> setIsRelative()
 		{
 			_isRelative = true;
 			_toValue += _fromValue;
@@ -350,3 +351,4 @@ namespace Nez.Tweens
 	}
 
 }
+#endif

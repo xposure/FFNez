@@ -1,5 +1,5 @@
 #if FEATURE_UI
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class TextTooltip : Tooltip
 	{

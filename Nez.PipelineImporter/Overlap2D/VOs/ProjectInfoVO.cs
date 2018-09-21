@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 
-namespace Nez.Overlap2D.Runtime
+namespace Atma.Overlap2D.Runtime
 {
 	public class ProjectInfoVO
 	{

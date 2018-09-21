@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content.Pipeline;
 
-namespace Nez.PipelineImporter.FufParticle
+namespace Atma.PipelineImporter.FufParticle
 {
     public class FufParticleCreatorContent
     {

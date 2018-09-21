@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_UTILS
+using Microsoft.Xna.Framework;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	public class RenderableColorTween : ColorTween, ITweenTarget<Color>
 	{
@@ -39,3 +40,4 @@ namespace Nez.Tweens
 
 	}
 }
+#endif

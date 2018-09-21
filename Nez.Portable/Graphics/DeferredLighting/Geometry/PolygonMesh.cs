@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.DeferredLighting
+namespace Atma.DeferredLighting
 {
 	/// <summary>
 	/// builds a Polygon from the passed in verts. Verts should be relative to 0,0 and contain the outer perimeter of the polygon. A center
@@ -21,11 +22,11 @@ namespace Nez.DeferredLighting
 
 		public static PolygonMesh createRectangle()
 		{
-			var points = new Vector2[] {
-				new Vector2( 1, 1 ),
-				new Vector2( 0, 1 ),
-				new Vector2( 0, 0 ),
-				new Vector2( 1, 0 )
+			var points = new vec2[] {
+				new vec2( 1, 1 ),
+				new vec2( 0, 1 ),
+				new vec2( 0, 0 ),
+				new vec2( 1, 0 )
 			};
 			return new PolygonMesh( points );
 		}
@@ -55,13 +56,13 @@ namespace Nez.DeferredLighting
 		}
 
 
-		static Vector2[] buildSymmetricalPolygon( int vertCount, float radius )
+		static vec2[] buildSymmetricalPolygon( int vertCount, float radius )
 		{
-			var points = new Vector2[vertCount];
+			var points = new vec2[vertCount];
 			for( var i = 0; i < vertCount; i++ )
 			{
 				var a = 2.0f * MathHelper.Pi * ( i / (float)vertCount );
-				points[i] = new Vector2( (float)Math.Cos( a ) * radius, (float)Math.Sin( a ) * radius );
+				points[i] = new vec2( (float)Math.Cos( a ) * radius, (float)Math.Sin( a ) * radius );
 			}
 
 			return points;
@@ -70,7 +71,7 @@ namespace Nez.DeferredLighting
 		#endregion
 
 
-		public PolygonMesh( Vector2[] points )
+		public PolygonMesh( vec2[] points )
 		{
 			var verts = generateVerts( points );
 
@@ -92,7 +93,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		VertexPosition[] generateVerts( Vector2[] points )
+		VertexPosition[] generateVerts( vec2[] points )
 		{
 			// we need to make tris from the points. all points will be shared with the center (0,0)
 			var verts = new VertexPosition[points.Length + 1];
@@ -125,3 +126,4 @@ namespace Nez.DeferredLighting
 	}
 }
 
+#endif

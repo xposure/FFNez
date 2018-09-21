@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework.Input;
+#if FEATURE_INPUT
+using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class InputUtils
 	{
@@ -38,3 +39,4 @@ namespace Nez
 	}
 }
 
+#endif

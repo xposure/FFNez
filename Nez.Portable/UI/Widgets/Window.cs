@@ -1,10 +1,10 @@
 #if FEATURE_UI
 using System;
 using Microsoft.Xna.Framework;
-using Nez.BitmapFonts;
+using Atma.BitmapFonts;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	/// <summary>
 	/// A table that can be dragged and resized. The top padding is used as the window's title height.
@@ -64,7 +64,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			float width = getWidth(), height = getHeight();
 			edge = 0;
@@ -106,7 +106,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{
 			if( !_dragging )
 				return;
@@ -184,7 +184,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{
 			_dragging = false;
 		}
@@ -249,8 +249,8 @@ namespace Nez.UI
 
 			if( style.stageBackground != null )
 			{
-				var stagePos = stageToLocalCoordinates( Vector2.Zero );
-				var stageSize = stageToLocalCoordinates( new Vector2( stage.getWidth(), stage.getHeight() ) );
+				var stagePos = stageToLocalCoordinates( vec2.Zero );
+				var stageSize = stageToLocalCoordinates( new vec2( stage.getWidth(), stage.getHeight() ) );
 				drawStageBackground( graphics, parentAlpha, getX() + stagePos.X, getY() + stagePos.Y, getX() + stageSize.X, getY() + stageSize.Y );
 			}
 
@@ -276,7 +276,7 @@ namespace Nez.UI
 		}
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			var hit = base.hit( point );
 			if( hit == null || hit == this )

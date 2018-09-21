@@ -1,4 +1,5 @@
-﻿namespace Nez.Sprites
+#if FEATURE_ESC
+namespace Atma.Sprites
 {
 	/// <summary>
 	/// this component will draw the same frame of spriteToMime every frame. The only difference in rendering is that SpriteMime uses its own
@@ -38,3 +39,4 @@
 	}
 }
 
+#endif

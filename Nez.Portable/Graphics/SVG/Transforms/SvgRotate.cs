@@ -1,7 +1,8 @@
-﻿using System.Globalization;
+#if FEATURE_GRAPHICS
+using System.Globalization;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	public class SvgRotate : SvgTransform
 	{
@@ -44,3 +45,4 @@ namespace Nez.Svg
 		}
 	}
 }
+#endif

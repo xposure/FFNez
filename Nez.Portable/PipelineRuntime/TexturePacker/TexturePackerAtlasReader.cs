@@ -1,10 +1,11 @@
+#if FEATURE_PIPELINE
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Pipeline.Content;
+using Atma.Pipeline.Content;
 using System.Collections.Generic;
 
 
-namespace Nez.TextureAtlases
+namespace Atma.TextureAtlases
 {
 	public class TexturePackerAtlasReader : ContentTypeReader<TexturePackerAtlas>
 	{
@@ -36,3 +37,4 @@ namespace Nez.TextureAtlases
 		}
 	}
 }
+#endif

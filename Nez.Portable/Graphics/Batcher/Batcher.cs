@@ -1,21 +1,22 @@
+#if FEATURE_GRAPHICS
 // based on the FNA SpriteBatch implementation by Ethan Lee: https://github.com/FNA-XNA/FNA
 using System;
 using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Runtime.CompilerServices;
-using Nez.Textures;
+using Atma.Textures;
 
 
-namespace Nez
+namespace Atma
 {
 	public class Batcher : GraphicsResource
 	{
 		/// <summary>
-		/// Matrix to be used when creating the projection matrix
+		/// mat4 to be used when creating the projection matrix
 		/// </summary>
 		/// <value>The transform matrix.</value>
-		public Matrix transformMatrix { get { return _transformMatrix; } }
+		public mat4 transformMatrix { get { return _transformMatrix; } }
 
 		/// <summary>
 		/// If true, destination positions will be rounded before being drawn.
@@ -52,14 +53,14 @@ namespace Nez
 		// How many sprites are in the current batch?
 		int _numSprites;
 
-		// Matrix to be used when creating the projection matrix
-		Matrix _transformMatrix;
+		// mat4 to be used when creating the projection matrix
+		mat4 _transformMatrix;
 
-		// Matrix used internally to calculate the cameras projection
-		Matrix _projectionMatrix;
+		// mat4 used internally to calculate the cameras projection
+		mat4 _projectionMatrix;
 
 		// this is the calculated MatrixTransform parameter in sprite shaders
-		Matrix _matrixTransformMatrix;
+		mat4 _matrixTransformMatrix;
 
 		// User-provided Effect, if applicable
 		Effect _customEffect;
@@ -96,7 +97,7 @@ namespace Nez
 			_spriteEffect = new SpriteEffect();
 			_spriteEffectPass = _spriteEffect.CurrentTechnique.Passes[0];
 
-			_projectionMatrix = new Matrix(
+			_projectionMatrix = new mat4(
 				0f, //(float)( 2.0 / (double)viewport.Width ) is the actual value we will use
 				0.0f,
 				0.0f,
@@ -143,13 +144,13 @@ namespace Nez
 
 		public void begin()
 		{
-			begin( BlendState.AlphaBlend, Core.defaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Matrix.Identity, false );
+			begin( BlendState.AlphaBlend, Core.defaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, mat4.Identity, false );
 		}
 
 
 		public void begin( Effect effect )
 		{
-			begin( BlendState.AlphaBlend, Core.defaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, effect, Matrix.Identity, false );
+			begin( BlendState.AlphaBlend, Core.defaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, effect, mat4.Identity, false );
 		}
 
 
@@ -159,7 +160,7 @@ namespace Nez
 		}
 
 
-		public void begin( Matrix transformationMatrix )
+		public void begin( mat4 transformationMatrix )
 		{
 			begin( BlendState.AlphaBlend, Core.defaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, transformationMatrix, false );
 		}
@@ -167,11 +168,11 @@ namespace Nez
 
 		public void begin( BlendState blendState )
 		{
-			begin( blendState, Core.defaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Matrix.Identity, false );
+			begin( blendState, Core.defaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, mat4.Identity, false );
 		}
 
 
-		public void begin( Material material, Matrix transformationMatrix )
+		public void begin( Material material, mat4 transformationMatrix )
 		{
 			begin( material.blendState, material.samplerState, material.depthStencilState, RasterizerState.CullCounterClockwise, material.effect, transformationMatrix, false );
 		}
@@ -185,7 +186,7 @@ namespace Nez
 				depthStencilState,
 				rasterizerState,
 				null,
-				Matrix.Identity,
+				mat4.Identity,
 				false
 			);
 		}
@@ -199,14 +200,14 @@ namespace Nez
 				depthStencilState,
 				rasterizerState,
 				effect,
-				Matrix.Identity,
+				mat4.Identity,
 				false
 			);
 		}
 
 
 		public void begin( BlendState blendState, SamplerState samplerState, DepthStencilState depthStencilState, RasterizerState rasterizerState,
-			Effect effect, Matrix transformationMatrix )
+			Effect effect, mat4 transformationMatrix )
 		{
 			begin(
 				blendState,
@@ -221,7 +222,7 @@ namespace Nez
 
 
 		public void begin( BlendState blendState, SamplerState samplerState, DepthStencilState depthStencilState, RasterizerState rasterizerState,
-			Effect effect, Matrix transformationMatrix, bool disableBatching )
+			Effect effect, mat4 transformationMatrix, bool disableBatching )
 		{
 			Assert.isFalse( _beginCalled, "Begin has been called before calling End after the last call to Begin. Begin cannot be called again until End has been successfully called." );
 			_beginCalled = true;
@@ -256,19 +257,19 @@ namespace Nez
 
 		#region Public draw methods
 
-		public void draw( Texture2D texture, Vector2 position )
+		public void draw( Texture2D texture, vec2 position )
 		{
 			checkBegin();
 			pushSprite( texture, null, position.X, position.Y, 1.0f, 1.0f,
-				Color.White, Vector2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0 );
+				Color.White, vec2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0 );
 		}
 
 
-		public void draw( Texture2D texture, Vector2 position, Color color )
+		public void draw( Texture2D texture, vec2 position, Color color )
 		{
 			checkBegin();
 			pushSprite( texture, null, position.X, position.Y, 1.0f, 1.0f,
-				color, Vector2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0 );
+				color, vec2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0 );
 		}
 
 
@@ -276,7 +277,7 @@ namespace Nez
 		{
 			checkBegin();
 			pushSprite( texture, null, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, destinationRectangle.Height,
-				Color.White, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
+				Color.White, vec2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
 		}
 
 
@@ -284,7 +285,7 @@ namespace Nez
 		{
 			checkBegin();
 			pushSprite( texture, null, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, destinationRectangle.Height,
-				color, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
+				color, vec2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
 		}
 
 
@@ -292,7 +293,7 @@ namespace Nez
 		{
 			checkBegin();
 			pushSprite( texture, sourceRectangle, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, destinationRectangle.Height,
-				color, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
+				color, vec2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
 		}
 
 
@@ -300,7 +301,7 @@ namespace Nez
 		{
 			checkBegin();
 			pushSprite( texture, sourceRectangle, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, destinationRectangle.Height,
-				color, Vector2.Zero, 0.0f, 0.0f, (byte)( effects & (SpriteEffects)0x03 ), true, 0, 0, 0, 0 );
+				color, vec2.Zero, 0.0f, 0.0f, (byte)( effects & (SpriteEffects)0x03 ), true, 0, 0, 0, 0 );
 		}
 
 
@@ -324,7 +325,7 @@ namespace Nez
 				destinationRectangle.Width,
 				destinationRectangle.Height,
 				color,
-				Vector2.Zero,
+				vec2.Zero,
 				rotation,
 				layerDepth,
 				(byte)( effects & (SpriteEffects)0x03 ),
@@ -334,7 +335,7 @@ namespace Nez
 		}
 
 
-		public void draw( Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color )
+		public void draw( Texture2D texture, vec2 position, Rectangle? sourceRectangle, Color color )
 		{
 			checkBegin();
 			pushSprite(
@@ -345,7 +346,7 @@ namespace Nez
 				1.0f,
 				1.0f,
 				color,
-				Vector2.Zero,
+				vec2.Zero,
 				0.0f,
 				0.0f,
 				0,
@@ -357,11 +358,11 @@ namespace Nez
 
 		public void draw(
 			Texture2D texture,
-			Vector2 position,
+			vec2 position,
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
+			vec2 origin,
 			float scale,
 			SpriteEffects effects,
 			float layerDepth
@@ -388,10 +389,10 @@ namespace Nez
 
 		public void draw(
 			Subtexture subtexture,
-			Vector2 position,
+			vec2 position,
 			Color color,
 			float rotation,
-			Vector2 origin,
+			vec2 origin,
 			float scale,
 			SpriteEffects effects,
 			float layerDepth
@@ -416,12 +417,12 @@ namespace Nez
 
 		public void draw(
 			Texture2D texture,
-			Vector2 position,
+			vec2 position,
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
-			Vector2 scale,
+			vec2 origin,
+			vec2 scale,
 			SpriteEffects effects,
 			float layerDepth
 		)
@@ -446,21 +447,21 @@ namespace Nez
 		
 		public void draw(
 			Subtexture subtexture,
-			Vector2 position,
+			vec2 position,
 			Color color
 		)
 		{
-			draw(subtexture, position, color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+			draw(subtexture, position, color, 0f, vec2.Zero, vec2.One, SpriteEffects.None, 0f);
 		}
 
 
 		public void draw(
 			Subtexture subtexture,
-			Vector2 position,
+			vec2 position,
 			Color color,
 			float rotation,
-			Vector2 origin,
-			Vector2 scale,
+			vec2 origin,
+			vec2 scale,
 			SpriteEffects effects,
 			float layerDepth
 		)
@@ -484,12 +485,12 @@ namespace Nez
 
 		public void draw(
 			Texture2D texture,
-			Vector2 position,
+			vec2 position,
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
-			Vector2 scale,
+			vec2 origin,
+			vec2 scale,
 			SpriteEffects effects,
 			float layerDepth,
 			float skewTopX, float skewBottomX, float skewLeftY, float skewRightY
@@ -520,7 +521,7 @@ namespace Nez
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
+			vec2 origin,
 			SpriteEffects effects,
 			float layerDepth
 		)
@@ -552,7 +553,7 @@ namespace Nez
 		/// <param name="verts">Verts.</param>
 		/// <param name="textureCoords">Texture coords.</param>
 		/// <param name="colors">Colors.</param>
-		public void drawRaw( Texture2D texture, Vector3[] verts, Vector2[] textureCoords, Color[] colors )
+		public void drawRaw( Texture2D texture, vec3[] verts, vec2[] textureCoords, Color[] colors )
 		{
 			Assert.isTrue( verts.Length == 4, "there must be only 4 verts" );
 			Assert.isTrue( textureCoords.Length == 4, "there must be only 4 texture coordinates" );
@@ -598,7 +599,7 @@ namespace Nez
 		/// <param name="verts">Verts.</param>
 		/// <param name="textureCoords">Texture coords.</param>
 		/// <param name="color">Color.</param>
-		public void drawRaw( Texture2D texture, Vector3[] verts, Vector2[] textureCoords, Color color )
+		public void drawRaw( Texture2D texture, vec3[] verts, vec2[] textureCoords, Color color )
 		{
 			Assert.isTrue( verts.Length == 4, "there must be only 4 verts" );
 			Assert.isTrue( textureCoords.Length == 4, "there must be only 4 texture coordinates" );
@@ -638,8 +639,8 @@ namespace Nez
 
 
 		[System.Obsolete( "SpriteFont is too locked down to use directly. Wrap it in a NezSpriteFont" )]
-		public void DrawString( SpriteFont spriteFont, string text, Vector2 position, Color color, float rotation,
-			Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth )
+		public void DrawString( SpriteFont spriteFont, string text, vec2 position, Color color, float rotation,
+			vec2 origin, vec2 scale, SpriteEffects effects, float layerDepth )
 		{
 			throw new NotImplementedException( "SpriteFont is too locked down to use directly. Wrap it in a NezSpriteFont" );
 		}
@@ -667,7 +668,7 @@ namespace Nez
 		/// the meat of the Batcher. This is where it all goes down
 		/// </summary>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		void pushSprite( Texture2D texture, Rectangle? sourceRectangle, float destinationX, float destinationY, float destinationW, float destinationH, Color color, Vector2 origin,
+		void pushSprite( Texture2D texture, Rectangle? sourceRectangle, float destinationX, float destinationY, float destinationW, float destinationH, Color color, vec2 origin,
 						float rotation, float depth, byte effects, bool destSizeInPixels, float skewTopX, float skewBottomX, float skewLeftY, float skewRightY )
 		{
 			// out of space, flush
@@ -842,7 +843,7 @@ namespace Nez
 		/// Subtexture alternative to the old SpriteBatch pushSprite
 		/// </summary>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		void pushSprite( Subtexture subtexture, float destinationX, float destinationY, float destinationW, float destinationH, Color color, Vector2 origin,
+		void pushSprite( Subtexture subtexture, float destinationX, float destinationY, float destinationW, float destinationH, Color color, vec2 origin,
 				float rotation, float depth, byte effects, float skewTopX, float skewBottomX, float skewLeftY, float skewRightY )
 		{
 			// out of space, flush
@@ -1051,7 +1052,8 @@ namespace Nez
 			_projectionMatrix.M41 = -1 - 0.5f * _projectionMatrix.M11;
 			_projectionMatrix.M42 = 1 - 0.5f * _projectionMatrix.M22;
 
-			Matrix.Multiply( ref _transformMatrix, ref _projectionMatrix, out _matrixTransformMatrix );
+            _matrixTransformMatrix = _projectionMatrix * _transformMatrix;// glm.Mul(transformMatrix, _projectionMatrix);
+			//mat4.Multiply( ref _transformMatrix, ref _projectionMatrix, out _matrixTransformMatrix );
 			_spriteEffect.setMatrixTransform( ref _matrixTransformMatrix );
 
 			// we have to Apply here because custom effects often wont have a vertex shader and we need the default SpriteEffect's
@@ -1099,21 +1101,22 @@ namespace Nez
 
 			VertexDeclaration IVertexType.VertexDeclaration { get { throw new NotImplementedException(); } }
 
-			public Vector3 position0;
+			public vec3 position0;
 			public Color color0;
-			public Vector2 textureCoordinate0;
-			public Vector3 position1;
+			public vec2 textureCoordinate0;
+			public vec3 position1;
 			public Color color1;
-			public Vector2 textureCoordinate1;
-			public Vector3 position2;
+			public vec2 textureCoordinate1;
+			public vec3 position2;
 			public Color color2;
-			public Vector2 textureCoordinate2;
-			public Vector3 position3;
+			public vec2 textureCoordinate2;
+			public vec3 position3;
 			public Color color3;
-			public Vector2 textureCoordinate3;
+			public vec2 textureCoordinate3;
 		}
 
 		#endregion
 
 	}
 }
+#endif

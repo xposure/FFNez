@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.PipelineImporter
+namespace Atma.PipelineImporter
 {
 	public static class ContentWriterExt
 	{

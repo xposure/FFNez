@@ -1,8 +1,9 @@
+#if FEATURE_GRAPHICS
 using System;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// convenience subclass with a single property that casts the Effect for cleaner configuration
@@ -297,7 +298,7 @@ namespace Nez
 
 		/// <summary>
 		/// called when the Material is initialy set right before Batcher.begin to allow any Effects that have parameters set if necessary
-		/// based on the Camera Matrix such as to set the MatrixTransform via camera.viewProjectionMatrix mimicking what Batcher does. This will
+		/// based on the Camera mat4 such as to set the MatrixTransform via camera.viewProjectionMatrix mimicking what Batcher does. This will
 		/// only be called if there is a non-null Effect.
 		/// </summary>
 		/// <param name="camera">Camera.</param>
@@ -339,3 +340,4 @@ namespace Nez
 	}
 }
 
+#endif

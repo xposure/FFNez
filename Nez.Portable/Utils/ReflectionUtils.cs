@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// helper class to fetch property delegates

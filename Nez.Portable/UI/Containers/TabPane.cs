@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace Nez.UI
+namespace Atma.UI
 {
     public class TabPane : Table
     {
@@ -252,16 +252,16 @@ namespace Nez.UI
             }
         }
 
-        bool IInputListener.onMousePressed( Vector2 mousePos )
+        bool IInputListener.onMousePressed( vec2 mousePos )
         {
             return true;
         }
 
-        void IInputListener.onMouseMoved( Vector2 mousePos )
+        void IInputListener.onMouseMoved( vec2 mousePos )
         {
         }
 
-        void IInputListener.onMouseUp( Vector2 mousePos )
+        void IInputListener.onMouseUp( vec2 mousePos )
         {
             onClick?.Invoke();
         }

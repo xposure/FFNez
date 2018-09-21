@@ -1,7 +1,8 @@
+#if FEATURE_PHYSICS
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Verlet
+namespace Atma.Verlet
 {
 	/// <summary>
 	/// constrains 3 particles to an angle
@@ -66,3 +67,4 @@ namespace Nez.Verlet
 
 	}
 }
+#endif

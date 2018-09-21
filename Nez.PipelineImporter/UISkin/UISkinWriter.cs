@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
-using Nez.UI;
+using Atma.UI;
 using Microsoft.Xna.Framework.Content.Pipeline;
 
 
-namespace Nez.UISkinImporter
+namespace Atma.UISkinImporter
 {
 	[ContentTypeWriter]
 	public class UISkinWriter : ContentTypeWriter<UISkinConfig>
@@ -55,13 +55,13 @@ namespace Nez.UISkinImporter
 
 		public override string GetRuntimeType( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.UI.UISkinConfig ).AssemblyQualifiedName;
+			return typeof( Atma.UI.UISkinConfig ).AssemblyQualifiedName;
 		}
 
 
 		public override string GetRuntimeReader( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.UI.UISkinConfigReader ).AssemblyQualifiedName;
+			return typeof( Atma.UI.UISkinConfigReader ).AssemblyQualifiedName;
 		}
 	}
 }

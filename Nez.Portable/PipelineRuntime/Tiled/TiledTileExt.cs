@@ -1,7 +1,8 @@
-﻿using System.Runtime.CompilerServices;
+#if FEATURE_PIPELINE
+using System.Runtime.CompilerServices;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public static class TiledTileExt
 	{
@@ -135,3 +136,4 @@ namespace Nez.Tiled
 	}
 }
 
+#endif

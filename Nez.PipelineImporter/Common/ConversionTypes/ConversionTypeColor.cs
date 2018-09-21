@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 
 
-namespace Nez.ConversionTypes
+namespace Atma.ConversionTypes
 {
     public class ConversionTypeColor
     {

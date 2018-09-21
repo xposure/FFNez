@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.UtilityAI
+namespace Atma.AI.UtilityAI
 {
 	/// <summary>
 	/// Action that logs text

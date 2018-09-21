@@ -1,12 +1,13 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Nez.Sprites;
-using Nez.TextureAtlases;
-using Nez.Textures;
+using Atma.Sprites;
+using Atma.TextureAtlases;
+using Atma.Textures;
 
 
-namespace Nez.LibGdxAtlases
+namespace Atma.LibGdxAtlases
 {
 	public class LibGdxAtlas
 	{
@@ -67,3 +68,4 @@ namespace Nez.LibGdxAtlases
 	}
 }
 
+#endif

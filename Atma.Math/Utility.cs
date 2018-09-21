@@ -52,11 +52,11 @@ namespace Atma
 {
     public static partial class glm
     {
-        public static readonly double PIOverTwo = Math.PI / 2.0;
-        public static readonly double PIOverFour = Math.PI / 4.0;
-        public static readonly double PI = Math.PI;
-        public static readonly float PIf = (float)Math.PI;
-        public static readonly double TwoPI = Math.PI * 2.0;
+        public static readonly float PIOverTwo = (float)(Math.PI / 2.0);
+        public static readonly float PIOverFour = (float)(Math.PI / 4.0);
+        public static readonly float PI = (float)Math.PI;
+        //public static readonly float PIf = (float)Math.PI;
+        public static readonly float TwoPI = (float)(Math.PI * 2.0);
         //public static readonly float TWO_PI = PI * 2.0f;
         //public static readonly float HALF_PI = PI * 0.5f;
 
@@ -111,10 +111,10 @@ namespace Atma
         ///// <returns></returns>
         //public static float BoundingRadiusFromAABB(AxisAlignedBox aabb)
         //{
-        //    Vector2 max = aabb.Maximum;
-        //    Vector2 min = aabb.Minimum;
+        //    vec2 max = aabb.Maximum;
+        //    vec2 min = aabb.Minimum;
 
-        //    Vector2 magnitude = max;
+        //    vec2 magnitude = max;
         //    magnitude.Ceil(-max);
         //    magnitude.Ceil(min);
         //    magnitude.Ceil(-min);
@@ -161,6 +161,21 @@ namespace Atma
         //{
         //    return (a * (1 - n) + b * n);
         //}
+
+        public static byte Lerp(byte a, byte b, float n)
+        {
+            return (byte)(a * (1 - n) + b * n);
+        }
+
+        public static Color Lerp(Color a, Color b, float n)
+        {
+            return new Color(
+                 Lerp(a.R, b.R, n),
+                 Lerp(a.G, b.G, n),
+                 Lerp(a.B, b.B, n),
+                 Lerp(a.A, b.A, n)
+                );
+        }
 
         //public static float WrapAngle(float angle)
         //{
@@ -509,7 +524,7 @@ namespace Atma
         /////// <returns></returns>
         ////public static Matrix4 BuildReflectionMatrix(Plane plane)
         ////{
-        ////    Vector2 normal = plane.Normal;
+        ////    vec2 normal = plane.Normal;
 
         ////    return new Matrix4(
         ////        -2.0f * normal.x * normal.x + 1.0f, -2.0f * normal.x * normal.y, -2.0f * normal.x * normal.z, -2.0f * normal.x * plane.D,
@@ -525,9 +540,9 @@ namespace Atma
         /////// <param name="v2"></param>
         /////// <param name="v3"></param>
         /////// <returns></returns>
-        ////public static Vector4 CalculateFaceNormal(Vector2 v1, Vector2 v2, Vector2 v3)
+        ////public static Vector4 CalculateFaceNormal(vec2 v1, vec2 v2, vec2 v3)
         ////{
-        ////    Vector2 normal = CalculateBasicFaceNormal(v1, v2, v3);
+        ////    vec2 normal = CalculateBasicFaceNormal(v1, v2, v3);
 
         ////    // Now set up the w (distance of tri from origin
         ////    return new Vector4(normal.x, normal.y, normal.z, -(normal.Dot(v1)));
@@ -540,9 +555,9 @@ namespace Atma
         /////// <param name="v2"></param>
         /////// <param name="v3"></param>
         /////// <returns></returns>
-        ////public static Vector2 CalculateBasicFaceNormal(Vector2 v1, Vector2 v2, Vector2 v3)
+        ////public static vec2 CalculateBasicFaceNormal(vec2 v1, vec2 v2, vec2 v3)
         ////{
-        ////    Vector2 normal = (v2 - v1).Cross(v3 - v1);
+        ////    vec2 normal = (v2 - v1).Cross(v3 - v1);
         ////    normal.Normalize();
 
         ////    return normal;
@@ -555,9 +570,9 @@ namespace Atma
         /////// <param name="v2"></param>
         /////// <param name="v3"></param>
         /////// <returns></returns>
-        ////public static Vector2 CalculateBasicFaceNormalWithoutNormalize(Vector2 v1, Vector2 v2, Vector2 v3)
+        ////public static vec2 CalculateBasicFaceNormalWithoutNormalize(vec2 v1, vec2 v2, vec2 v3)
         ////{
-        ////    Vector2 normal = (v2 - v1).Cross(v3 - v1);
+        ////    vec2 normal = (v2 - v1).Cross(v3 - v1);
         ////    return normal;
         ////}
 
@@ -579,27 +594,27 @@ namespace Atma
         /////// <param name="u3"></param>
         /////// <param name="v3"></param>
         /////// <returns></returns>
-        ////public static Vector2 CalculateTangentSpaceVector(
-        ////    Vector2 position1, Vector2 position2, Vector2 position3, float u1, float v1, float u2, float v2, float u3, float v3)
+        ////public static vec2 CalculateTangentSpaceVector(
+        ////    vec2 position1, vec2 position2, vec2 position3, float u1, float v1, float u2, float v2, float u3, float v3)
         ////{
         ////    // side0 is the vector along one side of the triangle of vertices passed in, 
         ////    // and side1 is the vector along another side. Taking the cross product of these returns the normal.
-        ////    Vector2 side0 = position1 - position2;
-        ////    Vector2 side1 = position3 - position1;
+        ////    vec2 side0 = position1 - position2;
+        ////    vec2 side1 = position3 - position1;
         ////    // Calculate face normal
-        ////    Vector2 normal = side1.Cross(side0);
+        ////    vec2 normal = side1.Cross(side0);
         ////    normal.Normalize();
 
         ////    // Now we use a formula to calculate the tangent. 
         ////    float deltaV0 = v1 - v2;
         ////    float deltaV1 = v3 - v1;
-        ////    Vector2 tangent = deltaV1 * side0 - deltaV0 * side1;
+        ////    vec2 tangent = deltaV1 * side0 - deltaV0 * side1;
         ////    tangent.Normalize();
 
         ////    // Calculate binormal
         ////    float deltaU0 = u1 - u2;
         ////    float deltaU1 = u3 - u1;
-        ////    Vector2 binormal = deltaU1 * side0 - deltaU0 * side1;
+        ////    vec2 binormal = deltaU1 * side0 - deltaU0 * side1;
         ////    binormal.Normalize();
 
         ////    // Now, we take the cross product of the tangents to get a vector which 
@@ -608,7 +623,7 @@ namespace Atma
         ////    // then we need to reverse the s and t tangents. 
         ////    // This is because the triangle has been mirrored when going from tangent space to object space.
         ////    // reverse tangents if necessary.
-        ////    Vector2 tangentCross = tangent.Cross(binormal);
+        ////    vec2 tangentCross = tangent.Cross(binormal);
         ////    if (tangentCross.Dot(normal) < 0.0f)
         ////    {
         ////        tangent = -tangent;
@@ -724,6 +739,7 @@ namespace Atma
 
         //#region Intersection Methods
 
+#if ATMA_PHYSICS
         /// <summary>
         ///    Tests an intersection between a ray and a box.
         /// </summary>
@@ -843,8 +859,8 @@ namespace Atma
             return new IntersectResult(hit, lowt);
         }
 
-        //public static IntersectResult Intersects(Ray ray, Vector2 a,
-        //                                          Vector2 b, Vector2 c, Vector2 normal, bool positiveSide, bool negativeSide)
+        //public static IntersectResult Intersects(Ray ray, vec2 a,
+        //                                          vec2 b, vec2 c, vec2 normal, bool positiveSide, bool negativeSide)
         //{
         //    // Calculate intersection with plane.
         //    float t;
@@ -941,10 +957,10 @@ namespace Atma
         //    return new IntersectResult(true, t);
         //}
 
-        //public static IntersectResult Intersects(Ray ray, Vector2 a,
-        //                                          Vector2 b, Vector2 c, bool positiveSide, bool negativeSide)
+        //public static IntersectResult Intersects(Ray ray, vec2 a,
+        //                                          vec2 b, vec2 c, bool positiveSide, bool negativeSide)
         //{
-        //    Vector2 normal = CalculateBasicFaceNormalWithoutNormalize(a, b, c);
+        //    vec2 normal = CalculateBasicFaceNormalWithoutNormalize(a, b, c);
         //    return Intersects(ray, a, b, c, normal, positiveSide, negativeSide);
         //}
 
@@ -980,10 +996,10 @@ namespace Atma
         //    Contract.RequiresNotNull(boxB, "boxB");
 
         //    // grab the max and mix vectors for both boxes for comparison
-        //    Vector2 minA = boxA.Minimum;
-        //    Vector2 maxA = boxA.Maximum;
-        //    Vector2 minB = boxB.Minimum;
-        //    Vector2 maxB = boxB.Maximum;
+        //    vec2 minA = boxA.Minimum;
+        //    vec2 maxA = boxA.Maximum;
+        //    vec2 minB = boxB.Minimum;
+        //    vec2 maxB = boxB.Maximum;
 
         //    if ((minB.x < minA.x) &&
         //        (maxB.x > maxA.x) &&
@@ -1316,7 +1332,7 @@ namespace Atma
         //    }
 
         //    // Get corners of the box
-        //    Vector2[] corners = box.Corners;
+        //    vec2[] corners = box.Corners;
 
         //    // Test which side of the plane the corners are
         //    // Intersection occurs when at least one corner is on the 
@@ -1346,6 +1362,7 @@ namespace Atma
 
         //    return Utility.Abs(plane.Normal.Dot(sphere.Center)) <= sphere.Radius;
         //}
+#endif
 
         ///// <summary>
         ///// 
@@ -1367,12 +1384,12 @@ namespace Atma
         //        return new Tuple<bool, float, float>(true, float.NaN, float.PositiveInfinity);
         //    }
 
-        //    Vector2 min = box.Minimum;
-        //    Vector2 max = box.Maximum;
-        //    Vector2 rayorig = ray.origin;
-        //    Vector2 rayDir = ray.Direction;
+        //    vec2 min = box.Minimum;
+        //    vec2 max = box.Maximum;
+        //    vec2 rayorig = ray.origin;
+        //    vec2 rayDir = ray.Direction;
 
-        //    Vector2 absDir = Vector2.Zero;
+        //    vec2 absDir = vec2.Zero;
         //    absDir[0] = Abs(rayDir[0]);
         //    absDir[1] = Abs(rayDir[1]);
         //    absDir[2] = Abs(rayDir[2]);
@@ -1438,7 +1455,7 @@ namespace Atma
         //    return new Tuple<bool, float, float>(true, start, end);
         //}
 
-        //private static bool CalcAxis(int i, Vector2 raydir, Vector2 rayorig, Vector2 min, Vector2 max, ref float end, ref float start)
+        //private static bool CalcAxis(int i, vec2 raydir, vec2 rayorig, vec2 min, vec2 max, ref float end, ref float start)
         //{
         //    float denom = 1 / raydir[i];
         //    float newstart = (min[i] - rayorig[i]) * denom;
@@ -1968,6 +1985,27 @@ namespace Atma
 
             return true;
 
+        }
+
+        /// <summary>
+        /// Performs a Catmull-Rom interpolation using the specified positions.
+        /// </summary>
+        /// <param name="value1">The first position in the interpolation.</param>
+        /// <param name="value2">The second position in the interpolation.</param>
+        /// <param name="value3">The third position in the interpolation.</param>
+        /// <param name="value4">The fourth position in the interpolation.</param>
+        /// <param name="amount">Weighting factor.</param>
+        /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
+        public static float CatmullRom(float value1, float value2, float value3, float value4, float amount)
+        {
+            // Using formula from http://www.mvps.org/directx/articles/catmull/
+            // Internally using doubles not to lose precission
+            double amountSquared = amount * amount;
+            double amountCubed = amountSquared * amount;
+            return (float)(0.5 * (2.0 * value2 +
+                (value3 - value1) * amount +
+                (2.0 * value1 - 5.0 * value2 + 4.0 * value3 - value4) * amountSquared +
+                (3.0 * value2 - value1 - 3.0 * value3 + value4) * amountCubed));
         }
     }
 }

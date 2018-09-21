@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
-using Nez.Particles;
+using Atma.Particles;
 
 
-namespace Nez.ParticleDesignerImporter
+namespace Atma.ParticleDesignerImporter
 {
 	public class ParticleDesignerProcessorResult
 	{

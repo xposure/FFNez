@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	public class HeatDistortionPostProcessor : PostProcessor
 	{
@@ -76,3 +77,4 @@ namespace Nez
 	}
 }
 
+#endif

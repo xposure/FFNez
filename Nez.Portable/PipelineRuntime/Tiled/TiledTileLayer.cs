@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.Textures;
+using Atma.Textures;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledTileLayer : TiledLayer
 	{
@@ -58,7 +59,7 @@ namespace Nez.Tiled
 		}
 
 
-		public override void draw( Batcher batcher, Vector2 position, float layerDepth, RectangleF cameraClipBounds )
+		public override void draw( Batcher batcher, vec2 position, float layerDepth, RectangleF cameraClipBounds )
 		{
 			// offset it by the entity position since the tilemap will always expect positions in its own coordinate space
 			cameraClipBounds.location -= ( position + offset );
@@ -147,7 +148,7 @@ namespace Nez.Tiled
 					if( rotation == 0 )
 						ty += ( tiledMap.tileHeight - tileRegion.sourceRect.Height );
 
-					batcher.draw( tileRegion, new Vector2( tx, ty ) + offset, color, rotation, Vector2.Zero, 1, spriteEffects, layerDepth );
+					batcher.draw( tileRegion, new vec2( tx, ty ) + offset, color, rotation, vec2.Zero, 1, spriteEffects, layerDepth );
 				}
 			}
 		}
@@ -220,13 +221,13 @@ namespace Nez.Tiled
 
 
 		/// <summary>
-		/// note that world position assumes that the Vector2 was normalized to be in the tilemaps coordinates. i.e. if the tilemap
+		/// note that world position assumes that the vec2 was normalized to be in the tilemaps coordinates. i.e. if the tilemap
 		/// is not at 0,0 then the world position should be moved so that it takes into consideration the tilemap offset from 0,0.
 		/// Example: if the tilemap is at 300,300 then the passed in value should be worldPos - (300,300)
 		/// </summary>
 		/// <returns>The tile at world position.</returns>
 		/// <param name="pos">Position.</param>
-		public TiledTile getTileAtWorldPosition( Vector2 pos )
+		public TiledTile getTileAtWorldPosition( vec2 pos )
 		{
 			return getTile( tiledMap.worldToTilePositionX( pos.X ), tiledMap.worldToTilePositionY( pos.Y ) );
 		}
@@ -354,7 +355,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <param name="start">Start.</param>
 		/// <param name="end">End.</param>
-		public TiledTile linecast( Vector2 start, Vector2 end )
+		public TiledTile linecast( vec2 start, vec2 end )
 		{
 			var direction = end - start;
 
@@ -424,3 +425,4 @@ namespace Nez.Tiled
 
 	}
 }
+#endif

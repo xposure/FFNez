@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Textures
+namespace Atma.Textures
 {
 	public class NinePatchSubtexture : Subtexture
 	{
@@ -43,3 +44,4 @@ namespace Nez.Textures
 	}
 }
 
+#endif

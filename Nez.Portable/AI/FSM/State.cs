@@ -1,5 +1,5 @@
 #if FEATURE_AI
-namespace Nez.AI.FSM
+namespace Atma.AI.FSM
 {
 	public abstract class State<T>
 	{

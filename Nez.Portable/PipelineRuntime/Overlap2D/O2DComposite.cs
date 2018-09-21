@@ -1,8 +1,9 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using System.Collections.Generic;
 
 
-namespace Nez.Overlap2D
+namespace Atma.Overlap2D
 {
 	public class O2DComposite
 	{
@@ -16,3 +17,4 @@ namespace Nez.Overlap2D
 	}
 }
 
+#endif

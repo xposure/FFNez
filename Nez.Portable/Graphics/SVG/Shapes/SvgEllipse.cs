@@ -1,7 +1,8 @@
-﻿using System.Xml.Serialization;
+#if FEATURE_GRAPHICS
+using System.Xml.Serialization;
 
 
-namespace Nez.Svg
+namespace Atma.Svg
 {
 	public class SvgEllipse : SvgElement
 	{
@@ -18,3 +19,4 @@ namespace Nez.Svg
 		public float centerX;
 	}
 }
+#endif

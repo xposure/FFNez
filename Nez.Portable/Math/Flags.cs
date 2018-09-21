@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_MATH
+using System;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// utility class to assist with dealing with bitmasks. All methods except isFlagSet expect the flag parameter to be a non-shifted flag.
@@ -93,3 +94,4 @@ namespace Nez
 	}
 }
 
+#endif

@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	public abstract class GeometricPrimitive3D : Renderable3D, IDisposable
 	{
@@ -18,7 +19,7 @@ namespace Nez
 
 		#region Initialization and configuration
 
-		protected void addVertex( Vector3 position, Color color, Vector3 normal )
+		protected void addVertex( vec3 position, Color color, vec3 normal )
 		{
 			_vertices.Add( new VertexPositionColorNormal( position, color, normal ) );
 		}
@@ -108,7 +109,7 @@ namespace Nez
 			_basicEffect.World = worldMatrix;
 			_basicEffect.View = camera.viewMatrix3D;
 			_basicEffect.Projection = camera.projectionMatrix3D;
-			_basicEffect.DiffuseColor = color.ToVector3();
+            _basicEffect.DiffuseColor = color.ToVector3();
 
 			// Set our vertex declaration, vertex buffer, and index buffer.
 			Core.graphicsDevice.SetVertexBuffer( _vertexBuffer );
@@ -121,3 +122,4 @@ namespace Nez
 
 	}
 }
+#endif

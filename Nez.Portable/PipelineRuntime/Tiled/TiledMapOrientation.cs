@@ -1,4 +1,5 @@
-﻿namespace Nez.Tiled
+#if FEATURE_PIPELINE
+namespace Atma.Tiled
 {
     public enum TiledMapOrientation
     {
@@ -7,3 +8,4 @@
         Staggered = 3
     }
 }
+#endif

@@ -1,16 +1,18 @@
+#if FEATURE_PHYSICS
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Verlet
+namespace Atma.Verlet
 {
 	/// <summary>
 	/// single Particle composite
 	/// </summary>
 	public class Ball : Composite
 	{
-		public Ball( Vector2 position, float radius = 10 )
+		public Ball( vec2 position, float radius = 10 )
 		{
 			addParticle( new Particle( position ) ).radius = radius;
 		}
 	}
 }
+#endif

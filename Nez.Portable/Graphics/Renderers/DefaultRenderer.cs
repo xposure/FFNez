@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_GRAPHICS
+namespace Atma
 {
 	public class DefaultRenderer : Renderer
 	{
@@ -30,3 +31,4 @@
 		}
 	}
 }
+#endif

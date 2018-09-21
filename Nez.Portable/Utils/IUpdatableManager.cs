@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_UTILS
+namespace Atma
 {
 	/// <summary>
 	/// global manager that can be added to Core
@@ -12,3 +13,4 @@
 	}
 }
 
+#endif

@@ -1,4 +1,5 @@
-﻿namespace Nez.Spatial
+#if FEATURE_PHYSICS
+namespace Atma.Spatial
 {
 	/// <summary>
 	/// Used internally to attach an Owner to each object stored in the QuadTree
@@ -27,3 +28,4 @@
 	}
 }
 
+#endif

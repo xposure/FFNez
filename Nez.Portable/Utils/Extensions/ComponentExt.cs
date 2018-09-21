@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+#if FEATURE_UTILS
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class ComponentExt
 	{
@@ -68,3 +69,4 @@ namespace Nez
 	}
 }
 
+#endif

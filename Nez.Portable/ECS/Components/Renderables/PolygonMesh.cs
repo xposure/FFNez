@@ -1,14 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// renders a basic, CCW, convex polygon
 	/// </summary>
 	public class PolygonMesh : Mesh
 	{
-		public PolygonMesh( Vector2[] points, bool arePointsCCW = true )
+		public PolygonMesh( vec2[] points, bool arePointsCCW = true )
 		{
 			var triangulator = new Triangulator();
 			triangulator.triangulate( points, arePointsCCW );
@@ -19,3 +20,4 @@ namespace Nez
 		}
 	}
 }
+#endif

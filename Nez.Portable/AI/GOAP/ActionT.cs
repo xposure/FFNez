@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez.AI.GOAP
+namespace Atma.AI.GOAP
 {
 	/// <summary>
 	/// convenince Action subclass with a typed context. This is useful when an Action requires validation so that it has some way to get

@@ -1,17 +1,17 @@
 #if FEATURE_UI
 using System;
 using System.Collections.Generic;
-using Nez.LibGdxAtlases;
-using Nez.Textures;
+using Atma.LibGdxAtlases;
+using Atma.Textures;
 using Microsoft.Xna.Framework;
-using Nez.BitmapFonts;
-using Nez.TextureAtlases;
-using Nez.Systems;
+using Atma.BitmapFonts;
+using Atma.TextureAtlases;
+using Atma.Systems;
 using System.Linq;
 using Microsoft.Xna.Framework.Content;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class Skin
 	{

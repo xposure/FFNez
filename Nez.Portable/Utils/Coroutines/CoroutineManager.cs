@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections.Generic;
 using System.Collections;
 
 
-namespace Nez.Systems
+namespace Atma.Systems
 {
 	/// <summary>
 	/// basic CoroutineManager. Coroutines can do the following:
@@ -204,3 +205,4 @@ namespace Nez.Systems
 	}
 }
 
+#endif

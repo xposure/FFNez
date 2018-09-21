@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Nez.Textures;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework.Graphics;
+using Atma.Textures;
 
 
-namespace Nez
+namespace Atma
 {
 	public class GaussianBlurPostProcessor : PostProcessor<GaussianBlurEffect>
 	{
@@ -67,3 +68,4 @@ namespace Nez
 
 	}
 }
+#endif

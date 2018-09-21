@@ -3,7 +3,7 @@ namespace Atma
 {
     public struct RectOffset
     {
-        //public Vector2 offset;
+        //public vec2 offset;
         public vec2 min;
         public vec2 max;
 
@@ -28,20 +28,20 @@ namespace Atma
         public float vertical { get { return top + bottom; } }
 
         public vec2 size { get { return new vec2(horizontal, vertical); } }
-        //public Vector2 right { get { return new Vector2(max.X, 0); } }
+        //public vec2 right { get { return new vec2(max.X, 0); } }
 
-        //public Vector2 top { get { return new Vector2(0, min.Y); } }
-        //public Vector2 bottom { get { return new Vector2(0, max.Y); } }
+        //public vec2 top { get { return new vec2(0, min.Y); } }
+        //public vec2 bottom { get { return new vec2(0, max.Y); } }
 
-        //public Vector2 sizeX { get { return new Vector2(min.X + max.X, 0); } }
-        //public Vector2 sizeY { get { return new Vector2(0, min.Y + max.Y); } }
+        //public vec2 sizeX { get { return new vec2(min.X + max.X, 0); } }
+        //public vec2 sizeY { get { return new vec2(0, min.Y + max.Y); } }
         //public float xWidth { get { return left.X + right.X; } }
         //public float yHeight { get { return top.Y + bottom.Y; } }
 
-        //public Vector2 size { get { return new Vector2(xWidth, yHeight); } }
+        //public vec2 size { get { return new vec2(xWidth, yHeight); } }
 
-        //public AxisAlignedBox topLeft { get { return AxisAlignedBox.FromRect(Vector2.Zero + offset, min); } }
-        //public AxisAlignedBox left { get { return AxisAlignedBox.FromRect(new Vector2(0, min.Y) Vector2.Zero + offset, min); } }
+        //public AxisAlignedBox topLeft { get { return AxisAlignedBox.FromRect(vec2.Zero + offset, min); } }
+        //public AxisAlignedBox left { get { return AxisAlignedBox.FromRect(new vec2(0, min.Y) vec2.Zero + offset, min); } }
         //public AxisAlignedBox add(AxisAlignedBox box)
         //{
         //    return new AxisAlignedBox(box.minVector , box.maxVector + min + max);

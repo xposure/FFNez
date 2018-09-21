@@ -1,8 +1,9 @@
+#if FEATURE_PIPELINE
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public class TiledImageLayer : TiledLayer
 	{
@@ -25,10 +26,11 @@ namespace Nez.Tiled
 		}
 
 
-		public override void draw( Batcher batcher, Vector2 parentPosition, float layerDepth, RectangleF cameraClipBounds )
+		public override void draw( Batcher batcher, vec2 parentPosition, float layerDepth, RectangleF cameraClipBounds )
 		{
-			batcher.draw( texture, parentPosition + offset, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, layerDepth );
+			batcher.draw( texture, parentPosition + offset, null, Color.White, 0, vec2.Zero, 1, SpriteEffects.None, layerDepth );
 		}
 
 	}
 }
+#endif

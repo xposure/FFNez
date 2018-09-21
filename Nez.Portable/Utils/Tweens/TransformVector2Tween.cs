@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+#if FEATURE_UTILS
+using Microsoft.Xna.Framework;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 	/// <summary>
 	/// useful enum for any Transform related property tweens
@@ -20,13 +21,13 @@ namespace Nez.Tweens
 	/// this is a special case since Transforms are by far the most tweened object. we encapsulate the Tween and the ITweenTarget
 	/// in a single, cacheable class
 	/// </summary>
-	public class TransformVector2Tween : Vector2Tween, ITweenTarget<Vector2>
+	public class TransformVector2Tween : Vector2Tween, ITweenTarget<vec2>
 	{
 		Transform _transform;
 		TransformTargetType _targetType;
 
 
-		public void setTweenedValue( Vector2 value )
+		public void setTweenedValue( vec2 value )
 		{
 			switch( _targetType )
 			{
@@ -54,7 +55,7 @@ namespace Nez.Tweens
 		}
 
 
-		public Vector2 getTweenedValue()
+		public vec2 getTweenedValue()
 		{
 			switch( _targetType )
 			{
@@ -67,9 +68,9 @@ namespace Nez.Tweens
 				case TransformTargetType.LocalScale:
 					return _transform.localScale;
 				case TransformTargetType.RotationDegrees:
-					return new Vector2( _transform.rotationDegrees );
+					return new vec2( _transform.rotationDegrees );
 				case TransformTargetType.LocalRotationDegrees:
-					return new Vector2( _transform.localRotationDegrees, 0 );
+					return new vec2( _transform.localRotationDegrees, 0 );
 				default:
 					throw new System.ArgumentOutOfRangeException();
 			}
@@ -112,3 +113,4 @@ namespace Nez.Tweens
 
 	}
 }
+#endif

@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 
 
-namespace Nez.Tweens
+namespace Atma.Tweens
 {
 
 	public interface ITweenable
@@ -46,3 +47,4 @@ namespace Nez.Tweens
 	}
 
 }
+#endif

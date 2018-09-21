@@ -1,10 +1,10 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// Renders a trail behind a moving object
@@ -57,15 +57,15 @@ namespace Nez
 		/// </summary>
 		void initializeVertices()
 		{
-			var radiusVec = new Vector3( 0, -ribbonRadius, 0 );
+			var radiusVec = new vec3( 0, -ribbonRadius, 0 );
 			_vertices = new VertexPositionColor[_ribbonLength * 2 + 3];
 
 			// head of ribbon
-			_vertices[0].Position = new Vector3( entity.transform.position, 0f ) + radiusVec;
+			_vertices[0].Position = new vec3( entity.transform.position, 0f ) + radiusVec;
 			_vertices[0].Color = Color.Red;
-			_vertices[1].Position = new Vector3( entity.transform.position, 0f ) + radiusVec;
+			_vertices[1].Position = new vec3( entity.transform.position, 0f ) + radiusVec;
 			_vertices[1].Color = Color.Yellow;
-			_vertices[2].Position = new Vector3( entity.transform.position, 0f ) + radiusVec;
+			_vertices[2].Position = new vec3( entity.transform.position, 0f ) + radiusVec;
 			_vertices[2].Color = Color.Green;
 
 			var pos = entity.transform.position;
@@ -89,8 +89,8 @@ namespace Nez
 			if( !_areVertsDirty )
 				return;
 			
-			var center = new Vector3( entity.transform.position, 0f );
-			var radVec = new Vector3( 0, -ribbonRadius, 0 );
+			var center = new vec3( entity.transform.position, 0f );
+			var radVec = new vec3( 0, -ribbonRadius, 0 );
 			
 			// starting triangle, the head
 			_vertices[0].Position = center + radVec;
@@ -153,7 +153,7 @@ namespace Nez
 			initializeVertices();
 
 			_basicEffect = entity.scene.content.loadMonoGameEffect<BasicEffect>();
-			_basicEffect.World = Matrix.Identity;
+			_basicEffect.World = mat4.Identity;
 			_basicEffect.VertexColorEnabled = true;
 		}
 
@@ -173,11 +173,11 @@ namespace Nez
 			var velocity = entity.transform.position - _segments.First.Value.position;
 
 			// if the distance between the last segment and the current position is too tiny then just copy over the current head value
-			if( velocity.LengthSquared() > float.Epsilon * float.Epsilon )
+			if( velocity.LengthSqr > float.Epsilon * float.Epsilon )
 			{
 				seg.position = entity.transform.position;
 				seg.radius = ribbonRadius;
-				seg.radiusDirection = new Vector2( -velocity.Y, velocity.X );
+				seg.radiusDirection = new vec2( -velocity.Y, velocity.X );
 				seg.radiusDirection.Normalize();
 			}
 			else
@@ -214,31 +214,31 @@ namespace Nez
 
 		class RibbonSegment
 		{
-			public Vector2 position;
-			public Vector2 radiusDirection;
+			public vec2 position;
+			public vec2 radiusDirection;
 			// normalized
 			public float radius;
 
-			public Vector3 topPoint
+			public vec3 topPoint
 			{
 				get
 				{
 					var tp = ( position + radiusDirection * radius );
-					return new Vector3( tp.X, tp.Y, 1 );
+					return new vec3( tp.X, tp.Y, 1 );
 				}
 			}
 
-			public Vector3 bottomPoint
+			public vec3 bottomPoint
 			{
 				get
 				{
 					var bp = position - radiusDirection * radius;
-					return new Vector3( bp.X, bp.Y, 1 );
+					return new vec3( bp.X, bp.Y, 1 );
 				}
 			}
 
 
-			public RibbonSegment( Vector2 position, float radius )
+			public RibbonSegment( vec2 position, float radius )
 			{
 				this.position = position;
 				this.radius = radius;
@@ -248,3 +248,4 @@ namespace Nez
 	}
 }
 
+#endif

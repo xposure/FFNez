@@ -3,16 +3,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
-using Nez.Systems;
-using Nez.Console;
-using Nez.Tweens;
-using Nez.Timers;
-using Nez.BitmapFonts;
-using Nez.Analysis;
-using Nez.Textures;
+using Atma.Systems;
+using Atma.Console;
+using Atma.Tweens;
+using Atma.Timers;
+using Atma.BitmapFonts;
+using Atma.Analysis;
+using Atma.Textures;
 using System.Threading;
 
-namespace Nez
+namespace Atma
 {
 	public class Core : Game
 	{

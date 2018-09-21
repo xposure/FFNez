@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Nez.Sprites;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework;
+using Atma.Sprites;
 
 
-namespace Nez
+namespace Atma
 {
 	public class Text : Sprite
 	{
@@ -55,10 +56,10 @@ namespace Nez
 		protected VerticalAlign _verticalAlign;
 		protected IFont _font;
 		protected string _text;
-		Vector2 _size;
+		vec2 _size;
 
 
-		public Text( IFont font, string text, Vector2 localOffset, Color color )
+		public Text( IFont font, string text, vec2 localOffset, Color color )
 		{
 			_font = font;
 			_text = text;
@@ -137,7 +138,7 @@ namespace Nez
 			else
 				oldOrigin.Y = _size.Y;
 
-			origin = new Vector2( (int)oldOrigin.X, (int)oldOrigin.Y );
+			origin = new vec2( (int)oldOrigin.X, (int)oldOrigin.Y );
 		}
 
 
@@ -149,3 +150,4 @@ namespace Nez
 	}
 }
 
+#endif

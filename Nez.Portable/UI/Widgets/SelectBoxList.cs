@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public class SelectBoxList<T> : ScrollPane where T : class
 	{
@@ -13,7 +13,7 @@ namespace Nez.UI
 
 		SelectBox<T> _selectBox;
 		Element _previousScrollFocus;
-		Vector2 _screenPosition;
+		vec2 _screenPosition;
 		bool _isListBelowSelectBox;
 
 
@@ -46,7 +46,7 @@ namespace Nez.UI
 
 			stage.addElement( this );
 
-			_screenPosition = _selectBox.localToStageCoordinates( Vector2.Zero );
+			_screenPosition = _selectBox.localToStageCoordinates( vec2.Zero );
 
 			// show the list above or below the select box, limited to a number of items and the available height in the stage.
 			float itemHeight = listBox.getItemHeight();
@@ -118,7 +118,7 @@ namespace Nez.UI
 
 		public override void draw( Graphics graphics, float parentAlpha )
 		{
-			var temp = _selectBox.localToStageCoordinates( Vector2.Zero );
+			var temp = _selectBox.localToStageCoordinates( vec2.Zero );
 			if( temp != _screenPosition )
 				Core.schedule( 0f, false, this, t => ((SelectBoxList<T>)t.context).hide() );
 			

@@ -5,6 +5,11 @@ namespace Atma
 {
     public struct Point : IEquatable<Point>
     {
+#if DEBUG
+        public static implicit operator vec2(Point v) => new vec2(v.X, v.Y);
+
+
+#endif
         #region Private Fields
 
         private static Point zeroPoint = new Point();

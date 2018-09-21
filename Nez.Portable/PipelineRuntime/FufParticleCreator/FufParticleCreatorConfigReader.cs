@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework.Content;
+#if FEATURE_PIPELINE
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Nez.ECS.Components.Renderables.Particles;
-using Nez.Textures;
+using Atma.ECS.Components.Renderables.Particles;
+using Atma.Textures;
 
-namespace Nez.PipelineRuntime.FufParticleCreator
+namespace Atma.PipelineRuntime.FufParticleCreator
 {
     public class FufParticleCreatorConfigReader : ContentTypeReader<FufParticleCreatorConfig>
     {
@@ -21,10 +22,10 @@ namespace Nez.PipelineRuntime.FufParticleCreator
             emitterConfig.life.min = reader.ReadSingle();
             emitterConfig.life.max = reader.ReadSingle();
 
-            emitterConfig.color.start.min = reader.ReadColor();
-            emitterConfig.color.start.max = reader.ReadColor();
-            emitterConfig.color.end.min = reader.ReadColor();
-            emitterConfig.color.end.max = reader.ReadColor();
+            emitterConfig.color.start.min = new Color(reader.ReadColor().PackedValue);
+            emitterConfig.color.start.max = new Color(reader.ReadColor().PackedValue);
+            emitterConfig.color.end.min = new Color(reader.ReadColor().PackedValue);
+            emitterConfig.color.end.max = new Color(reader.ReadColor().PackedValue);
 
             emitterConfig.alpha.start.min = reader.ReadSingle();
             emitterConfig.alpha.start.max = reader.ReadSingle();
@@ -49,3 +50,4 @@ namespace Nez.PipelineRuntime.FufParticleCreator
         }
     }
 }
+#endif

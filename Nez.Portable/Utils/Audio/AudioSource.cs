@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+#if FEATURE_UTILS
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 
 
-namespace Nez.Audio
+namespace Atma.Audio
 {
 	/// <summary>
 	/// plays a collection of SoundEffects randomly and optionally with random pitch
@@ -83,3 +84,4 @@ namespace Nez.Audio
 	}
 }
 
+#endif

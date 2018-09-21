@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_ESC
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Nez.PhysicsShapes;
+using Atma.PhysicsShapes;
 
 
-namespace Nez
+namespace Atma
 {
 	public abstract class Collider : Component
 	{
@@ -17,7 +18,7 @@ namespace Nez
 		/// localOffset is added to entity.position to get the final position for the collider geometry. This allows you to add multiple
 		/// Colliders to an Entity and position them separately and also lets you set the point of rotation/scale.
 		/// </summary>
-		public Vector2 localOffset
+		public vec2 localOffset
 		{
 			get { return _localOffset; }
 			set { setLocalOffset( value ); }
@@ -27,7 +28,7 @@ namespace Nez
 		/// represents the absolute position to this Collider. It is entity.transform.position + localPosition - origin.
 		/// </summary>
 		/// <value>The absolute position.</value>
-		public Vector2 absolutePosition
+		public vec2 absolutePosition
 		{
 			get { return entity.transform.position + _localOffset; }
 		}
@@ -87,7 +88,7 @@ namespace Nez
 		internal RectangleF registeredPhysicsBounds;
 		protected bool _colliderRequiresAutoSizing;
 
-		protected Vector2 _localOffset;
+		protected vec2 _localOffset;
 		internal float _localOffsetLength;
 
 		/// <summary>
@@ -111,13 +112,13 @@ namespace Nez
 		/// </summary>
 		/// <returns>The local offset.</returns>
 		/// <param name="offset">Offset.</param>
-		public Collider setLocalOffset( Vector2 offset )
+		public Collider setLocalOffset( vec2 offset )
 		{
 			if( _localOffset != offset )
 			{
 				unregisterColliderWithPhysicsSystem();
 				_localOffset = offset;
-				_localOffsetLength = _localOffset.Length();
+				_localOffsetLength = _localOffset.Length;
 				_isPositionDirty = true;
 				registerColliderWithPhysicsSystem();
 			}
@@ -290,7 +291,7 @@ namespace Nez
 		/// <param name="collider">Collider.</param>
 		/// <param name="motion">Motion.</param>
 		/// <param name="result">Result.</param>
-		public bool collidesWith( Collider collider, Vector2 motion, out CollisionResult result )
+		public bool collidesWith( Collider collider, vec2 motion, out CollisionResult result )
 		{
 			// alter the shapes position so that it is in the place it would be after movement so we can check for overlaps
 			var oldPosition = shape.position;
@@ -342,7 +343,7 @@ namespace Nez
 		/// <returns><c>true</c>, if with was collidesed, <c>false</c> otherwise.</returns>
 		/// <param name="motion">Motion.</param>
 		/// <param name="result">Result.</param>
-		public bool collidesWithAny( ref Vector2 motion, out CollisionResult result )
+		public bool collidesWithAny( ref vec2 motion, out CollisionResult result )
 		{
 			result = new CollisionResult();
 
@@ -386,7 +387,7 @@ namespace Nez
 		/// <returns><c>true</c>, if with was collidesed, <c>false</c> otherwise.</returns>
 		/// <param name="motion">Motion.</param>
 		/// <param name="results">Results.</param>
-		public bool collidesWithAnyMultiple( Vector2 motion, List<CollisionResult> results )
+		public bool collidesWithAnyMultiple( vec2 motion, List<CollisionResult> results )
 		{
 			// fetch anything that we might collide with at our new position
 			var colliderBounds = bounds;
@@ -422,7 +423,7 @@ namespace Nez
 			return didCollide;
 		}
 
-		public bool collidesWithAnyMultiple( Vector2 motion, out List<CollisionResult> results ) {
+		public bool collidesWithAnyMultiple( vec2 motion, out List<CollisionResult> results ) {
 			results = new List<CollisionResult>();
 			return collidesWithAnyMultiple(motion, results);
 		}
@@ -444,3 +445,4 @@ namespace Nez
 	}
 }
 
+#endif

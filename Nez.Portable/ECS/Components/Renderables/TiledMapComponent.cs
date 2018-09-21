@@ -1,10 +1,11 @@
-﻿using System;
-using Nez.Tiled;
+#if FEATURE_ESC
+using System;
+using Atma.Tiled;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	public class TiledMapComponent : RenderableComponent, IUpdatable
 	{
@@ -81,7 +82,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The tile at world position.</returns>
 		/// <param name="worldPos">World position.</param>
-		public TiledTile getTileAtWorldPosition( Vector2 worldPos )
+		public TiledTile getTileAtWorldPosition( vec2 worldPos )
 		{
 			Assert.isNotNull( collisionLayer, "collisionLayer must not be null!" );
 
@@ -224,7 +225,7 @@ namespace Nez
 				switch( obj.tiledObjectType )
 				{
 					case TiledObject.TiledObjectType.Ellipse:
-						graphics.batcher.drawCircle( new Vector2( renderPosition.X + obj.x + obj.width * 0.5f, renderPosition.Y + obj.y + obj.height * 0.5f ), obj.width * 0.5f, group.color );
+						graphics.batcher.drawCircle( new vec2( renderPosition.X + obj.x + obj.width * 0.5f, renderPosition.Y + obj.y + obj.height * 0.5f ), obj.width * 0.5f, group.color );
 						break;
 					case TiledObject.TiledObjectType.Image:
 						throw new NotImplementedException( "Image layers are not yet supported" );
@@ -248,3 +249,4 @@ namespace Nez
 	}
 }
 
+#endif

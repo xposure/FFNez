@@ -23,7 +23,71 @@ namespace Atma
     {
 
         #region Fields
-        
+#if DEBUG
+        public static implicit operator Microsoft.Xna.Framework.Vector2(vec2 v) => new Microsoft.Xna.Framework.Vector2(v.x, v.y);
+        public static implicit operator vec2(Microsoft.Xna.Framework.Vector2 v) => new vec2(v.X, v.Y);
+
+        public static vec2 One => Ones;
+        //public static vec2 Zero => new vec2(0, 0);
+
+        public static vec2 Transform(vec2 v, mat4 m)
+        {
+            return (m * new vec4(v, 0, 1)).xy;
+        }
+
+        public static vec2 TransformNormal(vec2 v, mat4 m)
+        {
+            return m * v;
+        }
+
+        public static void Negate(ref vec2 v0, out vec2 r) => r = -v0;
+        public static vec2 Negate(vec2 v0) => -v0;
+        public static void Min(ref vec2 v0, ref vec2 v1, out vec2 r) => r = Min(v0, v1);
+        public static void Max(ref vec2 v0, ref vec2 v1, out vec2 r) => r = Max(v0, v1);
+
+        public static void DistanceSquared(ref vec2 a, ref vec2 b, out float d)
+        {
+            d= DistanceSqr(a, b);
+        }
+        public static float DistanceSquared(vec2 a, vec2 b)
+        {
+            return DistanceSqr(a,b);
+        }
+        public void Normalize()
+        {
+            var t = Normalized;
+            x = t.x;
+            y = t.y;
+        }
+        public static vec2 Normalize(vec2 n) => n.Normalized;
+        public static void Normalize(ref vec2 n, out vec2 _) => _ = n.Normalized;
+
+        public static void Distance(ref vec2 a, ref vec2 b, out float d) => d = Distance(a, b);
+        public static void Dot(ref vec2 a, ref vec2 b, out float d) => d = Dot(a, b);
+        public Point ToPoint()
+        {
+            return new Point((int)x, (int)y);
+        }
+        public float X { get => x; set => x = value; }
+        public float Y { get => y; set => y = value; }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector2"/> that contains CatmullRom interpolation of the specified vectors.
+        /// </summary>
+        /// <param name="value1">The first vector in interpolation.</param>
+        /// <param name="value2">The second vector in interpolation.</param>
+        /// <param name="value3">The third vector in interpolation.</param>
+        /// <param name="value4">The fourth vector in interpolation.</param>
+        /// <param name="amount">Weighting factor.</param>
+        /// <returns>The result of CatmullRom interpolation.</returns>
+        public static vec2 CatmullRom(vec2 value1, vec2 value2, vec2 value3, vec2 value4, float amount)
+        {
+            return new vec2(
+                glm.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
+                glm.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount));
+        }
+#endif
+
         /// <summary>
         /// x-component
         /// </summary>

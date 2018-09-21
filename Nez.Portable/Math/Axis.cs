@@ -1,4 +1,5 @@
-﻿namespace Nez
+#if FEATURE_MATH
+namespace Atma
 {
 	public enum Axis
 	{
@@ -7,3 +8,4 @@
 	}
 }
 
+#endif

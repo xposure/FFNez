@@ -3,7 +3,7 @@ using System;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace Nez.UI
+namespace Atma.UI
 {
 	public interface IKeyboardListener
 	{

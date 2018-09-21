@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class GraphicsDeviceExt
 	{
@@ -28,3 +29,4 @@ namespace Nez
 	}
 }
 
+#endif

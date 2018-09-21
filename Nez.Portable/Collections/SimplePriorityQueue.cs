@@ -1,4 +1,5 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -225,3 +226,4 @@ namespace System.Collections.Generic
 		}
 	}
 }
+#endif

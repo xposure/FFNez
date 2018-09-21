@@ -1,4 +1,5 @@
-namespace Nez
+#if FEATURE_GRAPHICS
+namespace Atma
 {
 	/// <summary>
 	/// Class holds all the settings used to tweak the bloom effect.
@@ -55,3 +56,4 @@ namespace Nez
         };
     }
 }
+#endif

@@ -7,14 +7,14 @@ using System.ComponentModel;
 using System.IO.Compression;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using Microsoft.Xna.Framework;
-using Nez.TextureAtlasGenerator;
+using Atma.TextureAtlasGenerator;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Utilities;
-using Nez.PipelineImporter;
+using Atma.PipelineImporter;
 using CompressionMode = System.IO.Compression.CompressionMode;
 
 
-namespace Nez.TiledMaps
+namespace Atma.TiledMaps
 {
 	[ContentProcessor( DisplayName = "Tiled Map Processor" )]
 	public class TiledMapProcessor : ContentProcessor<TmxMap,TmxMap>

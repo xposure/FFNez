@@ -25,7 +25,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Nez.Overlap2D.Runtime
+namespace Atma.Overlap2D.Runtime
 {
 	public class SpriteAnimationVO : MainItemVO
 	{

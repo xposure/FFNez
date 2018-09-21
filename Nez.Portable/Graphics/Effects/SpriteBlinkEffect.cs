@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class SpriteBlinkEffect : Effect
 	{
@@ -17,7 +18,7 @@ namespace Nez
 			get { return new Color( _blinkColor ); }
 			set
 			{
-				var blinkVec = value.ToVector4();
+				var blinkVec = value;
 				if( _blinkColor != blinkVec )
 				{
 					_blinkColor = blinkVec;
@@ -38,3 +39,4 @@ namespace Nez
 	}
 }
 
+#endif

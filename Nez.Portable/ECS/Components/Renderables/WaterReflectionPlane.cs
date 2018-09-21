@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_ESC
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// adds a water reflection effect designed to be placed on the bottom of the screen. Note that transform.position is the top-left point
@@ -55,3 +56,4 @@ namespace Nez
 	}
 }
 
+#endif

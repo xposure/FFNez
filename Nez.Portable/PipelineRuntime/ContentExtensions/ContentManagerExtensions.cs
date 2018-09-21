@@ -1,10 +1,11 @@
-﻿using System.IO;
+#if FEATURE_PIPELINE
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Pipeline.Content
+namespace Atma.Pipeline.Content
 {
 	public static class ContentManagerExtensions
 	{
@@ -26,3 +27,4 @@ namespace Nez.Pipeline.Content
 		}
 	}
 }
+#endif

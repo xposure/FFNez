@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+#if FEATURE_GRAPHICS
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class ReflectionEffect : Effect
 	{
@@ -30,7 +31,7 @@ namespace Nez
 		/// <value>The render texture.</value>
 		internal RenderTarget2D renderTexture { set { _renderTextureParam.SetValue( value ); } }
 
-		internal Matrix matrixTransform { set { _matrixTransformParam.SetValue( value ); } }
+		internal mat4 matrixTransform { set { _matrixTransformParam.SetValue( value ); } }
 
 
 		const float _reflectionIntensity = 0.4f;
@@ -58,3 +59,4 @@ namespace Nez
 	}
 }
 
+#endif

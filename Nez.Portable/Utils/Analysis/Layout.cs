@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez.Analysis
+namespace Atma.Analysis
 {
 	/// <summary>
 	/// Alignment for layout.
@@ -121,11 +122,11 @@ namespace Nez.Analysis
 		/// </summary>
 		/// <param name="region">placing region</param>
 		/// <returns>Placed position</returns>
-		public Vector2 place( Vector2 size, float horizontalMargin, float verticalMargine, Alignment alignment )
+		public vec2 place( vec2 size, float horizontalMargin, float verticalMargine, Alignment alignment )
 		{
 			var rc = new Rectangle( 0, 0, (int)size.X, (int)size.Y );
 			rc = place( rc, horizontalMargin, verticalMargine, alignment );
-			return new Vector2( rc.X, rc.Y );
+			return new vec2( rc.X, rc.Y );
 		}
 
 
@@ -196,3 +197,4 @@ namespace Nez.Analysis
 
 	}
 }
+#endif

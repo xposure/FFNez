@@ -1,7 +1,8 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 
 
-namespace Nez.Tiled
+namespace Atma.Tiled
 {
 	public enum TiledLayerType
 	{
@@ -10,3 +11,4 @@ namespace Nez.Tiled
 	}
 }
 
+#endif

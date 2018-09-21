@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 
-namespace Nez.LibGdxAtlases
+namespace Atma.LibGdxAtlases
 {
 	[ContentTypeWriter]
 	public class LibGdxAtlasDWriter : ContentTypeWriter<LibGdxAtlasProcessorResult>
@@ -76,13 +76,13 @@ namespace Nez.LibGdxAtlases
 
 		public override string GetRuntimeType( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.LibGdxAtlases.LibGdxAtlas ).AssemblyQualifiedName;
+			return typeof( Atma.LibGdxAtlases.LibGdxAtlas ).AssemblyQualifiedName;
 		}
 
 
 		public override string GetRuntimeReader( TargetPlatform targetPlatform )
 		{
-			return typeof( Nez.LibGdxAtlases.LibGdxAtlasReader ).AssemblyQualifiedName;
+			return typeof( Atma.LibGdxAtlases.LibGdxAtlasReader ).AssemblyQualifiedName;
 		}
 	}
 }

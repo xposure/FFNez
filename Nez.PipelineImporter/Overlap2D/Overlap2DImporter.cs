@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
-using Nez.Overlap2D.Runtime;
+using Atma.Overlap2D.Runtime;
 
 
-namespace Nez.Overlap2D
+namespace Atma.Overlap2D
 {
 	[ContentImporter( ".dt", DefaultProcessor = "Overlap2DProcessor", DisplayName = "Overlap2D Importer" )]
 	public class Overlap2DImporter : ContentImporter<SceneVO>

@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_PHYSICS
+using System;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.PhysicsShapes
+namespace Atma.PhysicsShapes
 {
 	/// <summary>
 	/// various collision routines for Shapes. Most of these expect the first Shape to be in the space of the second (i.e. shape1.pos should
@@ -18,7 +19,7 @@ namespace Nez.PhysicsShapes
 		/// <param name="second">Second.</param>
 		/// <param name="deltaMovement">Delta movement.</param>
 		/// <param name="hit">Hit.</param>
-		public static bool collide( Shape first, Shape second, Vector2 deltaMovement, out RaycastHit hit )
+		public static bool collide( Shape first, Shape second, vec2 deltaMovement, out RaycastHit hit )
 		{
 			hit = new RaycastHit();
 			throw new NotImplementedException( "this should probably be in each Shape class and it still needs to be implemented ;)" );
@@ -33,7 +34,7 @@ namespace Nez.PhysicsShapes
 		/// <param name="second">Second.</param>
 		/// <param name="deltaMovement">Delta movement.</param>
 		/// <param name="hit">Hit.</param>
-		public static bool boxToBoxCast( Box first, Box second, Vector2 movement, out RaycastHit hit )
+		public static bool boxToBoxCast( Box first, Box second, vec2 movement, out RaycastHit hit )
 		{
 			// http://hamaluik.com/posts/swept-aabb-collision-using-minkowski-difference/
 			hit = new RaycastHit();
@@ -44,7 +45,7 @@ namespace Nez.PhysicsShapes
 			{
 				// calculate the MTV. if it is zero then we can just call this a non-collision
 				var mtv = minkowskiDiff.getClosestPointOnBoundsToOrigin();
-				if( mtv == Vector2.Zero )
+				if( mtv == vec2.Zero )
 					return false;
 						
 				hit.normal = -mtv;
@@ -57,12 +58,12 @@ namespace Nez.PhysicsShapes
 			else
 			{
 				// ray-cast the movement vector against the Minkowski AABB
-				var ray = new Ray2D( Vector2.Zero, -movement );
+				var ray = new Ray2D( vec2.Zero, -movement );
 				float fraction;
 				if( minkowskiDiff.rayIntersects( ref ray, out fraction ) && fraction <= 1.0f )
 				{
 					hit.fraction = fraction;
-					hit.distance = movement.Length() * fraction;
+					hit.distance = movement.Length * fraction;
 					hit.normal = -movement;
 					hit.normal.Normalize();
 					hit.centroid = first.bounds.center + movement * fraction;
@@ -85,7 +86,7 @@ namespace Nez.PhysicsShapes
 				// calculate the MTV. if it is zero then we can just call this a non-collision
 				result.minimumTranslationVector = minkowskiDiff.getClosestPointOnBoundsToOrigin();
 
-				if( result.minimumTranslationVector == Vector2.Zero )
+				if( result.minimumTranslationVector == vec2.Zero )
 					return false;
 
 				result.normal = -result.minimumTranslationVector;
@@ -113,11 +114,11 @@ namespace Nez.PhysicsShapes
 		
 		#region Retired Polygon to Polygon
 
-		static Vector2[] _satAxisArray = new Vector2[0];
+		static vec2[] _satAxisArray = new vec2[0];
 		static float[] _satTimerPerAxis = new float[0];
 
 		[Obsolete]
-		public static bool polygonToPolygonCast( Polygon first, Polygon second, Vector2 deltaMovement, out RaycastHit hit )
+		public static bool polygonToPolygonCast( Polygon first, Polygon second, vec2 deltaMovement, out RaycastHit hit )
 		{
 			hit = new RaycastHit();
 			float timeOfCollision;
@@ -160,10 +161,10 @@ namespace Nez.PhysicsShapes
 
 
 		[Obsolete]
-		static bool polygonToPolygon( Polygon first, Polygon second, Vector2? deltaMovement, out Vector2 responseNormal, out float timeOfCollision )
+		static bool polygonToPolygon( Polygon first, Polygon second, vec2? deltaMovement, out vec2 responseNormal, out float timeOfCollision )
 		{
 			timeOfCollision = float.MinValue;
-			responseNormal = Vector2.Zero;
+			responseNormal = vec2.Zero;
 			// polygon verts are in local space so we need to convert one of the polys to be in the space of the other. We use the distance
 			// between them to do so.
 			var polygonOffset = first.position - second.position;
@@ -174,8 +175,8 @@ namespace Nez.PhysicsShapes
 
 			if( deltaMovement.HasValue )
 			{
-				_satAxisArray[iNumAxes] = new Vector2( -deltaMovement.Value.Y, deltaMovement.Value.X );
-				var fVel2 = Vector2.Dot( deltaMovement.Value, deltaMovement.Value );
+				_satAxisArray[iNumAxes] = new vec2( -deltaMovement.Value.Y, deltaMovement.Value.X );
+				var fVel2 = vec2.Dot( deltaMovement.Value, deltaMovement.Value );
 				if( fVel2 > Mathf.epsilon )
 				{
 					if( !intervalIntersect(	first, second, ref _satAxisArray[iNumAxes], ref polygonOffset, ref deltaMovement, out _satTimerPerAxis[iNumAxes] ) )
@@ -194,7 +195,7 @@ namespace Nez.PhysicsShapes
 				var point0 = first.points[j];
 				var point1 = first.points[i];
 				var edge = point1 - point0;
-				_satAxisArray[iNumAxes] = new Vector2( -edge.Y, edge.X );
+				_satAxisArray[iNumAxes] = new vec2( -edge.Y, edge.X );
 
 				if( !intervalIntersect(	first, second, ref _satAxisArray[iNumAxes], ref polygonOffset, ref deltaMovement, out _satTimerPerAxis[iNumAxes] ) )
 					return false;
@@ -211,7 +212,7 @@ namespace Nez.PhysicsShapes
 				var point0 = second.points[j];
 				var point1 = second.points[i];
 				var edge = point1 - point0;
-				_satAxisArray[iNumAxes] = new Vector2( -edge.Y, edge.X );
+				_satAxisArray[iNumAxes] = new vec2( -edge.Y, edge.X );
 
 				if( !intervalIntersect(	first, second, ref _satAxisArray[iNumAxes], ref polygonOffset, ref deltaMovement, out _satTimerPerAxis[iNumAxes] ) )
 					return false;
@@ -222,14 +223,14 @@ namespace Nez.PhysicsShapes
 				return false;
 
 			// make sure the polygons gets pushed away from each other.
-			if( Vector2.Dot( responseNormal, polygonOffset ) < 0f )
+			if( vec2.Dot( responseNormal, polygonOffset ) < 0f )
 				responseNormal = -responseNormal;
 
 			return true;
 		}
 
 
-		static bool intervalIntersect( Polygon first, Polygon second, ref Vector2 axis, ref Vector2 shapeOffset, ref Vector2? deltaMovement, out float taxis )
+		static bool intervalIntersect( Polygon first, Polygon second, ref vec2 axis, ref vec2 shapeOffset, ref vec2? deltaMovement, out float taxis )
 		{
 			taxis = float.MinValue;
 			float min0, max0;
@@ -237,7 +238,7 @@ namespace Nez.PhysicsShapes
 			getInterval( first, first.points.Length, axis, out min0, out max0 );
 			getInterval( second, second.points.Length, axis, out min1, out max1 );
 
-			var h = Vector2.Dot( shapeOffset, axis );
+			var h = vec2.Dot( shapeOffset, axis );
 			min0 += h;
 			max0 += h;
 
@@ -251,7 +252,7 @@ namespace Nez.PhysicsShapes
 				if( !deltaMovement.HasValue )
 					return false;
 				
-				var v = Vector2.Dot( deltaMovement.Value, axis );
+				var v = vec2.Dot( deltaMovement.Value, axis );
 
 				// small velocity, so only the overlap test will be relevant. 
 				if( Math.Abs( v ) < 0.0000001f )
@@ -283,13 +284,13 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		static void getInterval( Polygon polygon, int numVertices, Vector2 axis, out float min, out float max )
+		static void getInterval( Polygon polygon, int numVertices, vec2 axis, out float min, out float max )
 		{
-			min = max = Vector2.Dot( polygon.points[0], axis );
+			min = max = vec2.Dot( polygon.points[0], axis );
 
 			for( var i = 1; i < numVertices; i++ )
 			{
-				var d = Vector2.Dot( polygon.points[i], axis );
+				var d = vec2.Dot( polygon.points[i], axis );
 				if( d < min )
 					min = d;
 				else if( d > max )
@@ -299,12 +300,12 @@ namespace Nez.PhysicsShapes
 
 
 		[Obsolete]
-		static bool findMinimumTranslationDistance( int iNumAxes, out Vector2 normal, out float timeOfIntersection )
+		static bool findMinimumTranslationDistance( int iNumAxes, out vec2 normal, out float timeOfIntersection )
 		{
 			// find collision first
 			var mini = -1;
 			timeOfIntersection = 0f;
-			normal = new Vector2( 0, 0 );
+			normal = new vec2( 0, 0 );
 
 			for( var i = 0; i < iNumAxes; i++ )
 			{
@@ -325,7 +326,7 @@ namespace Nez.PhysicsShapes
 			mini = -1;
 			for( var i = 0; i < iNumAxes; i++ )
 			{
-				var n = _satAxisArray[i].Length();
+				var n = _satAxisArray[i].Length;
 				_satAxisArray[i].Normalize();
 				_satTimerPerAxis[i] /= n;
 
@@ -349,3 +350,4 @@ namespace Nez.PhysicsShapes
 	}
 }
 
+#endif

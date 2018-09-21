@@ -1,10 +1,11 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework;
-using Nez.Textures;
+using Atma.Textures;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// optional interface that can be added to any object for special cases where the final render to screen needs to be overridden. Note that
@@ -24,3 +25,4 @@ namespace Nez
 	}
 }
 
+#endif

@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.DeferredLighting
+namespace Atma.DeferredLighting
 {
 	public class DeferredLightEffect : Effect
 	{
@@ -110,7 +111,7 @@ namespace Nez.DeferredLighting
 		{
 			setWorldToViewMatrix( camera.transformMatrix );
 			setProjectionMatrix( camera.projectionMatrix );
-			setScreenToWorld( Matrix.Invert( camera.viewProjectionMatrix ) );
+			setScreenToWorld( mat4.Invert( camera.viewProjectionMatrix ) );
 		}
 
 
@@ -138,12 +139,12 @@ namespace Nez.DeferredLighting
 		/// <param name="light">Light.</param>
 		public void updateForLight( PointLight light )
 		{
-			setLightPosition( new Vector3( light.entity.transform.position + light.localOffset, light.zPosition ) );
+			setLightPosition( new vec3( light.entity.transform.position + light.localOffset, light.zPosition ) );
 			setColor( light.color );
 			setLightRadius( light.radius * light.entity.transform.scale.X );
 			setLightIntensity( light.intensity );
 
-			var objToWorld = Matrix.CreateScale( light.radius * light.entity.transform.scale.X ) * Matrix.CreateTranslation( light.entity.transform.position.X + light.localOffset.X, light.entity.transform.position.Y + light.localOffset.Y, 0 );
+			var objToWorld = mat4.Scale( light.radius * light.entity.transform.scale.X ) * mat4.Translate( light.entity.transform.position.X + light.localOffset.X, light.entity.transform.position.Y + light.localOffset.Y, 0 );
 			setObjectToWorldMatrix( objToWorld );
 
 			pointLightPass.Apply();
@@ -174,7 +175,7 @@ namespace Nez.DeferredLighting
 			setAreaDirectionalLightDirection( light.direction );
 			setLightIntensity( light.intensity );
 
-			var objToWorld = Matrix.CreateScale( light.bounds.width * light.entity.transform.scale.X, light.bounds.height * light.entity.transform.scale.Y, 1f ) * Matrix.CreateTranslation( light.bounds.x - light.bounds.width * 0.5f, light.bounds.y - light.bounds.height * 0.5f, 0 );
+			var objToWorld = mat4.Scale( light.bounds.width * light.entity.transform.scale.X, light.bounds.height * light.entity.transform.scale.Y, 1f ) * mat4.Translate( light.bounds.x - light.bounds.width * 0.5f, light.bounds.y - light.bounds.height * 0.5f, 0 );
 			setObjectToWorldMatrix( objToWorld );
 
 			areaLightPass.Apply();
@@ -196,7 +197,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		#region Matrix properties
+		#region mat4 properties
 
 		public void setClearColor( Color color )
 		{
@@ -204,19 +205,19 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public void setObjectToWorldMatrix( Matrix objToWorld )
+		public void setObjectToWorldMatrix( mat4 objToWorld )
 		{
 			_objectToWorldParam.SetValue( objToWorld );
 		}
 
 
-		public void setWorldToViewMatrix( Matrix worldToView )
+		public void setWorldToViewMatrix( mat4 worldToView )
 		{
 			_worldToViewParam.SetValue( worldToView );
 		}
 
 
-		public void setProjectionMatrix( Matrix projection )
+		public void setProjectionMatrix( mat4 projection )
 		{
 			_projectionParam.SetValue( projection );
 		}
@@ -226,7 +227,7 @@ namespace Nez.DeferredLighting
 		/// inverse of Camera.getViewProjectionMatrix
 		/// </summary>
 		/// <param name="screenToWorld">screenToWorld.</param>
-		public void setScreenToWorld( Matrix screenToWorld )
+		public void setScreenToWorld( mat4 screenToWorld )
 		{
 			_screenToWorldParam.SetValue( screenToWorld );
 		}
@@ -242,7 +243,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public void setLightPosition( Vector3 lightPosition )
+		public void setLightPosition( vec3 lightPosition )
 		{
 			_lightPositionParam.SetValue( lightPosition );
 		}
@@ -274,7 +275,7 @@ namespace Nez.DeferredLighting
 		/// directly sets the light direction
 		/// </summary>
 		/// <param name="lightDirection">Light direction.</param>
-		public void setSpotLightDirection( Vector2 lightDirection )
+		public void setSpotLightDirection( vec2 lightDirection )
 		{
 			_lightDirectionParam.SetValue( lightDirection );
 		}
@@ -287,7 +288,7 @@ namespace Nez.DeferredLighting
 		public void setSpotLightDirection( float degrees )
 		{
 			var radians = MathHelper.ToRadians( degrees );
-			var dir = new Vector2( (float)Math.Cos( radians ), (float)Math.Sin( radians ) );
+			var dir = new vec2( (float)Math.Cos( radians ), (float)Math.Sin( radians ) );
 			setSpotLightDirection( dir );
 		}
 
@@ -314,7 +315,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public void setAreaDirectionalLightDirection( Vector3 lightDir )
+		public void setAreaDirectionalLightDirection( vec3 lightDir )
 		{
 			_dirAreaLightDirectionParam.SetValue( lightDir );
 		}
@@ -349,3 +350,4 @@ namespace Nez.DeferredLighting
 	}
 }
 
+#endif

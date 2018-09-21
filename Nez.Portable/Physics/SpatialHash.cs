@@ -1,11 +1,12 @@
-﻿using System;
+#if FEATURE_PHYSICS
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
-using Nez.PhysicsShapes;
+using Atma.PhysicsShapes;
 
 
-namespace Nez.Spatial
+namespace Atma.Spatial
 {
 	public class SpatialHash
 	{
@@ -198,7 +199,7 @@ namespace Nez.Spatial
 
 			if( cellCount > 0 )
 			{
-				var textPosition = new Vector2( (float)x * (float)_cellSize + 0.5f * _cellSize, (float)y * (float)_cellSize + 0.5f * _cellSize );
+				var textPosition = new vec2( (float)x * (float)_cellSize + 0.5f * _cellSize, (float)y * (float)_cellSize + 0.5f * _cellSize );
 				Debug.drawText( Graphics.instance.bitmapFont, cellCount.ToString(), textPosition, Color.DarkGreen, secondsToDisplay, textScale );
 			}
 		}
@@ -264,7 +265,7 @@ namespace Nez.Spatial
 		/// <param name="end">End.</param>
 		/// <param name="hits">Hits.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public int linecast( Vector2 start, Vector2 end, RaycastHit[] hits, int layerMask )
+		public int linecast( vec2 start, vec2 end, RaycastHit[] hits, int layerMask )
 		{
 			var ray = new Ray2D( start, end );
 			_raycastParser.start( ref ray, hits, layerMask );
@@ -403,7 +404,7 @@ namespace Nez.Spatial
 		/// <param name="radius">Radius.</param>
 		/// <param name="results">Results.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public int overlapCircle( Vector2 circleCenter, float radius, Collider[] results, int layerMask )
+		public int overlapCircle( vec2 circleCenter, float radius, Collider[] results, int layerMask )
 		{
 			var bounds = new RectangleF( circleCenter.X - radius, circleCenter.Y - radius, radius * 2f, radius * 2f );
 
@@ -641,3 +642,4 @@ namespace Nez.Spatial
 	}
 
 }
+#endif

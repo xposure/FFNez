@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public class SepiaEffect : Effect
 	{
@@ -11,7 +12,7 @@ namespace Nez
 		/// multiplied by the grayscale value for the final output. Defaults to 1.2f, 1.0f, 0.8f
 		/// </summary>
 		/// <value>The sepia tone.</value>
-		public Vector3 sepiaTone
+		public vec3 sepiaTone
 		{
 			get { return _sepiaTone; }
 			set
@@ -22,7 +23,7 @@ namespace Nez
 		}
 
 
-		Vector3 _sepiaTone = new Vector3( 1.2f, 1.0f, 0.8f );
+		vec3 _sepiaTone = new vec3( 1.2f, 1.0f, 0.8f );
 		EffectParameter _sepiaToneParam;
 
 		
@@ -34,3 +35,4 @@ namespace Nez
 	}
 }
 
+#endif

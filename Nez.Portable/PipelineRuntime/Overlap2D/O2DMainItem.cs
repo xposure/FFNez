@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_PIPELINE
+using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 
-namespace Nez.Overlap2D
+namespace Atma.Overlap2D
 {
 	public class O2DMainItem
 	{
@@ -43,9 +44,9 @@ namespace Nez.Overlap2D
 		/// <returns>The for image size.</returns>
 		/// <param name="width">Width.</param>
 		/// <param name="height">Height.</param>
-		public Vector2 orginForImageSize( float width, float height )
+		public vec2 orginForImageSize( float width, float height )
 		{
-			var origin = new Vector2( 0, height );
+			var origin = new vec2( 0, height );
 			return origin; 
 		}
 
@@ -137,3 +138,4 @@ namespace Nez.Overlap2D
 	}
 }
 
+#endif

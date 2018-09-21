@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// displays a tooltip when hovering over the label of any inspectable elements

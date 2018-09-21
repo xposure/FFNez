@@ -1,9 +1,10 @@
-﻿using System.Collections;
+#if FEATURE_PHYSICS
+using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez.Spatial
+namespace Atma.Spatial
 {
 	/// <summary>
 	/// A QuadTree Object that provides fast and efficient storage of objects in a world space.
@@ -276,3 +277,4 @@ namespace Nez.Spatial
 	}
 
 }
+#endif

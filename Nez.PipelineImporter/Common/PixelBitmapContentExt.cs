@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
-using Microsoft.Xna.Framework;
 
 
-namespace Nez.PipelineImporter
+namespace Atma.PipelineImporter
 {
-	public static class PixelBitmapContentExt
+    using Color = Microsoft.Xna.Framework.Color;
+
+    public static class PixelBitmapContentExt
 	{
 		public static Color[] getData( this PixelBitmapContent<Color> self )
 		{

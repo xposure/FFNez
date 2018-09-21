@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_GRAPHICS
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// A stack of Rectangle objects to be used for clipping via GraphicsDevice.ScissorRectangle. When a new
@@ -71,11 +72,11 @@ namespace Nez
 		/// <param name="camera">Camera.</param>
 		/// <param name="batchTransform">Batch transform.</param>
 		/// <param name="scissor">Area.</param>
-		public static Rectangle calculateScissors( Camera camera, Matrix batchTransform, Rectangle scissor )
+		public static Rectangle calculateScissors( Camera camera, mat4 batchTransform, Rectangle scissor )
 		{
 			// convert the top-left point to screen space
-			var tmp = new Vector2( scissor.X, scissor.Y );
-			tmp = Vector2.Transform( tmp, batchTransform );
+			var tmp = new vec2( scissor.X, scissor.Y );
+			tmp = vec2.Transform( tmp, batchTransform );
 
 			if( camera != null )
 				tmp = camera.worldToScreenPoint( tmp );
@@ -87,7 +88,7 @@ namespace Nez
 			// convert the bottom-right point to screen space
 			tmp.X = scissor.X + scissor.Width;
 			tmp.Y = scissor.Y + scissor.Height;
-			tmp = Vector2.Transform( tmp, batchTransform );
+			tmp = vec2.Transform( tmp, batchTransform );
 
 			if( camera != null )
 				tmp = camera.worldToScreenPoint( tmp );
@@ -109,8 +110,8 @@ namespace Nez
 		public static Rectangle calculateScissors( Camera camera, Matrix2D batchTransform, Rectangle scissor )
 		{
 			// convert the top-left point to screen space
-			var tmp = new Vector2( scissor.X, scissor.Y );
-			tmp = Vector2.Transform( tmp, batchTransform );
+			var tmp = new vec2( scissor.X, scissor.Y );
+			tmp = vec2.Transform( tmp, batchTransform );
 
 			if( camera != null )
 				tmp = camera.worldToScreenPoint( tmp );
@@ -122,7 +123,7 @@ namespace Nez
 			// convert the bottom-right point to screen space
 			tmp.X = scissor.X + scissor.Width;
 			tmp.Y = scissor.Y + scissor.Height;
-			tmp = Vector2.Transform( tmp, batchTransform );
+			tmp = vec2.Transform( tmp, batchTransform );
 
 			if( camera != null )
 				tmp = camera.worldToScreenPoint( tmp );
@@ -135,3 +136,4 @@ namespace Nez
 	}
 }
 
+#endif

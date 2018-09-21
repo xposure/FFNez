@@ -1,9 +1,10 @@
-﻿using System;
+#if FEATURE_UTILS
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// very basic wrapper around an array that auto-expands it when it reaches capacity. Note that when iterating it should be done
@@ -201,3 +202,4 @@ namespace Nez
     }
 }
 
+#endif

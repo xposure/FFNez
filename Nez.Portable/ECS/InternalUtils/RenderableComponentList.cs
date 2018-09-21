@@ -1,7 +1,8 @@
+#if FEATURE_ESC
 using System.Collections.Generic;
 
 
-namespace Nez
+namespace Atma
 {
 	public class RenderableComponentList
 	{
@@ -119,3 +120,4 @@ namespace Nez
 	}
 }
 
+#endif

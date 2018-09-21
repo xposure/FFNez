@@ -1,8 +1,9 @@
-﻿using Nez.Sprites;
+#if FEATURE_ESC
+using Atma.Sprites;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	/// <summary>
 	/// renders a sprite with an outline in a very inefficient (but simple) way. The sprite is rendered multiple times offset/colored then it
@@ -58,3 +59,4 @@ namespace Nez
 	}
 }
 
+#endif

@@ -1,9 +1,10 @@
+#if FEATURE_GRAPHICS
 using System;
 using System.IO;
 using Microsoft.Xna.Framework;
 
 
-namespace Nez
+namespace Atma
 {
 	public static class EffectResource
 	{
@@ -128,3 +129,4 @@ namespace Nez
 	}
 }
 
+#endif
