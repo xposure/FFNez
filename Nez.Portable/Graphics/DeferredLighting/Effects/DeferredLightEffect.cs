@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 
 namespace Nez.DeferredLighting
 {
+    using Matrix = Atma.mat4;
+
 	public class DeferredLightEffect : Effect
 	{
 		EffectPass clearGBufferPass;
@@ -98,6 +100,7 @@ namespace Nez.DeferredLighting
 
 		public void prepareClearGBuffer()
 		{
+            System.Console.WriteLine("----");
 			clearGBufferPass.Apply();
 		}
 
@@ -109,8 +112,9 @@ namespace Nez.DeferredLighting
 		public void updateForCamera( Camera camera )
 		{
 			setWorldToViewMatrix( camera.transformMatrix );
-			setProjectionMatrix( camera.projectionMatrix );
+			setProjectionMatrix(camera.projectionMatrix );
 			setScreenToWorld( Matrix.Invert( camera.viewProjectionMatrix ) );
+
 		}
 
 
@@ -143,8 +147,11 @@ namespace Nez.DeferredLighting
 			setLightRadius( light.radius * light.entity.transform.scale.X );
 			setLightIntensity( light.intensity );
 
-			var objToWorld = Matrix.CreateScale( light.radius * light.entity.transform.scale.X ) * Matrix.CreateTranslation( light.entity.transform.position.X + light.localOffset.X, light.entity.transform.position.Y + light.localOffset.Y, 0 );
-			setObjectToWorldMatrix( objToWorld );
+
+            var scale = Matrix.CreateScale(light.radius * light.entity.transform.scale.X);
+            var translate = Matrix.CreateTranslation(light.entity.transform.position.X + light.localOffset.X, light.entity.transform.position.Y + light.localOffset.Y, 0);
+            Matrix.Multiply(ref scale, ref translate, out var objToWorld);
+            setObjectToWorldMatrix(objToWorld);
 
 			pointLightPass.Apply();
 		}
@@ -174,8 +181,10 @@ namespace Nez.DeferredLighting
 			setAreaDirectionalLightDirection( light.direction );
 			setLightIntensity( light.intensity );
 
-			var objToWorld = Matrix.CreateScale( light.bounds.width * light.entity.transform.scale.X, light.bounds.height * light.entity.transform.scale.Y, 1f ) * Matrix.CreateTranslation( light.bounds.x - light.bounds.width * 0.5f, light.bounds.y - light.bounds.height * 0.5f, 0 );
-			setObjectToWorldMatrix( objToWorld );
+            var scale = Matrix.CreateScale(light.bounds.width * light.entity.transform.scale.X, light.bounds.height * light.entity.transform.scale.Y, 1f);
+            var translate = Matrix.CreateTranslation(light.bounds.x - light.bounds.width * 0.5f, light.bounds.y - light.bounds.height * 0.5f, 0);
+            Matrix.Multiply(ref scale, ref translate, out var objToWorld);
+            setObjectToWorldMatrix(objToWorld);
 
 			areaLightPass.Apply();
 		}
@@ -206,19 +215,22 @@ namespace Nez.DeferredLighting
 
 		public void setObjectToWorldMatrix( Matrix objToWorld )
 		{
-			_objectToWorldParam.SetValue( objToWorld );
+            System.Console.WriteLine($"objToWorld: {objToWorld}");
+			_objectToWorldParam.SetValue(objToWorld);
 		}
 
 
 		public void setWorldToViewMatrix( Matrix worldToView )
 		{
-			_worldToViewParam.SetValue( worldToView );
+            System.Console.WriteLine($"worldToView: {worldToView}");
+            _worldToViewParam.SetValue( worldToView );
 		}
 
 
 		public void setProjectionMatrix( Matrix projection )
 		{
-			_projectionParam.SetValue( projection );
+            System.Console.WriteLine($"projection: {projection}");
+            _projectionParam.SetValue( projection );
 		}
 
 
@@ -228,7 +240,8 @@ namespace Nez.DeferredLighting
 		/// <param name="screenToWorld">screenToWorld.</param>
 		public void setScreenToWorld( Matrix screenToWorld )
 		{
-			_screenToWorldParam.SetValue( screenToWorld );
+            System.Console.WriteLine($"screenToWorld: {screenToWorld}");
+            _screenToWorldParam.SetValue( screenToWorld );
 		}
 
 		#endregion

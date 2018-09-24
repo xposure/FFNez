@@ -12,18 +12,18 @@ namespace Nez
 	/// </summary>
 	public class TextRun
 	{
-		struct CharDetails
-		{
-			public Texture2D texture;
-			public Vector3[] verts;
-			public Vector2[] texCoords;
-			public Color color;
+        struct CharDetails
+        {
+            public Texture2D texture;
+            public Vector3[] verts;
+            public Vector2[] texCoords;
+            public Color color;
 
-			public void initialize()
-			{
-				verts = new Vector3[4];
-				texCoords = new Vector2[4];
-			}
+            public void initialize()
+            {
+                verts = new Vector3[4];
+                texCoords = new Vector2[4];
+            }
 		}
 
 		public float width { get { return _size.X; } }
@@ -308,7 +308,7 @@ namespace Nez
 		public void render( Graphics graphics )
 		{
 			for( var i = 0; i < _charDetails.Length; i++ )
-				graphics.batcher.drawRaw( _charDetails[i].texture, _charDetails[i].verts, _charDetails[i].texCoords, _charDetails[i].color );
+				graphics.batcher.drawRaw( _charDetails[i].texture, _charDetails[i].verts.ToVec3(), _charDetails[i].texCoords.ToVec2(), _charDetails[i].color );
 		}
 
 	}

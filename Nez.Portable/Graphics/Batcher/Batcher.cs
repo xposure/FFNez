@@ -11,7 +11,12 @@ using Nez.Textures;
 
 namespace Nez
 {
-	public class Batcher : GraphicsResource
+    using Vector2 = Atma.vec2;
+    using Vector3 = Atma.vec3;
+    using Matrix = Atma.mat4;
+
+
+    public class Batcher : GraphicsResource
 	{
 		public Matrix transformMatrix { get { return _transformMatrix; } }
 
@@ -991,32 +996,55 @@ namespace Nez
 		}
 
 
-		void prepRenderState()
-		{
-			graphicsDevice.BlendState = _blendState;
-			graphicsDevice.SamplerStates[0] = _samplerState;
-			graphicsDevice.DepthStencilState = _depthStencilState;
-			graphicsDevice.RasterizerState = _rasterizerState;
+        void prepRenderState()
+        {
+            graphicsDevice.BlendState = _blendState;
+            graphicsDevice.SamplerStates[0] = _samplerState;
+            graphicsDevice.DepthStencilState = _depthStencilState;
+            graphicsDevice.RasterizerState = _rasterizerState;
 
-			graphicsDevice.SetVertexBuffer( _vertexBuffer );
-			graphicsDevice.Indices = _indexBuffer;
+            graphicsDevice.SetVertexBuffer(_vertexBuffer);
+            graphicsDevice.Indices = _indexBuffer;
 
-			var viewport = graphicsDevice.Viewport;
-
-			// inlined CreateOrthographicOffCenter
+            var viewport = graphicsDevice.Viewport;
+            if (typeof(Matrix) == typeof(Microsoft.Xna.Framework.Matrix))
+            {
+                // inlined CreateOrthographicOffCenter
 #if FNA
-			_projectionMatrix.M11 = (float)( 2.0 / (double) ( viewport.Width / 2 * 2 - 1 ) );
-			_projectionMatrix.M22 = (float)( -2.0 / (double) ( viewport.Height / 2 * 2 - 1 ) );
+			_projectionMatrix[0,0] = (float)( 2.0 / (double) ( viewport.Width / 2 * 2 - 1 ) );
+			_projectionMatrix[1,1] = (float)( -2.0 / (double) ( viewport.Height / 2 * 2 - 1 ) );
 #else
-			_projectionMatrix.M11 = (float)( 2.0 / (double)viewport.Width );
-			_projectionMatrix.M22 = (float)( -2.0 / (double)viewport.Height );
+                _projectionMatrix[0, 0] = (float)(2.0 / (double)viewport.Width);
+                _projectionMatrix[1, 1] = (float)(-2.0 / (double)viewport.Height);
 #endif
 
-			_projectionMatrix.M41 = -1 - 0.5f * _projectionMatrix.M11;
-			_projectionMatrix.M42 = 1 - 0.5f * _projectionMatrix.M22;
+                _projectionMatrix[3, 0] = -1 - 0.5f * _projectionMatrix[0, 0];
+                _projectionMatrix[3, 1] = 1 - 0.5f * _projectionMatrix[1, 1];
+            }
+            else
+            {
+                // inlined CreateOrthographicOffCenter
+#if FNA
+			_projectionMatrix[0,0] = (float)( 2.0 / (double) ( viewport.Width / 2 * 2 - 1 ) );
+			_projectionMatrix[1,1] = (float)( -2.0 / (double) ( viewport.Height / 2 * 2 - 1 ) );
+#else
+                _projectionMatrix[0, 0] = (float)(2.0 / (double)viewport.Width);
+                _projectionMatrix[1, 1] = (float)(-2.0 / (double)viewport.Height);
+#endif
+                //_projectionMatrix[0, 3] = -1 - 0.5f * _projectionMatrix[0, 0];
+                //_projectionMatrix[1, 3] = 1 - 0.5f * _projectionMatrix[1, 1];
+                //_projectionMatrix[2, 3] = 0;
+                _projectionMatrix[3, 0] = -1 - 0.5f * _projectionMatrix[0, 0];
+                _projectionMatrix[3, 1] = 1 - 0.5f * _projectionMatrix[1, 1];
+            }
 
-			Matrix.Multiply( ref _transformMatrix, ref _projectionMatrix, out _matrixTransformMatrix );
-			_spriteEffect.setMatrixTransform( ref _matrixTransformMatrix );
+            //_projectionMatrix = Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, 1, 0);
+
+            _projectionMatrix = Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, 0, -1);
+            //p[2, 3] = 0;
+            
+            Matrix.Multiply( ref _transformMatrix, ref _projectionMatrix, out _matrixTransformMatrix );
+			_spriteEffect.setMatrixTransform( _matrixTransformMatrix );
 
 			// we have to Apply here because custom effects often wont have a vertex shader and we need the default SpriteEffect's
 			_spriteEffectPass.Apply();

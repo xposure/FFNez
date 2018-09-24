@@ -6,11 +6,28 @@ namespace Nez
 {
 	public static class Vector2Ext
 	{
-		/// <summary>
-		/// temporary workaround to Vector2.Normalize screwing up the 0,0 vector
-		/// </summary>
-		/// <param name="vec">Vec.</param>
-		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+        public static Atma.vec2[] ToVec2(this Vector2[] it)
+        {
+            var v = new Atma.vec2[it.Length];
+            for (var i = 0; i < it.Length; i++)
+                v[i] = it[i];
+            return v;
+        }
+
+        public static Atma.vec3[] ToVec3(this Vector3[] it)
+        {
+            var v = new Atma.vec3[it.Length];
+            for (var i = 0; i < it.Length; i++)
+                v[i] = it[i];
+            return v;
+        }
+
+
+        /// <summary>
+        /// temporary workaround to Vector2.Normalize screwing up the 0,0 vector
+        /// </summary>
+        /// <param name="vec">Vec.</param>
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void normalize( ref Vector2 vec )
 		{
 			var magnitude = Mathf.sqrt( ( vec.X * vec.X ) + ( vec.Y * vec.Y ) );

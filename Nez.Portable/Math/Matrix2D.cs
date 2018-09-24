@@ -959,8 +959,19 @@ namespace Nez
 			);
 		}
 
+        public static implicit operator Atma.mat4(Matrix2D mat)
+        {
+            return new Atma.mat4
+            (
+                mat.M11, mat.M12, 0, 0,
+                mat.M21, mat.M22, 0, 0,
+                0, 0, 1, 0,
+                mat.M31, mat.M32, 0, 1
+            );
+            //return new Atma.mat4(new Atma.mat3(mat.M11, mat.M12, 0, mat.M21, mat.M22, 0, mat.M31, mat.M32, 0));
+        }
 
-		internal string debugDisplayString
+        internal string debugDisplayString
 		{
 			get
 			{

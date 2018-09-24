@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Nez
 {
+    using Vector2 = Atma.vec2;
+    //using Vector3 = Atma.vec3;
+    using Matrix = Atma.mat4;
+
 	public class Camera : Component
 	{
 		struct CameraInset
@@ -200,7 +204,7 @@ namespace Nez
 			{
 				if( _isProjectionMatrixDirty )
 				{
-					Matrix.CreateOrthographicOffCenter( 0, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0, 0, -1, out _projectionMatrix );
+					_projectionMatrix = Matrix.CreateOrthographicOffCenter( 0, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0, 0, -1);
 					_isProjectionMatrixDirty = false;
 				}
 				return _projectionMatrix;
@@ -211,39 +215,39 @@ namespace Nez
 		/// gets the view-projection matrix which is the transformMatrix * the projection matrix
 		/// </summary>
 		/// <value>The view projection matrix.</value>
-		public Matrix viewProjectionMatrix { get { return transformMatrix * projectionMatrix; } }
+		public Matrix viewProjectionMatrix { get { return Matrix.Multiply(transformMatrix, projectionMatrix); } }
 
-		#region 3D Camera Matrixes
+		//#region 3D Camera Matrixes
 
-		/// <summary>
-		/// returns a perspective projection for this camera for use when rendering 3D objects
-		/// </summary>
-		/// <value>The projection matrix3 d.</value>
-		public Matrix projectionMatrix3D
-		{
-			get
-			{
-				var targetHeight = ( Core.graphicsDevice.Viewport.Height / _zoom );
-				var fov = (float)Math.Atan( targetHeight / ( 2f * positionZ3D ) ) * 2f;
-				return Matrix.CreatePerspectiveFieldOfView( fov, Core.graphicsDevice.Viewport.AspectRatio, nearClipPlane3D, farClipPlane3D );
-			}
-		}
+		///// <summary>
+		///// returns a perspective projection for this camera for use when rendering 3D objects
+		///// </summary>
+		///// <value>The projection matrix3 d.</value>
+		//public Matrix projectionMatrix3D
+		//{
+		//	get
+		//	{
+		//		var targetHeight = ( Core.graphicsDevice.Viewport.Height / _zoom );
+		//		var fov = (float)Math.Atan( targetHeight / ( 2f * positionZ3D ) ) * 2f;
+		//		return Matrix.CreatePerspectiveFieldOfView( fov, Core.graphicsDevice.Viewport.AspectRatio, nearClipPlane3D, farClipPlane3D );
+		//	}
+		//}
 
-		/// <summary>
-		/// returns a view Matrix via CreateLookAt for this camera for use when rendering 3D objects
-		/// </summary>
-		/// <value>The view matrix3 d.</value>
-		public Matrix viewMatrix3D
-		{
-			get
-			{
-				// we need to always invert the y-values to match the way Batcher/SpriteBatch does things
-				var position3D = new Vector3( position.X, -position.Y, positionZ3D );
-				return Matrix.CreateLookAt( position3D, position3D + Vector3.Forward, Vector3.Up );
-			}
-		}
+		///// <summary>
+		///// returns a view Matrix via CreateLookAt for this camera for use when rendering 3D objects
+		///// </summary>
+		///// <value>The view matrix3 d.</value>
+		//public Matrix viewMatrix3D
+		//{
+		//	get
+		//	{
+		//		// we need to always invert the y-values to match the way Batcher/SpriteBatch does things
+		//		var position3D = new Vector3( position.X, -position.Y, positionZ3D );
+		//		return Matrix.CreateLookAt( position3D, position3D + Vector3.Forward, Vector3.Up );
+		//	}
+		//}
 
-		#endregion
+		//#endregion
 
 		public Vector2 origin
 		{
@@ -292,9 +296,9 @@ namespace Nez
 			_isProjectionMatrixDirty = true;
 			var oldOrigin = _origin;
 			origin = new Vector2( newWidth / 2f, newHeight / 2f );
-
-			// offset our position to match the new center
-			entity.transform.position += ( _origin - oldOrigin );
+            var change = _origin - oldOrigin;
+            // offset our position to match the new center
+            entity.transform.position = (Vector2)entity.transform.position + change;
 		}
 
 
@@ -480,7 +484,8 @@ namespace Nez
 		public Vector2 worldToScreenPoint( Vector2 worldPosition )
 		{
 			updateMatrixes();
-			Vector2Ext.transform( ref worldPosition, ref _transformMatrix, out worldPosition );
+            worldPosition = Vector2.Transform(worldPosition, _transformMatrix);
+			//Vector2Ext.transform( ref worldPosition, ref _transformMatrix, out worldPosition );
 			return worldPosition;
 		}
 
@@ -493,7 +498,8 @@ namespace Nez
 		public Vector2 screenToWorldPoint( Vector2 screenPosition )
 		{
 			updateMatrixes();
-			Vector2Ext.transform( ref screenPosition, ref _inverseTransformMatrix, out screenPosition );
+            screenPosition = Vector2.Transform(screenPosition, inverseTransformMatrix);
+			//Vector2Ext.transform( ref screenPosition, ref _inverseTransformMatrix, out screenPosition );
 			return screenPosition;
 		}
 
