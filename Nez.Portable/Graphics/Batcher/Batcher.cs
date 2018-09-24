@@ -91,28 +91,46 @@ namespace Nez
 			_spriteEffect = new SpriteEffect();
 			_spriteEffectPass = _spriteEffect.CurrentTechnique.Passes[0];
 
-			_projectionMatrix = new Matrix(
-				0f, //(float)( 2.0 / (double)viewport.Width ) is the actual value we will use
-				0.0f,
-				0.0f,
-				0.0f,
-				0.0f,
-				0f, //(float)( -2.0 / (double)viewport.Height ) is the actual value we will use
-				0.0f,
-				0.0f,
-				0.0f,
-				0.0f,
-				1.0f,
-				0.0f,
-				-1.0f,
-				1.0f,
-				0.0f,
-				1.0f
-			);
-		}
+            _projectionMatrix = new Matrix();
+            if (typeof(Matrix) == typeof(Microsoft.Xna.Framework.Matrix))
+            {
+                _projectionMatrix[2, 2] = 1;
+                _projectionMatrix[3, 0] = -1;
+                _projectionMatrix[3, 1] = 1;
+                _projectionMatrix[3, 3] = 1;
+
+            }
+            else
+            {
+                _projectionMatrix[2, 2] = 1;
+                _projectionMatrix[3, 0] = -1;
+                _projectionMatrix[3, 1] = 1;
+                _projectionMatrix[3, 3] = 1;
+            }
+            //0f, //(float)( 2.0 / (double)viewport.Width ) is the actual value we will use
+            //0.0f,
+            //0.0f,
+            //0.0f,
+
+            //0.0f,
+            //0f, //(float)( -2.0 / (double)viewport.Height ) is the actual value we will use
+            //0.0f,
+            //0.0f,
+
+            //0.0f,
+            //0.0f,
+            //1.0f,
+            //0.0f,
+
+            //-1.0f,
+            //1.0f,
+            //0.0f,
+            //1.0f
+            //);
+        }
 
 
-		protected override void Dispose( bool disposing )
+        protected override void Dispose( bool disposing )
 		{
 			if( !isDisposed && disposing )
 			{
