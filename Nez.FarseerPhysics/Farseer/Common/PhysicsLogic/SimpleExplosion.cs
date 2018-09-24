@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Dynamics;
+using Nez.Collision;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common.PhysicsLogic
+namespace Nez.Common.PhysicsLogic
 {
 	/// <summary>
 	/// Creates a simple explosion that ignores other bodies hiding behind static bodies.
@@ -33,19 +33,19 @@ namespace FarseerPhysics.Common.PhysicsLogic
 		/// <param name="force">The force applied</param>
 		/// <param name="maxForce">A maximum amount of force. When force gets over this value, it will be equal to maxForce</param>
 		/// <returns>A list of bodies and the amount of force that was applied to them.</returns>
-		public Dictionary<Body, Vector2> activate( Vector2 pos, float radius, float force, float maxForce = float.MaxValue )
+		public Dictionary<Body, vec2> activate( vec2 pos, float radius, float force, float maxForce = float.MaxValue )
 		{
 			var affectedBodies = new HashSet<Body>();
 
 			AABB aabb;
-			aabb.lowerBound = pos - new Vector2( radius );
-			aabb.upperBound = pos + new Vector2( radius );
+			aabb.lowerBound = pos - new vec2( radius );
+			aabb.upperBound = pos + new vec2( radius );
 			var radiusSquared = radius * radius;
 
 			// Query the world for bodies within the radius.
 			world.queryAABB( fixture =>
 			{
-				if( Vector2.DistanceSquared( fixture.body.position, pos ) <= radiusSquared )
+				if( vec2.DistanceSquared( fixture.body.position, pos ) <= radiusSquared )
 					 affectedBodies.Add( fixture.body );
 
 				 return true;
@@ -55,19 +55,19 @@ namespace FarseerPhysics.Common.PhysicsLogic
 		}
 
 
-		Dictionary<Body, Vector2> applyImpulse( Vector2 pos, float radius, float force, float maxForce, HashSet<Body> overlappingBodies )
+		Dictionary<Body, vec2> applyImpulse( vec2 pos, float radius, float force, float maxForce, HashSet<Body> overlappingBodies )
 		{
-			Dictionary<Body, Vector2> forces = new Dictionary<Body, Vector2>( overlappingBodies.Count );
+			Dictionary<Body, vec2> forces = new Dictionary<Body, vec2>( overlappingBodies.Count );
 
 			foreach( Body overlappingBody in overlappingBodies )
 			{
 				if( isActiveOn( overlappingBody ) )
 				{
-					var distance = Vector2.Distance( pos, overlappingBody.position );
+					var distance = vec2.Distance( pos, overlappingBody.position );
 					var forcePercent = getPercent( distance, radius );
 
 					var forceVector = pos - overlappingBody.position;
-					forceVector *= 1f / (float)Math.Sqrt( forceVector.X * forceVector.X + forceVector.Y * forceVector.Y );
+					forceVector *= 1f / (float)Math.Sqrt( forceVector.x * forceVector.x + forceVector.y * forceVector.y );
 					forceVector *= MathHelper.Min( force * forcePercent, maxForce );
 					forceVector *= -1;
 

@@ -23,7 +23,7 @@
 using System;
 
 
-namespace FarseerPhysics.Common
+namespace Nez.Common
 {
 	public struct FixedArray2<T>
 	{

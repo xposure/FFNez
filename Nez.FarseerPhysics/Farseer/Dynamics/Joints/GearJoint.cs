@@ -21,11 +21,11 @@
 */
 
 using System.Diagnostics;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	// Gear Joint:
 	// C0 = (coordinate1 + ratio * coordinate2)_initial
@@ -61,13 +61,13 @@ namespace FarseerPhysics.Dynamics.Joints
 	{
 		#region Properties/Fields
 
-		public override Vector2 worldAnchorA
+		public override vec2 worldAnchorA
 		{
 			get { return _bodyA.getWorldPoint( _localAnchorA ); }
 			set { Debug.Assert( false, "You can't set the world anchor on this joint type." ); }
 		}
 
-		public override Vector2 worldAnchorB
+		public override vec2 worldAnchorB
 		{
 			get { return _bodyB.getWorldPoint( _localAnchorB ); }
 			set { Debug.Assert( false, "You can't set the world anchor on this joint type." ); }
@@ -105,13 +105,13 @@ namespace FarseerPhysics.Dynamics.Joints
 		Body _bodyD;
 
 		// Solver shared
-		Vector2 _localAnchorA;
-		Vector2 _localAnchorB;
-		Vector2 _localAnchorC;
-		Vector2 _localAnchorD;
+		vec2 _localAnchorA;
+		vec2 _localAnchorB;
+		vec2 _localAnchorC;
+		vec2 _localAnchorD;
 
-		Vector2 _localAxisC;
-		Vector2 _localAxisD;
+		vec2 _localAxisC;
+		vec2 _localAxisD;
 
 		float _referenceAngleA;
 		float _referenceAngleB;
@@ -123,10 +123,10 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		// Solver temp
 		int _indexA, _indexB, _indexC, _indexD;
-		Vector2 _lcA, _lcB, _lcC, _lcD;
+		vec2 _lcA, _lcB, _lcC, _lcD;
 		float _mA, _mB, _mC, _mD;
 		float _iA, _iB, _iC, _iD;
-		Vector2 _JvAC, _JvBD;
+		vec2 _JvAC, _JvBD;
 		float _JwA, _JwB, _JwC, _JwD;
 		float _mass;
 
@@ -176,7 +176,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				_localAnchorC = revolute.localAnchorA;
 				_localAnchorA = revolute.localAnchorB;
 				_referenceAngleA = revolute.referenceAngle;
-				_localAxisC = Vector2.Zero;
+				_localAxisC = vec2.Zero;
 
 				coordinateA = aA - aC - _referenceAngleA;
 			}
@@ -188,9 +188,9 @@ namespace FarseerPhysics.Dynamics.Joints
 				_referenceAngleA = prismatic.referenceAngle;
 				_localAxisC = prismatic.localXAxis;
 
-				Vector2 pC = _localAnchorC;
-				Vector2 pA = MathUtils.mulT( xfC.q, MathUtils.mul( xfA.q, _localAnchorA ) + ( xfA.p - xfC.p ) );
-				coordinateA = Vector2.Dot( pA - pC, _localAxisC );
+				vec2 pC = _localAnchorC;
+				vec2 pA = MathUtils.mulT( xfC.q, MathUtils.mul( xfA.q, _localAnchorA ) + ( xfA.p - xfC.p ) );
+				coordinateA = vec2.Dot( pA - pC, _localAxisC );
 			}
 
 			_bodyD = jointB.bodyA;
@@ -208,7 +208,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				_localAnchorD = revolute.localAnchorA;
 				_localAnchorB = revolute.localAnchorB;
 				_referenceAngleB = revolute.referenceAngle;
-				_localAxisD = Vector2.Zero;
+				_localAxisD = vec2.Zero;
 
 				coordinateB = aB - aD - _referenceAngleB;
 			}
@@ -220,9 +220,9 @@ namespace FarseerPhysics.Dynamics.Joints
 				_referenceAngleB = prismatic.referenceAngle;
 				_localAxisD = prismatic.localXAxis;
 
-				Vector2 pD = _localAnchorD;
-				Vector2 pB = MathUtils.mulT( xfD.q, MathUtils.mul( xfB.q, _localAnchorB ) + ( xfB.p - xfD.p ) );
-				coordinateB = Vector2.Dot( pB - pD, _localAxisD );
+				vec2 pD = _localAnchorD;
+				vec2 pB = MathUtils.mulT( xfD.q, MathUtils.mul( xfB.q, _localAnchorB ) + ( xfB.p - xfD.p ) );
+				coordinateB = vec2.Dot( pB - pD, _localAxisD );
 			}
 
 			_ratio = ratio;
@@ -230,9 +230,9 @@ namespace FarseerPhysics.Dynamics.Joints
 			_impulse = 0.0f;
 		}
 
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
-			Vector2 P = _impulse * _JvAC;
+			vec2 P = _impulse * _JvAC;
 			return invDt * P;
 		}
 
@@ -262,19 +262,19 @@ namespace FarseerPhysics.Dynamics.Joints
 			_iD = _bodyD._invI;
 
 			float aA = data.positions[_indexA].a;
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
 
 			float aB = data.positions[_indexB].a;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			float aC = data.positions[_indexC].a;
-			Vector2 vC = data.velocities[_indexC].v;
+			vec2 vC = data.velocities[_indexC].v;
 			float wC = data.velocities[_indexC].w;
 
 			float aD = data.positions[_indexD].a;
-			Vector2 vD = data.velocities[_indexD].v;
+			vec2 vD = data.velocities[_indexD].v;
 			float wD = data.velocities[_indexD].w;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB ), qC = new Rot( aC ), qD = new Rot( aD );
@@ -283,16 +283,16 @@ namespace FarseerPhysics.Dynamics.Joints
 
 			if( _typeA == JointType.Revolute )
 			{
-				_JvAC = Vector2.Zero;
+				_JvAC = vec2.Zero;
 				_JwA = 1.0f;
 				_JwC = 1.0f;
 				_mass += _iA + _iC;
 			}
 			else
 			{
-				Vector2 u = MathUtils.mul( qC, _localAxisC );
-				Vector2 rC = MathUtils.mul( qC, _localAnchorC - _lcC );
-				Vector2 rA = MathUtils.mul( qA, _localAnchorA - _lcA );
+				vec2 u = MathUtils.mul( qC, _localAxisC );
+				vec2 rC = MathUtils.mul( qC, _localAnchorC - _lcC );
+				vec2 rA = MathUtils.mul( qA, _localAnchorA - _lcA );
 				_JvAC = u;
 				_JwC = MathUtils.cross( rC, u );
 				_JwA = MathUtils.cross( rA, u );
@@ -301,16 +301,16 @@ namespace FarseerPhysics.Dynamics.Joints
 
 			if( _typeB == JointType.Revolute )
 			{
-				_JvBD = Vector2.Zero;
+				_JvBD = vec2.Zero;
 				_JwB = _ratio;
 				_JwD = _ratio;
 				_mass += _ratio * _ratio * ( _iB + _iD );
 			}
 			else
 			{
-				Vector2 u = MathUtils.mul( qD, _localAxisD );
-				Vector2 rD = MathUtils.mul( qD, _localAnchorD - _lcD );
-				Vector2 rB = MathUtils.mul( qB, _localAnchorB - _lcB );
+				vec2 u = MathUtils.mul( qD, _localAxisD );
+				vec2 rD = MathUtils.mul( qD, _localAnchorD - _lcD );
+				vec2 rB = MathUtils.mul( qB, _localAnchorB - _lcB );
 				_JvBD = _ratio * u;
 				_JwD = _ratio * MathUtils.cross( rD, u );
 				_JwB = _ratio * MathUtils.cross( rB, u );
@@ -348,16 +348,16 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override void solveVelocityConstraints( ref SolverData data )
 		{
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
-			Vector2 vC = data.velocities[_indexC].v;
+			vec2 vC = data.velocities[_indexC].v;
 			float wC = data.velocities[_indexC].w;
-			Vector2 vD = data.velocities[_indexD].v;
+			vec2 vD = data.velocities[_indexD].v;
 			float wD = data.velocities[_indexD].w;
 
-			float Cdot = Vector2.Dot( _JvAC, vA - vC ) + Vector2.Dot( _JvBD, vB - vD );
+			float Cdot = vec2.Dot( _JvAC, vA - vC ) + vec2.Dot( _JvBD, vB - vD );
 			Cdot += ( _JwA * wA - _JwC * wC ) + ( _JwB * wB - _JwD * wD );
 
 			float impulse = -_mass * Cdot;
@@ -384,13 +384,13 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override bool solvePositionConstraints( ref SolverData data )
 		{
-			Vector2 cA = data.positions[_indexA].c;
+			vec2 cA = data.positions[_indexA].c;
 			float aA = data.positions[_indexA].a;
-			Vector2 cB = data.positions[_indexB].c;
+			vec2 cB = data.positions[_indexB].c;
 			float aB = data.positions[_indexB].a;
-			Vector2 cC = data.positions[_indexC].c;
+			vec2 cC = data.positions[_indexC].c;
 			float aC = data.positions[_indexC].a;
-			Vector2 cD = data.positions[_indexD].c;
+			vec2 cD = data.positions[_indexD].c;
 			float aD = data.positions[_indexD].a;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB ), qC = new Rot( aC ), qD = new Rot( aD );
@@ -399,13 +399,13 @@ namespace FarseerPhysics.Dynamics.Joints
 
 			float coordinateA, coordinateB;
 
-			Vector2 JvAC, JvBD;
+			vec2 JvAC, JvBD;
 			float JwA, JwB, JwC, JwD;
 			float mass = 0.0f;
 
 			if( _typeA == JointType.Revolute )
 			{
-				JvAC = Vector2.Zero;
+				JvAC = vec2.Zero;
 				JwA = 1.0f;
 				JwC = 1.0f;
 				mass += _iA + _iC;
@@ -414,22 +414,22 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				Vector2 u = MathUtils.mul( qC, _localAxisC );
-				Vector2 rC = MathUtils.mul( qC, _localAnchorC - _lcC );
-				Vector2 rA = MathUtils.mul( qA, _localAnchorA - _lcA );
+				vec2 u = MathUtils.mul( qC, _localAxisC );
+				vec2 rC = MathUtils.mul( qC, _localAnchorC - _lcC );
+				vec2 rA = MathUtils.mul( qA, _localAnchorA - _lcA );
 				JvAC = u;
 				JwC = MathUtils.cross( rC, u );
 				JwA = MathUtils.cross( rA, u );
 				mass += _mC + _mA + _iC * JwC * JwC + _iA * JwA * JwA;
 
-				Vector2 pC = _localAnchorC - _lcC;
-				Vector2 pA = MathUtils.mulT( qC, rA + ( cA - cC ) );
-				coordinateA = Vector2.Dot( pA - pC, _localAxisC );
+				vec2 pC = _localAnchorC - _lcC;
+				vec2 pA = MathUtils.mulT( qC, rA + ( cA - cC ) );
+				coordinateA = vec2.Dot( pA - pC, _localAxisC );
 			}
 
 			if( _typeB == JointType.Revolute )
 			{
-				JvBD = Vector2.Zero;
+				JvBD = vec2.Zero;
 				JwB = _ratio;
 				JwD = _ratio;
 				mass += _ratio * _ratio * ( _iB + _iD );
@@ -438,17 +438,17 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				Vector2 u = MathUtils.mul( qD, _localAxisD );
-				Vector2 rD = MathUtils.mul( qD, _localAnchorD - _lcD );
-				Vector2 rB = MathUtils.mul( qB, _localAnchorB - _lcB );
+				vec2 u = MathUtils.mul( qD, _localAxisD );
+				vec2 rD = MathUtils.mul( qD, _localAnchorD - _lcD );
+				vec2 rB = MathUtils.mul( qB, _localAnchorB - _lcB );
 				JvBD = _ratio * u;
 				JwD = _ratio * MathUtils.cross( rD, u );
 				JwB = _ratio * MathUtils.cross( rB, u );
 				mass += _ratio * _ratio * ( _mD + _mB ) + _iD * JwD * JwD + _iB * JwB * JwB;
 
-				Vector2 pD = _localAnchorD - _lcD;
-				Vector2 pB = MathUtils.mulT( qD, rB + ( cB - cD ) );
-				coordinateB = Vector2.Dot( pB - pD, _localAxisD );
+				vec2 pD = _localAnchorD - _lcD;
+				vec2 pB = MathUtils.mulT( qD, rB + ( cB - cD ) );
+				coordinateB = vec2.Dot( pB - pD, _localAxisD );
 			}
 
 			float C = ( coordinateA + _ratio * coordinateB ) - _constant;

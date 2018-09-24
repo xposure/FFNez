@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Common.ConvexHull
+namespace Nez.Common.ConvexHull
 {
 	/// <summary>
 	/// Andrew's Monotone Chain Convex Hull algorithm.
@@ -28,7 +28,7 @@ namespace FarseerPhysics.Common.ConvexHull
 			//Sort by X-axis
 			pointSet.Sort( _pointComparer );
 
-			Vector2[] h = new Vector2[pointSet.Count];
+			vec2[] h = new vec2[pointSet.Count];
 			Vertices res;
 
 			int top = -1; // indices for bottom and top of the stack
@@ -36,10 +36,10 @@ namespace FarseerPhysics.Common.ConvexHull
 
 			// Get the indices of points with min x-coord and min|max y-coord
 			const int minmin = 0;
-			float xmin = pointSet[0].X;
+			float xmin = pointSet[0].x;
 			for( i = 1; i < pointSet.Count; i++ )
 			{
-				if( pointSet[i].X != xmin )
+				if( pointSet[i].x != xmin )
 					break;
 			}
 
@@ -49,7 +49,7 @@ namespace FarseerPhysics.Common.ConvexHull
 			{
 				h[++top] = pointSet[minmin];
 
-				if( pointSet[minmax].Y != pointSet[minmin].Y ) // a nontrivial segment
+				if( pointSet[minmax].y != pointSet[minmin].y ) // a nontrivial segment
 					h[++top] = pointSet[minmax];
 
 				h[++top] = pointSet[minmin]; // add polygon endpoint
@@ -67,10 +67,10 @@ namespace FarseerPhysics.Common.ConvexHull
 
 			// Get the indices of points with max x-coord and min|max y-coord
 			int maxmax = pointSet.Count - 1;
-			float xmax = pointSet[pointSet.Count - 1].X;
+			float xmax = pointSet[pointSet.Count - 1].x;
 			for( i = pointSet.Count - 2; i >= 0; i-- )
 			{
-				if( pointSet[i].X != xmax )
+				if( pointSet[i].x != xmax )
 					break;
 			}
 			int maxmin = i + 1;
@@ -132,12 +132,12 @@ namespace FarseerPhysics.Common.ConvexHull
 		}
 
 
-		class PointComparer : Comparer<Vector2>
+		class PointComparer : Comparer<vec2>
 		{
-			public override int Compare( Vector2 a, Vector2 b )
+			public override int Compare( vec2 a, vec2 b )
 			{
-				int f = a.X.CompareTo( b.X );
-				return f != 0 ? f : a.Y.CompareTo( b.Y );
+				int f = a.x.CompareTo( b.x );
+				return f != 0 ? f : a.y.CompareTo( b.y );
 			}
 		}
 

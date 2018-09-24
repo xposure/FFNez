@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using FarseerPhysics.Dynamics;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Controllers
+namespace Nez.Controllers
 {
 	public enum GravityType
 	{
@@ -20,7 +20,7 @@ namespace FarseerPhysics.Controllers
 		public float strength;
 		public GravityType gravityType = GravityType.DistanceSquared;
 		public List<Body> bodies = new List<Body>();
-		public List<Vector2> points = new List<Vector2>();
+		public List<vec2> points = new List<vec2>();
 
 
 		public GravityController( float strength ) : base( ControllerType.GravityController )
@@ -35,13 +35,13 @@ namespace FarseerPhysics.Controllers
 			this.maxRadius = maxRadius;
 			this.strength = strength;
 			this.gravityType = GravityType.DistanceSquared;
-			this.points = new List<Vector2>();
+			this.points = new List<vec2>();
 			this.bodies = new List<Body>();
 		}
 
 		public override void update( float dt )
 		{
-			var f = Vector2.Zero;
+			var f = vec2.Zero;
 
 			foreach( var worldBody in world.bodyList )
 			{
@@ -72,7 +72,7 @@ namespace FarseerPhysics.Controllers
 					worldBody.applyForce( ref f );
 				}
 
-				foreach( Vector2 point in points )
+				foreach( vec2 point in points )
 				{
 					var d = point - worldBody.position;
 					var r2 = d.LengthSquared();
@@ -100,7 +100,7 @@ namespace FarseerPhysics.Controllers
 			bodies.Add( body );
 		}
 
-		public void addPoint( Vector2 point )
+		public void addPoint( vec2 point )
 		{
 			points.Add( point );
 		}

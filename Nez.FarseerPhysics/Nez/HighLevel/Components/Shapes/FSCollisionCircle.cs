@@ -1,4 +1,4 @@
-﻿using FarseerPhysics.Collision.Shapes;
+﻿using Nez.Collision.Shapes;
 using Microsoft.Xna.Framework;
 
 
@@ -6,7 +6,7 @@ namespace Nez.Farseer
 {
 	public class FSCollisionCircle : FSCollisionShape
 	{
-		Vector2 _center;
+		vec2 _center;
 		float _radius = 0.1f;
 
 
@@ -33,7 +33,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionCircle setCenter( Vector2 center )
+		public FSCollisionCircle setCenter( vec2 center )
 		{
 			_center = center;
 			recreateFixture();

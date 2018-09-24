@@ -22,11 +22,11 @@
 
 using System;
 using System.Diagnostics;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Collision
+namespace Nez.Collision
 {
 	/// <summary>
 	/// Input parameters for CalculateTimeOfImpact
@@ -66,9 +66,9 @@ namespace FarseerPhysics.Collision
 	public static class SeparationFunction
 	{
 		[ThreadStatic]
-		static Vector2 _axis;
+		static vec2 _axis;
 		[ThreadStatic]
-		static Vector2 _localPoint;
+		static vec2 _localPoint;
 		[ThreadStatic]
 		static DistanceProxy _proxyA;
 		[ThreadStatic]
@@ -81,7 +81,7 @@ namespace FarseerPhysics.Collision
 
 		public static void set( ref SimplexCache cache, DistanceProxy proxyA, ref Sweep sweepA, DistanceProxy proxyB, ref Sweep sweepB, float t1 )
 		{
-			_localPoint = Vector2.Zero;
+			_localPoint = vec2.Zero;
 			_proxyA = proxyA;
 			_proxyB = proxyB;
 			var count = cache.Count;
@@ -113,7 +113,7 @@ namespace FarseerPhysics.Collision
 				var localPointB2 = proxyB.vertices[cache.IndexB[1]];
 
 				var a = localPointB2 - localPointB1;
-				_axis = new Vector2( a.Y, -a.X );
+				_axis = new vec2( a.y, -a.x );
                 _axis.Normalize();
 				//Nez.Vector2Ext.normalize( ref _axis );
 				var normal = MathUtils.mul( ref xfB.q, _axis );
@@ -124,7 +124,7 @@ namespace FarseerPhysics.Collision
 				var localPointA = proxyA.vertices[cache.IndexA[0]];
 				var pointA = MathUtils.mul( ref xfA, localPointA );
 
-				var s = Vector2.Dot( pointA - pointB, normal );
+				var s = vec2.Dot( pointA - pointB, normal );
 				if( s < 0.0f )
 					_axis = -_axis;
 			}
@@ -136,7 +136,7 @@ namespace FarseerPhysics.Collision
 				var localPointA2 = _proxyA.vertices[cache.IndexA[1]];
 
 				var a = localPointA2 - localPointA1;
-				_axis = new Vector2( a.Y, -a.X );
+				_axis = new vec2( a.y, -a.x );
                 _axis.Normalize();
 				//Nez.Vector2Ext.normalize( ref _axis );
 				var normal = MathUtils.mul( ref xfA.q, _axis );
@@ -147,7 +147,7 @@ namespace FarseerPhysics.Collision
 				var localPointB = _proxyB.vertices[cache.IndexB[0]];
 				var pointB = MathUtils.mul( ref xfB, localPointB );
 
-				var s = Vector2.Dot( pointB - pointA, normal );
+				var s = vec2.Dot( pointB - pointA, normal );
 				if( s < 0.0f )
 					_axis = -_axis;
 			}
@@ -177,7 +177,7 @@ namespace FarseerPhysics.Collision
 					var pointA = MathUtils.mul( ref xfA, localPointA );
 					var pointB = MathUtils.mul( ref xfB, localPointB );
 
-					var separation = Vector2.Dot( pointB - pointA, _axis );
+					var separation = vec2.Dot( pointB - pointA, _axis );
 					return separation;
 				}
 
@@ -194,7 +194,7 @@ namespace FarseerPhysics.Collision
 					var localPointB = _proxyB.vertices[indexB];
 					var pointB = MathUtils.mul( ref xfB, localPointB );
 
-					var separation = Vector2.Dot( pointB - pointA, normal );
+					var separation = vec2.Dot( pointB - pointA, normal );
 					return separation;
 				}
 
@@ -211,7 +211,7 @@ namespace FarseerPhysics.Collision
 					var localPointA = _proxyA.vertices[indexA];
 					var pointA = MathUtils.mul( ref xfA, localPointA );
 
-					var separation = Vector2.Dot( pointA - pointB, normal );
+					var separation = vec2.Dot( pointA - pointB, normal );
 					return separation;
 				}
 
@@ -238,7 +238,7 @@ namespace FarseerPhysics.Collision
 
 					var pointA = MathUtils.mul( ref xfA, localPointA );
 					var pointB = MathUtils.mul( ref xfB, localPointB );
-					var separation = Vector2.Dot( pointB - pointA, _axis );
+					var separation = vec2.Dot( pointB - pointA, _axis );
 
 					return separation;
 				}
@@ -250,7 +250,7 @@ namespace FarseerPhysics.Collision
 					var localPointB = _proxyB.vertices[indexB];
 					var pointB = MathUtils.mul( ref xfB, localPointB );
 
-					var separation = Vector2.Dot( pointB - pointA, normal );
+					var separation = vec2.Dot( pointB - pointA, normal );
 					return separation;
 				}
 				case SeparationFunctionType.FaceB:
@@ -261,7 +261,7 @@ namespace FarseerPhysics.Collision
 					var localPointA = _proxyA.vertices[indexA];
 					var pointA = MathUtils.mul( ref xfA, localPointA );
 
-					var separation = Vector2.Dot( pointA - pointB, normal );
+					var separation = vec2.Dot( pointA - pointB, normal );
 					return separation;
 				}
 				default:

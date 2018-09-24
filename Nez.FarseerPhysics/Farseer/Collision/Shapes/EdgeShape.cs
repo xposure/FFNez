@@ -20,11 +20,11 @@
 * 3. This notice may not be removed or altered from any source distribution. 
 */
 
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Collision.Shapes
+namespace Nez.Collision.Shapes
 {
 	/// <summary>
 	/// A line segment (edge) shape. These can be connected in chains or loops
@@ -48,17 +48,17 @@ namespace FarseerPhysics.Collision.Shapes
 		/// <summary>
 		/// Optional adjacent vertices. These are used for smooth collision.
 		/// </summary>
-		public Vector2 vertex0;
+		public vec2 vertex0;
 
 		/// <summary>
 		/// Optional adjacent vertices. These are used for smooth collision.
 		/// </summary>
-		public Vector2 vertex3;
+		public vec2 vertex3;
 
 		/// <summary>
 		/// These are the edge vertices
 		/// </summary>
-		public Vector2 vertex1
+		public vec2 vertex1
 		{
 			get { return _vertex1; }
 			set
@@ -71,7 +71,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// <summary>
 		/// These are the edge vertices
 		/// </summary>
-		public Vector2 vertex2
+		public vec2 vertex2
 		{
 			get { return _vertex2; }
 			set
@@ -84,12 +84,12 @@ namespace FarseerPhysics.Collision.Shapes
 		/// <summary>
 		/// Edge start vertex
 		/// </summary>
-		internal Vector2 _vertex1;
+		internal vec2 _vertex1;
 
 		/// <summary>
 		/// Edge end vertex
 		/// </summary>
-		internal Vector2 _vertex2;
+		internal vec2 _vertex2;
 
 
 		internal EdgeShape() : base( 0 )
@@ -103,7 +103,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// </summary>
 		/// <param name="start">The start of the edge.</param>
 		/// <param name="end">The end of the edge.</param>
-		public EdgeShape( Vector2 start, Vector2 end ) : base( 0 )
+		public EdgeShape( vec2 start, vec2 end ) : base( 0 )
 		{
 			shapeType = ShapeType.Edge;
 			_radius = Settings.polygonRadius;
@@ -115,7 +115,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// </summary>
 		/// <param name="start">The start.</param>
 		/// <param name="end">The end.</param>
-		public void Set( Vector2 start, Vector2 end )
+		public void Set( vec2 start, vec2 end )
 		{
 			_vertex1 = start;
 			_vertex2 = end;
@@ -125,7 +125,7 @@ namespace FarseerPhysics.Collision.Shapes
 			computeProperties();
 		}
 
-		public override bool testPoint( ref Transform transform, ref Vector2 point )
+		public override bool testPoint( ref Transform transform, ref vec2 point )
 		{
 			return false;
 		}
@@ -147,15 +147,15 @@ namespace FarseerPhysics.Collision.Shapes
 			var v1 = _vertex1;
 			var v2 = _vertex2;
 			var e = v2 - v1;
-			var normal = new Vector2( e.Y, -e.X ); //TODO: Could possibly cache the normal.
+			var normal = new vec2( e.y, -e.x ); //TODO: Could possibly cache the normal.
             normal.Normalize();
 			//Nez.Vector2Ext.normalize( ref normal );
 
 			// q = p1 + t * d
 			// dot(normal, q - v1) = 0
 			// dot(normal, p1 - v1) + t * dot(normal, d) = 0
-			var numerator = Vector2.Dot( normal, v1 - p1 );
-			var denominator = Vector2.Dot( normal, d );
+			var numerator = vec2.Dot( normal, v1 - p1 );
+			var denominator = vec2.Dot( normal, d );
 
 			if( denominator == 0.0f )
 				return false;
@@ -169,11 +169,11 @@ namespace FarseerPhysics.Collision.Shapes
 			// q = v1 + s * r
 			// s = dot(q - v1, r) / dot(r, r)
 			var r = v2 - v1;
-			var rr = Vector2.Dot( r, r );
+			var rr = vec2.Dot( r, r );
 			if( rr == 0.0f )
 				return false;
 
-			float s = Vector2.Dot( q - v1, r ) / rr;
+			float s = vec2.Dot( q - v1, r ) / rr;
 			if( s < 0.0f || 1.0f < s )
 				return false;
 
@@ -191,10 +191,10 @@ namespace FarseerPhysics.Collision.Shapes
 			var v1 = MathUtils.mul( ref transform, _vertex1 );
 			var v2 = MathUtils.mul( ref transform, _vertex2 );
 
-			var lower = Vector2.Min( v1, v2 );
-			var upper = Vector2.Max( v1, v2 );
+			var lower = vec2.Min( v1, v2 );
+			var upper = vec2.Max( v1, v2 );
 
-			var r = new Vector2( radius, radius );
+			var r = new vec2( radius, radius );
 			aabb.lowerBound = lower - r;
 			aabb.upperBound = upper + r;
 		}
@@ -204,9 +204,9 @@ namespace FarseerPhysics.Collision.Shapes
 			massData.centroid = 0.5f * ( _vertex1 + _vertex2 );
 		}
 
-		public override float computeSubmergedArea( ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc )
+		public override float computeSubmergedArea( ref vec2 normal, float offset, ref Transform xf, out vec2 sc )
 		{
-			sc = Vector2.Zero;
+			sc = vec2.Zero;
 			return 0;
 		}
 

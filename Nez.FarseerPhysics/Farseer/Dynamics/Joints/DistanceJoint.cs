@@ -22,10 +22,10 @@
 
 using System;
 using System.Diagnostics;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	// 1-D rained system
 	// m (v2 - v1) = lambda
@@ -54,20 +54,20 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point relative to bodyA's origin.
 		/// </summary>
-		public Vector2 localAnchorA;
+		public vec2 localAnchorA;
 
 		/// <summary>
 		/// The local anchor point relative to bodyB's origin.
 		/// </summary>
-		public Vector2 localAnchorB;
+		public vec2 localAnchorB;
 
-		public override sealed Vector2 worldAnchorA
+		public override sealed vec2 worldAnchorA
 		{
 			get { return bodyA.getWorldPoint( localAnchorA ); }
 			set { Debug.Assert( false, "You can't set the world anchor on this joint type." ); }
 		}
 
-		public override sealed Vector2 worldAnchorB
+		public override sealed vec2 worldAnchorB
 		{
 			get { return bodyB.getWorldPoint( localAnchorB ); }
 			set { Debug.Assert( false, "You can't set the world anchor on this joint type." ); }
@@ -98,11 +98,11 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _u;
-		Vector2 _rA;
-		Vector2 _rB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
+		vec2 _u;
+		vec2 _rA;
+		vec2 _rB;
+		vec2 _localCenterA;
+		vec2 _localCenterB;
 		float _invMassA;
 		float _invMassB;
 		float _invIA;
@@ -130,7 +130,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <param name="anchorA">The first body anchor</param>
 		/// <param name="anchorB">The second body anchor</param>
 		/// <param name="useWorldCoordinates">Set to true if you are using world coordinates as anchors.</param>
-		public DistanceJoint( Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false ) : base( bodyA, bodyB )
+		public DistanceJoint( Body bodyA, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false ) : base( bodyA, bodyB )
 		{
 			jointType = JointType.Distance;
 
@@ -153,9 +153,9 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// </summary>
 		/// <param name="invDt"></param>
 		/// <returns></returns>
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
-			Vector2 F = ( invDt * _impulse ) * _u;
+			vec2 F = ( invDt * _impulse ) * _u;
 			return F;
 		}
 
@@ -181,14 +181,14 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIA = bodyA._invI;
 			_invIB = bodyB._invI;
 
-			Vector2 cA = data.positions[_indexA].c;
+			vec2 cA = data.positions[_indexA].c;
 			float aA = data.positions[_indexA].a;
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
 
-			Vector2 cB = data.positions[_indexB].c;
+			vec2 cB = data.positions[_indexB].c;
 			float aB = data.positions[_indexB].a;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB );
@@ -205,7 +205,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_u = Vector2.Zero;
+				_u = vec2.Zero;
 			}
 
 			float crAu = MathUtils.cross( _rA, _u );
@@ -248,7 +248,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				// Scale the impulse to support a variable time step.
 				_impulse *= data.step.dtRatio;
 
-				Vector2 P = _impulse * _u;
+				vec2 P = _impulse * _u;
 				vA -= _invMassA * P;
 				wA -= _invIA * MathUtils.cross( _rA, P );
 				vB += _invMassB * P;
@@ -267,20 +267,20 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override void solveVelocityConstraints( ref SolverData data )
 		{
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			// Cdot = dot(u, v + cross(w, r))
-			Vector2 vpA = vA + MathUtils.cross( wA, _rA );
-			Vector2 vpB = vB + MathUtils.cross( wB, _rB );
-			float Cdot = Vector2.Dot( _u, vpB - vpA );
+			vec2 vpA = vA + MathUtils.cross( wA, _rA );
+			vec2 vpB = vB + MathUtils.cross( wB, _rB );
+			float Cdot = vec2.Dot( _u, vpB - vpA );
 
 			float impulse = -_mass * ( Cdot + _bias + _gamma * _impulse );
 			_impulse += impulse;
 
-			Vector2 P = impulse * _u;
+			vec2 P = impulse * _u;
 			vA -= _invMassA * P;
 			wA -= _invIA * MathUtils.cross( _rA, P );
 			vB += _invMassB * P;

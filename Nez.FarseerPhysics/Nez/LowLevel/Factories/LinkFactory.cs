@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Dynamics;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
@@ -21,9 +21,9 @@ namespace Nez.Farseer
 			/// <param name="linkDensity">The link density.</param>
 			/// <param name="attachRopeJoint">Creates a rope joint between start and end. This enforces the length of the rope. Said in another way: it makes the rope less bouncy.</param>
 			/// <returns></returns>
-			public static List<Body> createChain( World world, Vector2 start, Vector2 end, float linkWidth, float linkHeight, int numberOfLinks, float linkDensity, bool attachRopeJoint, bool fixStart = false, bool fixEnd = false )
+			public static List<Body> createChain( World world, vec2 start, vec2 end, float linkWidth, float linkHeight, int numberOfLinks, float linkDensity, bool attachRopeJoint, bool fixStart = false, bool fixEnd = false )
 			{
-				return FarseerPhysics.Factories.LinkFactory.createChain( world, FSConvert.displayToSim * start, FSConvert.toSimUnits( end ), FSConvert.displayToSim * linkWidth, FSConvert.displayToSim * linkHeight, numberOfLinks, linkDensity, attachRopeJoint, fixStart, fixEnd );
+				return Nez.Factories.LinkFactory.createChain( world, FSConvert.displayToSim * start, FSConvert.toSimUnits( end ), FSConvert.displayToSim * linkWidth, FSConvert.displayToSim * linkHeight, numberOfLinks, linkDensity, attachRopeJoint, fixStart, fixEnd );
 			}
 		}
 	}

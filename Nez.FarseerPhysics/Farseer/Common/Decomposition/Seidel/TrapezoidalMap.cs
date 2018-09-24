@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FarseerPhysics.Common.Decomposition.Seidel
+namespace Nez.Common.Decomposition.Seidel
 {
     internal class TrapezoidalMap
     {

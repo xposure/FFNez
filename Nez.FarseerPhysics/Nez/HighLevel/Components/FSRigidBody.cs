@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Dynamics;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
@@ -26,7 +26,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSRigidBody setLinearVelocity( Vector2 linearVelocity )
+		public FSRigidBody setLinearVelocity( vec2 linearVelocity )
 		{
 			if( body != null )
 				body.linearVelocity = linearVelocity;

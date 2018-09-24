@@ -22,13 +22,13 @@
 
 using System;
 using System.Diagnostics;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics.Contacts;
-using FarseerPhysics.Dynamics.Joints;
+using Nez.Common;
+using Nez.Dynamics.Contacts;
+using Nez.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics
+namespace Nez.Dynamics
 {
 	/// <summary>
 	/// This is an internal class.
@@ -94,7 +94,7 @@ namespace FarseerPhysics.Dynamics
 			JointCount = 0;
 		}
 
-		public void solve( ref TimeStep step, ref Vector2 gravity )
+		public void solve( ref TimeStep step, ref vec2 gravity )
 		{
 			float h = step.dt;
 
@@ -196,14 +196,14 @@ namespace FarseerPhysics.Dynamics
 			// Integrate positions
 			for( int i = 0; i < BodyCount; ++i )
 			{
-				Vector2 c = _positions[i].c;
+				vec2 c = _positions[i].c;
 				float a = _positions[i].a;
-				Vector2 v = _velocities[i].v;
+				vec2 v = _velocities[i].v;
 				float w = _velocities[i].w;
 
 				// Check for large velocities
-				Vector2 translation = h * v;
-				if( Vector2.Dot( translation, translation ) > Settings.maxTranslationSquared )
+				vec2 translation = h * v;
+				if( vec2.Dot( translation, translation ) > Settings.maxTranslationSquared )
 				{
 					float ratio = Settings.maxTranslation / translation.Length();
 					v *= ratio;
@@ -290,7 +290,7 @@ namespace FarseerPhysics.Dynamics
 					if( b.bodyType == BodyType.Static )
 						continue;
 
-					if( !b.isSleepingAllowed || b._angularVelocity * b._angularVelocity > AngTolSqr || Vector2.Dot( b._linearVelocity, b._linearVelocity ) > LinTolSqr )
+					if( !b.isSleepingAllowed || b._angularVelocity * b._angularVelocity > AngTolSqr || vec2.Dot( b._linearVelocity, b._linearVelocity ) > LinTolSqr )
 					{
 						b._sleepTime = 0.0f;
 						minSleepTime = 0.0f;
@@ -364,14 +364,14 @@ namespace FarseerPhysics.Dynamics
 			// Integrate positions.
 			for( int i = 0; i < BodyCount; ++i )
 			{
-				Vector2 c = _positions[i].c;
+				vec2 c = _positions[i].c;
 				float a = _positions[i].a;
-				Vector2 v = _velocities[i].v;
+				vec2 v = _velocities[i].v;
 				float w = _velocities[i].w;
 
 				// Check for large velocities
-				Vector2 translation = h * v;
-				if( Vector2.Dot( translation, translation ) > Settings.maxTranslationSquared )
+				vec2 translation = h * v;
+				if( vec2.Dot( translation, translation ) > Settings.maxTranslationSquared )
 				{
 					float ratio = Settings.maxTranslation / translation.Length();
 					v *= ratio;

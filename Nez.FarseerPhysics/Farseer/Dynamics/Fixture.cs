@@ -24,14 +24,14 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics.Contacts;
+using Nez.Collision;
+using Nez.Collision.Shapes;
+using Nez.Common;
+using Nez.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics
+namespace Nez.Dynamics
 {
 	[Flags]
 	public enum Category
@@ -425,7 +425,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="point">A point in world coordinates.</param>
 		/// <returns></returns>
-		public bool testPoint( ref Vector2 point )
+		public bool testPoint( ref vec2 point )
 		{
 			return shape.testPoint( ref body._xf, ref point );
 		}
@@ -537,7 +537,7 @@ namespace FarseerPhysics.Dynamics
 
 				proxy.AABB.combine( ref aabb1, ref aabb2 );
 
-				Vector2 displacement = transform2.p - transform1.p;
+				vec2 displacement = transform2.p - transform1.p;
 
 				broadPhase.moveProxy( proxy.proxyId, ref proxy.AABB, displacement );
 			}

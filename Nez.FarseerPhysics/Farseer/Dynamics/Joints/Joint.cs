@@ -25,7 +25,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	public enum JointType
 	{
@@ -116,13 +116,13 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// Get the anchor point on bodyA in world coordinates.
 		/// On some joints, this value indicate the anchor point within the world.
 		/// </summary>
-		public abstract Vector2 worldAnchorA { get; set; }
+		public abstract vec2 worldAnchorA { get; set; }
 
 		/// <summary>
 		/// Get the anchor point on bodyB in world coordinates.
 		/// On some joints, this value indicate the anchor point within the world.
 		/// </summary>
-		public abstract Vector2 worldAnchorB { get; set; }
+		public abstract vec2 worldAnchorB { get; set; }
 
 		/// <summary>
 		/// Set the user data pointer.
@@ -193,7 +193,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// Get the reaction force on body at the joint anchor in Newtons.
 		/// </summary>
 		/// <param name="invDt">The inverse delta time.</param>
-		public abstract Vector2 getReactionForce( float invDt );
+		public abstract vec2 getReactionForce( float invDt );
 
 		/// <summary>
 		/// Get the reaction torque on the body at the joint anchor in N*m.

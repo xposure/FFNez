@@ -1,4 +1,4 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
@@ -7,7 +7,7 @@ namespace Nez.Farseer
 	internal class FSBodyDef
 	{
 		public BodyType bodyType = BodyType.Static;
-		public Vector2 linearVelocity;
+		public vec2 linearVelocity;
 		public float angularVelocity;
 		public float linearDamping;
 		public float angularDamping;

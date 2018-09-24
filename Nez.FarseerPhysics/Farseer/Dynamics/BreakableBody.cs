@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics.Contacts;
-using FarseerPhysics.Factories;
+using Nez.Collision.Shapes;
+using Nez.Common;
+using Nez.Dynamics.Contacts;
+using Nez.Factories;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics
+namespace Nez.Dynamics
 {
 	/// <summary>
 	/// A type of body that supports multiple fixtures that can break apart.
@@ -26,11 +26,11 @@ namespace FarseerPhysics.Dynamics
 
 		float[] _angularVelocitiesCache = new float[8];
 		bool _break;
-		Vector2[] _velocitiesCache = new Vector2[8];
+		vec2[] _velocitiesCache = new vec2[8];
 		World _world;
 
 
-		public BreakableBody( World world, IEnumerable<Vertices> vertices, float density, Vector2 position = new Vector2(), float rotation = 0 )
+		public BreakableBody( World world, IEnumerable<Vertices> vertices, float density, vec2 position = new vec2(), float rotation = 0 )
 		{
 			_world = world;
 			_world.contactManager.onPostSolve += onPostSolve;
@@ -44,7 +44,7 @@ namespace FarseerPhysics.Dynamics
 			}
 		}
 
-		public BreakableBody( World world, IEnumerable<Shape> shapes, Vector2 position = new Vector2(), float rotation = 0 )
+		public BreakableBody( World world, IEnumerable<Shape> shapes, vec2 position = new vec2(), float rotation = 0 )
 		{
 			_world = world;
 			_world.contactManager.onPostSolve += onPostSolve;
@@ -95,7 +95,7 @@ namespace FarseerPhysics.Dynamics
 				//Enlarge the cache if needed
 				if( parts.Count > _angularVelocitiesCache.Length )
 				{
-					_velocitiesCache = new Vector2[parts.Count];
+					_velocitiesCache = new vec2[parts.Count];
 					_angularVelocitiesCache = new float[parts.Count];
 				}
 

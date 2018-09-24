@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FarseerPhysics;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Controllers;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Contacts;
-using FarseerPhysics.Dynamics.Joints;
+using Nez;
+using Nez.Collision;
+using Nez.Collision.Shapes;
+using Nez.Common;
+using Nez.Controllers;
+using Nez.Dynamics;
+using Nez.Dynamics.Contacts;
+using Nez.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -44,7 +44,7 @@ namespace Nez.Farseer
 
 		//Drawing
 		PrimitiveBatch _primitiveBatch;
-		Vector2[] _tempVertices = new Vector2[Settings.maxPolygonVertices];
+		vec2[] _tempVertices = new vec2[Settings.maxPolygonVertices];
 		List<StringData> _stringData = new List<StringData>();
 
 		Matrix _localProjection;
@@ -57,7 +57,7 @@ namespace Nez.Farseer
 		ContactPoint[] _points = new ContactPoint[maxContactPoints];
 
 		//Debug panel
-		public Vector2 debugPanelPosition = new Vector2( 5, 5 );
+		public vec2 debugPanelPosition = new vec2( 5, 5 );
 		float _max;
 		float _avg;
 		float _min;
@@ -70,7 +70,7 @@ namespace Nez.Farseer
 		public float maximumValue = 10;
 		public Rectangle performancePanelBounds = new Rectangle( Screen.width - 300, 5, 200, 100 );
 		List<float> _graphValues = new List<float>( 500 );
-		Vector2[] _background = new Vector2[4];
+		vec2[] _background = new vec2[4];
 
 		public const int circleSegments = 24;
 
@@ -128,7 +128,7 @@ namespace Nez.Farseer
 				world = entity.scene.getOrCreateSceneComponent<FSWorld>();
 			world.contactManager.onPreSolve += preSolve;
 
-			transform.setPosition( new Vector2( -float.MaxValue, -float.MaxValue ) * 0.5f );
+			transform.setPosition( new vec2( -float.MaxValue, -float.MaxValue ) * 0.5f );
 			_primitiveBatch = new PrimitiveBatch( 1000 );
 
 			_localProjection = Matrix.CreateOrthographicOffCenter( 0f, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0f, 0f, 1f );
@@ -148,10 +148,10 @@ namespace Nez.Farseer
 				Fixture fixtureA = contact.fixtureA;
 
 				FixedArray2<PointState> state1, state2;
-				FarseerPhysics.Collision.Collision.getPointStates( out state1, out state2, ref oldManifold, ref manifold );
+				Nez.Collision.Collision.getPointStates( out state1, out state2, ref oldManifold, ref manifold );
 
-				FixedArray2<Vector2> points;
-				Vector2 normal;
+				FixedArray2<vec2> points;
+				vec2 normal;
 				contact.getWorldManifold( out normal, out points );
 
 				for( int i = 0; i < manifold.pointCount && _pointCount < maxContactPoints; ++i )
@@ -179,7 +179,7 @@ namespace Nez.Farseer
 			{
 				foreach( Body b in world.bodyList )
 				{
-					FarseerPhysics.Common.Transform xf;
+					Nez.Common.Transform xf;
 					b.getTransform( out xf );
 					foreach( Fixture f in b.fixtureList )
 					{
@@ -212,8 +212,8 @@ namespace Nez.Farseer
 
 					if( ( flags & DebugViewFlags.ContactNormals ) == DebugViewFlags.ContactNormals )
 					{
-						Vector2 p1 = point.position;
-						Vector2 p2 = p1 + axisScale * point.normal;
+						vec2 p1 = point.position;
+						vec2 p2 = p1 + axisScale * point.normal;
 						drawSegment( p1, p2, new Color( 0.4f, 0.9f, 0.4f ) );
 					}
 				}
@@ -230,12 +230,12 @@ namespace Nez.Farseer
 						var polygon = f.shape as PolygonShape;
 						if( polygon != null )
 						{
-							FarseerPhysics.Common.Transform xf;
+							Nez.Common.Transform xf;
 							body.getTransform( out xf );
 
 							for( int i = 0; i < polygon.vertices.Count; i++ )
 							{
-								Vector2 tmp = MathUtils.mul( ref xf, polygon.vertices[i] );
+								vec2 tmp = MathUtils.mul( ref xf, polygon.vertices[i] );
 								drawPoint( tmp, 0.1f, Color.Red );
 							}
 						}
@@ -277,7 +277,7 @@ namespace Nez.Farseer
 			{
 				foreach( Body b in world.bodyList )
 				{
-					FarseerPhysics.Common.Transform xf;
+					Nez.Common.Transform xf;
 					b.getTransform( out xf );
 					xf.p = b.worldCenter;
 					drawTransform( ref xf );
@@ -335,8 +335,8 @@ namespace Nez.Farseer
 					float y1 = performancePanelBounds.Bottom - ( ( _graphValues[i] / ( maximumValue - minimumValue ) ) * yScale );
 					float y2 = performancePanelBounds.Bottom - ( ( _graphValues[i - 1] / ( maximumValue - minimumValue ) ) * yScale );
 
-					var x1 = new Vector2( MathHelper.Clamp( x, performancePanelBounds.Left, performancePanelBounds.Right ), MathHelper.Clamp( y1, performancePanelBounds.Top, performancePanelBounds.Bottom ) );
-					var x2 = new Vector2( MathHelper.Clamp( x + deltaX, performancePanelBounds.Left, performancePanelBounds.Right ), MathHelper.Clamp( y2, performancePanelBounds.Top, performancePanelBounds.Bottom ) );
+					var x1 = new vec2( MathHelper.Clamp( x, performancePanelBounds.Left, performancePanelBounds.Right ), MathHelper.Clamp( y1, performancePanelBounds.Top, performancePanelBounds.Bottom ) );
+					var x2 = new vec2( MathHelper.Clamp( x + deltaX, performancePanelBounds.Left, performancePanelBounds.Right ), MathHelper.Clamp( y2, performancePanelBounds.Top, performancePanelBounds.Bottom ) );
 
 					drawSegment( FSConvert.toSimUnits( x1 ), FSConvert.toSimUnits( x2 ), Color.LightGreen );
 
@@ -349,10 +349,10 @@ namespace Nez.Farseer
 			drawString( performancePanelBounds.Right + 10, performancePanelBounds.Bottom - 15, string.Format( "Min: {0} ms", _min ) );
 
 			//Draw background.
-			_background[0] = new Vector2( performancePanelBounds.X, performancePanelBounds.Y );
-			_background[1] = new Vector2( performancePanelBounds.X, performancePanelBounds.Y + performancePanelBounds.Height );
-			_background[2] = new Vector2( performancePanelBounds.X + performancePanelBounds.Width, performancePanelBounds.Y + performancePanelBounds.Height );
-			_background[3] = new Vector2( performancePanelBounds.X + performancePanelBounds.Width, performancePanelBounds.Y );
+			_background[0] = new vec2( performancePanelBounds.X, performancePanelBounds.Y );
+			_background[1] = new vec2( performancePanelBounds.X, performancePanelBounds.Y + performancePanelBounds.Height );
+			_background[2] = new vec2( performancePanelBounds.X + performancePanelBounds.Width, performancePanelBounds.Y + performancePanelBounds.Height );
+			_background[3] = new vec2( performancePanelBounds.X + performancePanelBounds.Width, performancePanelBounds.Y );
 
 			_background[0] = FSConvert.toSimUnits( _background[0] );
 			_background[1] = FSConvert.toSimUnits( _background[1] );
@@ -369,8 +369,8 @@ namespace Nez.Farseer
 			for( int i = 0; i < world.bodyList.Count; i++ )
 				fixtureCount += world.bodyList[i].fixtureList.Count;
 
-			var x = (int)debugPanelPosition.X;
-			var y = (int)debugPanelPosition.Y;
+			var x = (int)debugPanelPosition.x;
+			var y = (int)debugPanelPosition.y;
 
 			_debugPanelSb.Clear();
 			_debugPanelSb.AppendLine( "Objects:" );
@@ -398,11 +398,11 @@ namespace Nez.Farseer
 
 		public void drawAABB( ref AABB aabb, Color color )
 		{
-			Vector2[] verts = new Vector2[4];
-			verts[0] = new Vector2( aabb.lowerBound.X, aabb.lowerBound.Y );
-			verts[1] = new Vector2( aabb.upperBound.X, aabb.lowerBound.Y );
-			verts[2] = new Vector2( aabb.upperBound.X, aabb.upperBound.Y );
-			verts[3] = new Vector2( aabb.lowerBound.X, aabb.upperBound.Y );
+			vec2[] verts = new vec2[4];
+			verts[0] = new vec2( aabb.lowerBound.x, aabb.lowerBound.y );
+			verts[1] = new vec2( aabb.upperBound.x, aabb.lowerBound.y );
+			verts[2] = new vec2( aabb.upperBound.x, aabb.upperBound.y );
+			verts[3] = new vec2( aabb.lowerBound.x, aabb.upperBound.y );
 
 			drawPolygon( verts, 4, color );
 		}
@@ -415,14 +415,14 @@ namespace Nez.Farseer
 
 			var b1 = joint.bodyA;
 			var b2 = joint.bodyB;
-			FarseerPhysics.Common.Transform xf1;
+			Nez.Common.Transform xf1;
 			b1.getTransform( out xf1 );
 
-			var x2 = Vector2.Zero;
+			var x2 = vec2.Zero;
 
 			if( b2 != null || !joint.isFixedType() )
 			{
-				FarseerPhysics.Common.Transform xf2;
+				Nez.Common.Transform xf2;
 				b2.getTransform( out xf2 );
 				x2 = xf2.p;
 			}
@@ -462,8 +462,8 @@ namespace Nez.Farseer
 					instance.drawSegment( p1, p2, color );
 					instance.drawSegment( x2, p2, color );
 
-					instance.drawSolidCircle( p2, 0.1f, Vector2.Zero, Color.Red );
-					instance.drawSolidCircle( p1, 0.1f, Vector2.Zero, Color.Blue );
+					instance.drawSolidCircle( p2, 0.1f, vec2.Zero, Color.Red );
+					instance.drawSolidCircle( p1, 0.1f, vec2.Zero, Color.Blue );
 					break;
 				}
 				case JointType.Gear:
@@ -482,7 +482,7 @@ namespace Nez.Farseer
 		}
 
 
-		public void drawShape( Fixture fixture, FarseerPhysics.Common.Transform xf, Color color )
+		public void drawShape( Fixture fixture, Nez.Common.Transform xf, Color color )
 		{
 			switch( fixture.shape.shapeType )
 			{
@@ -490,9 +490,9 @@ namespace Nez.Farseer
 				{
 					var circle = (CircleShape)fixture.shape;
 
-					Vector2 center = MathUtils.mul( ref xf, circle.position );
+					vec2 center = MathUtils.mul( ref xf, circle.position );
 					float radius = circle.radius;
-					Vector2 axis = MathUtils.mul( xf.q, new Vector2( 1.0f, 0.0f ) );
+					vec2 axis = MathUtils.mul( xf.q, new vec2( 1.0f, 0.0f ) );
 
 					drawSolidCircle( center, radius, axis, color );
 				}
@@ -505,7 +505,7 @@ namespace Nez.Farseer
 					System.Diagnostics.Debug.Assert( vertexCount <= Settings.maxPolygonVertices );
 
 					if( vertexCount > _tempVertices.Length )
-						_tempVertices = new Vector2[vertexCount];
+						_tempVertices = new vec2[vertexCount];
 
 					for( int i = 0; i < vertexCount; ++i )
 					{
@@ -540,13 +540,13 @@ namespace Nez.Farseer
 		}
 
 
-		public void drawPolygon( Vector2[] vertices, int count, float red, float green, float blue, bool closed = true )
+		public void drawPolygon( vec2[] vertices, int count, float red, float green, float blue, bool closed = true )
 		{
 			drawPolygon( vertices, count, new Color( red, green, blue ), closed );
 		}
 
 
-		public void drawPolygon( Vector2[] vertices, int count, Color color, bool closed = true )
+		public void drawPolygon( vec2[] vertices, int count, Color color, bool closed = true )
 		{
 			for( int i = 0; i < count - 1; i++ )
 			{
@@ -561,13 +561,13 @@ namespace Nez.Farseer
 		}
 
 
-		public void drawSolidPolygon( Vector2[] vertices, int count, float red, float green, float blue )
+		public void drawSolidPolygon( vec2[] vertices, int count, float red, float green, float blue )
 		{
 			drawSolidPolygon( vertices, count, new Color( red, green, blue ) );
 		}
 
 
-		public void drawSolidPolygon( Vector2[] vertices, int count, Color color, bool outline = true )
+		public void drawSolidPolygon( vec2[] vertices, int count, Color color, bool outline = true )
 		{
 			if( count == 2 )
 			{
@@ -589,21 +589,21 @@ namespace Nez.Farseer
 		}
 
 
-		public void drawCircle( Vector2 center, float radius, float red, float green, float blue )
+		public void drawCircle( vec2 center, float radius, float red, float green, float blue )
 		{
 			drawCircle( center, radius, new Color( red, green, blue ) );
 		}
 
 
-		public void drawCircle( Vector2 center, float radius, Color color )
+		public void drawCircle( vec2 center, float radius, Color color )
 		{
 			const double increment = Math.PI * 2.0 / circleSegments;
 			double theta = 0.0;
 
 			for( int i = 0; i < circleSegments; i++ )
 			{
-				Vector2 v1 = center + radius * new Vector2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
-				Vector2 v2 = center + radius * new Vector2( (float)Math.Cos( theta + increment ), (float)Math.Sin( theta + increment ) );
+				vec2 v1 = center + radius * new vec2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
+				vec2 v2 = center + radius * new vec2( (float)Math.Cos( theta + increment ), (float)Math.Sin( theta + increment ) );
 
 				_primitiveBatch.addVertex( FSConvert.toDisplayUnits( v1 ), color, PrimitiveType.LineList );
 				_primitiveBatch.addVertex( FSConvert.toDisplayUnits( v2 ), color, PrimitiveType.LineList );
@@ -613,27 +613,27 @@ namespace Nez.Farseer
 		}
 
 
-		public void drawSolidCircle( Vector2 center, float radius, Vector2 axis, float red, float green, float blue )
+		public void drawSolidCircle( vec2 center, float radius, vec2 axis, float red, float green, float blue )
 		{
 			drawSolidCircle( center, radius, axis, new Color( red, green, blue ) );
 		}
 
 
-		public void drawSolidCircle( Vector2 center, float radius, Vector2 axis, Color color )
+		public void drawSolidCircle( vec2 center, float radius, vec2 axis, Color color )
 		{
 			const double increment = Math.PI * 2.0 / circleSegments;
 			double theta = 0.0;
 
 			Color colorFill = color * 0.5f;
 
-			Vector2 v0 = center + radius * new Vector2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
+			vec2 v0 = center + radius * new vec2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
 			FSConvert.toDisplayUnits( ref v0, out v0 );
 			theta += increment;
 
 			for( int i = 1; i < circleSegments - 1; i++ )
 			{
-				Vector2 v1 = center + radius * new Vector2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
-				Vector2 v2 = center + radius * new Vector2( (float)Math.Cos( theta + increment ), (float)Math.Sin( theta + increment ) );
+				vec2 v1 = center + radius * new vec2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
+				vec2 v2 = center + radius * new vec2( (float)Math.Cos( theta + increment ), (float)Math.Sin( theta + increment ) );
 
 				_primitiveBatch.addVertex( v0, colorFill, PrimitiveType.TriangleList );
 				_primitiveBatch.addVertex( FSConvert.toDisplayUnits( v1 ), colorFill, PrimitiveType.TriangleList );
@@ -647,13 +647,13 @@ namespace Nez.Farseer
 		}
 
 
-		public void drawSegment( Vector2 start, Vector2 end, float red, float green, float blue )
+		public void drawSegment( vec2 start, vec2 end, float red, float green, float blue )
 		{
 			drawSegment( start, end, new Color( red, green, blue ) );
 		}
 
 
-		public void drawSegment( Vector2 start, Vector2 end, Color color )
+		public void drawSegment( vec2 start, vec2 end, Color color )
 		{
 			start = FSConvert.toDisplayUnits( start );
 			end = FSConvert.toDisplayUnits( end );
@@ -662,12 +662,12 @@ namespace Nez.Farseer
 		}
 
 
-		public void drawTransform( ref FarseerPhysics.Common.Transform transform )
+		public void drawTransform( ref Nez.Common.Transform transform )
 		{
 			const float axisScale = 0.4f;
-			Vector2 p1 = transform.p;
+			vec2 p1 = transform.p;
 
-			Vector2 p2 = p1 + axisScale * transform.q.GetXAxis();
+			vec2 p2 = p1 + axisScale * transform.q.GetXAxis();
 			drawSegment( p1, p2, Color.Red );
 
 			p2 = p1 + axisScale * transform.q.GetYAxis();
@@ -675,14 +675,14 @@ namespace Nez.Farseer
 		}
 
 
-		public void drawPoint( Vector2 p, float size, Color color )
+		public void drawPoint( vec2 p, float size, Color color )
 		{
-			Vector2[] verts = new Vector2[4];
+			vec2[] verts = new vec2[4];
 			float hs = size / 2.0f;
-			verts[0] = p + new Vector2( -hs, -hs );
-			verts[1] = p + new Vector2( hs, -hs );
-			verts[2] = p + new Vector2( hs, hs );
-			verts[3] = p + new Vector2( -hs, hs );
+			verts[0] = p + new vec2( -hs, -hs );
+			verts[1] = p + new vec2( hs, -hs );
+			verts[2] = p + new vec2( hs, hs );
+			verts[3] = p + new vec2( -hs, hs );
 
 			drawSolidPolygon( verts, 4, color, true );
 		}
@@ -690,17 +690,17 @@ namespace Nez.Farseer
 
 		public void drawString( int x, int y, string text )
 		{
-			drawString( new Vector2( x, y ), text );
+			drawString( new vec2( x, y ), text );
 		}
 
 
-		public void drawString( Vector2 position, string text )
+		public void drawString( vec2 position, string text )
 		{
 			_stringData.Add( new StringData( position, text, textColor ) );
 		}
 
 
-		public void drawArrow( Vector2 start, Vector2 end, float length, float width, bool drawStartIndicator, Color color )
+		public void drawArrow( vec2 start, vec2 end, float length, float width, bool drawStartIndicator, Color color )
 		{
 			// Draw connection segment between start- and end-point
 			drawSegment( start, end, color );
@@ -714,22 +714,22 @@ namespace Nez.Farseer
 			//Nez.Vector2Ext.normalize( ref rotation );
 
 			// Calculate angle of directional vector
-			var angle = (float)Math.Atan2( rotation.X, -rotation.Y );
+			var angle = (float)Math.Atan2( rotation.x, -rotation.y );
 			// Create matrix for rotation
 			var rotMatrix = Matrix.CreateRotationZ( angle );
 			// Create translation matrix for end-point
-			var endMatrix = Matrix.CreateTranslation( end.X, end.Y, 0 );
+			var endMatrix = Matrix.CreateTranslation( end.x, end.y, 0 );
 
 			// Setup arrow end shape
-			var verts = new Vector2[3];
-			verts[0] = new Vector2( 0, 0 );
-			verts[1] = new Vector2( -halfWidth, -length );
-			verts[2] = new Vector2( halfWidth, -length );
+			var verts = new vec2[3];
+			verts[0] = new vec2( 0, 0 );
+			verts[1] = new vec2( -halfWidth, -length );
+			verts[2] = new vec2( halfWidth, -length );
 
 			// Rotate end shape
-			Vector2.Transform( verts, ref rotMatrix, verts );
+			vec2.Transform( verts, ref rotMatrix, verts );
 			// Translate end shape
-			Vector2.Transform( verts, ref endMatrix, verts );
+			vec2.Transform( verts, ref endMatrix, verts );
 
 			// Draw arrow end shape
 			drawSolidPolygon( verts, 3, color, false );
@@ -737,18 +737,18 @@ namespace Nez.Farseer
 			if( drawStartIndicator )
 			{
 				// Create translation matrix for start
-				var startMatrix = Matrix.CreateTranslation( start.X, start.Y, 0 );
+				var startMatrix = Matrix.CreateTranslation( start.x, start.y, 0 );
 				// Setup arrow start shape
-				var baseVerts = new Vector2[4];
-				baseVerts[0] = new Vector2( -halfWidth, length / 4 );
-				baseVerts[1] = new Vector2( halfWidth, length / 4 );
-				baseVerts[2] = new Vector2( halfWidth, 0 );
-				baseVerts[3] = new Vector2( -halfWidth, 0 );
+				var baseVerts = new vec2[4];
+				baseVerts[0] = new vec2( -halfWidth, length / 4 );
+				baseVerts[1] = new vec2( halfWidth, length / 4 );
+				baseVerts[2] = new vec2( halfWidth, 0 );
+				baseVerts[3] = new vec2( -halfWidth, 0 );
 
 				// Rotate start shape
-				Vector2.Transform( baseVerts, ref rotMatrix, baseVerts );
+				vec2.Transform( baseVerts, ref rotMatrix, baseVerts );
 				// Translate start shape
-				Vector2.Transform( baseVerts, ref startMatrix, baseVerts );
+				vec2.Transform( baseVerts, ref startMatrix, baseVerts );
 				// Draw start shape
 				drawSolidPolygon( baseVerts, 4, color, false );
 			}
@@ -858,8 +858,8 @@ namespace Nez.Farseer
 
 		struct ContactPoint
 		{
-			public Vector2 normal;
-			public Vector2 position;
+			public vec2 normal;
+			public vec2 position;
 			public PointState state;
 		}
 
@@ -867,9 +867,9 @@ namespace Nez.Farseer
 		{
 			public Color color;
 			public string text;
-			public Vector2 position;
+			public vec2 position;
 
-			public StringData( Vector2 position, string text, Color color )
+			public StringData( vec2 position, string text, Color color )
 			{
 				this.position = position;
 				this.text = text;

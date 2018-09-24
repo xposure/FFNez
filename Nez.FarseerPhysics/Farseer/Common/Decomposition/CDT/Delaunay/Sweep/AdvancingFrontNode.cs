@@ -35,7 +35,7 @@
 // Future possibilities
 //   Comments!
 
-namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep
+namespace Nez.Common.Decomposition.CDT.Delaunay.Sweep
 {
     internal class AdvancingFrontNode
     {

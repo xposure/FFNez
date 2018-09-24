@@ -22,11 +22,11 @@
 
 using System;
 using System.Diagnostics;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Collision.Shapes
+namespace Nez.Collision.Shapes
 {
 	/// <summary>
 	/// A circle shape.
@@ -41,7 +41,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// <summary>
 		/// Get or set the position of the circle
 		/// </summary>
-		public Vector2 position
+		public vec2 position
 		{
 			get { return _position; }
 			set
@@ -51,7 +51,7 @@ namespace FarseerPhysics.Collision.Shapes
 			}
 		}
 
-		internal Vector2 _position;
+		internal vec2 _position;
 
 
 		/// <summary>
@@ -65,7 +65,7 @@ namespace FarseerPhysics.Collision.Shapes
 			Debug.Assert( density >= 0 );
 
 			shapeType = ShapeType.Circle;
-			_position = Vector2.Zero;
+			_position = vec2.Zero;
 			base.radius = radius; // The Radius property cache 2radius and calls ComputeProperties(). So no need to call ComputeProperties() here.
 		}
 
@@ -73,14 +73,14 @@ namespace FarseerPhysics.Collision.Shapes
 		{
 			shapeType = ShapeType.Circle;
 			_radius = 0.0f;
-			_position = Vector2.Zero;
+			_position = vec2.Zero;
 		}
 
-		public override bool testPoint( ref Transform transform, ref Vector2 point )
+		public override bool testPoint( ref Transform transform, ref vec2 point )
 		{
 			var center = transform.p + MathUtils.mul( transform.q, position );
 			var d = point - center;
-			return Vector2.Dot( d, d ) <= _2radius;
+			return vec2.Dot( d, d ) <= _2radius;
 		}
 
 		public override bool rayCast( out RayCastOutput output, ref RayCastInput input, ref Transform transform, int childIndex )
@@ -94,12 +94,12 @@ namespace FarseerPhysics.Collision.Shapes
 
 			var pos = transform.p + MathUtils.mul( transform.q, this.position );
 			var s = input.point1 - pos;
-			var b = Vector2.Dot( s, s ) - _2radius;
+			var b = vec2.Dot( s, s ) - _2radius;
 
 			// Solve quadratic equation.
 			var r = input.point2 - input.point1;
-			var c = Vector2.Dot( s, r );
-			var rr = Vector2.Dot( r, r );
+			var c = vec2.Dot( s, r );
+			var rr = vec2.Dot( r, r );
 			var sigma = c * c - rr * b;
 
 			// Check for negative discriminant and short segment.
@@ -128,8 +128,8 @@ namespace FarseerPhysics.Collision.Shapes
 		public override void computeAABB( out AABB aabb, ref Transform transform, int childIndex )
 		{
 			var p = transform.p + MathUtils.mul( transform.q, position );
-			aabb.lowerBound = new Vector2( p.X - radius, p.Y - radius );
-			aabb.upperBound = new Vector2( p.X + radius, p.Y + radius );
+			aabb.lowerBound = new vec2( p.X - radius, p.Y - radius );
+			aabb.upperBound = new vec2( p.X + radius, p.Y + radius );
 		}
 
 		protected override sealed void computeProperties()
@@ -140,15 +140,15 @@ namespace FarseerPhysics.Collision.Shapes
 			massData.centroid = position;
 
 			// inertia about the local origin
-			massData.inertia = massData.mass * ( 0.5f * _2radius + Vector2.Dot( position, position ) );
+			massData.inertia = massData.mass * ( 0.5f * _2radius + vec2.Dot( position, position ) );
 		}
 
-		public override float computeSubmergedArea( ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc )
+		public override float computeSubmergedArea( ref vec2 normal, float offset, ref Transform xf, out vec2 sc )
 		{
-			sc = Vector2.Zero;
+			sc = vec2.Zero;
 
 			var p = MathUtils.mul( ref xf, position );
-			float l = -( Vector2.Dot( normal, p ) - offset );
+			float l = -( vec2.Dot( normal, p ) - offset );
 			if( l < -radius + Settings.epsilon )
 			{
 				//Completely dry
@@ -166,8 +166,8 @@ namespace FarseerPhysics.Collision.Shapes
 			float area = _2radius * (float)( ( Math.Asin( l / radius ) + Settings.pi / 2 ) + l * Math.Sqrt( _2radius - l2 ) );
 			float com = -2.0f / 3.0f * (float)Math.Pow( _2radius - l2, 1.5f ) / area;
 
-			sc.X = p.X + normal.X * com;
-			sc.Y = p.Y + normal.Y * com;
+			sc.x = p.X + normal.x * com;
+			sc.y = p.Y + normal.y * com;
 
 			return area;
 		}

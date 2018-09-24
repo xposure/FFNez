@@ -50,7 +50,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 
-namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep
+namespace Nez.Common.Decomposition.CDT.Delaunay.Sweep
 {
 	internal static class DTSweep
 	{

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
+using Nez.Collision.Shapes;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 using Nez.Textures;
 
@@ -15,7 +15,7 @@ namespace Nez.Farseer
 		protected Vertices _verts;
 
 
-		public FSPolygonBody( Subtexture subtexture, List<Vector2> verts ) : base( subtexture )
+		public FSPolygonBody( Subtexture subtexture, List<vec2> verts ) : base( subtexture )
 		{			
 			_verts = new Vertices( verts );
 		}

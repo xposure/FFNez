@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Controllers
+namespace Nez.Controllers
 {
 	/// <summary>
 	/// Reference implementation for forces based on AbstractForceController
@@ -14,7 +14,7 @@ namespace FarseerPhysics.Controllers
 		/// <summary>
 		/// Direction of the windforce
 		/// </summary>
-		public Vector2 direction;
+		public vec2 direction;
 
 		/// <summary>
 		/// The amount of Direction randomization. Allowed range is 0-1.
@@ -36,7 +36,7 @@ namespace FarseerPhysics.Controllers
 				float decayMultiplier = getDecayMultiplier( body );
 				if( decayMultiplier != 0 )
 				{
-					Vector2 forceVector;
+					vec2 forceVector;
 					if( forceType == ForceTypes.Point )
 					{
 						forceVector = body.position - position;
@@ -48,11 +48,11 @@ namespace FarseerPhysics.Controllers
 						forceVector = direction;
 
 						if( forceVector.Length() == 0 )
-							forceVector = new Vector2( 0, 1 );
+							forceVector = new vec2( 0, 1 );
 					}
 
 					//TODO: Consider Divergence:
-					//forceVector = Vector2.Transform(forceVector, Matrix.CreateRotationZ((MathHelper.Pi - MathHelper.Pi/2) * (float)Randomize.NextDouble()));
+					//forceVector = vec2.Transform(forceVector, Matrix.CreateRotationZ((MathHelper.Pi - MathHelper.Pi/2) * (float)Randomize.NextDouble()));
 
 					// Calculate random Variation
 					if( variation != 0 )

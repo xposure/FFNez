@@ -10,7 +10,7 @@ namespace Nez.Farseer
 
 		#region Configuration
 
-		public FSMotorJoint setLinearOffset( Vector2 linearOffset )
+		public FSMotorJoint setLinearOffset( vec2 linearOffset )
 		{
 			_jointDef.linearOffset = linearOffset;
 			recreateJoint();

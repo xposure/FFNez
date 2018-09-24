@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Common.Decomposition
+namespace Nez.Common.Decomposition
 {
 	/// <summary>
 	/// Convex decomposition algorithm using ear clipping
@@ -105,8 +105,8 @@ namespace FarseerPhysics.Common.Decomposition
 			var yrem = new float[vertices.Count];
 			for( int i = 0; i < vertices.Count; ++i )
 			{
-				xrem[i] = vertices[i].X;
-				yrem[i] = vertices[i].Y;
+				xrem[i] = vertices[i].x;
+				yrem[i] = vertices[i].y;
 			}
 
 			var vNum = vertices.Count;
@@ -121,9 +121,9 @@ namespace FarseerPhysics.Common.Decomposition
 					{
 						var lower = remainder( i - 1, vNum );
 						var upper = remainder( i + 1, vNum );
-						var d1 = new Vector2( xrem[upper] - xrem[i], yrem[upper] - yrem[i] );
-						var d2 = new Vector2( xrem[i] - xrem[lower], yrem[i] - yrem[lower] );
-						var d3 = new Vector2( xrem[lower] - xrem[upper], yrem[lower] - yrem[upper] );
+						var d1 = new vec2( xrem[upper] - xrem[i], yrem[upper] - yrem[i] );
+						var d2 = new vec2( xrem[i] - xrem[lower], yrem[i] - yrem[lower] );
+						var d3 = new vec2( xrem[lower] - xrem[upper], yrem[lower] - yrem[upper] );
 
                         d1.Normalize();
                         d2.Normalize();
@@ -235,7 +235,7 @@ namespace FarseerPhysics.Common.Decomposition
 				{
 					//Don't worry about pinch points where the points
 					//are actually just dupe neighbors
-					if( Math.Abs( pin[i].X - pin[j].X ) < tolerance && Math.Abs( pin[i].Y - pin[j].Y ) < tolerance && j != i + 1 )
+					if( Math.Abs( pin[i].x - pin[j].x ) < tolerance && Math.Abs( pin[i].y - pin[j].y ) < tolerance && j != i + 1 )
 					{
 						pinchIndexA = i;
 						pinchIndexB = j;
@@ -356,35 +356,35 @@ namespace FarseerPhysics.Common.Decomposition
 				float cross = ( x2 - x1 ) * ( y3 - y1 ) - ( x3 - x1 ) * ( y2 - y1 );
 				if( cross > 0 )
 				{
-					Add( new Vector2( x1, y1 ) );
-					Add( new Vector2( x2, y2 ) );
-					Add( new Vector2( x3, y3 ) );
+					Add( new vec2( x1, y1 ) );
+					Add( new vec2( x2, y2 ) );
+					Add( new vec2( x3, y3 ) );
 				}
 				else
 				{
-					Add( new Vector2( x1, y1 ) );
-					Add( new Vector2( x3, y3 ) );
-					Add( new Vector2( x2, y2 ) );
+					Add( new vec2( x1, y1 ) );
+					Add( new vec2( x3, y3 ) );
+					Add( new vec2( x2, y2 ) );
 				}
 			}
 
 			public bool isInside( float x, float y )
 			{
-				Vector2 a = this[0];
-				Vector2 b = this[1];
-				Vector2 c = this[2];
+				vec2 a = this[0];
+				vec2 b = this[1];
+				vec2 c = this[2];
 
-				if( x < a.X && x < b.X && x < c.X ) return false;
-				if( x > a.X && x > b.X && x > c.X ) return false;
-				if( y < a.Y && y < b.Y && y < c.Y ) return false;
-				if( y > a.Y && y > b.Y && y > c.Y ) return false;
+				if( x < a.x && x < b.x && x < c.x ) return false;
+				if( x > a.x && x > b.x && x > c.x ) return false;
+				if( y < a.y && y < b.y && y < c.y ) return false;
+				if( y > a.y && y > b.y && y > c.y ) return false;
 
-				float vx2 = x - a.X;
-				float vy2 = y - a.Y;
-				float vx1 = b.X - a.X;
-				float vy1 = b.Y - a.Y;
-				float vx0 = c.X - a.X;
-				float vy0 = c.Y - a.Y;
+				float vx2 = x - a.x;
+				float vy2 = y - a.y;
+				float vx1 = b.x - a.x;
+				float vy1 = b.y - a.y;
+				float vx0 = c.x - a.x;
+				float vy0 = c.y - a.y;
 
 				float dot00 = vx0 * vx0 + vy0 * vy0;
 				float dot01 = vx0 * vx1 + vy0 * vy1;

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
+using Nez.Collision.Shapes;
+using Nez.Dynamics;
+using Nez.Factories;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common.PolygonManipulation
+namespace Nez.Common.PolygonManipulation
 {
 	public static class CuttingTools
 	{
@@ -20,10 +20,10 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// <param name="exitPoint">The exit point - The end point</param>
 		/// <param name="first">The first collection of vertexes</param>
 		/// <param name="second">The second collection of vertexes</param>
-		public static void splitShape( Fixture fixture, Vector2 entryPoint, Vector2 exitPoint, out Vertices first, out Vertices second )
+		public static void splitShape( Fixture fixture, vec2 entryPoint, vec2 exitPoint, out Vertices first, out Vertices second )
 		{
-			Vector2 localEntryPoint = fixture.body.getLocalPoint( ref entryPoint );
-			Vector2 localExitPoint = fixture.body.getLocalPoint( ref exitPoint );
+			vec2 localEntryPoint = fixture.body.getLocalPoint( ref entryPoint );
+			vec2 localExitPoint = fixture.body.getLocalPoint( ref exitPoint );
 
 			PolygonShape shape = fixture.shape as PolygonShape;
 
@@ -36,13 +36,13 @@ namespace FarseerPhysics.Common.PolygonManipulation
 			}
 
 			//Offset the entry and exit points if they are too close to the vertices
-			foreach( Vector2 vertex in shape.vertices )
+			foreach( vec2 vertex in shape.vertices )
 			{
 				if( vertex.Equals( localEntryPoint ) )
-					localEntryPoint -= new Vector2( 0, Settings.epsilon );
+					localEntryPoint -= new vec2( 0, Settings.epsilon );
 
 				if( vertex.Equals( localExitPoint ) )
-					localExitPoint += new Vector2( 0, Settings.epsilon );
+					localExitPoint += new vec2( 0, Settings.epsilon );
 			}
 
 			Vertices vertices = new Vertices( shape.vertices );
@@ -59,7 +59,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 			{
 				int n;
 				//Find out if this vertex is on the old or new shape.
-				if( Vector2.Dot( MathUtils.cross( localExitPoint - localEntryPoint, 1 ), vertices[i] - localEntryPoint ) > Settings.epsilon )
+				if( vec2.Dot( MathUtils.cross( localExitPoint - localEntryPoint, 1 ), vertices[i] - localEntryPoint ) > Settings.epsilon )
 					n = 0;
 				else
 					n = 1;
@@ -103,7 +103,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 
 			for( int n = 0; n < 2; n++ )
 			{
-				Vector2 offset;
+				vec2 offset;
 				if( cutAdded[n] > 0 )
 					offset = ( newPolygon[n][cutAdded[n] - 1] - newPolygon[n][cutAdded[n]] );
 				else
@@ -112,7 +112,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 				//Nez.Vector2Ext.normalize( ref offset );
 
 				if( !offset.isValid() )
-					offset = Vector2.One;
+					offset = vec2.One;
 
 				newPolygon[n][cutAdded[n]] += Settings.epsilon * offset;
 
@@ -124,7 +124,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 				//Nez.Vector2Ext.normalize( ref offset );
 
 				if( !offset.isValid() )
-					offset = Vector2.One;
+					offset = vec2.One;
 
 				newPolygon[n][cutAdded[n] + 1] += Settings.epsilon * offset;
 			}
@@ -142,11 +142,11 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// <param name="start">The startpoint.</param>
 		/// <param name="end">The endpoint.</param>
 		/// <returns>True if the cut was performed.</returns>
-		public static bool cut( World world, Vector2 start, Vector2 end )
+		public static bool cut( World world, vec2 start, vec2 end )
 		{
 			var fixtures = new List<Fixture>();
-			var entryPoints = new List<Vector2>();
-			var exitPoints = new List<Vector2>();
+			var entryPoints = new List<vec2>();
+			var exitPoints = new List<vec2>();
 
 			//We don't support cutting when the start or end is inside a shape.
 			if( world.testPoint( start ) != null || world.testPoint( end ) != null )

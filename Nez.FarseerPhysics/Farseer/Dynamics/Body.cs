@@ -24,18 +24,18 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Common.PhysicsLogic;
-using FarseerPhysics.Controllers;
-using FarseerPhysics.Dynamics.Contacts;
-using FarseerPhysics.Dynamics.Joints;
+using Nez.Collision;
+using Nez.Collision.Shapes;
+using Nez.Common;
+using Nez.Common.PhysicsLogic;
+using Nez.Controllers;
+using Nez.Dynamics.Contacts;
+using Nez.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 using Nez.Farseer;
 
 
-namespace FarseerPhysics.Dynamics
+namespace Nez.Dynamics
 {
 	/// <summary>
 	/// The body type.
@@ -114,7 +114,7 @@ namespace FarseerPhysics.Dynamics
 
 				if( _bodyType == BodyType.Static )
 				{
-					_linearVelocity = Vector2.Zero;
+					_linearVelocity = vec2.Zero;
 					_angularVelocity = 0.0f;
 					_sweep.a0 = _sweep.a;
 					_sweep.c0 = _sweep.c;
@@ -123,7 +123,7 @@ namespace FarseerPhysics.Dynamics
 
 				isAwake = true;
 
-				_force = Vector2.Zero;
+				_force = vec2.Zero;
 				_torque = 0.0f;
 
 				// Delete the attached contacts.
@@ -152,16 +152,16 @@ namespace FarseerPhysics.Dynamics
 		/// Get or sets the linear velocity of the center of mass.
 		/// </summary>
 		/// <value>The linear velocity.</value>
-		public Vector2 linearVelocity
+		public vec2 linearVelocity
 		{
 			set
 			{
-				Debug.Assert( !float.IsNaN( value.X ) && !float.IsNaN( value.Y ) );
+				Debug.Assert( !float.IsNaN( value.x ) && !float.IsNaN( value.y ) );
 
 				if( _bodyType == BodyType.Static )
 					return;
 
-				if( Vector2.Dot( value, value ) > 0.0f )
+				if( vec2.Dot( value, value ) > 0.0f )
 					isAwake = true;
 
 				_linearVelocity = value;
@@ -378,12 +378,12 @@ namespace FarseerPhysics.Dynamics
 		/// Get the world body origin position.
 		/// </summary>
 		/// <returns>Return the world position of the body's origin.</returns>
-		public Vector2 position
+		public vec2 position
 		{
 			get { return _xf.p; }
 			set
 			{
-				Debug.Assert( !float.IsNaN( value.X ) && !float.IsNaN( value.Y ) );
+				Debug.Assert( !float.IsNaN( value.x ) && !float.IsNaN( value.y ) );
 				setTransform( ref value, rotation );
 			}
 		}
@@ -392,7 +392,7 @@ namespace FarseerPhysics.Dynamics
 		/// Get/set the world body origin position in display units.
 		/// </summary>
 		/// <returns>Return the world position of the body's origin.</returns>
-		public Vector2 displayPosition
+		public vec2 displayPosition
 		{
 			get { return _xf.p * FSConvert.simToDisplay; }
 			set { position = value * FSConvert.displayToSim; }
@@ -452,13 +452,13 @@ namespace FarseerPhysics.Dynamics
 		/// Get the world position of the center of mass.
 		/// </summary>
 		/// <value>The world position.</value>
-		public Vector2 worldCenter { get { return _sweep.c; } }
+		public vec2 worldCenter { get { return _sweep.c; } }
 
 		/// <summary>
 		/// Get the local position of the center of mass.
 		/// </summary>
 		/// <value>The local position.</value>
-		public Vector2 localCenter
+		public vec2 localCenter
 		{
 			get { return _sweep.localCenter; }
 			set
@@ -473,7 +473,7 @@ namespace FarseerPhysics.Dynamics
 
 				// Update center of mass velocity.
 				var a = _sweep.c - oldCenter;
-				_linearVelocity += new Vector2( -_angularVelocity * a.Y, _angularVelocity * a.X );
+				_linearVelocity += new vec2( -_angularVelocity * a.y, _angularVelocity * a.x );
 			}
 		}
 
@@ -506,7 +506,7 @@ namespace FarseerPhysics.Dynamics
 		/// <value>The inertia.</value>
 		public float inertia
 		{
-			get { return _inertia + mass * Vector2.Dot( _sweep.localCenter, _sweep.localCenter ); }
+			get { return _inertia + mass * vec2.Dot( _sweep.localCenter, _sweep.localCenter ); }
 			set
 			{
 				Debug.Assert( !float.IsNaN( value ) );
@@ -516,7 +516,7 @@ namespace FarseerPhysics.Dynamics
 
 				if( value > 0.0f && !_fixedRotation ) //Make an assert
 				{
-					_inertia = value - mass * Vector2.Dot( localCenter, localCenter );
+					_inertia = value - mass * vec2.Dot( localCenter, localCenter );
 					Debug.Assert( _inertia > 0.0f );
 					_invI = 1.0f / _inertia;
 				}
@@ -687,8 +687,8 @@ namespace FarseerPhysics.Dynamics
 
 		internal bool _enabled;
 		internal float _angularVelocity;
-		internal Vector2 _linearVelocity;
-		internal Vector2 _force;
+		internal vec2 _linearVelocity;
+		internal vec2 _force;
 		internal float _invI;
 		internal float _invMass;
 		internal float _sleepTime;
@@ -701,7 +701,7 @@ namespace FarseerPhysics.Dynamics
 		#endregion
 
 
-		public Body( World world, Vector2 position = new Vector2(), float rotation = 0, BodyType bodyType = BodyType.Static, object userdata = null )
+		public Body( World world, vec2 position = new vec2(), float rotation = 0, BodyType bodyType = BodyType.Static, object userdata = null )
 		{
 			fixtureList = new List<Fixture>();
 			bodyId = _bodyIdCounter++;
@@ -718,7 +718,7 @@ namespace FarseerPhysics.Dynamics
 			_xf.q.Set( rotation );
 
 			//FPE: optimization
-			if( position != Vector2.Zero )
+			if( position != vec2.Zero )
 			{
 				_xf.p = position;
 				_sweep.c0 = _xf.p;
@@ -744,8 +744,8 @@ namespace FarseerPhysics.Dynamics
 		{
 			_torque = 0;
 			_angularVelocity = 0;
-			_force = Vector2.Zero;
-			_linearVelocity = Vector2.Zero;
+			_force = vec2.Zero;
+			_linearVelocity = vec2.Zero;
 		}
 
 		/// <summary>
@@ -819,7 +819,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="position">The world position of the body's local origin.</param>
 		/// <param name="rotation">The world rotation in radians.</param>
-		public void setTransform( ref Vector2 position, float rotation )
+		public void setTransform( ref vec2 position, float rotation )
 		{
 			setTransformIgnoreContacts( ref position, rotation );
 			_world.contactManager.findNewContacts();
@@ -832,7 +832,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="position">The world position of the body's local origin.</param>
 		/// <param name="rotation">The world rotation in radians.</param>
-		public void setTransform( Vector2 position, float rotation )
+		public void setTransform( vec2 position, float rotation )
 		{
 			setTransform( ref position, rotation );
 		}
@@ -842,7 +842,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="position">The position.</param>
 		/// <param name="angle">The angle.</param>
-		public void setTransformIgnoreContacts( ref Vector2 position, float angle )
+		public void setTransformIgnoreContacts( ref vec2 position, float angle )
 		{
 			_xf.q.Set( angle );
 			_xf.p = position;
@@ -879,7 +879,7 @@ namespace FarseerPhysics.Dynamics
 			_invMass = 0.0f;
 			_inertia = 0.0f;
 			_invI = 0.0f;
-			_sweep.localCenter = Vector2.Zero;
+			_sweep.localCenter = vec2.Zero;
 
 			// Kinematic bodies have zero mass.
 			if( bodyType == BodyType.Kinematic )
@@ -893,7 +893,7 @@ namespace FarseerPhysics.Dynamics
 			Debug.Assert( bodyType == BodyType.Dynamic || bodyType == BodyType.Static );
 
 			// Accumulate mass over all fixtures.
-			Vector2 localCenter = Vector2.Zero;
+			vec2 localCenter = vec2.Zero;
 			foreach( Fixture f in fixtureList )
 			{
 				if( f.shape._density == 0 )
@@ -930,7 +930,7 @@ namespace FarseerPhysics.Dynamics
 			if( _inertia > 0.0f && !_fixedRotation )
 			{
 				// Center the inertia about the center of mass.
-				_inertia -= _mass * Vector2.Dot( localCenter, localCenter );
+				_inertia -= _mass * vec2.Dot( localCenter, localCenter );
 
 				Debug.Assert( _inertia > 0.0f );
 				_invI = 1.0f / _inertia;
@@ -948,7 +948,7 @@ namespace FarseerPhysics.Dynamics
 
 			// Update center of mass velocity.
 			var a = _sweep.c - oldCenter;
-			_linearVelocity += new Vector2( -_angularVelocity * a.Y, _angularVelocity * a.X );
+			_linearVelocity += new vec2( -_angularVelocity * a.y, _angularVelocity * a.x );
 		}
 
 
@@ -961,7 +961,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="force">The world force vector, usually in Newtons (N).</param>
 		/// <param name="point">The world position of the point of application.</param>
-		public void applyForce( Vector2 force, Vector2 point )
+		public void applyForce( vec2 force, vec2 point )
 		{
 			applyForce( ref force, ref point );
 		}
@@ -970,7 +970,7 @@ namespace FarseerPhysics.Dynamics
 		/// Applies a force at the center of mass.
 		/// </summary>
 		/// <param name="force">The force.</param>
-		public void applyForce( ref Vector2 force )
+		public void applyForce( ref vec2 force )
 		{
 			applyForce( ref force, ref _xf.p );
 		}
@@ -979,7 +979,7 @@ namespace FarseerPhysics.Dynamics
 		/// Applies a force at the center of mass.
 		/// </summary>
 		/// <param name="force">The force.</param>
-		public void applyForce( Vector2 force )
+		public void applyForce( vec2 force )
 		{
 			applyForce( ref force, ref _xf.p );
 		}
@@ -991,12 +991,12 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="force">The world force vector, usually in Newtons (N).</param>
 		/// <param name="point">The world position of the point of application.</param>
-		public void applyForce( ref Vector2 force, ref Vector2 point )
+		public void applyForce( ref vec2 force, ref vec2 point )
 		{
-			Debug.Assert( !float.IsNaN( force.X ) );
-			Debug.Assert( !float.IsNaN( force.Y ) );
-			Debug.Assert( !float.IsNaN( point.X ) );
-			Debug.Assert( !float.IsNaN( point.Y ) );
+			Debug.Assert( !float.IsNaN( force.x ) );
+			Debug.Assert( !float.IsNaN( force.y ) );
+			Debug.Assert( !float.IsNaN( point.x ) );
+			Debug.Assert( !float.IsNaN( point.y ) );
 
 			if( _bodyType == BodyType.Dynamic )
 			{
@@ -1004,7 +1004,7 @@ namespace FarseerPhysics.Dynamics
 					isAwake = true;
 
 				_force += force;
-				_torque += ( point.X - _sweep.c.X ) * force.Y - ( point.Y - _sweep.c.Y ) * force.X;
+				_torque += ( point.x - _sweep.c.x ) * force.y - ( point.y - _sweep.c.y ) * force.x;
 			}
 		}
 
@@ -1032,7 +1032,7 @@ namespace FarseerPhysics.Dynamics
 		/// This wakes up the body.
 		/// </summary>
 		/// <param name="impulse">The world impulse vector, usually in N-seconds or kg-m/s.</param>
-		public void applyLinearImpulse( Vector2 impulse )
+		public void applyLinearImpulse( vec2 impulse )
 		{
 			applyLinearImpulse( ref impulse );
 		}
@@ -1045,7 +1045,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="impulse">The world impulse vector, usually in N-seconds or kg-m/s.</param>
 		/// <param name="point">The world position of the point of application.</param>
-		public void applyLinearImpulse( Vector2 impulse, Vector2 point )
+		public void applyLinearImpulse( vec2 impulse, vec2 point )
 		{
 			applyLinearImpulse( ref impulse, ref point );
 		}
@@ -1055,7 +1055,7 @@ namespace FarseerPhysics.Dynamics
 		/// This wakes up the body.
 		/// </summary>
 		/// <param name="impulse">The world impulse vector, usually in N-seconds or kg-m/s.</param>
-		public void applyLinearImpulse( ref Vector2 impulse )
+		public void applyLinearImpulse( ref vec2 impulse )
 		{
 			if( _bodyType != BodyType.Dynamic )
 			{
@@ -1076,7 +1076,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="impulse">The world impulse vector, usually in N-seconds or kg-m/s.</param>
 		/// <param name="point">The world position of the point of application.</param>
-		public void applyLinearImpulse( ref Vector2 impulse, ref Vector2 point )
+		public void applyLinearImpulse( ref vec2 impulse, ref vec2 point )
 		{
 			if( _bodyType != BodyType.Dynamic )
 				return;
@@ -1085,7 +1085,7 @@ namespace FarseerPhysics.Dynamics
 				isAwake = true;
 
 			_linearVelocity += _invMass * impulse;
-			_angularVelocity += _invI * ( ( point.X - _sweep.c.X ) * impulse.Y - ( point.Y - _sweep.c.Y ) * impulse.X );
+			_angularVelocity += _invI * ( ( point.x - _sweep.c.x ) * impulse.y - ( point.y - _sweep.c.y ) * impulse.x );
 		}
 
 		/// <summary>
@@ -1117,7 +1117,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="localPoint">A point on the body measured relative the the body's origin.</param>
 		/// <returns>The same point expressed in world coordinates.</returns>
-		public Vector2 getWorldPoint( ref Vector2 localPoint )
+		public vec2 getWorldPoint( ref vec2 localPoint )
 		{
 			return MathUtils.mul( ref _xf, ref localPoint );
 		}
@@ -1127,7 +1127,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="localPoint">A point on the body measured relative the the body's origin.</param>
 		/// <returns>The same point expressed in world coordinates.</returns>
-		public Vector2 getWorldPoint( Vector2 localPoint )
+		public vec2 getWorldPoint( vec2 localPoint )
 		{
 			return getWorldPoint( ref localPoint );
 		}
@@ -1138,7 +1138,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="localVector">A vector fixed in the body.</param>
 		/// <returns>The same vector expressed in world coordinates.</returns>
-		public Vector2 getWorldVector( ref Vector2 localVector )
+		public vec2 getWorldVector( ref vec2 localVector )
 		{
 			return MathUtils.mul( _xf.q, localVector );
 		}
@@ -1148,7 +1148,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="localVector">A vector fixed in the body.</param>
 		/// <returns>The same vector expressed in world coordinates.</returns>
-		public Vector2 getWorldVector( Vector2 localVector )
+		public vec2 getWorldVector( vec2 localVector )
 		{
 			return getWorldVector( ref localVector );
 		}
@@ -1159,7 +1159,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="worldPoint">A point in world coordinates.</param>
 		/// <returns>The corresponding local point relative to the body's origin.</returns>
-		public Vector2 getLocalPoint( ref Vector2 worldPoint )
+		public vec2 getLocalPoint( ref vec2 worldPoint )
 		{
 			return MathUtils.mulT( ref _xf, worldPoint );
 		}
@@ -1169,7 +1169,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="worldPoint">A point in world coordinates.</param>
 		/// <returns>The corresponding local point relative to the body's origin.</returns>
-		public Vector2 getLocalPoint( Vector2 worldPoint )
+		public vec2 getLocalPoint( vec2 worldPoint )
 		{
 			return getLocalPoint( ref worldPoint );
 		}
@@ -1180,7 +1180,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="worldVector">A vector in world coordinates.</param>
 		/// <returns>The corresponding local vector.</returns>
-		public Vector2 getLocalVector( ref Vector2 worldVector )
+		public vec2 getLocalVector( ref vec2 worldVector )
 		{
 			return MathUtils.mulT( _xf.q, worldVector );
 		}
@@ -1191,7 +1191,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="worldVector">A vector in world coordinates.</param>
 		/// <returns>The corresponding local vector.</returns>
-		public Vector2 getLocalVector( Vector2 worldVector )
+		public vec2 getLocalVector( vec2 worldVector )
 		{
 			return getLocalVector( ref worldVector );
 		}
@@ -1201,7 +1201,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="worldPoint">A point in world coordinates.</param>
 		/// <returns>The world velocity of a point.</returns>
-		public Vector2 getLinearVelocityFromWorldPoint( Vector2 worldPoint )
+		public vec2 getLinearVelocityFromWorldPoint( vec2 worldPoint )
 		{
 			return getLinearVelocityFromWorldPoint( ref worldPoint );
 		}
@@ -1211,11 +1211,11 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="worldPoint">A point in world coordinates.</param>
 		/// <returns>The world velocity of a point.</returns>
-		public Vector2 getLinearVelocityFromWorldPoint( ref Vector2 worldPoint )
+		public vec2 getLinearVelocityFromWorldPoint( ref vec2 worldPoint )
 		{
 			return _linearVelocity +
-				   new Vector2( -_angularVelocity * ( worldPoint.Y - _sweep.c.Y ),
-							   _angularVelocity * ( worldPoint.X - _sweep.c.X ) );
+				   new vec2( -_angularVelocity * ( worldPoint.y - _sweep.c.y ),
+							   _angularVelocity * ( worldPoint.x - _sweep.c.x ) );
 		}
 
 		/// <summary>
@@ -1223,7 +1223,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="localPoint">A point in local coordinates.</param>
 		/// <returns>The world velocity of a point.</returns>
-		public Vector2 getLinearVelocityFromLocalPoint( Vector2 localPoint )
+		public vec2 getLinearVelocityFromLocalPoint( vec2 localPoint )
 		{
 			return getLinearVelocityFromLocalPoint( ref localPoint );
 		}
@@ -1233,7 +1233,7 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="localPoint">A point in local coordinates.</param>
 		/// <returns>The world velocity of a point.</returns>
-		public Vector2 getLinearVelocityFromLocalPoint( ref Vector2 localPoint )
+		public vec2 getLinearVelocityFromLocalPoint( ref vec2 localPoint )
 		{
 			return getLinearVelocityFromWorldPoint( getWorldPoint( ref localPoint ) );
 		}

@@ -1,9 +1,9 @@
 ﻿using System;
-using FarseerPhysics.Dynamics;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Controllers
+namespace Nez.Controllers
 {
 	public abstract class AbstractForceController : Controller
 	{
@@ -72,7 +72,7 @@ namespace FarseerPhysics.Controllers
 		/// Provided for reuse to provide Variation functionality in 
 		/// inheriting classes
 		/// </summary>
-		protected Random randomize;
+		protected System.Random randomize;
 
 		/// <summary>
 		/// Curve used by Curve Mode as an animated multiplier for the force 
@@ -91,7 +91,7 @@ namespace FarseerPhysics.Controllers
 			enabled = true;
 
 			strength = 1.0f;
-			position = new Vector2( 0, 0 );
+			position = new vec2( 0, 0 );
 			maximumSpeed = 100.0f;
 			timingMode = TimingModes.Switched;
 			impulseTime = 0.0f;
@@ -142,7 +142,7 @@ namespace FarseerPhysics.Controllers
 		/// Position of the Force. Can be ignored (left at (0,0) for forces
 		/// that are not position-dependent
 		/// </summary>
-		public Vector2 position { get; set; }
+		public vec2 position { get; set; }
 
 		/// <summary>
 		/// Maximum speed of the bodies. Bodies that are travelling faster are

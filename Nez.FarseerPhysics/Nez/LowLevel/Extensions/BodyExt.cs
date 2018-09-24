@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Common;
-using FarseerPhysics.Common.Decomposition;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Joints;
-using FarseerPhysics.Factories;
+using Nez.Common;
+using Nez.Common.Decomposition;
+using Nez.Dynamics;
+using Nez.Dynamics.Joints;
+using Nez.Factories;
 using Microsoft.Xna.Framework;
 
 
@@ -13,13 +13,13 @@ namespace Nez.Farseer
 	{
 		#region Fixtures/Shapes
 
-		public static Fixture attachEdge( this Body body, Vector2 start, Vector2 end )
+		public static Fixture attachEdge( this Body body, vec2 start, vec2 end )
 		{
 			return FixtureFactory.attachEdge( FSConvert.displayToSim * start, FSConvert.displayToSim * end, body );
 		}
 
 
-		public static Fixture attachChainShape( this Body body, List<Vector2> vertices )
+		public static Fixture attachChainShape( this Body body, List<vec2> vertices )
 		{
 			for( var i = 0; i < vertices.Count; i++ )
 				vertices[i] = FSConvert.toSimUnits( vertices[i] );
@@ -28,7 +28,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static Fixture attachLoopShape( this Body body, List<Vector2> vertices )
+		public static Fixture attachLoopShape( this Body body, List<vec2> vertices )
 		{
 			for( var i = 0; i < vertices.Count; i++ )
 				vertices[i] = FSConvert.toSimUnits( vertices[i] );
@@ -37,19 +37,19 @@ namespace Nez.Farseer
 		}
 
 
-		public static Fixture attachCircle( this Body body, float radius, float density, Vector2 offset = default( Vector2 ) )
+		public static Fixture attachCircle( this Body body, float radius, float density, vec2 offset = default( vec2 ) )
 		{
 			return FixtureFactory.attachCircle( FSConvert.displayToSim * radius, density, body, offset * FSConvert.displayToSim, null );
 		}
 
 
-		public static Fixture attachRectangle( this Body body, float width, float height, float density, Vector2 offset = default( Vector2 ) )
+		public static Fixture attachRectangle( this Body body, float width, float height, float density, vec2 offset = default( vec2 ) )
 		{
 			return FixtureFactory.attachRectangle( FSConvert.displayToSim * width, FSConvert.displayToSim * height, density, FSConvert.displayToSim * offset, body );
 		}
 
 
-		public static List<Fixture> attachRoundedRectangle( this Body body, float width, float height, float xRadius, float yRadius, int segments, float density, Vector2 position = new Vector2() )
+		public static List<Fixture> attachRoundedRectangle( this Body body, float width, float height, float xRadius, float yRadius, int segments, float density, vec2 position = new vec2() )
 		{
 			width *= FSConvert.displayToSim;
 			height *= FSConvert.displayToSim;
@@ -61,7 +61,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static Fixture attachPolygon( this Body body, List<Vector2> vertices, float density )
+		public static Fixture attachPolygon( this Body body, List<vec2> vertices, float density )
 		{
 			for( var i = 0; i < vertices.Count; i++ )
 				vertices[i] = FSConvert.displayToSim * vertices[i];
@@ -126,8 +126,8 @@ namespace Nez.Farseer
 			body.attachRectangle( endRadius, height / 2, density );
 
 			// create the two circles
-			body.attachCircle( endRadius, density, new Vector2( 0, height / 2 ) );
-			body.attachCircle( endRadius, density, new Vector2( 0, -height / 2 ) );
+			body.attachCircle( endRadius, density, new vec2( 0, height / 2 ) );
+			body.attachCircle( endRadius, density, new vec2( 0, -height / 2 ) );
 		}
 
 		#endregion
@@ -141,45 +141,45 @@ namespace Nez.Farseer
 		}
 
 
-		public static RevoluteJoint createRevoluteJoint( this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public static RevoluteJoint createRevoluteJoint( this Body body, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 		{
 			return JointFactory.createRevoluteJoint( body.world, body, bodyB, FSConvert.displayToSim * anchorA, FSConvert.displayToSim * anchorB, useWorldCoordinates );
 		}
 
 
-		public static RevoluteJoint createRevoluteJoint( this Body body, Body bodyB, Vector2 anchor )
+		public static RevoluteJoint createRevoluteJoint( this Body body, Body bodyB, vec2 anchor )
 		{
 			return JointFactory.createRevoluteJoint( body.world, body, bodyB, FSConvert.displayToSim * anchor );
 		}
 
 
-		public static RopeJoint createRopeJoint( this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public static RopeJoint createRopeJoint( this Body body, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 		{
 			return JointFactory.createRopeJoint( body.world, body, bodyB, FSConvert.displayToSim * anchorA, FSConvert.displayToSim * anchorB, useWorldCoordinates );
 		}
 
 
-		public static WeldJoint createWeldJoint( this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public static WeldJoint createWeldJoint( this Body body, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 		{
 			return JointFactory.createWeldJoint( body.world, body, bodyB, FSConvert.displayToSim * anchorA, FSConvert.displayToSim * anchorB, useWorldCoordinates );
 		}
 
 
-		public static PrismaticJoint createPrismaticJoint( this Body body, Body bodyB, Vector2 anchor, Vector2 axis, bool useWorldCoordinates = false )
+		public static PrismaticJoint createPrismaticJoint( this Body body, Body bodyB, vec2 anchor, vec2 axis, bool useWorldCoordinates = false )
 		{
 			return JointFactory.createPrismaticJoint( body.world, body, bodyB, FSConvert.displayToSim * anchor, axis, useWorldCoordinates );
 		}
 
 
-		public static WheelJoint createWheelJoint( this Body body, Body bodyB, Vector2 anchor, Vector2 axis, bool useWorldCoordinates = false )
+		public static WheelJoint createWheelJoint( this Body body, Body bodyB, vec2 anchor, vec2 axis, bool useWorldCoordinates = false )
 		{
 			return JointFactory.createWheelJoint( body.world, body, bodyB, FSConvert.displayToSim * anchor, axis, useWorldCoordinates );
 		}
 
 
-		public static WheelJoint createWheelJoint( this Body body, Body bodyB, Vector2 axis )
+		public static WheelJoint createWheelJoint( this Body body, Body bodyB, vec2 axis )
 		{
-			return createWheelJoint( body, bodyB, Vector2.Zero, axis );
+			return createWheelJoint( body, bodyB, vec2.Zero, axis );
 		}
 
 
@@ -189,7 +189,7 @@ namespace Nez.Farseer
 		}
 
 
-		public static DistanceJoint createDistanceJoint( this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public static DistanceJoint createDistanceJoint( this Body body, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 		{
 			return JointFactory.createDistanceJoint( body.world, body, bodyB, FSConvert.displayToSim * anchorA, FSConvert.displayToSim * anchorB, useWorldCoordinates );
 		}
@@ -197,11 +197,11 @@ namespace Nez.Farseer
 
 		public static DistanceJoint createDistanceJoint( this Body body, Body bodyB )
 		{
-			return createDistanceJoint( body, bodyB, Vector2.Zero, Vector2.Zero );
+			return createDistanceJoint( body, bodyB, vec2.Zero, vec2.Zero );
 		}
 
 
-		public static FrictionJoint createFrictionJoint( this Body body, Body bodyB, Vector2 anchor, bool useWorldCoordinates = false )
+		public static FrictionJoint createFrictionJoint( this Body body, Body bodyB, vec2 anchor, bool useWorldCoordinates = false )
 		{
 			return JointFactory.createFrictionJoint( body.world, body, bodyB, FSConvert.displayToSim * anchor, useWorldCoordinates );
 		}
@@ -209,7 +209,7 @@ namespace Nez.Farseer
 
 		public static FrictionJoint createFrictionJoint( this Body body, Body bodyB )
 		{
-			return createFrictionJoint( body, bodyB, Vector2.Zero );
+			return createFrictionJoint( body, bodyB, vec2.Zero );
 		}
 
 
@@ -219,13 +219,13 @@ namespace Nez.Farseer
 		}
 
 
-		public static PulleyJoint createPulleyJoint( this Body body, Body bodyB, Vector2 anchorA, Vector2 anchorB, Vector2 worldAnchorA, Vector2 worldAnchorB, float ratio, bool useWorldCoordinates = false )
+		public static PulleyJoint createPulleyJoint( this Body body, Body bodyB, vec2 anchorA, vec2 anchorB, vec2 worldAnchorA, vec2 worldAnchorB, float ratio, bool useWorldCoordinates = false )
 		{
 			return JointFactory.createPulleyJoint( body.world, body, bodyB, FSConvert.displayToSim * anchorA, FSConvert.displayToSim * anchorB, FSConvert.displayToSim * worldAnchorA, FSConvert.displayToSim * worldAnchorB, ratio, useWorldCoordinates );
 		}
 
 
-		public static FixedMouseJoint createFixedMouseJoint( this Body body, Vector2 worldAnchor )
+		public static FixedMouseJoint createFixedMouseJoint( this Body body, vec2 worldAnchor )
 		{
 			return JointFactory.createFixedMouseJoint( body.world, body, FSConvert.displayToSim * worldAnchor );
 		}

@@ -1,9 +1,9 @@
 ﻿using System;
-using FarseerPhysics.Collision;
+using Nez.Collision;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common
+namespace Nez.Common
 {
 	/// <summary>
 	/// Collection of helper methods for misc collisions.
@@ -11,23 +11,23 @@ namespace FarseerPhysics.Common
 	/// </summary>
 	public static class LineTools
 	{
-		public static float distanceBetweenPointAndLineSegment( ref Vector2 point, ref Vector2 start, ref Vector2 end )
+		public static float distanceBetweenPointAndLineSegment( ref vec2 point, ref vec2 start, ref vec2 end )
 		{
 			if( start == end )
-				return Vector2.Distance( point, start );
+				return vec2.Distance( point, start );
 
-			Vector2 v = Vector2.Subtract( end, start );
-			Vector2 w = Vector2.Subtract( point, start );
+			vec2 v = vec2.Subtract( end, start );
+			vec2 w = vec2.Subtract( point, start );
 
-			float c1 = Vector2.Dot( w, v );
-			if( c1 <= 0 ) return Vector2.Distance( point, start );
+			float c1 = vec2.Dot( w, v );
+			if( c1 <= 0 ) return vec2.Distance( point, start );
 
-			float c2 = Vector2.Dot( v, v );
-			if( c2 <= c1 ) return Vector2.Distance( point, end );
+			float c2 = vec2.Dot( v, v );
+			if( c2 <= c1 ) return vec2.Distance( point, end );
 
 			float b = c1 / c2;
-			Vector2 pointOnLine = Vector2.Add( start, Vector2.Multiply( v, b ) );
-			return Vector2.Distance( point, pointOnLine );
+			vec2 pointOnLine = vec2.Add( start, vec2.Multiply( v, b ) );
+			return vec2.Distance( point, pointOnLine );
 		}
 
 		// From Eric Jordan's convex decomposition library
@@ -39,21 +39,21 @@ namespace FarseerPhysics.Common
 		///Grazing lines should not return true.
 		/// 
 		/// </summary>
-		public static bool lineIntersect2( ref Vector2 a0, ref Vector2 a1, ref Vector2 b0, ref Vector2 b1, out Vector2 intersectionPoint )
+		public static bool lineIntersect2( ref vec2 a0, ref vec2 a1, ref vec2 b0, ref vec2 b1, out vec2 intersectionPoint )
 		{
-			intersectionPoint = Vector2.Zero;
+			intersectionPoint = vec2.Zero;
 
 			if( a0 == b0 || a0 == b1 || a1 == b0 || a1 == b1 )
 				return false;
 
-			float x1 = a0.X;
-			float y1 = a0.Y;
-			float x2 = a1.X;
-			float y2 = a1.Y;
-			float x3 = b0.X;
-			float y3 = b0.Y;
-			float x4 = b1.X;
-			float y4 = b1.Y;
+			float x1 = a0.x;
+			float y1 = a0.y;
+			float x2 = a1.x;
+			float y2 = a1.y;
+			float x3 = b0.x;
+			float y3 = b0.y;
+			float x4 = b1.x;
+			float y4 = b1.y;
 
 			//AABB early exit
 			if( Math.Max( x1, x2 ) < Math.Min( x3, x4 ) || Math.Max( x3, x4 ) < Math.Min( x1, x2 ) )
@@ -75,8 +75,8 @@ namespace FarseerPhysics.Common
 
 			if( ( 0 < ua ) && ( ua < 1 ) && ( 0 < ub ) && ( ub < 1 ) )
 			{
-				intersectionPoint.X = ( x1 + ua * ( x2 - x1 ) );
-				intersectionPoint.Y = ( y1 + ua * ( y2 - y1 ) );
+				intersectionPoint.x = ( x1 + ua * ( x2 - x1 ) );
+				intersectionPoint.y = ( y1 + ua * ( y2 - y1 ) );
 				return true;
 			}
 
@@ -84,22 +84,22 @@ namespace FarseerPhysics.Common
 		}
 
 		//From Mark Bayazit's convex decomposition algorithm
-		public static Vector2 lineIntersect( Vector2 p1, Vector2 p2, Vector2 q1, Vector2 q2 )
+		public static vec2 lineIntersect( vec2 p1, vec2 p2, vec2 q1, vec2 q2 )
 		{
-			Vector2 i = Vector2.Zero;
-			float a1 = p2.Y - p1.Y;
-			float b1 = p1.X - p2.X;
-			float c1 = a1 * p1.X + b1 * p1.Y;
-			float a2 = q2.Y - q1.Y;
-			float b2 = q1.X - q2.X;
-			float c2 = a2 * q1.X + b2 * q1.Y;
+			vec2 i = vec2.Zero;
+			float a1 = p2.y - p1.y;
+			float b1 = p1.x - p2.x;
+			float c1 = a1 * p1.x + b1 * p1.y;
+			float a2 = q2.y - q1.y;
+			float b2 = q1.x - q2.x;
+			float c2 = a2 * q1.x + b2 * q1.y;
 			float det = a1 * b2 - a2 * b1;
 
 			if( !MathUtils.floatEquals( det, 0 ) )
 			{
 				// lines are not parallel
-				i.X = ( b2 * c1 - b1 * c2 ) / det;
-				i.Y = ( a1 * c2 - a2 * c1 ) / det;
+				i.x = ( b2 * c1 - b1 * c2 ) / det;
+				i.y = ( a1 * c2 - a2 * c1 ) / det;
 			}
 			return i;
 		}
@@ -128,17 +128,17 @@ namespace FarseerPhysics.Common
 		/// <param name="secondIsSegment">Set this to true to require that the
 		/// intersection point be on the second line segment.</param>
 		/// <returns>True if an intersection is detected, false otherwise.</returns>
-		public static bool lineIntersect( ref Vector2 point1, ref Vector2 point2, ref Vector2 point3, ref Vector2 point4, bool firstIsSegment, bool secondIsSegment, out Vector2 point )
+		public static bool lineIntersect( ref vec2 point1, ref vec2 point2, ref vec2 point3, ref vec2 point4, bool firstIsSegment, bool secondIsSegment, out vec2 point )
 		{
-			point = new Vector2();
+			point = new vec2();
 
 			// these are reused later.
 			// each lettered sub-calculation is used twice, except
 			// for b and d, which are used 3 times
-			float a = point4.Y - point3.Y;
-			float b = point2.X - point1.X;
-			float c = point4.X - point3.X;
-			float d = point2.Y - point1.Y;
+			float a = point4.y - point3.y;
+			float b = point2.x - point1.x;
+			float c = point4.x - point3.x;
+			float d = point2.y - point1.y;
 
 			// denominator to solution of linear system
 			float denom = ( a * b ) - ( c * d );
@@ -146,8 +146,8 @@ namespace FarseerPhysics.Common
 			// if denominator is 0, then lines are parallel
 			if( !( denom >= -Settings.epsilon && denom <= Settings.epsilon ) )
 			{
-				float e = point1.Y - point3.Y;
-				float f = point1.X - point3.X;
+				float e = point1.y - point3.y;
+				float f = point1.x - point3.x;
 				float oneOverDenom = 1.0f / denom;
 
 				// numerator of first equation
@@ -170,8 +170,8 @@ namespace FarseerPhysics.Common
 						if( ua != 0f || ub != 0f )
 						{
 							//There is an intersection
-							point.X = point1.X + ua * b;
-							point.Y = point1.Y + ua * d;
+							point.x = point1.x + ua * b;
+							point.y = point1.y + ua * d;
 							return true;
 						}
 					}
@@ -205,7 +205,7 @@ namespace FarseerPhysics.Common
 		/// <param name="secondIsSegment">Set this to true to require that the
 		/// intersection point be on the second line segment.</param>
 		/// <returns>True if an intersection is detected, false otherwise.</returns>
-		public static bool lineIntersect( Vector2 point1, Vector2 point2, Vector2 point3, Vector2 point4, bool firstIsSegment, bool secondIsSegment, out Vector2 intersectionPoint )
+		public static bool lineIntersect( vec2 point1, vec2 point2, vec2 point3, vec2 point4, bool firstIsSegment, bool secondIsSegment, out vec2 intersectionPoint )
 		{
 			return lineIntersect( ref point1, ref point2, ref point3, ref point4, firstIsSegment, secondIsSegment, out intersectionPoint );
 		}
@@ -224,7 +224,7 @@ namespace FarseerPhysics.Common
 		/// <param name="intersectionPoint">This is set to the intersection
 		/// point if an intersection is detected.</param>
 		/// <returns>True if an intersection is detected, false otherwise.</returns>
-		public static bool lineIntersect( ref Vector2 point1, ref Vector2 point2, ref Vector2 point3, ref Vector2 point4, out Vector2 intersectionPoint )
+		public static bool lineIntersect( ref vec2 point1, ref vec2 point2, ref vec2 point3, ref vec2 point4, out vec2 intersectionPoint )
 		{
 			return lineIntersect( ref point1, ref point2, ref point3, ref point4, true, true, out intersectionPoint );
 		}
@@ -243,7 +243,7 @@ namespace FarseerPhysics.Common
 		/// <param name="intersectionPoint">This is set to the intersection
 		/// point if an intersection is detected.</param>
 		/// <returns>True if an intersection is detected, false otherwise.</returns>
-		public static bool lineIntersect( Vector2 point1, Vector2 point2, Vector2 point3, Vector2 point4, out Vector2 intersectionPoint )
+		public static bool lineIntersect( vec2 point1, vec2 point2, vec2 point3, vec2 point4, out vec2 intersectionPoint )
 		{
 			return lineIntersect( ref point1, ref point2, ref point3, ref point4, true, true, out intersectionPoint );
 		}
@@ -258,13 +258,13 @@ namespace FarseerPhysics.Common
 		/// <param name="point1">The first point of the line segment to test</param>
 		/// <param name="point2">The second point of the line segment to test.</param>
 		/// <param name="vertices">The vertices, as described above</param>
-		public static Vertices lineSegmentVerticesIntersect( ref Vector2 point1, ref Vector2 point2, Vertices vertices )
+		public static Vertices lineSegmentVerticesIntersect( ref vec2 point1, ref vec2 point2, Vertices vertices )
 		{
 			Vertices intersectionPoints = new Vertices();
 
 			for( int i = 0; i < vertices.Count; i++ )
 			{
-				Vector2 point;
+				vec2 point;
 				if( lineIntersect( vertices[i], vertices[vertices.nextIndex( i )], point1, point2, true, true, out point ) )
 				{
 					intersectionPoints.Add( point );
@@ -280,7 +280,7 @@ namespace FarseerPhysics.Common
 		/// <param name="point1">The first point of the line segment to test</param>
 		/// <param name="point2">The second point of the line segment to test.</param>
 		/// <param name="aabb">The AABB that is used for testing intersection.</param>
-		public static Vertices lineSegmentAABBIntersect( ref Vector2 point1, ref Vector2 point2, AABB aabb )
+		public static Vertices lineSegmentAABBIntersect( ref vec2 point1, ref vec2 point2, AABB aabb )
 		{
 			return lineSegmentVerticesIntersect( ref point1, ref point2, aabb.vertices );
 		}

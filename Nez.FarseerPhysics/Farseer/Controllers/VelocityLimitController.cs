@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using FarseerPhysics.Dynamics;
+using Nez.Dynamics;
 
-namespace FarseerPhysics.Controllers
+namespace Nez.Controllers
 {
     /// <summary>
     /// Put a limit on the linear (translation - the movespeed) and angular (rotation) velocity
@@ -89,8 +89,8 @@ namespace FarseerPhysics.Controllers
                 {
                     //Translation
                     // Check for large velocities.
-                    float translationX = dt * body._linearVelocity.X;
-                    float translationY = dt * body._linearVelocity.Y;
+                    float translationX = dt * body._linearVelocity.x;
+                    float translationY = dt * body._linearVelocity.y;
                     float result = translationX * translationX + translationY * translationY;
 
                     if (result > dt * _maxLinearSqared)
@@ -98,8 +98,8 @@ namespace FarseerPhysics.Controllers
                         float sq = (float)Math.Sqrt(result);
 
                         float ratio = _maxLinearVelocity / sq;
-                        body._linearVelocity.X *= ratio;
-                        body._linearVelocity.Y *= ratio;
+                        body._linearVelocity.x *= ratio;
+                        body._linearVelocity.y *= ratio;
                     }
                 }
 

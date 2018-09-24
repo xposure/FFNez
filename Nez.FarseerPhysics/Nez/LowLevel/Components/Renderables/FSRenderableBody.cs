@@ -1,4 +1,4 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using Nez.Dynamics;
 using Microsoft.Xna.Framework.Graphics;
 using Nez.Textures;
 

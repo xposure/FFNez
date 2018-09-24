@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Common.Decomposition
+namespace Nez.Common.Decomposition
 {
     /// <summary>
     /// Convex decomposition algorithm created by unknown
@@ -17,9 +17,9 @@ namespace FarseerPhysics.Common.Decomposition
     /// </summary>
     internal static class FlipcodeDecomposer
     {
-        private static Vector2 _tmpA;
-        private static Vector2 _tmpB;
-        private static Vector2 _tmpC;
+        private static vec2 _tmpA;
+        private static vec2 _tmpB;
+        private static vec2 _tmpC;
 
         /// <summary>
         /// Decompose the polygon into triangles.
@@ -105,16 +105,16 @@ namespace FarseerPhysics.Common.Decomposition
         /// <param name="c">The C point.</param>
         /// <param name="p">The point to be tested.</param>
         /// <returns>True if the point is inside the triangle</returns>
-        private static bool InsideTriangle(ref Vector2 a, ref Vector2 b, ref Vector2 c, ref Vector2 p)
+        private static bool InsideTriangle(ref vec2 a, ref vec2 b, ref vec2 c, ref vec2 p)
         {
             //A cross bp
-            float abp = (c.X - b.X) * (p.Y - b.Y) - (c.Y - b.Y) * (p.X - b.X);
+            float abp = (c.x - b.x) * (p.y - b.y) - (c.y - b.y) * (p.x - b.x);
 
             //A cross ap
-            float aap = (b.X - a.X) * (p.Y - a.Y) - (b.Y - a.Y) * (p.X - a.X);
+            float aap = (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x);
 
             //b cross cp
-            float bcp = (a.X - c.X) * (p.Y - c.Y) - (a.Y - c.Y) * (p.X - c.X);
+            float bcp = (a.x - c.x) * (p.y - c.y) - (a.y - c.y) * (p.x - c.x);
 
             return ((abp >= 0.0f) && (bcp >= 0.0f) && (aap >= 0.0f));
         }
@@ -140,7 +140,7 @@ namespace FarseerPhysics.Common.Decomposition
                 if ((p == u) || (p == v) || (p == w))
                     continue;
 
-                Vector2 point = contour[V[p]];
+                vec2 point = contour[V[p]];
 
                 if (InsideTriangle(ref _tmpA, ref _tmpB, ref _tmpC, ref point))
                     return false;

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common.Decomposition;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Joints;
+using Nez.Collision.Shapes;
+using Nez.Common.Decomposition;
+using Nez.Dynamics;
+using Nez.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common
+namespace Nez.Common
 {
 	/// <summary>
 	/// An easy to use manager for creating paths.
@@ -89,7 +89,7 @@ namespace FarseerPhysics.Common
 
 				// copy the type from original body
 				b.bodyType = type;
-				b.position = new Vector2( centers[i].X, centers[i].Y );
+				b.position = new vec2( centers[i].X, centers[i].Y );
 				b.rotation = centers[i].Z;
 				b.userData = userData;
 
@@ -155,7 +155,7 @@ namespace FarseerPhysics.Common
 		/// <param name="localAnchorB">The local anchor B.</param>
 		/// <param name="connectFirstAndLast">if set to <c>true</c> [connect first and last].</param>
 		/// <param name="collideConnected">if set to <c>true</c> [collide connected].</param>
-		public static List<RevoluteJoint> attachBodiesWithRevoluteJoint( World world, List<Body> bodies, Vector2 localAnchorA, Vector2 localAnchorB, bool connectFirstAndLast, bool collideConnected )
+		public static List<RevoluteJoint> attachBodiesWithRevoluteJoint( World world, List<Body> bodies, vec2 localAnchorA, vec2 localAnchorB, bool connectFirstAndLast, bool collideConnected )
 		{
 			var joints = new List<RevoluteJoint>( bodies.Count + 1 );
 

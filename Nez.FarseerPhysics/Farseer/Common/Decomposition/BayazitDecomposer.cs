@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Common.Decomposition
+namespace Nez.Common.Decomposition
 {
     //From phed rev 36: http://code.google.com/p/phed/source/browse/trunk/Polygon.cpp
 
@@ -34,8 +34,8 @@ namespace FarseerPhysics.Common.Decomposition
         private static List<Vertices> TriangulatePolygon(Vertices vertices)
         {
             List<Vertices> list = new List<Vertices>();
-            Vector2 lowerInt = new Vector2();
-            Vector2 upperInt = new Vector2(); // intersection points
+            vec2 lowerInt = new vec2();
+            vec2 upperInt = new vec2(); // intersection points
             int lowerIndex = 0, upperIndex = 0;
             Vertices lowerPoly, upperPoly;
 
@@ -49,7 +49,7 @@ namespace FarseerPhysics.Common.Decomposition
                     {
                         // if line intersects with an edge
                         float d;
-                        Vector2 p;
+                        vec2 p;
                         if (Left(At(i - 1, vertices), At(i, vertices), At(j, vertices)) && RightOn(At(i - 1, vertices), At(i, vertices), At(j - 1, vertices)))
                         {
                             // find the point of intersection
@@ -89,7 +89,7 @@ namespace FarseerPhysics.Common.Decomposition
                     // if there are no vertices to connect to, choose a point in the middle
                     if (lowerIndex == (upperIndex + 1) % vertices.Count)
                     {
-                        Vector2 p = ((lowerInt + upperInt) / 2);
+                        vec2 p = ((lowerInt + upperInt) / 2);
 
                         lowerPoly = Copy(i, upperIndex, vertices);
                         lowerPoly.Add(p);
@@ -148,7 +148,7 @@ namespace FarseerPhysics.Common.Decomposition
             return list;
         }
 
-        private static Vector2 At(int i, Vertices vertices)
+        private static vec2 At(int i, Vertices vertices)
         {
             int s = vertices.Count;
             return vertices[i < 0 ? s - 1 - ((-i - 1) % s) : i % s];
@@ -195,7 +195,7 @@ namespace FarseerPhysics.Common.Decomposition
                 if ((k + 1) % vertices.Count == i || k == i || (k + 1) % vertices.Count == j || k == j)
                     continue; // ignore incident edges
 
-                Vector2 intersectionPoint;
+                vec2 intersectionPoint;
 
                 if (LineTools.lineIntersect(At(i, vertices), At(j, vertices), At(k, vertices), At(k + 1, vertices), out intersectionPoint))
                     return false;
@@ -213,30 +213,30 @@ namespace FarseerPhysics.Common.Decomposition
             return Right(At(i - 1, vertices), At(i, vertices), At(i + 1, vertices));
         }
 
-        private static bool Left(Vector2 a, Vector2 b, Vector2 c)
+        private static bool Left(vec2 a, vec2 b, vec2 c)
         {
             return MathUtils.area(ref a, ref b, ref c) > 0;
         }
 
-        private static bool LeftOn(Vector2 a, Vector2 b, Vector2 c)
+        private static bool LeftOn(vec2 a, vec2 b, vec2 c)
         {
             return MathUtils.area(ref a, ref b, ref c) >= 0;
         }
 
-        private static bool Right(Vector2 a, Vector2 b, Vector2 c)
+        private static bool Right(vec2 a, vec2 b, vec2 c)
         {
             return MathUtils.area(ref a, ref b, ref c) < 0;
         }
 
-        private static bool RightOn(Vector2 a, Vector2 b, Vector2 c)
+        private static bool RightOn(vec2 a, vec2 b, vec2 c)
         {
             return MathUtils.area(ref a, ref b, ref c) <= 0;
         }
 
-        private static float SquareDist(Vector2 a, Vector2 b)
+        private static float SquareDist(vec2 a, vec2 b)
         {
-            float dx = b.X - a.X;
-            float dy = b.Y - a.Y;
+            float dx = b.x - a.x;
+            float dy = b.y - a.y;
             return dx * dx + dy * dy;
         }
     }

@@ -21,11 +21,11 @@
 */
 
 using System.Diagnostics;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Collision.Shapes
+namespace Nez.Collision.Shapes
 {
 	/// <summary>
 	/// A chain shape is a free form sequence of line segments.
@@ -51,7 +51,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// Establish connectivity to a vertex that precedes the first vertex.
 		/// Don't call this for loops.
 		/// </summary>
-		public Vector2 prevVertex
+		public vec2 prevVertex
 		{
 			get { return _prevVertex; }
 			set
@@ -65,7 +65,7 @@ namespace FarseerPhysics.Collision.Shapes
 		/// Establish connectivity to a vertex that follows the last vertex.
 		/// Don't call this for loops.
 		/// </summary>
-		public Vector2 nextVertex
+		public vec2 nextVertex
 		{
 			get { return _nextVertex; }
 			set
@@ -75,7 +75,7 @@ namespace FarseerPhysics.Collision.Shapes
 			}
 		}
 
-		Vector2 _prevVertex, _nextVertex;
+		vec2 _prevVertex, _nextVertex;
 		bool _hasPrevVertex, _hasNextVertex;
 		static EdgeShape _edgeShape = new EdgeShape();
 
@@ -163,7 +163,7 @@ namespace FarseerPhysics.Collision.Shapes
 				var v2 = vertices[i];
 
 				// If the code crashes here, it means your vertices are too close together.
-				Debug.Assert( Vector2.DistanceSquared( v1, v2 ) > Settings.linearSlop * Settings.linearSlop );
+				Debug.Assert( vec2.DistanceSquared( v1, v2 ) > Settings.linearSlop * Settings.linearSlop );
 			}
 
 			this.vertices = vertices;
@@ -176,7 +176,7 @@ namespace FarseerPhysics.Collision.Shapes
 			}
 		}
 
-		public override bool testPoint( ref Transform transform, ref Vector2 point )
+		public override bool testPoint( ref Transform transform, ref vec2 point )
 		{
 			return false;
 		}
@@ -208,8 +208,8 @@ namespace FarseerPhysics.Collision.Shapes
 			var v1 = MathUtils.mul( ref transform, vertices[i1] );
 			var v2 = MathUtils.mul( ref transform, vertices[i2] );
 
-			aabb.lowerBound = Vector2.Min( v1, v2 );
-			aabb.upperBound = Vector2.Max( v1, v2 );
+			aabb.lowerBound = vec2.Min( v1, v2 );
+			aabb.upperBound = vec2.Max( v1, v2 );
 		}
 
 		protected override void computeProperties()
@@ -217,9 +217,9 @@ namespace FarseerPhysics.Collision.Shapes
 			//Does nothing. Chain shapes don't have properties.
 		}
 
-		public override float computeSubmergedArea( ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc )
+		public override float computeSubmergedArea( ref vec2 normal, float offset, ref Transform xf, out vec2 sc )
 		{
-			sc = Vector2.Zero;
+			sc = vec2.Zero;
 			return 0;
 		}
 

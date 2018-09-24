@@ -1,4 +1,4 @@
-﻿using FarseerPhysics.Dynamics.Joints;
+﻿using Nez.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 
 
@@ -11,7 +11,7 @@ namespace Nez.Farseer
 
 		#region Configuration
 
-		public FSMouseJoint setWorldAnchor( Vector2 worldAnchor )
+		public FSMouseJoint setWorldAnchor( vec2 worldAnchor )
 		{
 			_jointDef.worldAnchor = worldAnchor;
 			if( _joint != null )

@@ -10,7 +10,7 @@ namespace Nez.Farseer
 
 		#region Configuration
 
-		public FSPulleyJoint setOwnerBodyAnchor( Vector2 ownerBodyAnchor )
+		public FSPulleyJoint setOwnerBodyAnchor( vec2 ownerBodyAnchor )
 		{
 			_jointDef.ownerBodyAnchor = ownerBodyAnchor;
 			recreateJoint();
@@ -18,7 +18,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSPulleyJoint setOtherBodyAnchor( Vector2 otherBodyAnchor )
+		public FSPulleyJoint setOtherBodyAnchor( vec2 otherBodyAnchor )
 		{
 			_jointDef.otherBodyAnchor = otherBodyAnchor;
 			recreateJoint();
@@ -26,7 +26,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSPulleyJoint setOwnerBodyGroundAnchor( Vector2 ownerBodyGroundAnchor )
+		public FSPulleyJoint setOwnerBodyGroundAnchor( vec2 ownerBodyGroundAnchor )
 		{
 			_jointDef.ownerBodyGroundAnchor = ownerBodyGroundAnchor;
 			recreateJoint();
@@ -34,7 +34,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSPulleyJoint setOtherBodyGroundAnchor( Vector2 otherBodyGroundAnchor )
+		public FSPulleyJoint setOtherBodyGroundAnchor( vec2 otherBodyGroundAnchor )
 		{
 			_jointDef.otherBodyGroundAnchor = otherBodyGroundAnchor;
 			recreateJoint();

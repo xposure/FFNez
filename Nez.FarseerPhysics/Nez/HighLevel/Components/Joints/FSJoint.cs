@@ -1,4 +1,4 @@
-﻿using FarseerPhysics.Dynamics.Joints;
+﻿using Nez.Dynamics.Joints;
 
 
 namespace Nez.Farseer

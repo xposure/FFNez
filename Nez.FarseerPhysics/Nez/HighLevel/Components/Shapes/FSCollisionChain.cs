@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
+using Nez.Collision.Shapes;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
@@ -8,7 +8,7 @@ namespace Nez.Farseer
 {
 	public class FSCollisionChain : FSCollisionShape
 	{
-		List<Vector2> _verts;
+		List<vec2> _verts;
 		bool _loop;
 
 
@@ -18,15 +18,15 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionChain( List<Vector2> verts ) : this()
+		public FSCollisionChain( List<vec2> verts ) : this()
 		{
 			_verts = verts;
 		}
 
 
-		public FSCollisionChain( Vector2[] verts ) : this()
+		public FSCollisionChain( vec2[] verts ) : this()
 		{
-			_verts = new List<Vector2>( verts );
+			_verts = new List<vec2>( verts );
 		}
 
 
@@ -48,7 +48,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionChain setVertices( List<Vector2> verts )
+		public FSCollisionChain setVertices( List<vec2> verts )
 		{
 			_verts = verts;
 			recreateFixture();
@@ -56,10 +56,10 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionChain setVertices( Vector2[] verts )
+		public FSCollisionChain setVertices( vec2[] verts )
 		{
 			if( _verts == null )
-				_verts = new List<Vector2>();
+				_verts = new List<vec2>();
 
 			_verts.Clear();
 			_verts.AddRange( verts );

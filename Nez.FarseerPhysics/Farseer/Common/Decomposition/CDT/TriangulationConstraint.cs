@@ -30,7 +30,7 @@
  */
 
 
-namespace FarseerPhysics.Common.Decomposition.CDT
+namespace Nez.Common.Decomposition.CDT
 {
 	/// <summary>
 	/// Forces a triangle edge between two points p and q when triangulating.For example used to enforce

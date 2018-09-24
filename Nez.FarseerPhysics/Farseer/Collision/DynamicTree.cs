@@ -23,12 +23,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
+using Nez.Common;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Collision
+namespace Nez.Collision
 {
 	/// <summary>
 	/// A node in the dynamic tree. The client does not interact with this directly.
@@ -187,7 +187,7 @@ namespace FarseerPhysics.Collision
 			int proxyId = allocateNode();
 
 			// Fatten the aabb.
-			var r = new Vector2( Settings.aabbExtension, Settings.aabbExtension );
+			var r = new vec2( Settings.aabbExtension, Settings.aabbExtension );
 			_nodes[proxyId].aabb.lowerBound = aabb.lowerBound - r;
 			_nodes[proxyId].aabb.upperBound = aabb.upperBound + r;
 			_nodes[proxyId].userData = userData;
@@ -220,7 +220,7 @@ namespace FarseerPhysics.Collision
 		/// <param name="aabb">The aabb.</param>
 		/// <param name="displacement">The displacement.</param>
 		/// <returns>true if the proxy was re-inserted.</returns>
-		public bool moveProxy( int proxyId, ref AABB aabb, Vector2 displacement )
+		public bool moveProxy( int proxyId, ref AABB aabb, vec2 displacement )
 		{
 			Debug.Assert( 0 <= proxyId && proxyId < _nodeCapacity );
 
@@ -235,21 +235,21 @@ namespace FarseerPhysics.Collision
 
 			// Extend AABB.
 			AABB b = aabb;
-			var r = new Vector2( Settings.aabbExtension, Settings.aabbExtension );
+			var r = new vec2( Settings.aabbExtension, Settings.aabbExtension );
 			b.lowerBound = b.lowerBound - r;
 			b.upperBound = b.upperBound + r;
 
 			// Predict AABB displacement.
 			var d = Settings.aabbMultiplier * displacement;
-			if( d.X < 0.0f )
-				b.lowerBound.X += d.X;
+			if( d.x < 0.0f )
+				b.lowerBound.x += d.x;
 			else
-				b.upperBound.X += d.X;
+				b.upperBound.x += d.x;
 
-			if( d.Y < 0.0f )
-				b.lowerBound.Y += d.Y;
+			if( d.y < 0.0f )
+				b.lowerBound.y += d.y;
 			else
-				b.upperBound.Y += d.Y;
+				b.upperBound.y += d.y;
 
 			_nodes[proxyId].aabb = b;
 
@@ -364,7 +364,7 @@ namespace FarseerPhysics.Collision
 			//Nez.Vector2Ext.normalize( ref r );
 
 			// v is perpendicular to the segment.
-			var absV = MathUtils.abs( new Vector2( -r.Y, r.X ) ); //FPE: Inlined the 'v' variable
+			var absV = MathUtils.abs( new vec2( -r.y, r.x ) ); //FPE: Inlined the 'v' variable
 
 			// Separating axis for segment (Gino, p80).
 			// |dot(v, p1 - c)| > dot(|v|, h)
@@ -375,8 +375,8 @@ namespace FarseerPhysics.Collision
 			var segmentAABB = new AABB();
 			{
 				var t = p1 + maxFraction * ( p2 - p1 );
-				Vector2.Min( ref p1, ref t, out segmentAABB.lowerBound );
-				Vector2.Max( ref p1, ref t, out segmentAABB.upperBound );
+				vec2.Min( ref p1, ref t, out segmentAABB.lowerBound );
+				vec2.Max( ref p1, ref t, out segmentAABB.upperBound );
 			}
 
 			_raycastStack.Clear();
@@ -396,7 +396,7 @@ namespace FarseerPhysics.Collision
 				// |dot(v, p1 - c)| > dot(|v|, h)
 				var c = node.aabb.center;
 				var h = node.aabb.extents;
-				var separation = Math.Abs( Vector2.Dot( new Vector2( -r.Y, r.X ), p1 - c ) ) - Vector2.Dot( absV, h );
+				var separation = Math.Abs( vec2.Dot( new vec2( -r.y, r.x ), p1 - c ) ) - vec2.Dot( absV, h );
 				if( separation > 0.0f )
 					continue;
 
@@ -420,8 +420,8 @@ namespace FarseerPhysics.Collision
 						// Update segment bounding box.
 						maxFraction = value;
 						var t = p1 + maxFraction * ( p2 - p1 );
-						segmentAABB.lowerBound = Vector2.Min( p1, t );
-						segmentAABB.upperBound = Vector2.Max( p1, t );
+						segmentAABB.lowerBound = vec2.Min( p1, t );
+						segmentAABB.upperBound = vec2.Max( p1, t );
 					}
 				}
 				else
@@ -1021,7 +1021,7 @@ namespace FarseerPhysics.Collision
 		/// Shift the origin of the nodes
 		/// </summary>
 		/// <param name="newOrigin">The displacement to use.</param>
-		public void shiftOrigin( Vector2 newOrigin )
+		public void shiftOrigin( vec2 newOrigin )
 		{
 			// Build array of leaves. Free the rest.
 			for( int i = 0; i < _nodeCapacity; ++i )

@@ -21,11 +21,11 @@
 */
 
 using System.Diagnostics;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	/// <summary>
 	/// A motor joint is used to control the relative motion
@@ -36,13 +36,13 @@ namespace FarseerPhysics.Dynamics.Joints
 	{
 		#region Properties/Fields
 
-		public override Vector2 worldAnchorA
+		public override vec2 worldAnchorA
 		{
 			get { return bodyA.position; }
 			set { Debug.Assert( false, "You can't set the world anchor on this joint type." ); }
 		}
 
-		public override Vector2 worldAnchorB
+		public override vec2 worldAnchorB
 		{
 			get { return bodyB.position; }
 			set { Debug.Assert( false, "You can't set the world anchor on this joint type." ); }
@@ -77,11 +77,11 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The linear (translation) offset.
 		/// </summary>
-		public Vector2 linearOffset
+		public vec2 linearOffset
 		{
 			set
 			{
-				if( _linearOffset.X != value.X || _linearOffset.Y != value.Y )
+				if( _linearOffset.x != value.x || _linearOffset.y != value.y )
 				{
 					wakeBodies();
 					_linearOffset = value;
@@ -110,9 +110,9 @@ namespace FarseerPhysics.Dynamics.Joints
 		internal float correctionFactor;
 
 		// Solver shared
-		Vector2 _linearOffset;
+		vec2 _linearOffset;
 		float _angularOffset;
-		Vector2 _linearImpulse;
+		vec2 _linearImpulse;
 		float _angularImpulse;
 		float _maxForce;
 		float _maxTorque;
@@ -120,11 +120,11 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _rA;
-		Vector2 _rB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
-		Vector2 _linearError;
+		vec2 _rA;
+		vec2 _rB;
+		vec2 _localCenterA;
+		vec2 _localCenterB;
+		vec2 _linearError;
 		float _angularError;
 		float _invMassA;
 		float _invMassB;
@@ -151,7 +151,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		{
 			jointType = JointType.Motor;
 
-			Vector2 xB = base.bodyB.position;
+			vec2 xB = base.bodyB.position;
 
 			if( useWorldCoordinates )
 				_linearOffset = base.bodyA.getLocalPoint( xB );
@@ -167,7 +167,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			_angularOffset = base.bodyB.rotation - base.bodyA.rotation;
 		}
 
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
 			return invDt * _linearImpulse;
 		}
@@ -188,14 +188,14 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIA = bodyA._invI;
 			_invIB = bodyB._invI;
 
-			Vector2 cA = data.positions[_indexA].c;
+			vec2 cA = data.positions[_indexA].c;
 			float aA = data.positions[_indexA].a;
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
 
-			Vector2 cB = data.positions[_indexB].c;
+			vec2 cB = data.positions[_indexB].c;
 			float aB = data.positions[_indexB].a;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			Rot qA = new Rot( aA );
@@ -218,10 +218,10 @@ namespace FarseerPhysics.Dynamics.Joints
 			float iA = _invIA, iB = _invIB;
 
 			Mat22 K = new Mat22();
-			K.ex.X = mA + mB + iA * _rA.Y * _rA.Y + iB * _rB.Y * _rB.Y;
-			K.ex.Y = -iA * _rA.X * _rA.Y - iB * _rB.X * _rB.Y;
-			K.ey.X = K.ex.Y;
-			K.ey.Y = mA + mB + iA * _rA.X * _rA.X + iB * _rB.X * _rB.X;
+			K.ex.x = mA + mB + iA * _rA.y * _rA.y + iB * _rB.y * _rB.y;
+			K.ex.y = -iA * _rA.x * _rA.y - iB * _rB.x * _rB.y;
+			K.ey.x = K.ex.y;
+			K.ey.y = mA + mB + iA * _rA.x * _rA.x + iB * _rB.x * _rB.x;
 
 			_linearMass = K.Inverse;
 
@@ -240,7 +240,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				_linearImpulse *= data.step.dtRatio;
 				_angularImpulse *= data.step.dtRatio;
 
-				Vector2 P = new Vector2( _linearImpulse.X, _linearImpulse.Y );
+				vec2 P = new vec2( _linearImpulse.x, _linearImpulse.y );
 
 				vA -= mA * P;
 				wA -= iA * ( MathUtils.cross( _rA, P ) + _angularImpulse );
@@ -249,7 +249,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_linearImpulse = Vector2.Zero;
+				_linearImpulse = vec2.Zero;
 				_angularImpulse = 0.0f;
 			}
 
@@ -261,9 +261,9 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override void solveVelocityConstraints( ref SolverData data )
 		{
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			float mA = _invMassA, mB = _invMassB;

@@ -22,11 +22,11 @@
 //#define USE_ACTIVE_CONTACT_SET
 
 using System.Collections.Generic;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Dynamics.Contacts;
+using Nez.Collision;
+using Nez.Dynamics.Contacts;
 
 
-namespace FarseerPhysics.Dynamics
+namespace Nez.Dynamics
 {
 	public class ContactManager
 	{

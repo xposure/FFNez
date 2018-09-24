@@ -26,7 +26,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSDistanceJoint setOwnerBodyAnchor( Vector2 ownerBodyAnchor )
+		public FSDistanceJoint setOwnerBodyAnchor( vec2 ownerBodyAnchor )
 		{
 			_jointDef.ownerBodyAnchor = ownerBodyAnchor;
 			recreateJoint();
@@ -34,7 +34,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSDistanceJoint setOtherBodyAnchor( Vector2 otherBodyAnchor )
+		public FSDistanceJoint setOtherBodyAnchor( vec2 otherBodyAnchor )
 		{
 			_jointDef.otherBodyAnchor = otherBodyAnchor;
 			recreateJoint();

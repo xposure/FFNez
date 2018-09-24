@@ -23,11 +23,11 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using FarseerPhysics.Dynamics;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Collision
+namespace Nez.Collision
 {
 	struct Pair : IComparable<Pair>
 	{
@@ -162,7 +162,7 @@ namespace FarseerPhysics.Collision
 			_tree.removeProxy( proxyId );
 		}
 
-		public void moveProxy( int proxyId, ref AABB aabb, Vector2 displacement )
+		public void moveProxy( int proxyId, ref AABB aabb, vec2 displacement )
 		{
 			var buffer = _tree.moveProxy( proxyId, ref aabb, displacement );
 			if( buffer )
@@ -356,7 +356,7 @@ namespace FarseerPhysics.Collision
 		}
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public void shiftOrigin( Vector2 newOrigin )
+		public void shiftOrigin( vec2 newOrigin )
 		{
 			_tree.shiftOrigin( newOrigin );
 		}

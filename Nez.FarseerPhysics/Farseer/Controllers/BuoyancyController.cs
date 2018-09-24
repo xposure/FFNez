@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Dynamics;
+using Nez.Collision;
+using Nez.Collision.Shapes;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Controllers
+namespace Nez.Controllers
 {
 	public sealed class BuoyancyController : Controller
 	{
@@ -31,12 +31,12 @@ namespace FarseerPhysics.Controllers
 		/// <summary>
 		/// Acts like waterflow. Defaults to 0,0.
 		/// </summary>
-		public Vector2 velocity;
+		public vec2 velocity;
 
 		AABB _container;
 
-		Vector2 _gravity;
-		Vector2 _normal;
+		vec2 _gravity;
+		vec2 _normal;
 		float _offset;
 		Dictionary<int, Body> _uniqueBodies = new Dictionary<int, Body>();
 
@@ -51,11 +51,11 @@ namespace FarseerPhysics.Controllers
 		/// <param name="linearDragCoefficient">Linear drag coefficient of the fluid</param>
 		/// <param name="rotationalDragCoefficient">Rotational drag coefficient of the fluid</param>
 		/// <param name="gravity">The direction gravity acts. Buoyancy force will act in opposite direction of gravity.</param>
-		public BuoyancyController( AABB container, float density, float linearDragCoefficient, float rotationalDragCoefficient, Vector2 gravity )
+		public BuoyancyController( AABB container, float density, float linearDragCoefficient, float rotationalDragCoefficient, vec2 gravity )
 			: base( ControllerType.BuoyancyController )
 		{
 			this.container = container;
-			_normal = new Vector2( 0, 1 );
+			_normal = new vec2( 0, 1 );
 			this.density = density;
 			this.linearDragCoefficient = linearDragCoefficient;
 			angularDragCoefficient = rotationalDragCoefficient;
@@ -68,7 +68,7 @@ namespace FarseerPhysics.Controllers
 			set
 			{
 				_container = value;
-				_offset = _container.upperBound.Y;
+				_offset = _container.upperBound.y;
 			}
 		}
 
@@ -90,8 +90,8 @@ namespace FarseerPhysics.Controllers
 			{
 				Body body = kv.Value;
 
-				Vector2 areac = Vector2.Zero;
-				Vector2 massc = Vector2.Zero;
+				vec2 areac = vec2.Zero;
+				vec2 massc = vec2.Zero;
 				float area = 0;
 				float mass = 0;
 
@@ -104,21 +104,21 @@ namespace FarseerPhysics.Controllers
 
 					Shape shape = fixture.shape;
 
-					Vector2 sc;
+					vec2 sc;
 					float sarea = shape.computeSubmergedArea( ref _normal, _offset, ref body._xf, out sc );
 					area += sarea;
-					areac.X += sarea * sc.X;
-					areac.Y += sarea * sc.Y;
+					areac.x += sarea * sc.x;
+					areac.y += sarea * sc.y;
 
 					mass += sarea * shape.density;
-					massc.X += sarea * sc.X * shape.density;
-					massc.Y += sarea * sc.Y * shape.density;
+					massc.x += sarea * sc.x * shape.density;
+					massc.y += sarea * sc.y * shape.density;
 				}
 
-				areac.X /= area;
-				areac.Y /= area;
-				massc.X /= mass;
-				massc.Y /= mass;
+				areac.x /= area;
+				areac.y /= area;
+				massc.x /= mass;
+				massc.y /= mass;
 
 				if( area < Settings.epsilon )
 					continue;

@@ -1,7 +1,7 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using Nez.Dynamics;
 
 
-namespace FarseerPhysics.Common.PhysicsLogic
+namespace Nez.Common.PhysicsLogic
 {
 	/// <summary>
 	/// Contains filter data that can determine whether an object should be processed or not.

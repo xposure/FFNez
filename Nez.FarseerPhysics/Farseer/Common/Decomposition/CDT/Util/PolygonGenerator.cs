@@ -30,13 +30,13 @@
  */
 
 using System;
-using FarseerPhysics.Common.Decomposition.CDT.Polygon;
+using Nez.Common.Decomposition.CDT.Polygon;
 
-namespace FarseerPhysics.Common.Decomposition.CDT.Util
+namespace Nez.Common.Decomposition.CDT.Util
 {
     internal class PolygonGenerator
     {
-        private static readonly Random RNG = new Random();
+        private static readonly System.Random RNG = new System.Random();
 
         private static double PI_2 = 2.0*Math.PI;
 

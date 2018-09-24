@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FarseerPhysics.Common.Decomposition.Seidel
+namespace Nez.Common.Decomposition.Seidel
 {
     // Node for a Directed Acyclic graph (DAG)
     internal abstract class Node

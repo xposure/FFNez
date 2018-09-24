@@ -10,7 +10,7 @@ namespace Nez.Farseer
 
 		#region Configuration
 
-		public FSRopeJoint setOwnerBodyAnchor( Vector2 ownerBodyAnchor )
+		public FSRopeJoint setOwnerBodyAnchor( vec2 ownerBodyAnchor )
 		{
 			_jointDef.ownerBodyAnchor = ownerBodyAnchor;
 			recreateJoint();
@@ -18,7 +18,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSRopeJoint setOtherBodyAnchor( Vector2 otherBodyAnchor )
+		public FSRopeJoint setOtherBodyAnchor( vec2 otherBodyAnchor )
 		{
 			_jointDef.otherBodyAnchor = otherBodyAnchor;
 			recreateJoint();

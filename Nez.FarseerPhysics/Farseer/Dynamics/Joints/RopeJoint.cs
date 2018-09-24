@@ -21,11 +21,11 @@
 */
 
 using System;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	// Limit:
 	// C = norm(pB - pA) - L
@@ -50,20 +50,20 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point on BodyA
 		/// </summary>
-		public Vector2 localAnchorA;
+		public vec2 localAnchorA;
 
 		/// <summary>
 		/// The local anchor point on BodyB
 		/// </summary>
-		public Vector2 localAnchorB;
+		public vec2 localAnchorB;
 
-		public override sealed Vector2 worldAnchorA
+		public override sealed vec2 worldAnchorA
 		{
 			get { return bodyA.getWorldPoint( localAnchorA ); }
 			set { localAnchorA = bodyA.getLocalPoint( value ); }
 		}
 
-		public override sealed Vector2 worldAnchorB
+		public override sealed vec2 worldAnchorB
 		{
 			get { return bodyB.getWorldPoint( localAnchorB ); }
 			set { localAnchorB = bodyB.getLocalPoint( value ); }
@@ -87,15 +87,15 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
+		vec2 _localCenterA;
+		vec2 _localCenterB;
 		float _invMassA;
 		private float _invMassB;
 		float _invIA;
 		float _invIB;
 		float _mass;
-		private Vector2 _rA, _rB;
-		Vector2 _u;
+		private vec2 _rA, _rB;
+		vec2 _u;
 
 		#endregion
 
@@ -113,7 +113,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <param name="anchorA">The anchor on the first body</param>
 		/// <param name="anchorB">The anchor on the second body</param>
 		/// <param name="useWorldCoordinates">Set to true if you are using world coordinates as anchors.</param>
-		public RopeJoint( Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public RopeJoint( Body bodyA, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 			: base( bodyA, bodyB )
 		{
 			jointType = JointType.Rope;
@@ -130,11 +130,11 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 
 			//FPE feature: Setting default MaxLength
-			Vector2 d = worldAnchorB - worldAnchorA;
+			vec2 d = worldAnchorB - worldAnchorA;
 			maxLength = d.Length();
 		}
 
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
 			return ( invDt * _impulse ) * _u;
 		}
@@ -155,14 +155,14 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIA = bodyA._invI;
 			_invIB = bodyB._invI;
 
-			Vector2 cA = data.positions[_indexA].c;
+			vec2 cA = data.positions[_indexA].c;
 			float aA = data.positions[_indexA].a;
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
 
-			Vector2 cB = data.positions[_indexB].c;
+			vec2 cB = data.positions[_indexB].c;
 			float aB = data.positions[_indexB].a;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB );
@@ -189,7 +189,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_u = Vector2.Zero;
+				_u = vec2.Zero;
 				_mass = 0.0f;
 				_impulse = 0.0f;
 				return;
@@ -207,7 +207,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				// Scale the impulse to support a variable time step.
 				_impulse *= data.step.dtRatio;
 
-				Vector2 P = _impulse * _u;
+				vec2 P = _impulse * _u;
 				vA -= _invMassA * P;
 				wA -= _invIA * MathUtils.cross( _rA, P );
 				vB += _invMassB * P;
@@ -226,16 +226,16 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override void solveVelocityConstraints( ref SolverData data )
 		{
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			// Cdot = dot(u, v + cross(w, r))
-			Vector2 vpA = vA + MathUtils.cross( wA, _rA );
-			Vector2 vpB = vB + MathUtils.cross( wB, _rB );
+			vec2 vpA = vA + MathUtils.cross( wA, _rA );
+			vec2 vpB = vB + MathUtils.cross( wB, _rB );
 			float C = _length - maxLength;
-			float Cdot = Vector2.Dot( _u, vpB - vpA );
+			float Cdot = vec2.Dot( _u, vpB - vpA );
 
 			// Predictive constraint.
 			if( C < 0.0f )
@@ -248,7 +248,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			_impulse = Math.Min( 0.0f, _impulse + impulse );
 			impulse = _impulse - oldImpulse;
 
-			Vector2 P = impulse * _u;
+			vec2 P = impulse * _u;
 			vA -= _invMassA * P;
 			wA -= _invIA * MathUtils.cross( _rA, P );
 			vB += _invMassB * P;

@@ -1,5 +1,5 @@
-﻿using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Joints;
+﻿using Nez.Dynamics;
+using Nez.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 using Nez.Analysis;
 
@@ -22,11 +22,11 @@ namespace Nez.Farseer
 		FixedMouseJoint _mouseJoint;
 
 
-		public FSWorld() : this( new Vector2( 0, 9.82f ) )
+		public FSWorld() : this( new vec2( 0, 9.82f ) )
 		{}
 
 
-		public FSWorld( Vector2 gravity )
+		public FSWorld( vec2 gravity )
 		{
 			world = new World( gravity );
 		}

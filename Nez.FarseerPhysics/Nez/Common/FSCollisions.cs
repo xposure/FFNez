@@ -1,12 +1,12 @@
 ﻿//#define DEBUG_FSCOLLISIONS // uncomment to enable Debug of collision points and normals
 using System;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Contacts;
+using Nez.Collision;
+using Nez.Collision.Shapes;
+using Nez.Common;
+using Nez.Dynamics;
+using Nez.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
-using FSTransform = FarseerPhysics.Common.Transform;
+using FSTransform = Nez.Common.Transform;
 
 
 namespace Nez.Farseer
@@ -66,7 +66,7 @@ namespace Nez.Farseer
 		/// <param name="motion">delta movement in simulation space</param>
 		/// <param name="fixtureB">Fixture b.</param>
 		/// <param name="result">Result.</param>
-		public static bool collideFixtures( Fixture fixtureA, ref Vector2 motion, Fixture fixtureB, out FSCollisionResult result )
+		public static bool collideFixtures( Fixture fixtureA, ref vec2 motion, Fixture fixtureB, out FSCollisionResult result )
 		{
 			// gather our transforms and adjust fixtureA's transform to account for the motion so we check for the collision at its new location
 			FSTransform transformA;
@@ -201,7 +201,7 @@ namespace Nez.Farseer
 			Collision.collidePolygons( ref _manifold, polygonA as PolygonShape, ref transformA, polygonB as PolygonShape, ref transformB );
 			if( _manifold.pointCount > 0 )
 			{
-				FixedArray2<Vector2> points;
+				FixedArray2<vec2> points;
 				ContactSolver.WorldManifold.initialize( ref _manifold, ref transformA, polygonA.radius, ref transformB, polygonB.radius, out result.normal, out points );
 
 				// code adapted from PositionSolverManifold.Initialize
@@ -211,11 +211,11 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.mul( ref transformA, _manifold.localPoint );
 
 					var clipPoint = MathUtils.mul( ref transformB, _manifold.points[0].localPoint );
-					var separation = Vector2.Dot( clipPoint - planePoint, result.normal ) - polygonA.radius - polygonB.radius;
+					var separation = vec2.Dot( clipPoint - planePoint, result.normal ) - polygonA.radius - polygonB.radius;
 					result.point = clipPoint * FSConvert.simToDisplay;
 
 					// Ensure normal points from A to B
-					Vector2.Negate( ref result.normal, out result.normal );
+					vec2.Negate( ref result.normal, out result.normal );
 
 					result.minimumTranslationVector = result.normal * -separation;
 				}
@@ -225,7 +225,7 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.mul( ref transformB, _manifold.localPoint );
 
 					var clipPoint = MathUtils.mul( ref transformA, _manifold.points[0].localPoint );
-					var separation = Vector2.Dot( clipPoint - planePoint, result.normal ) - polygonA.radius - polygonB.radius;
+					var separation = vec2.Dot( clipPoint - planePoint, result.normal ) - polygonA.radius - polygonB.radius;
 					result.point = clipPoint * FSConvert.simToDisplay;
 
 					result.minimumTranslationVector = result.normal * -separation;
@@ -249,14 +249,14 @@ namespace Nez.Farseer
 			Collision.collidePolygonAndCircle( ref _manifold, polygon, ref polyTransform, circle, ref circleTransform );
 			if( _manifold.pointCount > 0 )
 			{
-				FixedArray2<Vector2> points;
+				FixedArray2<vec2> points;
 				ContactSolver.WorldManifold.initialize( ref _manifold, ref polyTransform, polygon.radius, ref circleTransform, circle.radius, out result.normal, out points );
 
 				//var circleInPolySpace = polygonFixture.Body.GetLocalPoint( circleFixture.Body.Position );
 				var circleInPolySpace = MathUtils.mulT( ref polyTransform, circleTransform.p );
 				var value1 = circleInPolySpace - _manifold.localPoint;
 				var value2 = _manifold.localNormal;
-				var separation = circle.radius - ( value1.X * value2.X + value1.Y * value2.Y );
+				var separation = circle.radius - ( value1.x * value2.x + value1.y * value2.y );
 
 				if( separation <= 0 )
 					return false;
@@ -296,7 +296,7 @@ namespace Nez.Farseer
 				result.point = 0.5f * ( cA + cB );
 				result.point *= FSConvert.simToDisplay;
 
-				var separation = Vector2.Dot( pointA - pointB, result.normal ) - circleA.radius - circleB.radius;
+				var separation = vec2.Dot( pointA - pointB, result.normal ) - circleA.radius - circleB.radius;
 				result.minimumTranslationVector = result.normal * Math.Abs( separation );
 
 				#if DEBUG_FSCOLLISIONS
@@ -334,10 +334,10 @@ namespace Nez.Farseer
 					result.point = 0.5f * ( cA + cB );
 					result.point *= FSConvert.simToDisplay;
 
-					var separation = Vector2.Dot( pointA - pointB, result.normal ) - edge.radius - circle.radius;
+					var separation = vec2.Dot( pointA - pointB, result.normal ) - edge.radius - circle.radius;
 
 					// Ensure normal points from A to B
-					Vector2.Negate( ref result.normal, out result.normal );
+					vec2.Negate( ref result.normal, out result.normal );
 					result.minimumTranslationVector = result.normal * Math.Abs( separation );
 				}
 				else // FaceA
@@ -346,7 +346,7 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.mul( ref edgeTransform, _manifold.localPoint );
 
 					var clipPoint = MathUtils.mul( ref circleTransform, _manifold.points[0].localPoint );
-					var separation = Vector2.Dot( clipPoint - planePoint, result.normal ) - edge.radius - circle.radius;
+					var separation = vec2.Dot( clipPoint - planePoint, result.normal ) - edge.radius - circle.radius;
 					result.point = ( clipPoint - result.normal * circle.radius ) * FSConvert.simToDisplay;
 
 					result.minimumTranslationVector = result.normal * -separation;
@@ -370,7 +370,7 @@ namespace Nez.Farseer
 			Collision.collideEdgeAndPolygon( ref _manifold, edge, ref edgeTransform, polygon, ref polygonTransform );
 			if( _manifold.pointCount > 0 )
 			{
-				FixedArray2<Vector2> points;
+				FixedArray2<vec2> points;
 				ContactSolver.WorldManifold.initialize( ref _manifold, ref edgeTransform, edge.radius, ref polygonTransform, polygon.radius, out result.normal, out points );
 
 				// code adapted from PositionSolverManifold.Initialize
@@ -380,7 +380,7 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.mul( ref edgeTransform, _manifold.localPoint );
 
 					var clipPoint = MathUtils.mul( ref polygonTransform, _manifold.points[0].localPoint );
-					var separation = Vector2.Dot( clipPoint - planePoint, result.normal ) - edge.radius - polygon.radius;
+					var separation = vec2.Dot( clipPoint - planePoint, result.normal ) - edge.radius - polygon.radius;
 					result.point = clipPoint * FSConvert.simToDisplay;
 
 					result.minimumTranslationVector = result.normal * -separation;
@@ -391,11 +391,11 @@ namespace Nez.Farseer
 					var planePoint = MathUtils.mul( ref polygonTransform, _manifold.localPoint );
 
 					var clipPoint = MathUtils.mul( ref edgeTransform, _manifold.points[0].localPoint );
-					var separation = Vector2.Dot( clipPoint - planePoint, result.normal ) - edge.radius - polygon.radius;
+					var separation = vec2.Dot( clipPoint - planePoint, result.normal ) - edge.radius - polygon.radius;
 					result.point = clipPoint * FSConvert.simToDisplay;
 
 					// Ensure normal points from A to B
-					Vector2.Negate( ref result.normal, out result.normal );
+					vec2.Negate( ref result.normal, out result.normal );
 
 					result.minimumTranslationVector = result.normal * -separation;
 				}

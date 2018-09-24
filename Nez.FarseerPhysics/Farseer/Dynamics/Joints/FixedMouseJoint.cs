@@ -21,11 +21,11 @@
 */
 
 using System.Diagnostics;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	// p = attached point, m = mouse point
 	// C = p - m
@@ -51,15 +51,15 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point on BodyA
 		/// </summary>
-		public Vector2 localAnchorA;
+		public vec2 localAnchorA;
 
-		public override Vector2 worldAnchorA
+		public override vec2 worldAnchorA
 		{
 			get { return bodyA.getWorldPoint( localAnchorA ); }
 			set { localAnchorA = bodyA.getLocalPoint( value ); }
 		}
 
-		public override Vector2 worldAnchorB
+		public override vec2 worldAnchorB
 		{
 			get { return _worldAnchor; }
 			set
@@ -109,24 +109,24 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 		}
 		
-		Vector2 _worldAnchor;
+		vec2 _worldAnchor;
 		float _frequency;
 		float _dampingRatio;
 		float _beta;
 
 		// Solver shared
-		Vector2 _impulse;
+		vec2 _impulse;
 		float _maxForce;
 		float _gamma;
 
 		// Solver temp
 		int _indexA;
-		Vector2 _rA;
-		Vector2 _localCenterA;
+		vec2 _rA;
+		vec2 _localCenterA;
 		float _invMassA;
 		float _invIA;
 		Mat22 _mass;
-		Vector2 _C;
+		vec2 _C;
 
 		#endregion
 
@@ -137,7 +137,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// </summary>
 		/// <param name="body">The body.</param>
 		/// <param name="worldAnchor">The target.</param>
-		public FixedMouseJoint( Body body, Vector2 worldAnchor ) : base( body )
+		public FixedMouseJoint( Body body, vec2 worldAnchor ) : base( body )
 		{
 			jointType = JointType.FixedMouse;
 			frequency = 5.0f;
@@ -150,7 +150,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			localAnchorA = MathUtils.mulT( bodyA._xf, worldAnchor );
 		}
 
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
 			return invDt * _impulse;
 		}
@@ -204,10 +204,10 @@ namespace FarseerPhysics.Dynamics.Joints
 			//      = [1/m1+1/m2     0    ] + invI1 * [r1.Y*r1.Y -r1.X*r1.Y] + invI2 * [r1.Y*r1.Y -r1.X*r1.Y]
 			//        [    0     1/m1+1/m2]           [-r1.X*r1.Y r1.X*r1.X]           [-r1.X*r1.Y r1.X*r1.X]
 			var K = new Mat22();
-			K.ex.X = _invMassA + _invIA * _rA.Y * _rA.Y + _gamma;
-			K.ex.Y = -_invIA * _rA.X * _rA.Y;
-			K.ey.X = K.ex.Y;
-			K.ey.Y = _invMassA + _invIA * _rA.X * _rA.X + _gamma;
+			K.ex.x = _invMassA + _invIA * _rA.y * _rA.y + _gamma;
+			K.ex.y = -_invIA * _rA.x * _rA.y;
+			K.ey.x = K.ex.y;
+			K.ey.y = _invMassA + _invIA * _rA.x * _rA.x + _gamma;
 
 			_mass = K.Inverse;
 
@@ -225,7 +225,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_impulse = Vector2.Zero;
+				_impulse = vec2.Zero;
 			}
 
 			data.velocities[_indexA].v = vA;

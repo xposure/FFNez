@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Common.Decomposition;
-using FarseerPhysics.Common.PolygonManipulation;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
+using Nez.Collision;
+using Nez.Common.Decomposition;
+using Nez.Common.PolygonManipulation;
+using Nez.Dynamics;
+using Nez.Factories;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common.TextureTools
+namespace Nez.Common.TextureTools
 {
 	/// <summary>
 	/// Simple class to maintain a terrain. It can keep track
@@ -24,7 +24,7 @@ namespace FarseerPhysics.Common.TextureTools
 		/// <summary>
 		/// Center of terrain in world units.
 		/// </summary>
-		public Vector2 center;
+		public vec2 center;
 
 		/// <summary>
 		/// Width of terrain in world units.
@@ -78,7 +78,7 @@ namespace FarseerPhysics.Common.TextureTools
 		int _xnum;
 		int _ynum;
 		AABB _dirtyArea;
-		Vector2 _topLeft;
+		vec2 _topLeft;
 
 		#endregion
 
@@ -103,7 +103,7 @@ namespace FarseerPhysics.Common.TextureTools
 		/// <param name="position">The position (center) of the terrain.</param>
 		/// <param name="width">The width of the terrain.</param>
 		/// <param name="height">The height of the terrain.</param>
-		public Terrain( World world, Vector2 position, float width, float height )
+		public Terrain( World world, vec2 position, float width, float height )
 		{
 			this.world = world;
 			this.width = width;
@@ -117,7 +117,7 @@ namespace FarseerPhysics.Common.TextureTools
 		public void initialize()
 		{
 			// find top left of terrain in world space
-			_topLeft = new Vector2( center.X - ( width * 0.5f ), center.Y - ( -height * 0.5f ) );
+			_topLeft = new vec2( center.x - ( width * 0.5f ), center.y - ( -height * 0.5f ) );
 
 			// convert the terrains size to a point cloud size
 			_localWidth = width * pointsPerUnit;
@@ -138,7 +138,7 @@ namespace FarseerPhysics.Common.TextureTools
 			_bodyMap = new List<Body>[_xnum, _ynum];
 
 			// make sure to mark the dirty area to an infinitely small box
-			_dirtyArea = new AABB( new Vector2( float.MaxValue, float.MaxValue ), new Vector2( float.MinValue, float.MinValue ) );
+			_dirtyArea = new AABB( new vec2( float.MaxValue, float.MaxValue ), new vec2( float.MinValue, float.MinValue ) );
 		}
 
 		/// <summary>
@@ -146,15 +146,15 @@ namespace FarseerPhysics.Common.TextureTools
 		/// </summary>
 		/// <param name="data"></param>
 		/// <param name="offset"></param>
-		public void applyData( sbyte[,] data, Vector2 offset = default( Vector2 ) )
+		public void applyData( sbyte[,] data, vec2 offset = default( vec2 ) )
 		{
 			for( int x = 0; x < data.GetUpperBound( 0 ); x++ )
 			{
 				for( int y = 0; y < data.GetUpperBound( 1 ); y++ )
 				{
-					if( x + offset.X >= 0 && x + offset.X < _localWidth && y + offset.Y >= 0 && y + offset.Y < _localHeight )
+					if( x + offset.x >= 0 && x + offset.x < _localWidth && y + offset.y >= 0 && y + offset.y < _localHeight )
 					{
-						_terrainMap[(int)( x + offset.X ), (int)( y + offset.Y )] = data[x, y];
+						_terrainMap[(int)( x + offset.x ), (int)( y + offset.y )] = data[x, y];
 					}
 				}
 			}
@@ -167,26 +167,26 @@ namespace FarseerPhysics.Common.TextureTools
 		/// </summary>
 		/// <param name="location">World location to modify. Automatically clipped.</param>
 		/// <param name="value">-1 = inside terrain, 1 = outside terrain</param>
-		public void modifyTerrain( Vector2 location, sbyte value )
+		public void modifyTerrain( vec2 location, sbyte value )
 		{
 			// find local position
 			// make position local to map space
 			var p = location - _topLeft;
 
 			// find map position for each axis
-			p.X = p.X * _localWidth / width;
-			p.Y = p.Y * -_localHeight / height;
+			p.x = p.x * _localWidth / width;
+			p.y = p.y * -_localHeight / height;
 
-			if( p.X >= 0 && p.X < _localWidth && p.Y >= 0 && p.Y < _localHeight )
+			if( p.x >= 0 && p.x < _localWidth && p.y >= 0 && p.y < _localHeight )
 			{
-				_terrainMap[(int)p.X, (int)p.Y] = value;
+				_terrainMap[(int)p.x, (int)p.y] = value;
 
 				// expand dirty area
-				if( p.X < _dirtyArea.lowerBound.X ) _dirtyArea.lowerBound.X = p.X;
-				if( p.X > _dirtyArea.upperBound.X ) _dirtyArea.upperBound.X = p.X;
+				if( p.x < _dirtyArea.lowerBound.x ) _dirtyArea.lowerBound.x = p.x;
+				if( p.x > _dirtyArea.upperBound.x ) _dirtyArea.upperBound.x = p.x;
 
-				if( p.Y < _dirtyArea.lowerBound.Y ) _dirtyArea.lowerBound.Y = p.Y;
-				if( p.Y > _dirtyArea.upperBound.Y ) _dirtyArea.upperBound.Y = p.Y;
+				if( p.y < _dirtyArea.lowerBound.y ) _dirtyArea.lowerBound.y = p.y;
+				if( p.y > _dirtyArea.upperBound.y ) _dirtyArea.upperBound.y = p.y;
 			}
 		}
 
@@ -196,21 +196,21 @@ namespace FarseerPhysics.Common.TextureTools
 		public void regenerateTerrain()
 		{
 			//iterate effected cells
-			int xStart = (int)( _dirtyArea.lowerBound.X / cellSize );
+			int xStart = (int)( _dirtyArea.lowerBound.x / cellSize );
 			if( xStart < 0 ) xStart = 0;
 
-			int xEnd = (int)( _dirtyArea.upperBound.X / cellSize ) + 1;
+			int xEnd = (int)( _dirtyArea.upperBound.x / cellSize ) + 1;
 			if( xEnd > _xnum ) xEnd = _xnum;
 
-			int yStart = (int)( _dirtyArea.lowerBound.Y / cellSize );
+			int yStart = (int)( _dirtyArea.lowerBound.y / cellSize );
 			if( yStart < 0 ) yStart = 0;
 
-			int yEnd = (int)( _dirtyArea.upperBound.Y / cellSize ) + 1;
+			int yEnd = (int)( _dirtyArea.upperBound.y / cellSize ) + 1;
 			if( yEnd > _ynum ) yEnd = _ynum;
 
 			removeOldData( xStart, xEnd, yStart, yEnd );
 
-			_dirtyArea = new AABB( new Vector2( float.MaxValue, float.MaxValue ), new Vector2( float.MinValue, float.MinValue ) );
+			_dirtyArea = new AABB( new vec2( float.MaxValue, float.MaxValue ), new vec2( float.MinValue, float.MinValue ) );
 		}
 
 		void removeOldData( int xStart, int xEnd, int yStart, int yEnd )
@@ -241,13 +241,13 @@ namespace FarseerPhysics.Common.TextureTools
 			float ax = gx * cellSize;
 			float ay = gy * cellSize;
 
-			var polys = MarchingSquares.detectSquares( new AABB( new Vector2( ax, ay ), new Vector2( ax + cellSize, ay + cellSize ) ), subCellSize, subCellSize, _terrainMap, iterations, true );
+			var polys = MarchingSquares.detectSquares( new AABB( new vec2( ax, ay ), new vec2( ax + cellSize, ay + cellSize ) ), subCellSize, subCellSize, _terrainMap, iterations, true );
 			if( polys.Count == 0 ) return;
 
 			_bodyMap[gx, gy] = new List<Body>();
 
 			// create the scale vector
-			var scale = new Vector2( 1f / pointsPerUnit, 1f / -pointsPerUnit );
+			var scale = new vec2( 1f / pointsPerUnit, 1f / -pointsPerUnit );
 
 			// create physics object for this grid cell
 			foreach( Vertices item in polys )

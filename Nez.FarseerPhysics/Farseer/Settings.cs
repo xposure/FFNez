@@ -21,10 +21,10 @@
 */
 
 using System;
-using FarseerPhysics.Dynamics;
+using Nez.Dynamics;
 
 
-namespace FarseerPhysics
+namespace Nez
 {
 	public static class Settings
 	{

@@ -22,11 +22,11 @@
 
 using System;
 using System.Diagnostics;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	// Pulley:
 	// length1 = norm(p1 - s1)
@@ -57,24 +57,24 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point on BodyA
 		/// </summary>
-		public Vector2 localAnchorA;
+		public vec2 localAnchorA;
 
 		/// <summary>
 		/// The local anchor point on BodyB
 		/// </summary>
-		public Vector2 localAnchorB;
+		public vec2 localAnchorB;
 
 		/// <summary>
 		/// Get the first world anchor.
 		/// </summary>
 		/// <value></value>
-		public override sealed Vector2 worldAnchorA { get; set; }
+		public override sealed vec2 worldAnchorA { get; set; }
 
 		/// <summary>
 		/// Get the second world anchor.
 		/// </summary>
 		/// <value></value>
-		public override sealed Vector2 worldAnchorB { get; set; }
+		public override sealed vec2 worldAnchorB { get; set; }
 
 		/// <summary>
 		/// Get the current length of the segment attached to body1.
@@ -131,12 +131,12 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _uA;
-		Vector2 _uB;
-		Vector2 _rA;
-		Vector2 _rB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
+		vec2 _uA;
+		vec2 _uB;
+		vec2 _rA;
+		vec2 _rB;
+		vec2 _localCenterA;
+		vec2 _localCenterB;
 		float _invMassA;
 		float _invMassB;
 		float _invIA;
@@ -162,7 +162,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <param name="worldAnchorB">The world anchor for the second body.</param>
 		/// <param name="ratio">The ratio.</param>
 		/// <param name="useWorldCoordinates">Set to true if you are using world coordinates as anchors.</param>
-		public PulleyJoint( Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, Vector2 worldAnchorA, Vector2 worldAnchorB, float ratio, bool useWorldCoordinates = false )
+		public PulleyJoint( Body bodyA, Body bodyB, vec2 anchorA, vec2 anchorB, vec2 worldAnchorA, vec2 worldAnchorB, float ratio, bool useWorldCoordinates = false )
 			: base( bodyA, bodyB )
 		{
 			jointType = JointType.Pulley;
@@ -185,9 +185,9 @@ namespace FarseerPhysics.Dynamics.Joints
 				localAnchorA = anchorA;
 				localAnchorB = anchorB;
 
-				Vector2 dA = anchorA - base.bodyA.getLocalPoint( worldAnchorA );
+				vec2 dA = anchorA - base.bodyA.getLocalPoint( worldAnchorA );
 				lengthA = dA.Length();
-				Vector2 dB = anchorB - base.bodyB.getLocalPoint( worldAnchorB );
+				vec2 dB = anchorB - base.bodyB.getLocalPoint( worldAnchorB );
 				lengthB = dB.Length();
 			}
 
@@ -199,9 +199,9 @@ namespace FarseerPhysics.Dynamics.Joints
 			_impulse = 0.0f;
 		}
 
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
-			Vector2 P = _impulse * _uB;
+			vec2 P = _impulse * _uB;
 			return invDt * P;
 		}
 
@@ -221,14 +221,14 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIA = bodyA._invI;
 			_invIB = bodyB._invI;
 
-			Vector2 cA = data.positions[_indexA].c;
+			vec2 cA = data.positions[_indexA].c;
 			float aA = data.positions[_indexA].a;
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
 
-			Vector2 cB = data.positions[_indexB].c;
+			vec2 cB = data.positions[_indexB].c;
 			float aB = data.positions[_indexB].a;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB );
@@ -249,7 +249,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_uA = Vector2.Zero;
+				_uA = vec2.Zero;
 			}
 
 			if( lengthB > 10.0f * Settings.linearSlop )
@@ -258,7 +258,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_uB = Vector2.Zero;
+				_uB = vec2.Zero;
 			}
 
 			// Compute effective mass.
@@ -281,8 +281,8 @@ namespace FarseerPhysics.Dynamics.Joints
 				_impulse *= data.step.dtRatio;
 
 				// Warm starting.
-				Vector2 PA = -( _impulse ) * _uA;
-				Vector2 PB = ( -ratio * _impulse ) * _uB;
+				vec2 PA = -( _impulse ) * _uA;
+				vec2 PB = ( -ratio * _impulse ) * _uB;
 
 				vA += _invMassA * PA;
 				wA += _invIA * MathUtils.cross( _rA, PA );
@@ -302,20 +302,20 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override void solveVelocityConstraints( ref SolverData data )
 		{
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
-			Vector2 vpA = vA + MathUtils.cross( wA, _rA );
-			Vector2 vpB = vB + MathUtils.cross( wB, _rB );
+			vec2 vpA = vA + MathUtils.cross( wA, _rA );
+			vec2 vpB = vB + MathUtils.cross( wB, _rB );
 
-			float Cdot = -Vector2.Dot( _uA, vpA ) - ratio * Vector2.Dot( _uB, vpB );
+			float Cdot = -vec2.Dot( _uA, vpA ) - ratio * vec2.Dot( _uB, vpB );
 			float impulse = -_mass * Cdot;
 			_impulse += impulse;
 
-			Vector2 PA = -impulse * _uA;
-			Vector2 PB = -ratio * impulse * _uB;
+			vec2 PA = -impulse * _uA;
+			vec2 PB = -ratio * impulse * _uB;
 			vA += _invMassA * PA;
 			wA += _invIA * MathUtils.cross( _rA, PA );
 			vB += _invMassB * PB;
@@ -329,19 +329,19 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override bool solvePositionConstraints( ref SolverData data )
 		{
-			Vector2 cA = data.positions[_indexA].c;
+			vec2 cA = data.positions[_indexA].c;
 			float aA = data.positions[_indexA].a;
-			Vector2 cB = data.positions[_indexB].c;
+			vec2 cB = data.positions[_indexB].c;
 			float aB = data.positions[_indexB].a;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB );
 
-			Vector2 rA = MathUtils.mul( qA, localAnchorA - _localCenterA );
-			Vector2 rB = MathUtils.mul( qB, localAnchorB - _localCenterB );
+			vec2 rA = MathUtils.mul( qA, localAnchorA - _localCenterA );
+			vec2 rB = MathUtils.mul( qB, localAnchorB - _localCenterB );
 
 			// Get the pulley axes.
-			Vector2 uA = cA + rA - worldAnchorA;
-			Vector2 uB = cB + rB - worldAnchorB;
+			vec2 uA = cA + rA - worldAnchorA;
+			vec2 uB = cB + rB - worldAnchorB;
 
 			float lengthA = uA.Length();
 			float lengthB = uB.Length();
@@ -352,7 +352,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				uA = Vector2.Zero;
+				uA = vec2.Zero;
 			}
 
 			if( lengthB > 10.0f * Settings.linearSlop )
@@ -361,7 +361,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				uB = Vector2.Zero;
+				uB = vec2.Zero;
 			}
 
 			// Compute effective mass.
@@ -383,8 +383,8 @@ namespace FarseerPhysics.Dynamics.Joints
 
 			float impulse = -mass * C;
 
-			Vector2 PA = -impulse * uA;
-			Vector2 PB = -ratio * impulse * uB;
+			vec2 PA = -impulse * uA;
+			vec2 PB = -ratio * impulse * uB;
 
 			cA += _invMassA * PA;
 			aA += _invIA * MathUtils.cross( rA, PA );

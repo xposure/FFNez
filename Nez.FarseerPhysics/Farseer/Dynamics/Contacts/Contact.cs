@@ -23,13 +23,13 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
+using Nez.Collision;
+using Nez.Collision.Shapes;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Contacts
+namespace Nez.Dynamics.Contacts
 {
 	/// <summary>
 	/// A contact edge is used to connect bodies and contacts together
@@ -177,7 +177,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 		/// <summary>
 		/// Gets the world manifold.
 		/// </summary>
-		public void getWorldManifold( out Vector2 normal, out FixedArray2<Vector2> points )
+		public void getWorldManifold( out vec2 normal, out FixedArray2<vec2> points )
 		{
 			var bodyA = fixtureA.body;
 			var bodyB = fixtureB.body;

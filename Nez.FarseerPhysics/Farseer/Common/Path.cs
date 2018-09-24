@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common
+namespace Nez.Common
 {
 	//Contributed by Matthew Bettcher
 
@@ -20,7 +20,7 @@ namespace FarseerPhysics.Common
 		/// <summary>
 		/// All the points that makes up the curve
 		/// </summary>
-		public List<Vector2> controlPoints;
+		public List<vec2> controlPoints;
 
 		float _deltaT;
 
@@ -30,16 +30,16 @@ namespace FarseerPhysics.Common
 		/// </summary>
 		public Path()
 		{
-			controlPoints = new List<Vector2>();
+			controlPoints = new List<vec2>();
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Path"/> class.
 		/// </summary>
 		/// <param name="vertices">The vertices to created the path from.</param>
-		public Path( Vector2[] vertices )
+		public Path( vec2[] vertices )
 		{
-			controlPoints = new List<Vector2>( vertices.Length );
+			controlPoints = new List<vec2>( vertices.Length );
 
 			for( int i = 0; i < vertices.Length; i++ )
 			{
@@ -51,9 +51,9 @@ namespace FarseerPhysics.Common
 		/// Initializes a new instance of the <see cref="Path"/> class.
 		/// </summary>
 		/// <param name="vertices">The vertices to created the path from.</param>
-		public Path( IList<Vector2> vertices )
+		public Path( IList<vec2> vertices )
 		{
-			controlPoints = new List<Vector2>( vertices.Count );
+			controlPoints = new List<vec2>( vertices.Count );
 			for( int i = 0; i < vertices.Count; i++ )
 			{
 				add( vertices[i] );
@@ -98,20 +98,20 @@ namespace FarseerPhysics.Common
 		/// Translates the control points by the specified vector.
 		/// </summary>
 		/// <param name="vector">The vector.</param>
-		public void translate( ref Vector2 vector )
+		public void translate( ref vec2 vector )
 		{
 			for( int i = 0; i < controlPoints.Count; i++ )
-				controlPoints[i] = Vector2.Add( controlPoints[i], vector );
+				controlPoints[i] = vec2.Add( controlPoints[i], vector );
 		}
 
 		/// <summary>
 		/// Scales the control points by the specified vector.
 		/// </summary>
 		/// <param name="value">The Value.</param>
-		public void scale( ref Vector2 value )
+		public void scale( ref vec2 value )
 		{
 			for( int i = 0; i < controlPoints.Count; i++ )
-				controlPoints[i] = Vector2.Multiply( controlPoints[i], value );
+				controlPoints[i] = vec2.Multiply( controlPoints[i], value );
 		}
 
 		/// <summary>
@@ -124,7 +124,7 @@ namespace FarseerPhysics.Common
 			Matrix.CreateRotationZ( value, out rotationMatrix );
 
 			for( int i = 0; i < controlPoints.Count; i++ )
-				controlPoints[i] = Vector2.Transform( controlPoints[i], rotationMatrix );
+				controlPoints[i] = vec2.Transform( controlPoints[i], rotationMatrix );
 		}
 
 		public override string ToString()
@@ -161,9 +161,9 @@ namespace FarseerPhysics.Common
 			return verts;
 		}
 
-		public Vector2 getPosition( float time )
+		public vec2 getPosition( float time )
 		{
-			Vector2 temp;
+			vec2 temp;
 
 			if( controlPoints.Count < 2 )
 				throw new Exception( "You need at least 2 control points to calculate a position." );
@@ -193,7 +193,7 @@ namespace FarseerPhysics.Common
 				// relative time
 				float lt = ( time - _deltaT * p ) / _deltaT;
 
-				temp = Vector2.CatmullRom( controlPoints[p0], controlPoints[p1], controlPoints[p2], controlPoints[p3], lt );
+				temp = vec2.CatmullRom( controlPoints[p0], controlPoints[p1], controlPoints[p2], controlPoints[p3], lt );
 
 				removeAt( controlPoints.Count - 1 );
 			}
@@ -218,7 +218,7 @@ namespace FarseerPhysics.Common
 				// relative time
 				float lt = ( time - _deltaT * p ) / _deltaT;
 
-				temp = Vector2.CatmullRom( controlPoints[p0], controlPoints[p1], controlPoints[p2], controlPoints[p3], lt );
+				temp = vec2.CatmullRom( controlPoints[p0], controlPoints[p1], controlPoints[p2], controlPoints[p3], lt );
 			}
 
 			return temp;
@@ -229,18 +229,18 @@ namespace FarseerPhysics.Common
 		/// </summary>
 		/// <param name="time">The time</param>
 		/// <returns>The normal.</returns>
-		public Vector2 getPositionNormal( float time )
+		public vec2 getPositionNormal( float time )
 		{
 			var offsetTime = time + 0.0001f;
 
 			var a = getPosition( time );
 			var b = getPosition( offsetTime );
 
-			Vector2 output, temp;
-			Vector2.Subtract( ref a, ref b, out temp );
+			vec2 output, temp;
+			vec2.Subtract( ref a, ref b, out temp );
 
-			output.X = -temp.Y;
-			output.Y = temp.X;
+			output.x = -temp.y;
+			output.y = temp.x;
 
             output.Normalize();
 			//Nez.Vector2Ext.normalize( ref output );
@@ -248,13 +248,13 @@ namespace FarseerPhysics.Common
 			return output;
 		}
 
-		public void add( Vector2 point )
+		public void add( vec2 point )
 		{
 			controlPoints.Add( point );
 			_deltaT = 1f / ( controlPoints.Count - 1 );
 		}
 
-		public void remove( Vector2 point )
+		public void remove( vec2 point )
 		{
 			controlPoints.Remove( point );
 			_deltaT = 1f / ( controlPoints.Count - 1 );
@@ -268,16 +268,16 @@ namespace FarseerPhysics.Common
 
 		public float getLength()
 		{
-			List<Vector2> verts = getVertices( controlPoints.Count * 25 );
+			List<vec2> verts = getVertices( controlPoints.Count * 25 );
 			float length = 0;
 
 			for( int i = 1; i < verts.Count; i++ )
 			{
-				length += Vector2.Distance( verts[i - 1], verts[i] );
+				length += vec2.Distance( verts[i - 1], verts[i] );
 			}
 
 			if( isClosed )
-				length += Vector2.Distance( verts[controlPoints.Count - 1], verts[0] );
+				length += vec2.Distance( verts[controlPoints.Count - 1], verts[0] );
 
 			return length;
 		}
@@ -292,11 +292,11 @@ namespace FarseerPhysics.Common
 			float t = 0.000f;
 
 			// we always start at the first control point
-			Vector2 start = controlPoints[0];
-			Vector2 end = getPosition( t );
+			vec2 start = controlPoints[0];
+			vec2 end = getPosition( t );
 
 			// increment t until we are at half the distance
-			while( deltaLength * 0.5f >= Vector2.Distance( start, end ) )
+			while( deltaLength * 0.5f >= vec2.Distance( start, end ) )
 			{
 				end = getPosition( t );
 				t += 0.0001f;
@@ -310,13 +310,13 @@ namespace FarseerPhysics.Common
 			// for each box
 			for( int i = 1; i < divisions; i++ )
 			{
-				Vector2 normal = getPositionNormal( t );
-				float angle = (float)Math.Atan2( normal.Y, normal.X );
+				vec2 normal = getPositionNormal( t );
+				float angle = (float)Math.Atan2( normal.y, normal.x );
 
 				verts.Add( new Vector3( end, angle ) );
 
 				// until we reach the correct distance down the curve
-				while( deltaLength >= Vector2.Distance( start, end ) )
+				while( deltaLength >= vec2.Distance( start, end ) )
 				{
 					end = getPosition( t );
 					t += 0.00001f;

@@ -21,11 +21,11 @@
 */
 
 using System;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	// Linear constraint (point-to-line)
 	// d = pB - pA = xB + rB - xA - rA
@@ -57,20 +57,20 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point on BodyA
 		/// </summary>
-		public Vector2 localAnchorA;
+		public vec2 localAnchorA;
 
 		/// <summary>
 		/// The local anchor point on BodyB
 		/// </summary>
-		public Vector2 localAnchorB;
+		public vec2 localAnchorB;
 
-		public override Vector2 worldAnchorA
+		public override vec2 worldAnchorA
 		{
 			get { return bodyA.getWorldPoint( localAnchorA ); }
 			set { localAnchorA = bodyA.getLocalPoint( value ); }
 		}
 
-		public override Vector2 worldAnchorB
+		public override vec2 worldAnchorB
 		{
 			get { return bodyB.getWorldPoint( localAnchorB ); }
 			set { localAnchorB = bodyB.getLocalPoint( value ); }
@@ -79,7 +79,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The axis at which the suspension moves.
 		/// </summary>
-		public Vector2 axis
+		public vec2 axis
 		{
 			get { return _axis; }
 			set
@@ -93,7 +93,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The axis in local coordinates relative to BodyA
 		/// </summary>
-		public Vector2 localXAxis { get; private set; }
+		public vec2 localXAxis { get; private set; }
 
 		/// <summary>
 		/// The desired motor speed in radians per second.
@@ -146,7 +146,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				var d = pB - pA;
 				var axis = bA.getWorldVector( localXAxis );
 
-				float translation = Vector2.Dot( d, axis );
+				float translation = vec2.Dot( d, axis );
 				return translation;
 			}
 		}
@@ -178,7 +178,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		}
 
 		// Solver shared
-		Vector2 _localYAxis;
+		vec2 _localYAxis;
 
 		float _impulse;
 		float _motorImpulse;
@@ -191,14 +191,14 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
+		vec2 _localCenterA;
+		vec2 _localCenterB;
 		float _invMassA;
 		float _invMassB;
 		float _invIA;
 		float _invIB;
 
-		Vector2 _ax, _ay;
+		vec2 _ax, _ay;
 		float _sAx, _sBx;
 		float _sAy, _sBy;
 
@@ -208,7 +208,7 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		float _bias;
 		float _gamma;
-		Vector2 _axis;
+		vec2 _axis;
 
 		#endregion
 
@@ -226,7 +226,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <param name="anchor">The anchor point</param>
 		/// <param name="axis">The axis</param>
 		/// <param name="useWorldCoordinates">Set to true if you are using world coordinates as anchors.</param>
-		public WheelJoint( Body bodyA, Body bodyB, Vector2 anchor, Vector2 axis, bool useWorldCoordinates = false )
+		public WheelJoint( Body bodyA, Body bodyB, vec2 anchor, vec2 axis, bool useWorldCoordinates = false )
 			: base( bodyA, bodyB )
 		{
 			jointType = JointType.Wheel;
@@ -254,7 +254,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			return invDt * _motorImpulse;
 		}
 
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
 			return invDt * ( _impulse * _ay + _springImpulse * _ax );
 		}
@@ -278,22 +278,22 @@ namespace FarseerPhysics.Dynamics.Joints
 			float mA = _invMassA, mB = _invMassB;
 			float iA = _invIA, iB = _invIB;
 
-			Vector2 cA = data.positions[_indexA].c;
+			vec2 cA = data.positions[_indexA].c;
 			float aA = data.positions[_indexA].a;
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
 
-			Vector2 cB = data.positions[_indexB].c;
+			vec2 cB = data.positions[_indexB].c;
 			float aB = data.positions[_indexB].a;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB );
 
 			// Compute the effective masses.
-			Vector2 rA = MathUtils.mul( qA, localAnchorA - _localCenterA );
-			Vector2 rB = MathUtils.mul( qB, localAnchorB - _localCenterB );
-			Vector2 d1 = cB + rB - cA - rA;
+			vec2 rA = MathUtils.mul( qA, localAnchorA - _localCenterA );
+			vec2 rB = MathUtils.mul( qB, localAnchorB - _localCenterB );
+			vec2 d1 = cB + rB - cA - rA;
 
 			// Point to line constraint
 			{
@@ -325,7 +325,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				{
 					_springMass = 1.0f / invMass;
 
-					float C = Vector2.Dot( d1, _ax );
+					float C = vec2.Dot( d1, _ax );
 
 					// Frequency
 					float omega = 2.0f * Settings.pi * frequency;
@@ -380,7 +380,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				_springImpulse *= data.step.dtRatio;
 				_motorImpulse *= data.step.dtRatio;
 
-				Vector2 P = _impulse * _ay + _springImpulse * _ax;
+				vec2 P = _impulse * _ay + _springImpulse * _ax;
 				float LA = _impulse * _sAy + _springImpulse * _sAx + _motorImpulse;
 				float LB = _impulse * _sBy + _springImpulse * _sBx + _motorImpulse;
 
@@ -408,18 +408,18 @@ namespace FarseerPhysics.Dynamics.Joints
 			float mA = _invMassA, mB = _invMassB;
 			float iA = _invIA, iB = _invIB;
 
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			// Solve spring constraint
 			{
-				float Cdot = Vector2.Dot( _ax, vB - vA ) + _sBx * wB - _sAx * wA;
+				float Cdot = vec2.Dot( _ax, vB - vA ) + _sBx * wB - _sAx * wA;
 				float impulse = -_springMass * ( Cdot + _bias + _gamma * _springImpulse );
 				_springImpulse += impulse;
 
-				Vector2 P = impulse * _ax;
+				vec2 P = impulse * _ax;
 				float LA = impulse * _sAx;
 				float LB = impulse * _sBx;
 
@@ -446,11 +446,11 @@ namespace FarseerPhysics.Dynamics.Joints
 
 			// Solve point to line constraint
 			{
-				float Cdot = Vector2.Dot( _ay, vB - vA ) + _sBy * wB - _sAy * wA;
+				float Cdot = vec2.Dot( _ay, vB - vA ) + _sBy * wB - _sAy * wA;
 				float impulse = -_mass * Cdot;
 				_impulse += impulse;
 
-				Vector2 P = impulse * _ay;
+				vec2 P = impulse * _ay;
 				float LA = impulse * _sAy;
 				float LB = impulse * _sBy;
 
@@ -469,23 +469,23 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override bool solvePositionConstraints( ref SolverData data )
 		{
-			Vector2 cA = data.positions[_indexA].c;
+			vec2 cA = data.positions[_indexA].c;
 			float aA = data.positions[_indexA].a;
-			Vector2 cB = data.positions[_indexB].c;
+			vec2 cB = data.positions[_indexB].c;
 			float aB = data.positions[_indexB].a;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB );
 
-			Vector2 rA = MathUtils.mul( qA, localAnchorA - _localCenterA );
-			Vector2 rB = MathUtils.mul( qB, localAnchorB - _localCenterB );
-			Vector2 d = ( cB - cA ) + rB - rA;
+			vec2 rA = MathUtils.mul( qA, localAnchorA - _localCenterA );
+			vec2 rB = MathUtils.mul( qB, localAnchorB - _localCenterB );
+			vec2 d = ( cB - cA ) + rB - rA;
 
-			Vector2 ay = MathUtils.mul( qA, _localYAxis );
+			vec2 ay = MathUtils.mul( qA, _localYAxis );
 
 			float sAy = MathUtils.cross( d + rA, ay );
 			float sBy = MathUtils.cross( rB, ay );
 
-			float C = Vector2.Dot( d, ay );
+			float C = vec2.Dot( d, ay );
 
 			float k = _invMassA + _invMassB + _invIA * _sAy * _sAy + _invIB * _sBy * _sBy;
 
@@ -499,7 +499,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				impulse = 0.0f;
 			}
 
-			Vector2 P = impulse * ay;
+			vec2 P = impulse * ay;
 			float LA = impulse * sAy;
 			float LB = impulse * sBy;
 

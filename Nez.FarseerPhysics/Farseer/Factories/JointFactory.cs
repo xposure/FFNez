@@ -1,9 +1,9 @@
-﻿using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Joints;
+﻿using Nez.Dynamics;
+using Nez.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Factories
+namespace Nez.Factories
 {
 	/// <summary>
 	/// An easy to use factory for using joints.
@@ -23,14 +23,14 @@ namespace FarseerPhysics.Factories
 
 		#region Revolute Joint
 
-		public static RevoluteJoint createRevoluteJoint( World world, Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public static RevoluteJoint createRevoluteJoint( World world, Body bodyA, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 		{
 			var joint = new RevoluteJoint( bodyA, bodyB, anchorA, anchorB, useWorldCoordinates );
 			world.addJoint( joint );
 			return joint;
 		}
 
-		public static RevoluteJoint createRevoluteJoint( World world, Body bodyA, Body bodyB, Vector2 anchor )
+		public static RevoluteJoint createRevoluteJoint( World world, Body bodyA, Body bodyB, vec2 anchor )
 		{
 			var localanchorA = bodyA.getLocalPoint( bodyB.getWorldPoint( anchor ) );
 			var joint = new RevoluteJoint( bodyA, bodyB, localanchorA, anchor );
@@ -43,7 +43,7 @@ namespace FarseerPhysics.Factories
 
 		#region Rope Joint
 
-		public static RopeJoint createRopeJoint( World world, Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public static RopeJoint createRopeJoint( World world, Body bodyA, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 		{
 			var ropeJoint = new RopeJoint( bodyA, bodyB, anchorA, anchorB, useWorldCoordinates );
 			world.addJoint( ropeJoint );
@@ -54,7 +54,7 @@ namespace FarseerPhysics.Factories
 
 		#region Weld Joint
 
-		public static WeldJoint createWeldJoint( World world, Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public static WeldJoint createWeldJoint( World world, Body bodyA, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 		{
 			var weldJoint = new WeldJoint( bodyA, bodyB, anchorA, anchorB, useWorldCoordinates );
 			world.addJoint( weldJoint );
@@ -65,7 +65,7 @@ namespace FarseerPhysics.Factories
 
 		#region Prismatic Joint
 
-		public static PrismaticJoint createPrismaticJoint( World world, Body bodyA, Body bodyB, Vector2 anchor, Vector2 axis, bool useWorldCoordinates = false )
+		public static PrismaticJoint createPrismaticJoint( World world, Body bodyA, Body bodyB, vec2 anchor, vec2 axis, bool useWorldCoordinates = false )
 		{
 			PrismaticJoint joint = new PrismaticJoint( bodyA, bodyB, anchor, axis, useWorldCoordinates );
 			world.addJoint( joint );
@@ -76,16 +76,16 @@ namespace FarseerPhysics.Factories
 
 		#region Wheel Joint
 
-		public static WheelJoint createWheelJoint( World world, Body bodyA, Body bodyB, Vector2 anchor, Vector2 axis, bool useWorldCoordinates = false )
+		public static WheelJoint createWheelJoint( World world, Body bodyA, Body bodyB, vec2 anchor, vec2 axis, bool useWorldCoordinates = false )
 		{
 			WheelJoint joint = new WheelJoint( bodyA, bodyB, anchor, axis, useWorldCoordinates );
 			world.addJoint( joint );
 			return joint;
 		}
 
-		public static WheelJoint createWheelJoint( World world, Body bodyA, Body bodyB, Vector2 axis )
+		public static WheelJoint createWheelJoint( World world, Body bodyA, Body bodyB, vec2 axis )
 		{
-			return createWheelJoint( world, bodyA, bodyB, Vector2.Zero, axis );
+			return createWheelJoint( world, bodyA, bodyB, vec2.Zero, axis );
 		}
 
 		#endregion
@@ -103,7 +103,7 @@ namespace FarseerPhysics.Factories
 
 		#region Distance Joint
 
-		public static DistanceJoint createDistanceJoint( World world, Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public static DistanceJoint createDistanceJoint( World world, Body bodyA, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 		{
 			var distanceJoint = new DistanceJoint( bodyA, bodyB, anchorA, anchorB, useWorldCoordinates );
 			world.addJoint( distanceJoint );
@@ -112,14 +112,14 @@ namespace FarseerPhysics.Factories
 
 		public static DistanceJoint createDistanceJoint( World world, Body bodyA, Body bodyB )
 		{
-			return createDistanceJoint( world, bodyA, bodyB, Vector2.Zero, Vector2.Zero );
+			return createDistanceJoint( world, bodyA, bodyB, vec2.Zero, vec2.Zero );
 		}
 
 		#endregion
 
 		#region Friction Joint
 
-		public static FrictionJoint createFrictionJoint( World world, Body bodyA, Body bodyB, Vector2 anchor, bool useWorldCoordinates = false )
+		public static FrictionJoint createFrictionJoint( World world, Body bodyA, Body bodyB, vec2 anchor, bool useWorldCoordinates = false )
 		{
 			var frictionJoint = new FrictionJoint( bodyA, bodyB, anchor, useWorldCoordinates );
 			world.addJoint( frictionJoint );
@@ -128,7 +128,7 @@ namespace FarseerPhysics.Factories
 
 		public static FrictionJoint createFrictionJoint( World world, Body bodyA, Body bodyB )
 		{
-			return createFrictionJoint( world, bodyA, bodyB, Vector2.Zero );
+			return createFrictionJoint( world, bodyA, bodyB, vec2.Zero );
 		}
 
 		#endregion
@@ -146,7 +146,7 @@ namespace FarseerPhysics.Factories
 
 		#region Pulley Joint
 
-		public static PulleyJoint createPulleyJoint( World world, Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, Vector2 worldAnchorA, Vector2 worldAnchorB, float ratio, bool useWorldCoordinates = false )
+		public static PulleyJoint createPulleyJoint( World world, Body bodyA, Body bodyB, vec2 anchorA, vec2 anchorB, vec2 worldAnchorA, vec2 worldAnchorB, float ratio, bool useWorldCoordinates = false )
 		{
 			var pulleyJoint = new PulleyJoint( bodyA, bodyB, anchorA, anchorB, worldAnchorA, worldAnchorB, ratio, useWorldCoordinates );
 			world.addJoint( pulleyJoint );
@@ -157,7 +157,7 @@ namespace FarseerPhysics.Factories
 
 		#region MouseJoint
 
-		public static FixedMouseJoint createFixedMouseJoint( World world, Body body, Vector2 worldAnchor )
+		public static FixedMouseJoint createFixedMouseJoint( World world, Body body, vec2 worldAnchor )
 		{
 			var joint = new FixedMouseJoint( body, worldAnchor );
 			world.addJoint( joint );

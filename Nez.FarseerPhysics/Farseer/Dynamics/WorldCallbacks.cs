@@ -20,13 +20,13 @@
 * 3. This notice may not be removed or altered from any source distribution. 
 */
 
-using FarseerPhysics.Collision;
-using FarseerPhysics.Controllers;
-using FarseerPhysics.Dynamics.Contacts;
-using FarseerPhysics.Dynamics.Joints;
+using Nez.Collision;
+using Nez.Controllers;
+using Nez.Dynamics.Contacts;
+using Nez.Dynamics.Joints;
 
 
-namespace FarseerPhysics.Dynamics
+namespace Nez.Dynamics
 {
 	/// <summary>
 	/// This delegate is called when a contact is deleted

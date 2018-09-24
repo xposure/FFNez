@@ -1,5 +1,5 @@
-﻿using FarseerPhysics;
-using FarseerPhysics.Common;
+﻿using Nez;
+using Nez.Common;
 
 
 namespace Nez.Farseer

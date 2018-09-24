@@ -20,11 +20,11 @@
 * 3. This notice may not be removed or altered from any source distribution. 
 */
 
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	// Point-to-point constraint
 	// Cdot = v2 - v1
@@ -49,20 +49,20 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point on BodyA
 		/// </summary>
-		public Vector2 localAnchorA;
+		public vec2 localAnchorA;
 
 		/// <summary>
 		/// The local anchor point on BodyB
 		/// </summary>
-		public Vector2 localAnchorB;
+		public vec2 localAnchorB;
 
-		public override Vector2 worldAnchorA
+		public override vec2 worldAnchorA
 		{
 			get { return bodyA.getWorldPoint( localAnchorA ); }
 			set { localAnchorA = bodyA.getLocalPoint( value ); }
 		}
 
-		public override Vector2 worldAnchorB
+		public override vec2 worldAnchorB
 		{
 			get { return bodyB.getWorldPoint( localAnchorB ); }
 			set { localAnchorB = bodyB.getLocalPoint( value ); }
@@ -79,16 +79,16 @@ namespace FarseerPhysics.Dynamics.Joints
 		public float maxTorque;
 
 		// Solver shared
-		Vector2 _linearImpulse;
+		vec2 _linearImpulse;
 		float _angularImpulse;
 
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _rA;
-		Vector2 _rB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
+		vec2 _rA;
+		vec2 _rB;
+		vec2 _localCenterA;
+		vec2 _localCenterB;
 		float _invMassA;
 		float _invMassB;
 		float _invIA;
@@ -111,7 +111,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <param name="bodyB"></param>
 		/// <param name="anchor"></param>
 		/// <param name="useWorldCoordinates">Set to true if you are using world coordinates as anchors.</param>
-		public FrictionJoint( Body bodyA, Body bodyB, Vector2 anchor, bool useWorldCoordinates = false )
+		public FrictionJoint( Body bodyA, Body bodyB, vec2 anchor, bool useWorldCoordinates = false )
 			: base( bodyA, bodyB )
 		{
 			jointType = JointType.Friction;
@@ -128,7 +128,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 		}
 
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
 			return invDt * _linearImpulse;
 		}
@@ -150,11 +150,11 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIB = bodyB._invI;
 
 			float aA = data.positions[_indexA].a;
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
 
 			float aB = data.positions[_indexB].a;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB );
@@ -176,10 +176,10 @@ namespace FarseerPhysics.Dynamics.Joints
 			float iA = _invIA, iB = _invIB;
 
 			Mat22 K = new Mat22();
-			K.ex.X = mA + mB + iA * _rA.Y * _rA.Y + iB * _rB.Y * _rB.Y;
-			K.ex.Y = -iA * _rA.X * _rA.Y - iB * _rB.X * _rB.Y;
-			K.ey.X = K.ex.Y;
-			K.ey.Y = mA + mB + iA * _rA.X * _rA.X + iB * _rB.X * _rB.X;
+			K.ex.x = mA + mB + iA * _rA.y * _rA.y + iB * _rB.y * _rB.y;
+			K.ex.y = -iA * _rA.x * _rA.y - iB * _rB.x * _rB.y;
+			K.ey.x = K.ex.y;
+			K.ey.y = mA + mB + iA * _rA.x * _rA.x + iB * _rB.x * _rB.x;
 
 			_linearMass = K.Inverse;
 
@@ -195,7 +195,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				_linearImpulse *= data.step.dtRatio;
 				_angularImpulse *= data.step.dtRatio;
 
-				Vector2 P = new Vector2( _linearImpulse.X, _linearImpulse.Y );
+				vec2 P = new vec2( _linearImpulse.x, _linearImpulse.y );
 				vA -= mA * P;
 				wA -= iA * ( MathUtils.cross( _rA, P ) + _angularImpulse );
 				vB += mB * P;
@@ -203,7 +203,7 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				_linearImpulse = Vector2.Zero;
+				_linearImpulse = vec2.Zero;
 				_angularImpulse = 0.0f;
 			}
 
@@ -215,9 +215,9 @@ namespace FarseerPhysics.Dynamics.Joints
 
 		internal override void solveVelocityConstraints( ref SolverData data )
 		{
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			float mA = _invMassA, mB = _invMassB;

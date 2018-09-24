@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common.ConvexHull
+namespace Nez.Common.ConvexHull
 {
 	/// <summary>
 	/// Giftwrap convex hull algorithm.
@@ -24,11 +24,11 @@ namespace FarseerPhysics.Common.ConvexHull
 
 			// Find the right most point on the hull
 			int i0 = 0;
-			float x0 = vertices[0].X;
+			float x0 = vertices[0].x;
 			for( int i = 1; i < vertices.Count; ++i )
 			{
-				float x = vertices[i].X;
-				if( x > x0 || ( x == x0 && vertices[i].Y < vertices[i0].Y ) )
+				float x = vertices[i].x;
+				if( x > x0 || ( x == x0 && vertices[i].y < vertices[i0].y ) )
 				{
 					i0 = i;
 					x0 = x;
@@ -52,8 +52,8 @@ namespace FarseerPhysics.Common.ConvexHull
 						continue;
 					}
 
-					Vector2 r = vertices[ie] - vertices[hull[m]];
-					Vector2 v = vertices[j] - vertices[hull[m]];
+					vec2 r = vertices[ie] - vertices[hull[m]];
+					vec2 v = vertices[j] - vertices[hull[m]];
 					float c = MathUtils.cross( ref r, ref v );
 					if( c < 0.0f )
 					{

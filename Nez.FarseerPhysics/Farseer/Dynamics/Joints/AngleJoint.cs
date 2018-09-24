@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	/// <summary>
 	/// Maintains a fixed angle between two bodies
@@ -12,13 +12,13 @@ namespace FarseerPhysics.Dynamics.Joints
 	{
 		#region Properties/Fields
 
-		public override Vector2 worldAnchorA
+		public override vec2 worldAnchorA
 		{
 			get { return bodyA.position; }
 			set { Debug.Assert( false, "You can't set the world anchor on this joint type." ); }
 		}
 
-		public override Vector2 worldAnchorB
+		public override vec2 worldAnchorB
 		{
 			get { return bodyB.position; }
 			set { Debug.Assert( false, "You can't set the world anchor on this joint type." ); }
@@ -81,11 +81,11 @@ namespace FarseerPhysics.Dynamics.Joints
 			jointType = JointType.Angle;
 		}
 
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
 			//TODO
 			//return _inv_dt * _impulse;
-			return Vector2.Zero;
+			return vec2.Zero;
 		}
 
 		public override float getReactionTorque( float invDt )

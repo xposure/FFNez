@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Common.Decomposition;
+using Nez.Collision.Shapes;
+using Nez.Common;
+using Nez.Common.Decomposition;
 using Nez.Textures;
-using FarseerPhysics.Common.PolygonManipulation;
+using Nez.Common.PolygonManipulation;
 
 
 namespace Nez.Farseer

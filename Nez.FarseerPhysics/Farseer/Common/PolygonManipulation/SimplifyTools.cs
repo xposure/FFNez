@@ -4,7 +4,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common.PolygonManipulation
+namespace Nez.Common.PolygonManipulation
 {
 	/// <summary>
 	/// Provides a set of tools to simplify polygons in various ways.
@@ -77,14 +77,14 @@ namespace FarseerPhysics.Common.PolygonManipulation
 			if( ( i + 1 ) == j )
 				return;
 
-			Vector2 a = vertices[i];
-			Vector2 b = vertices[j];
+			vec2 a = vertices[i];
+			vec2 b = vertices[j];
 
 			double maxDistance = -1.0;
 			int maxIndex = i;
 			for( int k = i + 1; k < j; k++ )
 			{
-				Vector2 point = vertices[k];
+				vec2 point = vertices[k];
 
 				double distance = LineTools.distanceBetweenPointAndLineSegment( ref point, ref a, ref b );
 
@@ -132,10 +132,10 @@ namespace FarseerPhysics.Common.PolygonManipulation
 				int middle = i;
 				int upper = ( i == vertices.Count - 1 ) ? ( 0 ) : ( i + 1 );
 
-				float dx0 = vertices[middle].X - vertices[lower].X;
-				float dy0 = vertices[middle].Y - vertices[lower].Y;
-				float dx1 = vertices[upper].Y - vertices[middle].X;
-				float dy1 = vertices[upper].Y - vertices[middle].Y;
+				float dx0 = vertices[middle].x - vertices[lower].x;
+				float dy0 = vertices[middle].y - vertices[lower].y;
+				float dx1 = vertices[upper].y - vertices[middle].x;
+				float dy1 = vertices[upper].y - vertices[middle].y;
 				float norm0 = (float)Math.Sqrt( dx0 * dx0 + dy0 * dy0 );
 				float norm1 = (float)Math.Sqrt( dx1 * dx1 + dy1 * dy1 );
 
@@ -191,8 +191,8 @@ namespace FarseerPhysics.Common.PolygonManipulation
 		/// <param name="vertices">The vertices.</param>
 		public static Vertices mergeIdenticalPoints( Vertices vertices )
 		{
-			var unique = new HashSet<Vector2>();
-			foreach( Vector2 vertex in vertices )
+			var unique = new HashSet<vec2>();
+			foreach( vec2 vertex in vertices )
 				unique.Add( vertex );
 
 			return new Vertices( unique );
@@ -215,8 +215,8 @@ namespace FarseerPhysics.Common.PolygonManipulation
 
 			for( int i = 0; i < vertices.Count; i++ )
 			{
-				Vector2 current = vertices[i];
-				Vector2 next = vertices.nextVertex( i );
+				vec2 current = vertices[i];
+				vec2 next = vertices.nextVertex( i );
 
 				//If they are closer than the distance, continue
 				if( ( next - current ).LengthSquared() <= distance2 )
@@ -276,9 +276,9 @@ namespace FarseerPhysics.Common.PolygonManipulation
 				throw new ArgumentOutOfRangeException( "areaTolerance", "must be equal to or greater than zero." );
 
 			Vertices simplified = new Vertices( vertices.Count );
-			Vector2 v3;
-			Vector2 v1 = vertices[vertices.Count - 2];
-			Vector2 v2 = vertices[vertices.Count - 1];
+			vec2 v3;
+			vec2 v1 = vertices[vertices.Count - 2];
+			vec2 v2 = vertices[vertices.Count - 1];
 			areaTolerance *= 2;
 
 			for( int i = 0; i < vertices.Count; ++i, v2 = v3 )

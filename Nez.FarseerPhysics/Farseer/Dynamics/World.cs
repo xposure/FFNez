@@ -29,16 +29,16 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Controllers;
-using FarseerPhysics.Dynamics.Contacts;
-using FarseerPhysics.Dynamics.Joints;
+using Nez.Collision;
+using Nez.Collision.Shapes;
+using Nez.Common;
+using Nez.Controllers;
+using Nez.Dynamics.Contacts;
+using Nez.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics
+namespace Nez.Dynamics
 {
 	/// <summary>
 	/// The world class manages all physics entities, dynamic simulation,
@@ -68,7 +68,7 @@ namespace FarseerPhysics.Dynamics
 		/// Change the global gravity vector.
 		/// </summary>
 		/// <value>The gravity.</value>
-		public Vector2 gravity;
+		public vec2 gravity;
 
 		/// <summary>
 		/// Get the contact manager for testing.
@@ -176,13 +176,13 @@ namespace FarseerPhysics.Dynamics
 
 		Func<Fixture, bool> _queryAABBCallback;
 		Func<int, bool> _queryAABBCallbackWrapper;
-		Func<Fixture, Vector2, Vector2, float, float> _rayCastCallback;
+		Func<Fixture, vec2, vec2, float, float> _rayCastCallback;
 		Func<RayCastInput, int, float> _rayCastCallbackWrapper;
 
 		TOIInput _input = new TOIInput();
 		Fixture _myFixture;
-		Vector2 _point1;
-		Vector2 _point2;
+		vec2 _point1;
+		vec2 _point2;
 		List<Fixture> _testPointAllFixtures;
 		Stopwatch _watch = new Stopwatch();
 
@@ -195,7 +195,7 @@ namespace FarseerPhysics.Dynamics
 		/// <summary>
 		/// Initializes a new instance of the <see cref="World"/> class.
 		/// </summary>
-		public World( Vector2 gravity )
+		public World( vec2 gravity )
 		{
 			island = new Island();
 			enabled = true;
@@ -1253,7 +1253,7 @@ namespace FarseerPhysics.Dynamics
 			for( int i = 0; i < bodyList.Count; i++ )
 			{
 				var body = bodyList[i];
-				body._force = Vector2.Zero;
+				body._force = vec2.Zero;
 				body._torque = 0.0f;
 			}
 		}
@@ -1267,7 +1267,7 @@ namespace FarseerPhysics.Dynamics
 		/// <param name="center">Center.</param>
 		/// <param name="radius">Radius.</param>
 		/// <param name="fixtures">Fixtures.</param>
-		public void queryCircle( Vector2 center, float radius, List<Fixture> fixtures )
+		public void queryCircle( vec2 center, float radius, List<Fixture> fixtures )
 		{
 			// prep the CircleShape
 			_tempOverlapCircle.radius = radius;
@@ -1277,7 +1277,7 @@ namespace FarseerPhysics.Dynamics
 
 			// create an AABB for our query
 			AABB aabb;
-			var d = new Vector2( radius, radius );
+			var d = new vec2( radius, radius );
 			aabb.lowerBound = center - d;
 			aabb.upperBound = center + d;
 
@@ -1361,7 +1361,7 @@ namespace FarseerPhysics.Dynamics
 		/// <param name="callback">A user implemented callback class.</param>
 		/// <param name="point1">The ray starting point.</param>
 		/// <param name="point2">The ray ending point.</param>
-		public void rayCast( Func<Fixture, Vector2, Vector2, float, float> callback, Vector2 point1, Vector2 point2 )
+		public void rayCast( Func<Fixture, vec2, vec2, float, float> callback, vec2 point1, vec2 point2 )
 		{
 			var input = new RayCastInput();
 			input.maxFraction = 1.0f;
@@ -1373,7 +1373,7 @@ namespace FarseerPhysics.Dynamics
 			_rayCastCallback = null;
 		}
 
-		public List<Fixture> rayCast( Vector2 point1, Vector2 point2 )
+		public List<Fixture> rayCast( vec2 point1, vec2 point2 )
 		{
 			var affected = new List<Fixture>();
 
@@ -1404,10 +1404,10 @@ namespace FarseerPhysics.Dynamics
 			return rayCastInput.maxFraction;
 		}
 
-		public Fixture testPoint( Vector2 point )
+		public Fixture testPoint( vec2 point )
 		{
 			AABB aabb;
-			var d = new Vector2( Settings.epsilon, Settings.epsilon );
+			var d = new vec2( Settings.epsilon, Settings.epsilon );
 			aabb.lowerBound = point - d;
 			aabb.upperBound = point + d;
 
@@ -1438,10 +1438,10 @@ namespace FarseerPhysics.Dynamics
 		/// </summary>
 		/// <param name="point">The point.</param>
 		/// <returns></returns>
-		public List<Fixture> testPointAll( Vector2 point )
+		public List<Fixture> testPointAll( vec2 point )
 		{
 			AABB aabb;
-			var d = new Vector2( Settings.epsilon, Settings.epsilon );
+			var d = new vec2( Settings.epsilon, Settings.epsilon );
 			aabb.lowerBound = point - d;
 			aabb.upperBound = point + d;
 
@@ -1472,7 +1472,7 @@ namespace FarseerPhysics.Dynamics
 		/// Warning: Calling this method mid-update might cause a crash.
 		/// </summary>
 		/// <param name="newOrigin">the new origin with respect to the old origin</param>
-		public void shiftOrigin( Vector2 newOrigin )
+		public void shiftOrigin( vec2 newOrigin )
 		{
 			foreach( Body b in bodyList )
 			{

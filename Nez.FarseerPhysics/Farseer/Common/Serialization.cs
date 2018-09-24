@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Joints;
+using Nez.Collision.Shapes;
+using Nez.Dynamics;
+using Nez.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common
+namespace Nez.Common
 {
 	/// <summary>
 	/// Serialize the world into an XML file
@@ -64,7 +64,7 @@ namespace FarseerPhysics.Common
 						var poly = (PolygonShape)shape;
 
 						_writer.WriteStartElement( "Vertices" );
-						foreach( Vector2 v in poly.vertices )
+						foreach( vec2 v in poly.vertices )
 							WriteElement( "Vertex", v );
 						_writer.WriteEndElement();
 
@@ -83,7 +83,7 @@ namespace FarseerPhysics.Common
 						var chain = (ChainShape)shape;
 
 						_writer.WriteStartElement( "Vertices" );
-						foreach( Vector2 v in chain.vertices )
+						foreach( vec2 v in chain.vertices )
 							WriteElement( "Vertex", v );
 						_writer.WriteEndElement();
 
@@ -316,9 +316,9 @@ namespace FarseerPhysics.Common
 			_writer.WriteEndElement();
 		}
 
-		static void WriteElement( string name, Vector2 vec )
+		static void WriteElement( string name, vec2 vec )
 		{
-			_writer.WriteElementString( name, vec.X + " " + vec.Y );
+			_writer.WriteElementString( name, vec.x + " " + vec.y );
 		}
 
 		static void WriteElement( string name, int val )
@@ -473,7 +473,7 @@ namespace FarseerPhysics.Common
 	{
 		internal static World Deserialize( Stream stream )
 		{
-			var world = new World( Vector2.Zero );
+			var world = new World( vec2.Zero );
 			Deserialize( world, stream );
 			return world;
 		}
@@ -549,7 +549,7 @@ namespace FarseerPhysics.Common
 										{
 											case "vertices":
 												{
-													var verts = new List<Vector2>( sn.Elements.Count );
+													var verts = new List<vec2>( sn.Elements.Count );
 
 													foreach( XMLFragmentElement vert in sn.Elements )
 														verts.Add( ReadVector( vert ) );
@@ -611,7 +611,7 @@ namespace FarseerPhysics.Common
 										{
 											case "vertices":
 												{
-													var verts = new List<Vector2>( sn.Elements.Count );
+													var verts = new List<vec2>( sn.Elements.Count );
 
 													foreach( XMLFragmentElement vert in sn.Elements )
 														verts.Add( ReadVector( vert ) );
@@ -727,7 +727,7 @@ namespace FarseerPhysics.Common
 									break;
 								case "angle":
 									{
-										Vector2 position = body.position;
+										vec2 position = body.position;
 										body.setTransformIgnoreContacts( ref position, float.Parse( sn.Value ) );
 									}
 									break;
@@ -755,7 +755,7 @@ namespace FarseerPhysics.Common
 								case "position":
 									{
 										float rotation = body.rotation;
-										Vector2 position = ReadVector( sn );
+										vec2 position = ReadVector( sn );
 										body.setTransformIgnoreContacts( ref position, rotation );
 									}
 									break;
@@ -1123,10 +1123,10 @@ namespace FarseerPhysics.Common
 			world.processChanges();
 		}
 
-		static Vector2 ReadVector( XMLFragmentElement node )
+		static vec2 ReadVector( XMLFragmentElement node )
 		{
 			string[] values = node.Value.Split( ' ' );
-			return new Vector2( float.Parse( values[0] ), float.Parse( values[1] ) );
+			return new vec2( float.Parse( values[0] ), float.Parse( values[1] ) );
 		}
 
 		static object ReadSimpleType( XMLFragmentElement node, Type type, bool outer )

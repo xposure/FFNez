@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Dynamics;
+using Nez.Collision;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
-using FSTransform = FarseerPhysics.Common.Transform;
+using FSTransform = Nez.Common.Transform;
 
 
 namespace Nez.Farseer
@@ -18,7 +18,7 @@ namespace Nez.Farseer
 		/// <param name="self">Fixture a.</param>
 		/// <param name="motion">the delta movement in Nez pixel coordinates</param>
 		/// <param name="result">Result.</param>
-		public static bool collidesWithAnyFixtures( this Fixture self, ref Vector2 motion, out FSCollisionResult result )
+		public static bool collidesWithAnyFixtures( this Fixture self, ref vec2 motion, out FSCollisionResult result )
 		{
 			result = new FSCollisionResult();
 			motion *= FSConvert.displayToSim;

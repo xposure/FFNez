@@ -21,11 +21,11 @@
 */
 
 using System;
-using FarseerPhysics.Common;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Joints
+namespace Nez.Dynamics.Joints
 {
 	// Point-to-point constraint
 	// C = p2 - p1
@@ -54,20 +54,20 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <summary>
 		/// The local anchor point on BodyA
 		/// </summary>
-		public Vector2 localAnchorA;
+		public vec2 localAnchorA;
 
 		/// <summary>
 		/// The local anchor point on BodyB
 		/// </summary>
-		public Vector2 localAnchorB;
+		public vec2 localAnchorB;
 
-		public override Vector2 worldAnchorA
+		public override vec2 worldAnchorA
 		{
 			get { return bodyA.getWorldPoint( localAnchorA ); }
 			set { localAnchorA = bodyA.getLocalPoint( value ); }
 		}
 
-		public override Vector2 worldAnchorB
+		public override vec2 worldAnchorB
 		{
 			get { return bodyB.getWorldPoint( localAnchorB ); }
 			set { localAnchorB = bodyB.getLocalPoint( value ); }
@@ -99,10 +99,10 @@ namespace FarseerPhysics.Dynamics.Joints
 		// Solver temp
 		int _indexA;
 		int _indexB;
-		Vector2 _rA;
-		Vector2 _rB;
-		Vector2 _localCenterA;
-		Vector2 _localCenterB;
+		vec2 _rA;
+		vec2 _rB;
+		vec2 _localCenterA;
+		vec2 _localCenterB;
 		float _invMassA;
 		float _invMassB;
 		float _invIA;
@@ -126,7 +126,7 @@ namespace FarseerPhysics.Dynamics.Joints
 		/// <param name="anchorA">The first body anchor.</param>
 		/// <param name="anchorB">The second body anchor.</param>
 		/// <param name="useWorldCoordinates">Set to true if you are using world coordinates as anchors.</param>
-		public WeldJoint( Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false )
+		public WeldJoint( Body bodyA, Body bodyB, vec2 anchorA, vec2 anchorB, bool useWorldCoordinates = false )
 			: base( bodyA, bodyB )
 		{
 			jointType = JointType.Weld;
@@ -145,9 +145,9 @@ namespace FarseerPhysics.Dynamics.Joints
 			referenceAngle = base.bodyB.rotation - base.bodyA.rotation;
 		}
 
-		public override Vector2 getReactionForce( float invDt )
+		public override vec2 getReactionForce( float invDt )
 		{
-			return invDt * new Vector2( _impulse.X, _impulse.Y );
+			return invDt * new vec2( _impulse.X, _impulse.Y );
 		}
 
 		public override float getReactionTorque( float invDt )
@@ -167,11 +167,11 @@ namespace FarseerPhysics.Dynamics.Joints
 			_invIB = bodyB._invI;
 
 			float aA = data.positions[_indexA].a;
-			Vector2 vA = data.velocities[_indexA].v;
+			vec2 vA = data.velocities[_indexA].v;
 			float wA = data.velocities[_indexA].w;
 
 			float aB = data.positions[_indexB].a;
-			Vector2 vB = data.velocities[_indexB].v;
+			vec2 vB = data.velocities[_indexB].v;
 			float wB = data.velocities[_indexB].w;
 
 			Rot qA = new Rot( aA ), qB = new Rot( aB );
@@ -192,12 +192,12 @@ namespace FarseerPhysics.Dynamics.Joints
 			float iA = _invIA, iB = _invIB;
 
 			Mat33 K = new Mat33();
-			K.ex.X = mA + mB + _rA.Y * _rA.Y * iA + _rB.Y * _rB.Y * iB;
-			K.ey.X = -_rA.Y * _rA.X * iA - _rB.Y * _rB.X * iB;
-			K.ez.X = -_rA.Y * iA - _rB.Y * iB;
+			K.ex.X = mA + mB + _rA.y * _rA.y * iA + _rB.y * _rB.y * iB;
+			K.ey.X = -_rA.y * _rA.x * iA - _rB.y * _rB.x * iB;
+			K.ez.X = -_rA.y * iA - _rB.y * iB;
 			K.ex.Y = K.ey.X;
-			K.ey.Y = mA + mB + _rA.X * _rA.X * iA + _rB.X * _rB.X * iB;
-			K.ez.Y = _rA.X * iA + _rB.X * iB;
+			K.ey.Y = mA + mB + _rA.x * _rA.x * iA + _rB.x * _rB.x * iB;
+			K.ez.Y = _rA.x * iA + _rB.x * iB;
 			K.ex.Z = K.ez.X;
 			K.ey.Z = K.ez.Y;
 			K.ez.Z = iA + iB;
@@ -241,7 +241,7 @@ namespace FarseerPhysics.Dynamics.Joints
 				// Scale impulses to support a variable time step.
 				_impulse *= data.step.dtRatio;
 
-				Vector2 P = new Vector2( _impulse.X, _impulse.Y );
+				vec2 P = new vec2( _impulse.X, _impulse.Y );
 
 				vA -= mA * P;
 				wA -= iA * ( MathUtils.cross( _rA, P ) + _impulse.Z );
@@ -283,8 +283,8 @@ namespace FarseerPhysics.Dynamics.Joints
 				var Cdot1 = vB + MathUtils.cross( wB, _rB ) - vA - MathUtils.cross( wA, _rA );
 
 				var impulse1 = -MathUtils.mul22( _mass, Cdot1 );
-				_impulse.X += impulse1.X;
-				_impulse.Y += impulse1.Y;
+				_impulse.X += impulse1.x;
+				_impulse.Y += impulse1.y;
 
 				var P = impulse1;
 
@@ -298,12 +298,12 @@ namespace FarseerPhysics.Dynamics.Joints
 			{
 				var Cdot1 = vB + MathUtils.cross( wB, _rB ) - vA - MathUtils.cross( wA, _rA );
 				float Cdot2 = wB - wA;
-				var Cdot = new Vector3( Cdot1.X, Cdot1.Y, Cdot2 );
+				var Cdot = new Vector3( Cdot1.x, Cdot1.y, Cdot2 );
 
 				var impulse = -MathUtils.mul( _mass, Cdot );
 				_impulse += impulse;
 
-				var P = new Vector2( impulse.X, impulse.Y );
+				var P = new vec2( impulse.X, impulse.Y );
 
 				vA -= mA * P;
 				wA -= iA * ( MathUtils.cross( _rA, P ) + impulse.Z );
@@ -336,24 +336,24 @@ namespace FarseerPhysics.Dynamics.Joints
 			float positionError, angularError;
 
 			var K = new Mat33();
-			K.ex.X = mA + mB + rA.Y * rA.Y * iA + rB.Y * rB.Y * iB;
-			K.ey.X = -rA.Y * rA.X * iA - rB.Y * rB.X * iB;
-			K.ez.X = -rA.Y * iA - rB.Y * iB;
+			K.ex.X = mA + mB + rA.y * rA.y * iA + rB.y * rB.y * iB;
+			K.ey.X = -rA.y * rA.x * iA - rB.y * rB.x * iB;
+			K.ez.X = -rA.y * iA - rB.y * iB;
 			K.ex.Y = K.ey.X;
-			K.ey.Y = mA + mB + rA.X * rA.X * iA + rB.X * rB.X * iB;
-			K.ez.Y = rA.X * iA + rB.X * iB;
+			K.ey.Y = mA + mB + rA.x * rA.x * iA + rB.x * rB.x * iB;
+			K.ez.Y = rA.x * iA + rB.x * iB;
 			K.ex.Z = K.ez.X;
 			K.ey.Z = K.ez.Y;
 			K.ez.Z = iA + iB;
 
 			if( frequencyHz > 0.0f )
 			{
-				Vector2 C1 = cB + rB - cA - rA;
+				vec2 C1 = cB + rB - cA - rA;
 
 				positionError = C1.Length();
 				angularError = 0.0f;
 
-				Vector2 P = -K.Solve22( C1 );
+				vec2 P = -K.Solve22( C1 );
 
 				cA -= mA * P;
 				aA -= iA * MathUtils.cross( rA, P );
@@ -363,16 +363,16 @@ namespace FarseerPhysics.Dynamics.Joints
 			}
 			else
 			{
-				Vector2 C1 = cB + rB - cA - rA;
+				vec2 C1 = cB + rB - cA - rA;
 				float C2 = aB - aA - referenceAngle;
 
 				positionError = C1.Length();
 				angularError = Math.Abs( C2 );
 
-				Vector3 C = new Vector3( C1.X, C1.Y, C2 );
+				Vector3 C = new Vector3( C1.x, C1.y, C2 );
 
 				Vector3 impulse = -K.Solve33( C );
-				Vector2 P = new Vector2( impulse.X, impulse.Y );
+				vec2 P = new vec2( impulse.X, impulse.Y );
 
 				cA -= mA * P;
 				aA -= iA * ( MathUtils.cross( rA, P ) + impulse.Z );

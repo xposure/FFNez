@@ -34,7 +34,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace FarseerPhysics.Common.Decomposition.CDT.Util
+namespace Nez.Common.Decomposition.CDT.Util
 {
 	internal struct FixedBitArray3 : IEnumerable<bool>
 	{

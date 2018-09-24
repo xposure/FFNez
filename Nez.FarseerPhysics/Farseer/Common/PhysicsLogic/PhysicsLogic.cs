@@ -1,8 +1,8 @@
 using System;
-using FarseerPhysics.Dynamics;
+using Nez.Dynamics;
 
 
-namespace FarseerPhysics.Common.PhysicsLogic
+namespace Nez.Common.PhysicsLogic
 {
 	[Flags]
 	public enum PhysicsLogicType

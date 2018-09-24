@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using FarseerPhysics.Common.Decomposition.CDT;
-using FarseerPhysics.Common.Decomposition.CDT.Delaunay;
-using FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
-using FarseerPhysics.Common.Decomposition.CDT.Polygon;
+using Nez.Common.Decomposition.CDT;
+using Nez.Common.Decomposition.CDT.Delaunay;
+using Nez.Common.Decomposition.CDT.Delaunay.Sweep;
+using Nez.Common.Decomposition.CDT.Polygon;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common.Decomposition
+namespace Nez.Common.Decomposition
 {
 	/// <summary>
 	/// 2D constrained Delaunay triangulation algorithm.
@@ -33,8 +33,8 @@ namespace FarseerPhysics.Common.Decomposition
 
 			Polygon poly = new Polygon();
 
-			foreach( Vector2 vertex in vertices )
-				poly.Points.Add( new TriangulationPoint( vertex.X, vertex.Y ) );
+			foreach( vec2 vertex in vertices )
+				poly.Points.Add( new TriangulationPoint( vertex.x, vertex.y ) );
 
 			if( vertices.holes != null )
 			{
@@ -42,8 +42,8 @@ namespace FarseerPhysics.Common.Decomposition
 				{
 					var hole = new Polygon();
 
-					foreach( Vector2 vertex in holeVertices )
-						hole.Points.Add( new TriangulationPoint( vertex.X, vertex.Y ) );
+					foreach( vec2 vertex in holeVertices )
+						hole.Points.Add( new TriangulationPoint( vertex.x, vertex.y ) );
 
 					poly.AddHole( hole );
 				}
@@ -60,7 +60,7 @@ namespace FarseerPhysics.Common.Decomposition
 				Vertices v = new Vertices();
 				foreach( TriangulationPoint p in triangle.points )
 				{
-					v.Add( new Vector2( (float)p.X, (float)p.Y ) );
+					v.Add( new vec2( (float)p.X, (float)p.Y ) );
 				}
 				results.Add( v );
 			}

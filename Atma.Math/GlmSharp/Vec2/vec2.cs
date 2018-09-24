@@ -92,7 +92,6 @@ namespace Nez
         /// </summary>
         [DataMember]
         public float x;
-        
         /// <summary>
         /// y-component
         /// </summary>

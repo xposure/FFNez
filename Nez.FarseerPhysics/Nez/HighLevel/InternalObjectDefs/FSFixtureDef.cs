@@ -1,6 +1,6 @@
-﻿using FarseerPhysics;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Dynamics;
+﻿using Nez;
+using Nez.Collision.Shapes;
+using Nez.Dynamics;
 
 
 namespace Nez.Farseer

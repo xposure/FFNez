@@ -22,22 +22,22 @@
 
 using System;
 using System.Diagnostics;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Common;
+using Nez.Collision;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Dynamics.Contacts
+namespace Nez.Dynamics.Contacts
 {
 	public sealed class ContactPositionConstraint
 	{
-		public Vector2[] localPoints = new Vector2[Settings.maxManifoldPoints];
-		public Vector2 localNormal;
-		public Vector2 localPoint;
+		public vec2[] localPoints = new vec2[Settings.maxManifoldPoints];
+		public vec2 localNormal;
+		public vec2 localPoint;
 		public int indexA;
 		public int indexB;
 		public float invMassA, invMassB;
-		public Vector2 localCenterA, localCenterB;
+		public vec2 localCenterA, localCenterB;
 		public float invIA, invIB;
 		public ManifoldType type;
 		public float radiusA, radiusB;
@@ -46,8 +46,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 	public sealed class VelocityConstraintPoint
 	{
-		public Vector2 rA;
-		public Vector2 rB;
+		public vec2 rA;
+		public vec2 rB;
 		public float normalImpulse;
 		public float tangentImpulse;
 		public float normalMass;
@@ -58,7 +58,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 	public sealed class ContactVelocityConstraint
 	{
 		public VelocityConstraintPoint[] points = new VelocityConstraintPoint[Settings.maxManifoldPoints];
-		public Vector2 normal;
+		public vec2 normal;
 		public Mat22 normalMass;
 		public Mat22 K;
 		public int indexA;
@@ -180,8 +180,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 						vcp.tangentImpulse = 0.0f;
 					}
 
-					vcp.rA = Vector2.Zero;
-					vcp.rB = Vector2.Zero;
+					vcp.rA = vec2.Zero;
+					vcp.rB = vec2.Zero;
 					vcp.normalMass = 0.0f;
 					vcp.tangentMass = 0.0f;
 					vcp.velocityBias = 0.0f;
@@ -209,17 +209,17 @@ namespace FarseerPhysics.Dynamics.Contacts
 				float mB = vc.invMassB;
 				float iA = vc.invIA;
 				float iB = vc.invIB;
-				Vector2 localCenterA = pc.localCenterA;
-				Vector2 localCenterB = pc.localCenterB;
+				vec2 localCenterA = pc.localCenterA;
+				vec2 localCenterB = pc.localCenterB;
 
-				Vector2 cA = _positions[indexA].c;
+				vec2 cA = _positions[indexA].c;
 				float aA = _positions[indexA].a;
-				Vector2 vA = _velocities[indexA].v;
+				vec2 vA = _velocities[indexA].v;
 				float wA = _velocities[indexA].w;
 
-				Vector2 cB = _positions[indexB].c;
+				vec2 cB = _positions[indexB].c;
 				float aB = _positions[indexB].a;
-				Vector2 vB = _velocities[indexB].v;
+				vec2 vB = _velocities[indexB].v;
 				float wB = _velocities[indexB].w;
 
 				Debug.Assert( manifold.pointCount > 0 );
@@ -231,8 +231,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 				xfA.p = cA - MathUtils.mul( xfA.q, localCenterA );
 				xfB.p = cB - MathUtils.mul( xfB.q, localCenterB );
 
-				Vector2 normal;
-				FixedArray2<Vector2> points;
+				vec2 normal;
+				FixedArray2<vec2> points;
 				WorldManifold.initialize( ref manifold, ref xfA, radiusA, ref xfB, radiusB, out normal, out points );
 
 				vc.normal = normal;
@@ -252,7 +252,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 					vcp.normalMass = kNormal > 0.0f ? 1.0f / kNormal : 0.0f;
 
-					Vector2 tangent = MathUtils.cross( vc.normal, 1.0f );
+					vec2 tangent = MathUtils.cross( vc.normal, 1.0f );
 
 					float rtA = MathUtils.cross( vcp.rA, tangent );
 					float rtB = MathUtils.cross( vcp.rB, tangent );
@@ -263,7 +263,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 					// Setup a velocity bias for restitution.
 					vcp.velocityBias = 0.0f;
-					float vRel = Vector2.Dot( vc.normal, vB + MathUtils.cross( wB, vcp.rB ) - vA - MathUtils.cross( wA, vcp.rA ) );
+					float vRel = vec2.Dot( vc.normal, vB + MathUtils.cross( wB, vcp.rB ) - vA - MathUtils.cross( wA, vcp.rA ) );
 					if( vRel < -Settings.velocityThreshold )
 					{
 						vcp.velocityBias = -vc.restitution * vRel;
@@ -290,8 +290,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 					if( k11 * k11 < k_maxConditionNumber * ( k11 * k22 - k12 * k12 ) )
 					{
 						// K is safe to invert.
-						vc.K.ex = new Vector2( k11, k12 );
-						vc.K.ey = new Vector2( k12, k22 );
+						vc.K.ex = new vec2( k11, k12 );
+						vc.K.ey = new vec2( k12, k22 );
 						vc.normalMass = vc.K.Inverse;
 					}
 					else
@@ -319,18 +319,18 @@ namespace FarseerPhysics.Dynamics.Contacts
 				float iB = vc.invIB;
 				int pointCount = vc.pointCount;
 
-				Vector2 vA = _velocities[indexA].v;
+				vec2 vA = _velocities[indexA].v;
 				float wA = _velocities[indexA].w;
-				Vector2 vB = _velocities[indexB].v;
+				vec2 vB = _velocities[indexB].v;
 				float wB = _velocities[indexB].w;
 
-				Vector2 normal = vc.normal;
-				Vector2 tangent = MathUtils.cross( normal, 1.0f );
+				vec2 normal = vc.normal;
+				vec2 tangent = MathUtils.cross( normal, 1.0f );
 
 				for( int j = 0; j < pointCount; ++j )
 				{
 					VelocityConstraintPoint vcp = vc.points[j];
-					Vector2 P = vcp.normalImpulse * normal + vcp.tangentImpulse * tangent;
+					vec2 P = vcp.normalImpulse * normal + vcp.tangentImpulse * tangent;
 					wA -= iA * MathUtils.cross( vcp.rA, P );
 					vA -= mA * P;
 					wB += iB * MathUtils.cross( vcp.rB, P );
@@ -358,13 +358,13 @@ namespace FarseerPhysics.Dynamics.Contacts
 				float iB = vc.invIB;
 				int pointCount = vc.pointCount;
 
-				Vector2 vA = _velocities[indexA].v;
+				vec2 vA = _velocities[indexA].v;
 				float wA = _velocities[indexA].w;
-				Vector2 vB = _velocities[indexB].v;
+				vec2 vB = _velocities[indexB].v;
 				float wB = _velocities[indexB].w;
 
-				Vector2 normal = vc.normal;
-				Vector2 tangent = MathUtils.cross( normal, 1.0f );
+				vec2 normal = vc.normal;
+				vec2 tangent = MathUtils.cross( normal, 1.0f );
 				float friction = vc.friction;
 
 				Debug.Assert( pointCount == 1 || pointCount == 2 );
@@ -376,10 +376,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 					VelocityConstraintPoint vcp = vc.points[j];
 
 					// Relative velocity at contact
-					Vector2 dv = vB + MathUtils.cross( wB, vcp.rB ) - vA - MathUtils.cross( wA, vcp.rA );
+					vec2 dv = vB + MathUtils.cross( wB, vcp.rB ) - vA - MathUtils.cross( wA, vcp.rA );
 
 					// Compute tangent force
-					float vt = Vector2.Dot( dv, tangent ) - vc.tangentSpeed;
+					float vt = vec2.Dot( dv, tangent ) - vc.tangentSpeed;
 					float lambda = vcp.tangentMass * ( -vt );
 
 					// b2Clamp the accumulated force
@@ -389,7 +389,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					vcp.tangentImpulse = newImpulse;
 
 					// Apply contact impulse
-					Vector2 P = lambda * tangent;
+					vec2 P = lambda * tangent;
 
 					vA -= mA * P;
 					wA -= iA * MathUtils.cross( vcp.rA, P );
@@ -404,10 +404,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 					VelocityConstraintPoint vcp = vc.points[0];
 
 					// Relative velocity at contact
-					Vector2 dv = vB + MathUtils.cross( wB, vcp.rB ) - vA - MathUtils.cross( wA, vcp.rA );
+					vec2 dv = vB + MathUtils.cross( wB, vcp.rB ) - vA - MathUtils.cross( wA, vcp.rA );
 
 					// Compute normal impulse
-					float vn = Vector2.Dot( dv, normal );
+					float vn = vec2.Dot( dv, normal );
 					float lambda = -vcp.normalMass * ( vn - vcp.velocityBias );
 
 					// b2Clamp the accumulated impulse
@@ -416,7 +416,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					vcp.normalImpulse = newImpulse;
 
 					// Apply contact impulse
-					Vector2 P = lambda * normal;
+					vec2 P = lambda * normal;
 					vA -= mA * P;
 					wA -= iA * MathUtils.cross( vcp.rA, P );
 
@@ -461,20 +461,20 @@ namespace FarseerPhysics.Dynamics.Contacts
 					VelocityConstraintPoint cp1 = vc.points[0];
 					VelocityConstraintPoint cp2 = vc.points[1];
 
-					Vector2 a = new Vector2( cp1.normalImpulse, cp2.normalImpulse );
-					Debug.Assert( a.X >= 0.0f && a.Y >= 0.0f );
+					vec2 a = new vec2( cp1.normalImpulse, cp2.normalImpulse );
+					Debug.Assert( a.x >= 0.0f && a.y >= 0.0f );
 
 					// Relative velocity at contact
-					Vector2 dv1 = vB + MathUtils.cross( wB, cp1.rB ) - vA - MathUtils.cross( wA, cp1.rA );
-					Vector2 dv2 = vB + MathUtils.cross( wB, cp2.rB ) - vA - MathUtils.cross( wA, cp2.rA );
+					vec2 dv1 = vB + MathUtils.cross( wB, cp1.rB ) - vA - MathUtils.cross( wA, cp1.rA );
+					vec2 dv2 = vB + MathUtils.cross( wB, cp2.rB ) - vA - MathUtils.cross( wA, cp2.rA );
 
 					// Compute normal velocity
-					float vn1 = Vector2.Dot( dv1, normal );
-					float vn2 = Vector2.Dot( dv2, normal );
+					float vn1 = vec2.Dot( dv1, normal );
+					float vn2 = vec2.Dot( dv2, normal );
 
-					Vector2 b = new Vector2();
-					b.X = vn1 - cp1.velocityBias;
-					b.Y = vn2 - cp2.velocityBias;
+					vec2 b = new vec2();
+					b.x = vn1 - cp1.velocityBias;
+					b.y = vn2 - cp2.velocityBias;
 
 					// Compute b'
 					b -= MathUtils.mul( ref vc.K, a );
@@ -495,16 +495,16 @@ namespace FarseerPhysics.Dynamics.Contacts
 						//
 						// x = - inv(A) * b'
 						//
-						Vector2 x = -MathUtils.mul( ref vc.normalMass, b );
+						vec2 x = -MathUtils.mul( ref vc.normalMass, b );
 
-						if( x.X >= 0.0f && x.Y >= 0.0f )
+						if( x.x >= 0.0f && x.y >= 0.0f )
 						{
 							// Get the incremental impulse
-							Vector2 d = x - a;
+							vec2 d = x - a;
 
 							// Apply incremental impulse
-							Vector2 P1 = d.X * normal;
-							Vector2 P2 = d.Y * normal;
+							vec2 P1 = d.x * normal;
+							vec2 P2 = d.y * normal;
 							vA -= mA * ( P1 + P2 );
 							wA -= iA * ( MathUtils.cross( cp1.rA, P1 ) + MathUtils.cross( cp2.rA, P2 ) );
 
@@ -512,8 +512,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 							wB += iB * ( MathUtils.cross( cp1.rB, P1 ) + MathUtils.cross( cp2.rB, P2 ) );
 
 							// Accumulate
-							cp1.normalImpulse = x.X;
-							cp2.normalImpulse = x.Y;
+							cp1.normalImpulse = x.x;
+							cp2.normalImpulse = x.y;
 
 #if B2_DEBUG_SOLVER
 					// Postconditions
@@ -521,8 +521,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 					dv2 = vB + MathUtils.Cross(wB, cp2.rB) - vA - MathUtils.Cross(wA, cp2.rA);
 
 					// Compute normal velocity
-					vn1 = Vector2.Dot(dv1, normal);
-					vn2 = Vector2.Dot(dv2, normal);
+					vn1 = vec2.Dot(dv1, normal);
+					vn2 = vec2.Dot(dv2, normal);
 
 					b2Assert(b2Abs(vn1 - cp1.velocityBias) < k_errorTol);
 					b2Assert(b2Abs(vn2 - cp2.velocityBias) < k_errorTol);
@@ -536,19 +536,19 @@ namespace FarseerPhysics.Dynamics.Contacts
 						//   0 = a11 * x1 + a12 * 0 + b1' 
 						// vn2 = a21 * x1 + a22 * 0 + b2'
 						//
-						x.X = -cp1.normalMass * b.X;
-						x.Y = 0.0f;
+						x.x = -cp1.normalMass * b.x;
+						x.y = 0.0f;
 						vn1 = 0.0f;
-						vn2 = vc.K.ex.Y * x.X + b.Y;
+						vn2 = vc.K.ex.y * x.x + b.y;
 
-						if( x.X >= 0.0f && vn2 >= 0.0f )
+						if( x.x >= 0.0f && vn2 >= 0.0f )
 						{
 							// Get the incremental impulse
-							Vector2 d = x - a;
+							vec2 d = x - a;
 
 							// Apply incremental impulse
-							Vector2 P1 = d.X * normal;
-							Vector2 P2 = d.Y * normal;
+							vec2 P1 = d.x * normal;
+							vec2 P2 = d.y * normal;
 							vA -= mA * ( P1 + P2 );
 							wA -= iA * ( MathUtils.cross( cp1.rA, P1 ) + MathUtils.cross( cp2.rA, P2 ) );
 
@@ -556,15 +556,15 @@ namespace FarseerPhysics.Dynamics.Contacts
 							wB += iB * ( MathUtils.cross( cp1.rB, P1 ) + MathUtils.cross( cp2.rB, P2 ) );
 
 							// Accumulate
-							cp1.normalImpulse = x.X;
-							cp2.normalImpulse = x.Y;
+							cp1.normalImpulse = x.x;
+							cp2.normalImpulse = x.y;
 
 #if B2_DEBUG_SOLVER
 					// Postconditions
 					dv1 = vB + MathUtils.Cross(wB, cp1.rB) - vA - MathUtils.Cross(wA, cp1.rA);
 
 					// Compute normal velocity
-					vn1 = Vector2.Dot(dv1, normal);
+					vn1 = vec2.Dot(dv1, normal);
 
 					b2Assert(b2Abs(vn1 - cp1.velocityBias) < k_errorTol);
 #endif
@@ -578,19 +578,19 @@ namespace FarseerPhysics.Dynamics.Contacts
 						// vn1 = a11 * 0 + a12 * x2 + b1' 
 						//   0 = a21 * 0 + a22 * x2 + b2'
 						//
-						x.X = 0.0f;
-						x.Y = -cp2.normalMass * b.Y;
-						vn1 = vc.K.ey.X * x.Y + b.X;
+						x.x = 0.0f;
+						x.y = -cp2.normalMass * b.y;
+						vn1 = vc.K.ey.x * x.y + b.x;
 						vn2 = 0.0f;
 
-						if( x.Y >= 0.0f && vn1 >= 0.0f )
+						if( x.y >= 0.0f && vn1 >= 0.0f )
 						{
 							// Resubstitute for the incremental impulse
-							Vector2 d = x - a;
+							vec2 d = x - a;
 
 							// Apply incremental impulse
-							Vector2 P1 = d.X * normal;
-							Vector2 P2 = d.Y * normal;
+							vec2 P1 = d.x * normal;
+							vec2 P2 = d.y * normal;
 							vA -= mA * ( P1 + P2 );
 							wA -= iA * ( MathUtils.cross( cp1.rA, P1 ) + MathUtils.cross( cp2.rA, P2 ) );
 
@@ -598,15 +598,15 @@ namespace FarseerPhysics.Dynamics.Contacts
 							wB += iB * ( MathUtils.cross( cp1.rB, P1 ) + MathUtils.cross( cp2.rB, P2 ) );
 
 							// Accumulate
-							cp1.normalImpulse = x.X;
-							cp2.normalImpulse = x.Y;
+							cp1.normalImpulse = x.x;
+							cp2.normalImpulse = x.y;
 
 #if B2_DEBUG_SOLVER
 					// Postconditions
 					dv2 = vB + MathUtils.Cross(wB, cp2.rB) - vA - MathUtils.Cross(wA, cp2.rA);
 
 					// Compute normal velocity
-					vn2 = Vector2.Dot(dv2, normal);
+					vn2 = vec2.Dot(dv2, normal);
 
 					b2Assert(b2Abs(vn2 - cp2.velocityBias) < k_errorTol);
 #endif
@@ -618,19 +618,19 @@ namespace FarseerPhysics.Dynamics.Contacts
 						// 
 						// vn1 = b1
 						// vn2 = b2;
-						x.X = 0.0f;
-						x.Y = 0.0f;
-						vn1 = b.X;
-						vn2 = b.Y;
+						x.x = 0.0f;
+						x.y = 0.0f;
+						vn1 = b.x;
+						vn2 = b.y;
 
 						if( vn1 >= 0.0f && vn2 >= 0.0f )
 						{
 							// Resubstitute for the incremental impulse
-							Vector2 d = x - a;
+							vec2 d = x - a;
 
 							// Apply incremental impulse
-							Vector2 P1 = d.X * normal;
-							Vector2 P2 = d.Y * normal;
+							vec2 P1 = d.x * normal;
+							vec2 P2 = d.y * normal;
 							vA -= mA * ( P1 + P2 );
 							wA -= iA * ( MathUtils.cross( cp1.rA, P1 ) + MathUtils.cross( cp2.rA, P2 ) );
 
@@ -638,8 +638,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 							wB += iB * ( MathUtils.cross( cp1.rB, P1 ) + MathUtils.cross( cp2.rB, P2 ) );
 
 							// Accumulate
-							cp1.normalImpulse = x.X;
-							cp2.normalImpulse = x.Y;
+							cp1.normalImpulse = x.x;
+							cp2.normalImpulse = x.y;
 
 							break;
 						}
@@ -685,18 +685,18 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 				int indexA = pc.indexA;
 				int indexB = pc.indexB;
-				Vector2 localCenterA = pc.localCenterA;
+				vec2 localCenterA = pc.localCenterA;
 				float mA = pc.invMassA;
 				float iA = pc.invIA;
-				Vector2 localCenterB = pc.localCenterB;
+				vec2 localCenterB = pc.localCenterB;
 				float mB = pc.invMassB;
 				float iB = pc.invIB;
 				int pointCount = pc.pointCount;
 
-				Vector2 cA = _positions[indexA].c;
+				vec2 cA = _positions[indexA].c;
 				float aA = _positions[indexA].a;
 
-				Vector2 cB = _positions[indexB].c;
+				vec2 cB = _positions[indexB].c;
 				float aB = _positions[indexB].a;
 
 				// Solve normal constraints
@@ -709,14 +709,14 @@ namespace FarseerPhysics.Dynamics.Contacts
 					xfA.p = cA - MathUtils.mul( xfA.q, localCenterA );
 					xfB.p = cB - MathUtils.mul( xfB.q, localCenterB );
 
-					Vector2 normal;
-					Vector2 point;
+					vec2 normal;
+					vec2 point;
 					float separation;
 
 					PositionSolverManifold.initialize( pc, xfA, xfB, j, out normal, out point, out separation );
 
-					Vector2 rA = point - cA;
-					Vector2 rB = point - cB;
+					vec2 rA = point - cA;
+					vec2 rB = point - cB;
 
 					// Track max constraint error.
 					minSeparation = Math.Min( minSeparation, separation );
@@ -732,7 +732,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					// Compute normal impulse
 					float impulse = K > 0.0f ? -C / K : 0.0f;
 
-					Vector2 P = impulse * normal;
+					vec2 P = impulse * normal;
 
 					cA -= mA * P;
 					aA -= iA * MathUtils.cross( rA, P );
@@ -764,8 +764,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 				int indexA = pc.indexA;
 				int indexB = pc.indexB;
-				Vector2 localCenterA = pc.localCenterA;
-				Vector2 localCenterB = pc.localCenterB;
+				vec2 localCenterA = pc.localCenterA;
+				vec2 localCenterB = pc.localCenterB;
 				int pointCount = pc.pointCount;
 
 				float mA = 0.0f;
@@ -784,10 +784,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 					iB = pc.invIB;
 				}
 
-				Vector2 cA = _positions[indexA].c;
+				vec2 cA = _positions[indexA].c;
 				float aA = _positions[indexA].a;
 
-				Vector2 cB = _positions[indexB].c;
+				vec2 cB = _positions[indexB].c;
 				float aB = _positions[indexB].a;
 
 				// Solve normal constraints
@@ -800,14 +800,14 @@ namespace FarseerPhysics.Dynamics.Contacts
 					xfA.p = cA - MathUtils.mul( xfA.q, localCenterA );
 					xfB.p = cB - MathUtils.mul( xfB.q, localCenterB );
 
-					Vector2 normal;
-					Vector2 point;
+					vec2 normal;
+					vec2 point;
 					float separation;
 
 					PositionSolverManifold.initialize( pc, xfA, xfB, j, out normal, out point, out separation );
 
-					Vector2 rA = point - cA;
-					Vector2 rB = point - cB;
+					vec2 rA = point - cA;
+					vec2 rB = point - cB;
 
 					// Track max constraint error.
 					minSeparation = Math.Min( minSeparation, separation );
@@ -823,7 +823,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 					// Compute normal impulse
 					float impulse = K > 0.0f ? -C / K : 0.0f;
 
-					Vector2 P = impulse * normal;
+					vec2 P = impulse * normal;
 
 					cA -= mA * P;
 					aA -= iA * MathUtils.cross( rA, P );
@@ -860,10 +860,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 			/// <param name="radiusB">The radius for B.</param>
 			/// <param name="normal">World vector pointing from A to B</param>
 			/// <param name="points">Torld contact point (point of intersection).</param>
-			public static void initialize( ref Manifold manifold, ref Transform xfA, float radiusA, ref Transform xfB, float radiusB, out Vector2 normal, out FixedArray2<Vector2> points )
+			public static void initialize( ref Manifold manifold, ref Transform xfA, float radiusA, ref Transform xfB, float radiusB, out vec2 normal, out FixedArray2<vec2> points )
 			{
-				normal = Vector2.Zero;
-				points = new FixedArray2<Vector2>();
+				normal = vec2.Zero;
+				points = new FixedArray2<vec2>();
 
 				if( manifold.pointCount == 0 )
 					return;
@@ -872,10 +872,10 @@ namespace FarseerPhysics.Dynamics.Contacts
 				{
 					case ManifoldType.Circles:
 						{
-							normal = new Vector2( 1.0f, 0.0f );
+							normal = new vec2( 1.0f, 0.0f );
 							var pointA = MathUtils.mul( ref xfA, manifold.localPoint );
 							var pointB = MathUtils.mul( ref xfB, manifold.points[0].localPoint );
-							if( Vector2.DistanceSquared( pointA, pointB ) > Settings.epsilon * Settings.epsilon )
+							if( vec2.DistanceSquared( pointA, pointB ) > Settings.epsilon * Settings.epsilon )
 							{
 								normal = pointB - pointA;
                                 normal.Normalize();
@@ -897,7 +897,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 							for( int i = 0; i < manifold.pointCount; ++i )
 							{
 								var clipPoint = MathUtils.mul( ref xfB, manifold.points[i].localPoint );
-								var cA = clipPoint + ( radiusA - Vector2.Dot( clipPoint - planePoint, normal ) ) * normal;
+								var cA = clipPoint + ( radiusA - vec2.Dot( clipPoint - planePoint, normal ) ) * normal;
 								var cB = clipPoint - radiusB * normal;
 								points[i] = 0.5f * ( cA + cB );
 							}
@@ -912,7 +912,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 							for( int i = 0; i < manifold.pointCount; ++i )
 							{
 								var clipPoint = MathUtils.mul( ref xfA, manifold.points[i].localPoint );
-								var cB = clipPoint + ( radiusB - Vector2.Dot( clipPoint - planePoint, normal ) ) * normal;
+								var cB = clipPoint + ( radiusB - vec2.Dot( clipPoint - planePoint, normal ) ) * normal;
 								var cA = clipPoint - radiusA * normal;
 								points[i] = 0.5f * ( cA + cB );
 							}
@@ -928,7 +928,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 
 		static class PositionSolverManifold
 		{
-			public static void initialize( ContactPositionConstraint pc, Transform xfA, Transform xfB, int index, out Vector2 normal, out Vector2 point, out float separation )
+			public static void initialize( ContactPositionConstraint pc, Transform xfA, Transform xfB, int index, out vec2 normal, out vec2 point, out float separation )
 			{
 				Debug.Assert( pc.pointCount > 0 );
 
@@ -942,7 +942,7 @@ namespace FarseerPhysics.Dynamics.Contacts
                         normal.Normalize();
 						//Nez.Vector2Ext.normalize( ref normal );
 						point = 0.5f * ( pointA + pointB );
-						separation = Vector2.Dot( pointB - pointA, normal ) - pc.radiusA - pc.radiusB;
+						separation = vec2.Dot( pointB - pointA, normal ) - pc.radiusA - pc.radiusB;
 						break;
 					}
 
@@ -952,7 +952,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 						var planePoint = MathUtils.mul( ref xfA, pc.localPoint );
 
 						var clipPoint = MathUtils.mul( ref xfB, pc.localPoints[index] );
-						separation = Vector2.Dot( clipPoint - planePoint, normal ) - pc.radiusA - pc.radiusB;
+						separation = vec2.Dot( clipPoint - planePoint, normal ) - pc.radiusA - pc.radiusB;
 						point = clipPoint;
 						break;
 					}
@@ -963,7 +963,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 						var planePoint = MathUtils.mul( ref xfB, pc.localPoint );
 
 						var clipPoint = MathUtils.mul( ref xfA, pc.localPoints[index] );
-						separation = Vector2.Dot( clipPoint - planePoint, normal ) - pc.radiusA - pc.radiusB;
+						separation = vec2.Dot( clipPoint - planePoint, normal ) - pc.radiusA - pc.radiusB;
 						point = clipPoint;
 
 						// Ensure normal points from A to B
@@ -972,8 +972,8 @@ namespace FarseerPhysics.Dynamics.Contacts
 					}
 
 					default:
-						normal = Vector2.Zero;
-						point = Vector2.Zero;
+						normal = vec2.Zero;
+						point = vec2.Zero;
 						separation = 0;
 						break;
 

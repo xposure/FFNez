@@ -1,9 +1,9 @@
 ﻿using System;
-using FarseerPhysics.Common.PhysicsLogic;
-using FarseerPhysics.Dynamics;
+using Nez.Common.PhysicsLogic;
+using Nez.Dynamics;
 
 
-namespace FarseerPhysics.Controllers
+namespace Nez.Controllers
 {
 	[Flags]
 	public enum ControllerType

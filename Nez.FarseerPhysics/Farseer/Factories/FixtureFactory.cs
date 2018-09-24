@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Common.Decomposition;
-using FarseerPhysics.Dynamics;
+using Nez.Collision.Shapes;
+using Nez.Common;
+using Nez.Common.Decomposition;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Factories
+namespace Nez.Factories
 {
 	/// <summary>
 	/// An easy to use factory for creating bodies
 	/// </summary>
 	public static class FixtureFactory
 	{
-		public static Fixture attachEdge( Vector2 start, Vector2 end, Body body, object userData = null )
+		public static Fixture attachEdge( vec2 start, vec2 end, Body body, object userData = null )
 		{
 			var edgeShape = new EdgeShape( start, end );
 			return body.createFixture( edgeShape, userData );
@@ -32,7 +32,7 @@ namespace FarseerPhysics.Factories
 			return body.createFixture( shape, userData );
 		}
 
-		public static Fixture attachRectangle( float width, float height, float density, Vector2 offset, Body body, object userData = null )
+		public static Fixture attachRectangle( float width, float height, float density, vec2 offset, Body body, object userData = null )
 		{
 			var rectangleVertices = PolygonTools.createRectangle( width / 2, height / 2 );
 			rectangleVertices.translate( ref offset );
@@ -65,7 +65,7 @@ namespace FarseerPhysics.Factories
 			return body.createFixture( circleShape, userData );
 		}
 
-		public static Fixture attachCircle( float radius, float density, Body body, Vector2 offset, object userData = null )
+		public static Fixture attachCircle( float radius, float density, Body body, vec2 offset, object userData = null )
 		{
 			if( radius <= 0 )
 				throw new ArgumentOutOfRangeException( nameof( radius ), "Radius must be more than 0 meters" );

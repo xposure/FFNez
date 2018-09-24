@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FarseerPhysics.Common.Decomposition.CDT.Util
+namespace Nez.Common.Decomposition.CDT.Util
 {
     internal class PointGenerator
     {
-        private static readonly Random RNG = new Random();
+        private static readonly System.Random RNG = new System.Random();
 
         public static List<TriangulationPoint> UniformDistribution(int n, double scale)
         {

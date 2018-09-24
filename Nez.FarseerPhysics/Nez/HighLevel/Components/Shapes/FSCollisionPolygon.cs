@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
+using Nez.Collision.Shapes;
+using Nez.Common;
 using Microsoft.Xna.Framework;
 
 
@@ -12,7 +12,7 @@ namespace Nez.Farseer
 		/// verts are stored in sim units
 		/// </summary>
 		protected Vertices _verts;
-		Vector2 _center;
+		vec2 _center;
 		protected bool _areVertsDirty = true;
 
 
@@ -22,17 +22,17 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionPolygon( List<Vector2> vertices ) : this()
+		public FSCollisionPolygon( List<vec2> vertices ) : this()
 		{
 			_verts = new Vertices( vertices );
-			_verts.scale( new Vector2( FSConvert.displayToSim ) );
+			_verts.scale( new vec2( FSConvert.displayToSim ) );
 		}
 
 
-		public FSCollisionPolygon( Vector2[] vertices ) : this()
+		public FSCollisionPolygon( vec2[] vertices ) : this()
 		{
 			_verts = new Vertices( vertices );
-			_verts.scale( new Vector2( FSConvert.displayToSim ) );
+			_verts.scale( new vec2( FSConvert.displayToSim ) );
 		}
 
 
@@ -47,7 +47,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionPolygon setVertices( List<Vector2> vertices )
+		public FSCollisionPolygon setVertices( List<vec2> vertices )
 		{
 			_verts = new Vertices( vertices );
 			_areVertsDirty = true;
@@ -56,7 +56,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSCollisionPolygon setCenter( Vector2 center )
+		public FSCollisionPolygon setCenter( vec2 center )
 		{
 			_center = center;
 			_areVertsDirty = true;

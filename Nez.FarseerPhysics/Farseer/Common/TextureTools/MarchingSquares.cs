@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using FarseerPhysics.Collision;
+using Nez.Collision;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common.TextureTools
+namespace Nez.Common.TextureTools
 {
 	// Ported by Matthew Bettcher - Feb 2011
 
@@ -58,10 +58,10 @@ namespace FarseerPhysics.Common.TextureTools
 			List<GeomPoly> polyList;
 			GeomPoly gp;
 
-			int xn = (int)( domain.extents.X * 2 / cellWidth );
-			bool xp = xn == ( domain.extents.X * 2 / cellWidth );
-			int yn = (int)( domain.extents.Y * 2 / cellHeight );
-			bool yp = yn == ( domain.extents.Y * 2 / cellHeight );
+			int xn = (int)( domain.extents.x * 2 / cellWidth );
+			bool xp = xn == ( domain.extents.x * 2 / cellWidth );
+			int yn = (int)( domain.extents.y * 2 / cellHeight );
+			bool yp = yn == ( domain.extents.y * 2 / cellHeight );
 			if( !xp ) xn++;
 			if( !yp ) yn++;
 
@@ -72,13 +72,13 @@ namespace FarseerPhysics.Common.TextureTools
 			for( int x = 0; x < xn + 1; x++ )
 			{
 				int x0;
-				if( x == xn ) x0 = (int)domain.upperBound.X;
-				else x0 = (int)( x * cellWidth + domain.lowerBound.X );
+				if( x == xn ) x0 = (int)domain.upperBound.x;
+				else x0 = (int)( x * cellWidth + domain.lowerBound.x );
 				for( int y = 0; y < yn + 1; y++ )
 				{
 					int y0;
-					if( y == yn ) y0 = (int)domain.upperBound.Y;
-					else y0 = (int)( y * cellHeight + domain.lowerBound.Y );
+					if( y == yn ) y0 = (int)domain.upperBound.y;
+					else y0 = (int)( y * cellHeight + domain.lowerBound.y );
 					fs[x, y] = f[x0, y0];
 				}
 			}
@@ -86,16 +86,16 @@ namespace FarseerPhysics.Common.TextureTools
 			//generate sub-polys and combine to scan lines
 			for( int y = 0; y < yn; y++ )
 			{
-				float y0 = y * cellHeight + domain.lowerBound.Y;
+				float y0 = y * cellHeight + domain.lowerBound.y;
 				float y1;
-				if( y == yn - 1 ) y1 = domain.upperBound.Y;
+				if( y == yn - 1 ) y1 = domain.upperBound.y;
 				else y1 = y0 + cellHeight;
 				GeomPoly pre = null;
 				for( int x = 0; x < xn; x++ )
 				{
-					float x0 = x * cellWidth + domain.lowerBound.X;
+					float x0 = x * cellWidth + domain.lowerBound.x;
 					float x1;
-					if( x == xn - 1 ) x1 = domain.upperBound.X;
+					if( x == xn - 1 ) x1 = domain.upperBound.x;
 					else x1 = x0 + cellWidth;
 
 					gp = new GeomPoly();
@@ -166,11 +166,11 @@ namespace FarseerPhysics.Common.TextureTools
 						continue;
 					}
 
-					float ax = x * cellWidth + domain.lowerBound.X;
-					float ay = y * cellHeight + domain.lowerBound.Y;
+					float ax = x * cellWidth + domain.lowerBound.x;
+					float ay = y * cellHeight + domain.lowerBound.y;
 
-					CxFastList<Vector2> bp = p.GeomP.Points;
-					CxFastList<Vector2> ap = u.GeomP.Points;
+					CxFastList<vec2> bp = p.GeomP.Points;
+					CxFastList<vec2> ap = u.GeomP.Points;
 
 					//skip if it's already been combined with above polygon
 					if( u.GeomP == p.GeomP )
@@ -180,20 +180,20 @@ namespace FarseerPhysics.Common.TextureTools
 					}
 
 					//combine above (but disallow the hole thingies
-					CxFastListNode<Vector2> bi = bp.Begin();
-					while( square( bi.Elem().Y - ay ) > Settings.epsilon || bi.Elem().X < ax ) bi = bi.Next();
+					CxFastListNode<vec2> bi = bp.Begin();
+					while( square( bi.Elem().y - ay ) > Settings.epsilon || bi.Elem().x < ax ) bi = bi.Next();
 
 					//NOTE: Unused
-					//Vector2 b0 = bi.elem();
-					Vector2 b1 = bi.Next().Elem();
-					if( square( b1.Y - ay ) > Settings.epsilon )
+					//vec2 b0 = bi.elem();
+					vec2 b1 = bi.Next().Elem();
+					if( square( b1.y - ay ) > Settings.epsilon )
 					{
 						x++;
 						continue;
 					}
 
 					bool brk = true;
-					CxFastListNode<Vector2> ai = ap.Begin();
+					CxFastListNode<vec2> ai = ap.Begin();
 					while( ai != ap.End() )
 					{
 						if( vecDsq( ai.Elem(), b1 ) < Settings.epsilon )
@@ -209,7 +209,7 @@ namespace FarseerPhysics.Common.TextureTools
 						continue;
 					}
 
-					CxFastListNode<Vector2> bj = bi.Next().Next();
+					CxFastListNode<vec2> bj = bi.Next().Next();
 					if( bj == bp.End() ) bj = bp.Begin();
 					while( bj != bi )
 					{
@@ -247,7 +247,7 @@ namespace FarseerPhysics.Common.TextureTools
 					ret.Remove( p.GeomP );
 					p.GeomP = u.GeomP;
 
-					x = (int)( ( bi.Next().Elem().X - domain.lowerBound.X ) / cellWidth ) + 1;
+					x = (int)( ( bi.Next().Elem().x - domain.lowerBound.x ) / cellWidth ) + 1;
 					//x++; this was already commented out!
 				}
 			}
@@ -321,15 +321,15 @@ namespace FarseerPhysics.Common.TextureTools
 			return x * x;
 		}
 
-		static float vecDsq( Vector2 a, Vector2 b )
+		static float vecDsq( vec2 a, vec2 b )
 		{
 			var d = a - b;
-			return d.X * d.X + d.Y * d.Y;
+			return d.x * d.x + d.y * d.y;
 		}
 
-		static float vecCross( Vector2 a, Vector2 b )
+		static float vecCross( vec2 a, vec2 b )
 		{
-			return a.X * b.Y - a.Y * b.X;
+			return a.x * b.y - a.y * b.x;
 		}
 
 		/** Look-up table to relate polygon key with the vertices that should be used for
@@ -358,26 +358,26 @@ namespace FarseerPhysics.Common.TextureTools
 			int val = _lookMarch[key];
 			if( val != 0 )
 			{
-				CxFastListNode<Vector2> pi = null;
+				CxFastListNode<vec2> pi = null;
 				for( int i = 0; i < 8; i++ )
 				{
-					Vector2 p;
+					vec2 p;
 					if( ( val & ( 1 << i ) ) != 0 )
 					{
 						if( i == 7 && ( val & 1 ) == 0 )
-							poly.Points.Add( p = new Vector2( x0, yLerp( y0, y1, x0, v0, v3, f, bin ) ) );
+							poly.Points.Add( p = new vec2( x0, yLerp( y0, y1, x0, v0, v3, f, bin ) ) );
 						else
 						{
-							if( i == 0 ) p = new Vector2( x0, y0 );
-							else if( i == 2 ) p = new Vector2( x1, y0 );
-							else if( i == 4 ) p = new Vector2( x1, y1 );
-							else if( i == 6 ) p = new Vector2( x0, y1 );
+							if( i == 0 ) p = new vec2( x0, y0 );
+							else if( i == 2 ) p = new vec2( x1, y0 );
+							else if( i == 4 ) p = new vec2( x1, y1 );
+							else if( i == 6 ) p = new vec2( x0, y1 );
 
-							else if( i == 1 ) p = new Vector2( xLerp( x0, x1, y0, v0, v1, f, bin ), y0 );
-							else if( i == 5 ) p = new Vector2( xLerp( x0, x1, y1, v3, v2, f, bin ), y1 );
+							else if( i == 1 ) p = new vec2( xLerp( x0, x1, y0, v0, v1, f, bin ), y0 );
+							else if( i == 5 ) p = new vec2( xLerp( x0, x1, y1, v3, v2, f, bin ), y1 );
 
-							else if( i == 3 ) p = new Vector2( x1, yLerp( y0, y1, x1, v1, v2, f, bin ) );
-							else p = new Vector2( x0, yLerp( y0, y1, x0, v0, v3, f, bin ) );
+							else if( i == 3 ) p = new vec2( x1, yLerp( y0, y1, x1, v1, v2, f, bin ) );
+							else p = new vec2( x0, yLerp( y0, y1, x0, v0, v3, f, bin ) );
 
 							pi = poly.Points.Insert( pi, p );
 						}
@@ -395,27 +395,27 @@ namespace FarseerPhysics.Common.TextureTools
 
 		static void combLeft( ref GeomPoly polya, ref GeomPoly polyb )
 		{
-			CxFastList<Vector2> ap = polya.Points;
-			CxFastList<Vector2> bp = polyb.Points;
-			CxFastListNode<Vector2> ai = ap.Begin();
-			CxFastListNode<Vector2> bi = bp.Begin();
+			CxFastList<vec2> ap = polya.Points;
+			CxFastList<vec2> bp = polyb.Points;
+			CxFastListNode<vec2> ai = ap.Begin();
+			CxFastListNode<vec2> bi = bp.Begin();
 
-			Vector2 b = bi.Elem();
-			CxFastListNode<Vector2> prea = null;
+			vec2 b = bi.Elem();
+			CxFastListNode<vec2> prea = null;
 			while( ai != ap.End() )
 			{
-				Vector2 a = ai.Elem();
+				vec2 a = ai.Elem();
 				if( vecDsq( a, b ) < Settings.epsilon)
 				{
 					//ignore shared vertex if parallel
 					if(prea != null )
 					{
-						Vector2 a0 = prea.Elem();
+						vec2 a0 = prea.Elem();
 						b = bi.Next().Elem();
 
-						Vector2 u = a - a0;
+						vec2 u = a - a0;
 						//vec_new(u); vec_sub(a.p.p, a0.p.p, u);
-						Vector2 v = b - a;
+						vec2 v = b - a;
 						//vec_new(v); vec_sub(b.p.p, a.p.p, v);
 						float dot = vecCross( u, v );
 						if( dot * dot < Settings.epsilon )
@@ -428,10 +428,10 @@ namespace FarseerPhysics.Common.TextureTools
 
 					//insert polyb into polya
 					bool fst = true;
-					CxFastListNode<Vector2> preb = null;
+					CxFastListNode<vec2> preb = null;
 					while( !bp.Empty() )
 					{
-						Vector2 bb = bp.Front();
+						vec2 bb = bp.Front();
 						bp.Pop();
 						if( !fst && !bp.Empty() )
 						{
@@ -444,14 +444,14 @@ namespace FarseerPhysics.Common.TextureTools
 
 					//ignore shared vertex if parallel
 					ai = ai.Next();
-					Vector2 a1 = ai.Elem();
+					vec2 a1 = ai.Elem();
 					ai = ai.Next();
 					if( ai == ap.End() ) ai = ap.Begin();
-					Vector2 a2 = ai.Elem();
-					Vector2 a00 = preb.Elem();
-					Vector2 uu = a1 - a00;
+					vec2 a2 = ai.Elem();
+					vec2 a00 = preb.Elem();
+					vec2 uu = a1 - a00;
 					//vec_new(u); vec_sub(a1.p, a0.p, u);
-					Vector2 vv = a2 - a1;
+					vec2 vv = a2 - a1;
 					//vec_new(v); vec_sub(a2.p, a1.p, v);
 					float dot1 = vecCross( uu, vv );
 					if( dot1 * dot1 < Settings.epsilon )
@@ -753,11 +753,11 @@ namespace FarseerPhysics.Common.TextureTools
 		internal class GeomPoly
 		{
 			public int Length;
-			public CxFastList<Vector2> Points;
+			public CxFastList<vec2> Points;
 
 			public GeomPoly()
 			{
-				Points = new CxFastList<Vector2>();
+				Points = new CxFastList<vec2>();
 				Length = 0;
 			}
 		}

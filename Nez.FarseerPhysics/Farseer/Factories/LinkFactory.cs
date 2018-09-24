@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
+using Nez.Collision.Shapes;
+using Nez.Common;
+using Nez.Dynamics;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Factories
+namespace Nez.Factories
 {
 	public static class LinkFactory
 	{
@@ -24,7 +24,7 @@ namespace FarseerPhysics.Factories
 		/// <param name="attachRopeJoint">Creates a rope joint between start and end. This enforces the length of the rope. Said in another way: it makes the rope less bouncy.</param>
 		/// <param name="fixStart">If set to <c>true</c> fix start.</param>
 		/// <param name="fixEnd">If set to <c>true</c> fix end.</param>
-		public static List<Body> createChain( World world, Vector2 start, Vector2 end, float linkWidth, float linkHeight, int numberOfLinks, float linkDensity, bool attachRopeJoint, bool fixStart = false, bool fixEnd = false )
+		public static List<Body> createChain( World world, vec2 start, vec2 end, float linkWidth, float linkHeight, int numberOfLinks, float linkDensity, bool attachRopeJoint, bool fixStart = false, bool fixEnd = false )
 		{
 			Debug.Assert( numberOfLinks >= 2 );
 
@@ -43,7 +43,7 @@ namespace FarseerPhysics.Factories
 			{
 				// Fix the first chainlink to the world
 				var axle = BodyFactory.createCircle( world, 0.1f, 1, chainLinks[0].position );
-				JointFactory.createRevoluteJoint( world, chainLinks[0], axle, new Vector2( 0, -( linkHeight / 2 ) ), Vector2.Zero );
+				JointFactory.createRevoluteJoint( world, chainLinks[0], axle, new vec2( 0, -( linkHeight / 2 ) ), vec2.Zero );
 			}
 
 			if( fixEnd )
@@ -51,14 +51,14 @@ namespace FarseerPhysics.Factories
 				// Fix the last chainlink to the world
 				var lastIndex = chainLinks.Count - 1;
 				var axle = BodyFactory.createCircle( world, 0.1f, 1, chainLinks[lastIndex].position );
-				JointFactory.createRevoluteJoint( world, chainLinks[lastIndex], axle, new Vector2( 0, -( linkHeight / 2 ) ), Vector2.Zero );
+				JointFactory.createRevoluteJoint( world, chainLinks[lastIndex], axle, new vec2( 0, -( linkHeight / 2 ) ), vec2.Zero );
 			}
 
 			// Attach all the chainlinks together with a revolute joint
-			PathManager.attachBodiesWithRevoluteJoint( world, chainLinks, new Vector2( 0, -linkHeight ), new Vector2( 0, linkHeight ), false, false );
+			PathManager.attachBodiesWithRevoluteJoint( world, chainLinks, new vec2( 0, -linkHeight ), new vec2( 0, linkHeight ), false, false );
 
 			if( attachRopeJoint )
-				JointFactory.createRopeJoint( world, chainLinks[0], chainLinks[chainLinks.Count - 1], Vector2.Zero, Vector2.Zero );
+				JointFactory.createRopeJoint( world, chainLinks[0], chainLinks[chainLinks.Count - 1], vec2.Zero, vec2.Zero );
 
 			return chainLinks;
 		}

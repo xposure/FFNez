@@ -10,7 +10,7 @@ namespace Nez.Farseer
 
 		#region Configuration
 
-		public FSPrismaticJoint setOwnerBodyAnchor( Vector2 ownerBodyAnchor )
+		public FSPrismaticJoint setOwnerBodyAnchor( vec2 ownerBodyAnchor )
 		{
 			_jointDef.ownerBodyAnchor = ownerBodyAnchor;
 			recreateJoint();
@@ -18,7 +18,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSPrismaticJoint setOtherBodyAnchor( Vector2 otherBodyAnchor )
+		public FSPrismaticJoint setOtherBodyAnchor( vec2 otherBodyAnchor )
 		{
 			_jointDef.otherBodyAnchor = otherBodyAnchor;
 			recreateJoint();
@@ -26,7 +26,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSPrismaticJoint setAxis( Vector2 axis )
+		public FSPrismaticJoint setAxis( vec2 axis )
 		{
 			_jointDef.axis = axis;
 			recreateJoint();

@@ -10,7 +10,7 @@ namespace Nez.Farseer
 
 		#region Configuration
 
-		public FSWheelJoint setAnchor( Vector2 anchor )
+		public FSWheelJoint setAnchor( vec2 anchor )
 		{
 			_jointDef.anchor = anchor;
 			recreateJoint();
@@ -18,7 +18,7 @@ namespace Nez.Farseer
 		}
 
 
-		public FSWheelJoint setAxis( Vector2 axis )
+		public FSWheelJoint setAxis( vec2 axis )
 		{
 			_jointDef.axis = axis;
 			recreateJoint();

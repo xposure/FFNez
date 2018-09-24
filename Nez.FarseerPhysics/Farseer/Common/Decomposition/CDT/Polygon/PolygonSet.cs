@@ -37,7 +37,7 @@
 
 using System.Collections.Generic;
 
-namespace FarseerPhysics.Common.Decomposition.CDT.Polygon
+namespace Nez.Common.Decomposition.CDT.Polygon
 {
     internal class PolygonSet
     {

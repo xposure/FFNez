@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using FarseerPhysics.Common.Decomposition.Seidel;
+using Nez.Common.Decomposition.Seidel;
 using Microsoft.Xna.Framework;
-using Point = FarseerPhysics.Common.Decomposition.Seidel.Point;
+using Point = Nez.Common.Decomposition.Seidel.Point;
 
 
-namespace FarseerPhysics.Common.Decomposition
+namespace Nez.Common.Decomposition
 {
     /// <summary>
     /// Convex decomposition algorithm created by Raimund Seidel
@@ -43,9 +43,9 @@ namespace FarseerPhysics.Common.Decomposition
 
             List<Point> compatList = new List<Point>(vertices.Count);
 
-            foreach (Vector2 vertex in vertices)
+            foreach (vec2 vertex in vertices)
             {
-                compatList.Add(new Point(vertex.X, vertex.Y));
+                compatList.Add(new Point(vertex.x, vertex.y));
             }
 
             Triangulator t = new Triangulator(compatList, sheer);
@@ -58,7 +58,7 @@ namespace FarseerPhysics.Common.Decomposition
 
                 foreach (Point outTriangle in triangle)
                 {
-                    outTriangles.Add(new Vector2(outTriangle.X, outTriangle.Y));
+                    outTriangles.Add(new vec2(outTriangle.X, outTriangle.Y));
                 }
 
                 list.Add(outTriangles);
@@ -77,9 +77,9 @@ namespace FarseerPhysics.Common.Decomposition
         {
             List<Point> compatList = new List<Point>(vertices.Count);
 
-            foreach (Vector2 vertex in vertices)
+            foreach (vec2 vertex in vertices)
             {
-                compatList.Add(new Point(vertex.X, vertex.Y));
+                compatList.Add(new Point(vertex.x, vertex.y));
             }
 
             Triangulator t = new Triangulator(compatList, sheer);
@@ -93,7 +93,7 @@ namespace FarseerPhysics.Common.Decomposition
                 List<Point> points = trapezoid.GetVertices();
                 foreach (Point point in points)
                 {
-                    verts.Add(new Vector2(point.X, point.Y));
+                    verts.Add(new vec2(point.X, point.Y));
                 }
 
                 list.Add(verts);

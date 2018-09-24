@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using FarseerPhysics.Collision;
+using Nez.Collision;
 using Microsoft.Xna.Framework;
 
 
-namespace FarseerPhysics.Common
+namespace Nez.Common
 {
 	public enum PolygonError
 	{
@@ -49,7 +49,7 @@ namespace FarseerPhysics.Common
 
 
 	[DebuggerDisplay( "Count = {Count} Vertices = {ToString()}" )]
-	public class Vertices : List<Vector2>
+	public class Vertices : List<vec2>
 	{
 		internal bool attachedToBody;
 
@@ -66,7 +66,7 @@ namespace FarseerPhysics.Common
 		public Vertices( int capacity ) : base( capacity )
 		{}
 
-		public Vertices( IEnumerable<Vector2> vertices )
+		public Vertices( IEnumerable<vec2> vertices )
 		{
 			AddRange( vertices );
 		}
@@ -84,7 +84,7 @@ namespace FarseerPhysics.Common
 		/// Gets the next vertex. Used for iterating all the edges with wrap-around.
 		/// </summary>
 		/// <param name="index">The current index</param>
-		public Vector2 nextVertex( int index )
+		public vec2 nextVertex( int index )
 		{
 			return this[nextIndex( index )];
 		}
@@ -102,7 +102,7 @@ namespace FarseerPhysics.Common
 		/// Gets the previous vertex. Used for iterating all the edges with wrap-around.
 		/// </summary>
 		/// <param name="index">The current index</param>
-		public Vector2 previousVertex( int index )
+		public vec2 previousVertex( int index )
 		{
 			return this[previousIndex( index )];
 		}
@@ -125,11 +125,11 @@ namespace FarseerPhysics.Common
 			{
 				int j = ( i + 1 ) % Count;
 
-				Vector2 vi = this[i];
-				Vector2 vj = this[j];
+				vec2 vi = this[i];
+				vec2 vj = this[j];
 
-				area += vi.X * vj.Y;
-				area -= vi.Y * vj.X;
+				area += vi.x * vj.y;
+				area -= vi.y * vj.x;
 			}
 			area /= 2.0f;
 			return area;
@@ -149,24 +149,24 @@ namespace FarseerPhysics.Common
 		/// Gets the centroid.
 		/// </summary>
 		/// <returns></returns>
-		public Vector2 getCentroid()
+		public vec2 getCentroid()
 		{
 			//The simplest polygon which can exist in the Euclidean plane has 3 sides.
 			if( Count < 3 )
-				return new Vector2( float.NaN, float.NaN );
+				return new vec2( float.NaN, float.NaN );
 
 			// Same algorithm is used by Box2D
-			Vector2 c = Vector2.Zero;
+			vec2 c = vec2.Zero;
 			float area = 0.0f;
 			const float inv3 = 1.0f / 3.0f;
 
 			for( int i = 0; i < Count; ++i )
 			{
 				// Triangle vertices.
-				Vector2 current = this[i];
-				Vector2 next = ( i + 1 < Count ? this[i + 1] : this[0] );
+				vec2 current = this[i];
+				vec2 next = ( i + 1 < Count ? this[i + 1] : this[0] );
 
-				float triangleArea = 0.5f * ( current.X * next.Y - current.Y * next.X );
+				float triangleArea = 0.5f * ( current.x * next.y - current.y * next.x );
 				area += triangleArea;
 
 				// Area weighted centroid
@@ -184,27 +184,27 @@ namespace FarseerPhysics.Common
 		public AABB getAABB()
 		{
 			AABB aabb;
-			Vector2 lowerBound = new Vector2( float.MaxValue, float.MaxValue );
-			Vector2 upperBound = new Vector2( float.MinValue, float.MinValue );
+			vec2 lowerBound = new vec2( float.MaxValue, float.MaxValue );
+			vec2 upperBound = new vec2( float.MinValue, float.MinValue );
 
 			for( int i = 0; i < Count; ++i )
 			{
-				if( this[i].X < lowerBound.X )
+				if( this[i].x < lowerBound.x )
 				{
-					lowerBound.X = this[i].X;
+					lowerBound.x = this[i].x;
 				}
-				if( this[i].X > upperBound.X )
+				if( this[i].x > upperBound.x )
 				{
-					upperBound.X = this[i].X;
+					upperBound.x = this[i].x;
 				}
 
-				if( this[i].Y < lowerBound.Y )
+				if( this[i].y < lowerBound.y )
 				{
-					lowerBound.Y = this[i].Y;
+					lowerBound.y = this[i].y;
 				}
-				if( this[i].Y > upperBound.Y )
+				if( this[i].y > upperBound.y )
 				{
-					upperBound.Y = this[i].Y;
+					upperBound.y = this[i].y;
 				}
 			}
 
@@ -218,7 +218,7 @@ namespace FarseerPhysics.Common
 		/// Translates the vertices with the specified vector.
 		/// </summary>
 		/// <param name="value">The value.</param>
-		public void translate( Vector2 value )
+		public void translate( vec2 value )
 		{
 			translate( ref value );
 		}
@@ -227,12 +227,12 @@ namespace FarseerPhysics.Common
 		/// Translates the vertices with the specified vector.
 		/// </summary>
 		/// <param name="value">The vector.</param>
-		public void translate( ref Vector2 value )
+		public void translate( ref vec2 value )
 		{
 			Debug.Assert( !attachedToBody, "Translating vertices that are used by a Body can result in unstable behavior. Use Body.Position instead." );
 
 			for( int i = 0; i < Count; i++ )
-				this[i] = Vector2.Add( this[i], value );
+				this[i] = vec2.Add( this[i], value );
 
 			if( holes != null && holes.Count > 0 )
 			{
@@ -247,7 +247,7 @@ namespace FarseerPhysics.Common
 		/// Scales the vertices with the specified vector.
 		/// </summary>
 		/// <param name="value">The Value.</param>
-		public void scale( Vector2 value )
+		public void scale( vec2 value )
 		{
 			scale( ref value );
 		}
@@ -256,12 +256,12 @@ namespace FarseerPhysics.Common
 		/// Scales the vertices with the specified vector.
 		/// </summary>
 		/// <param name="value">The Value.</param>
-		public void scale( ref Vector2 value )
+		public void scale( ref vec2 value )
 		{
 			Debug.Assert( !attachedToBody, "Scaling vertices that are used by a Body can result in unstable behavior." );
 
 			for( int i = 0; i < Count; i++ )
-				this[i] = Vector2.Multiply( this[i], value );
+				this[i] = vec2.Multiply( this[i], value );
 
 			if( holes != null && holes.Count > 0 )
 			{
@@ -288,7 +288,7 @@ namespace FarseerPhysics.Common
 			for( var i = 0; i < Count; i++ )
 			{
 				var position = this[i];
-				this[i] = new Vector2( ( position.X * cos + position.Y * -sin ), ( position.X * sin + position.Y * cos ) );
+				this[i] = new vec2( ( position.x * cos + position.y * -sin ), ( position.x * sin + position.y * cos ) );
 			}
 
 			if( holes != null && holes.Count > 0 )
@@ -325,7 +325,7 @@ namespace FarseerPhysics.Common
 			for( int i = 0; i < Count; ++i )
 			{
 				int next = i + 1 < Count ? i + 1 : 0;
-				Vector2 edge = this[next] - this[i];
+				vec2 edge = this[next] - this[i];
 
 				for( int j = 0; j < Count; ++j )
 				{
@@ -333,9 +333,9 @@ namespace FarseerPhysics.Common
 					if( j == i || j == next )
 						continue;
 
-					Vector2 r = this[j] - this[i];
+					vec2 r = this[j] - this[i];
 
-					float s = edge.X * r.Y - edge.Y * r.X;
+					float s = edge.x * r.y - edge.y * r.x;
 
 					if( s <= 0.0f )
 						return false;
@@ -381,14 +381,14 @@ namespace FarseerPhysics.Common
 
 			for( int i = 0; i < Count; ++i )
 			{
-				Vector2 a1 = this[i];
-				Vector2 a2 = nextVertex( i );
+				vec2 a1 = this[i];
+				vec2 a2 = nextVertex( i );
 				for( int j = i + 1; j < Count; ++j )
 				{
-					Vector2 b1 = this[j];
-					Vector2 b2 = nextVertex( j );
+					vec2 b1 = this[j];
+					vec2 b2 = nextVertex( j );
 
-					Vector2 temp;
+					vec2 temp;
 
 					if( LineTools.lineIntersect2( ref a1, ref a2, ref b1, ref b2, out temp ) )
 						return false;
@@ -424,7 +424,7 @@ namespace FarseerPhysics.Common
 			for( int i = 0; i < Count; ++i )
 			{
 				int next = i + 1 < Count ? i + 1 : 0;
-				Vector2 edge = this[next] - this[i];
+				vec2 edge = this[next] - this[i];
 				if( edge.LengthSquared() <= Settings.epsilon * Settings.epsilon )
 				{
 					return PolygonError.SideTooSmall;
@@ -443,16 +443,16 @@ namespace FarseerPhysics.Common
 		/// <param name="axis">The axis.</param>
 		/// <param name="min">The min.</param>
 		/// <param name="max">The max.</param>
-		public void projectToAxis( ref Vector2 axis, out float min, out float max )
+		public void projectToAxis( ref vec2 axis, out float min, out float max )
 		{
 			// To project a point on an axis use the dot product
-			float dotProduct = Vector2.Dot( axis, this[0] );
+			float dotProduct = vec2.Dot( axis, this[0] );
 			min = dotProduct;
 			max = dotProduct;
 
 			for( int i = 0; i < Count; i++ )
 			{
-				dotProduct = Vector2.Dot( this[i], axis );
+				dotProduct = vec2.Dot( this[i], axis );
 				if( dotProduct < min )
 				{
 					min = dotProduct;
@@ -475,7 +475,7 @@ namespace FarseerPhysics.Common
 		/// <returns>-1 if the winding number is zero and the point is outside
 		/// the polygon, 1 if the point is inside the polygon, and 0 if the point
 		/// is on the polygons edge.</returns>
-		public int pointInPolygon( ref Vector2 point )
+		public int pointInPolygon( ref vec2 point )
 		{
 			// Winding number
 			int wn = 0;
@@ -484,27 +484,27 @@ namespace FarseerPhysics.Common
 			for( int i = 0; i < Count; i++ )
 			{
 				// Get points
-				Vector2 p1 = this[i];
-				Vector2 p2 = this[nextIndex( i )];
+				vec2 p1 = this[i];
+				vec2 p2 = this[nextIndex( i )];
 
 				// Test if a point is directly on the edge
-				Vector2 edge = p2 - p1;
+				vec2 edge = p2 - p1;
 				float area = MathUtils.area( ref p1, ref p2, ref point );
-				if( area == 0f && Vector2.Dot( point - p1, edge ) >= 0f && Vector2.Dot( point - p2, edge ) <= 0f )
+				if( area == 0f && vec2.Dot( point - p1, edge ) >= 0f && vec2.Dot( point - p2, edge ) <= 0f )
 				{
 					return 0;
 				}
 				// Test edge for intersection with ray from point
-				if( p1.Y <= point.Y )
+				if( p1.y <= point.y )
 				{
-					if( p2.Y > point.Y && area > 0f )
+					if( p2.y > point.y && area > 0f )
 					{
 						++wn;
 					}
 				}
 				else
 				{
-					if( p2.Y <= point.Y && area < 0f )
+					if( p2.y <= point.y && area < 0f )
 					{
 						--wn;
 					}
@@ -518,7 +518,7 @@ namespace FarseerPhysics.Common
 		/// If this sum is 2pi then the point is an interior point, if 0 then the point is an exterior point. 
 		/// ref: http://ozviz.wasp.uwa.edu.au/~pbourke/geometry/insidepoly/  - Solution 2 
 		/// </summary>
-		public bool pointInPolygonAngle( ref Vector2 point )
+		public bool pointInPolygonAngle( ref vec2 point )
 		{
 			double angle = 0;
 
@@ -526,8 +526,8 @@ namespace FarseerPhysics.Common
 			for( int i = 0; i < Count; i++ )
 			{
 				// Get points
-				Vector2 p1 = this[i] - point;
-				Vector2 p2 = this[nextIndex( i )] - point;
+				vec2 p1 = this[i] - point;
+				vec2 p2 = this[nextIndex( i )] - point;
 
 				angle += MathUtils.vectorAngle( ref p1, ref p2 );
 			}
@@ -548,15 +548,15 @@ namespace FarseerPhysics.Common
 		{
 			// Transform main polygon
 			for( int i = 0; i < Count; i++ )
-				this[i] = Vector2.Transform( this[i], transform );
+				this[i] = vec2.Transform( this[i], transform );
 
 			// Transform holes
 			if( holes != null && holes.Count > 0 )
 			{
 				for( int i = 0; i < holes.Count; i++ )
 				{
-					Vector2[] temp = holes[i].ToArray();
-					Vector2.Transform( temp, ref transform, temp );
+					vec2[] temp = holes[i].ToArray();
+					vec2.Transform( temp, ref transform, temp );
 
 					holes[i] = new Vertices( temp );
 				}
