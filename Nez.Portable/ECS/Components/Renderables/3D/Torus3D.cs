@@ -16,7 +16,7 @@
 //				float outerAngle = i * MathHelper.TwoPi / tessellation;
 
 //				// Create a transform matrix that will align geometry to slice perpendicularly though the current ring position. 
-//				var vertTransform = Matrix.CreateTranslation( diameter / 2, 0, 0 ) * Matrix.CreateRotationY( outerAngle );
+//				var vertTransform = mat4.CreateTranslation( diameter / 2, 0, 0 ) * mat4.CreateRotationY( outerAngle );
 
 //				// Now we loop along the other axis, around the side of the tube. 
 //				for( var j = 0; j < tessellation; j++ )

@@ -153,7 +153,7 @@ namespace Nez
 			initializeVertices();
 
 			_basicEffect = entity.scene.content.loadMonoGameEffect<BasicEffect>();
-			_basicEffect.World = Matrix.Identity;
+			_basicEffect.World = mat4.Identity;
 			_basicEffect.VertexColorEnabled = true;
 		}
 
@@ -203,7 +203,7 @@ namespace Nez
 		{
 			calculateVertices();
 			_basicEffect.Projection = camera.projectionMatrix;
-			_basicEffect.View = camera.transformMatrix;
+			_basicEffect.View = (mat4)camera.transformMatrix;
 			_basicEffect.CurrentTechnique.Passes[0].Apply();
 
 			Core.graphicsDevice.DrawUserPrimitives( PrimitiveType.TriangleStrip, _vertices, 0, _ribbonLength * 2 + 1 );

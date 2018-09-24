@@ -787,7 +787,7 @@ namespace Nez
 		public override void onAddedToEntity()
 		{
 			_basicEffect = entity.scene.content.loadMonoGameEffect<BasicEffect>();
-			_basicEffect.World = Matrix.Identity;
+			_basicEffect.World = mat4.Identity;
 			_basicEffect.VertexColorEnabled = true;
 
 			if( _texture != null )
@@ -822,11 +822,11 @@ namespace Nez
 				return;
 			
 			_basicEffect.Projection = camera.projectionMatrix;
-			_basicEffect.View = camera.transformMatrix;
+			_basicEffect.View = (mat4)camera.transformMatrix;
 			_basicEffect.CurrentTechnique.Passes[0].Apply();
 
 			if( !useWorldSpace )
-				_basicEffect.World = transform.localToWorldTransform;
+				_basicEffect.World = (mat4)transform.localToWorldTransform;
 
 			var primitiveCount = _indices.length / 3;
 			Core.graphicsDevice.SamplerStates[0] = Core.defaultWrappedSamplerState;

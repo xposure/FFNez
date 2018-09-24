@@ -241,8 +241,8 @@ namespace Nez
 		public override void render( Graphics graphics, Camera camera )
 		{
 			_basicEffect.Projection = camera.projectionMatrix;
-			_basicEffect.View = camera.transformMatrix;
-			_basicEffect.World = entity.transform.localToWorldTransform;
+			_basicEffect.View = (mat4)camera.transformMatrix;
+			_basicEffect.World = (mat4)entity.transform.localToWorldTransform;
 			_basicEffect.CurrentTechnique.Passes[0].Apply();
 
 			if( _primitiveType == PrimitiveType.TriangleList )

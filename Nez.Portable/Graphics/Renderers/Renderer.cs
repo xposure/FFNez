@@ -84,7 +84,7 @@ namespace Nez
 
 		/// <summary>
 		/// if a RenderTarget is used this will set it up. The Batcher is also started. The passed in Camera will be used to set the ViewPort
-		/// (if a ViewportAdapter is present) and for the Batcher transform Matrix.
+		/// (if a ViewportAdapter is present) and for the Batcher transform mat4.
 		/// </summary>
 		/// <param name="cam">Cam.</param>
 		protected virtual void beginRender( Camera cam )

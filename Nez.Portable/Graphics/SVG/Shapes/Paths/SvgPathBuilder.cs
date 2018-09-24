@@ -71,7 +71,7 @@ namespace Nez.Svg
 				}
 			}
 
-			path.Flatten( new System.Drawing.Drawing2D.Matrix(), flatness );
+			path.Flatten( new System.Drawing.Drawing2D.mat4(), flatness );
 
 			return System.Array.ConvertAll( path.PathPoints, i => new vec2( i.X, i.Y ) );
 		}

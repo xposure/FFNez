@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Nez.DeferredLighting
 {
-    using Matrix = Nez.mat4;
+    using mat4 = Nez.mat4;
 
 	public class DeferredLightEffect : Effect
 	{
@@ -113,7 +113,7 @@ namespace Nez.DeferredLighting
 		{
 			setWorldToViewMatrix( camera.transformMatrix );
 			setProjectionMatrix(camera.projectionMatrix );
-			setScreenToWorld( Matrix.Invert( camera.viewProjectionMatrix ) );
+			setScreenToWorld( mat4.Invert( camera.viewProjectionMatrix ) );
 
 		}
 
@@ -148,9 +148,9 @@ namespace Nez.DeferredLighting
 			setLightIntensity( light.intensity );
 
 
-            var scale = Matrix.CreateScale(light.radius * light.entity.transform.scale.x);
-            var translate = Matrix.CreateTranslation(light.entity.transform.position.x + light.localOffset.x, light.entity.transform.position.y + light.localOffset.y, 0);
-            Matrix.Multiply(ref scale, ref translate, out var objToWorld);
+            var scale = mat4.CreateScale(light.radius * light.entity.transform.scale.x);
+            var translate = mat4.CreateTranslation(light.entity.transform.position.x + light.localOffset.x, light.entity.transform.position.y + light.localOffset.y, 0);
+            mat4.Multiply(ref scale, ref translate, out var objToWorld);
             setObjectToWorldMatrix(objToWorld);
 
 			pointLightPass.Apply();
@@ -181,9 +181,9 @@ namespace Nez.DeferredLighting
 			setAreaDirectionalLightDirection( light.direction );
 			setLightIntensity( light.intensity );
 
-            var scale = Matrix.CreateScale(light.bounds.width * light.entity.transform.scale.x, light.bounds.height * light.entity.transform.scale.y, 1f);
-            var translate = Matrix.CreateTranslation(light.bounds.x - light.bounds.width * 0.5f, light.bounds.y - light.bounds.height * 0.5f, 0);
-            Matrix.Multiply(ref scale, ref translate, out var objToWorld);
+            var scale = mat4.CreateScale(light.bounds.width * light.entity.transform.scale.x, light.bounds.height * light.entity.transform.scale.y, 1f);
+            var translate = mat4.CreateTranslation(light.bounds.x - light.bounds.width * 0.5f, light.bounds.y - light.bounds.height * 0.5f, 0);
+            mat4.Multiply(ref scale, ref translate, out var objToWorld);
             setObjectToWorldMatrix(objToWorld);
 
 			areaLightPass.Apply();
@@ -205,7 +205,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		#region Matrix properties
+		#region mat4 properties
 
 		public void setClearColor( Color color )
 		{
@@ -213,21 +213,21 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public void setObjectToWorldMatrix( Matrix objToWorld )
+		public void setObjectToWorldMatrix( mat4 objToWorld )
 		{
             System.Console.WriteLine($"objToWorld: {objToWorld}");
 			_objectToWorldParam.SetValue(objToWorld);
 		}
 
 
-		public void setWorldToViewMatrix( Matrix worldToView )
+		public void setWorldToViewMatrix( mat4 worldToView )
 		{
             System.Console.WriteLine($"worldToView: {worldToView}");
             _worldToViewParam.SetValue( worldToView );
 		}
 
 
-		public void setProjectionMatrix( Matrix projection )
+		public void setProjectionMatrix( mat4 projection )
 		{
             System.Console.WriteLine($"projection: {projection}");
             _projectionParam.SetValue( projection );
@@ -238,7 +238,7 @@ namespace Nez.DeferredLighting
 		/// inverse of Camera.getViewProjectionMatrix
 		/// </summary>
 		/// <param name="screenToWorld">screenToWorld.</param>
-		public void setScreenToWorld( Matrix screenToWorld )
+		public void setScreenToWorld( mat4 screenToWorld )
 		{
             System.Console.WriteLine($"screenToWorld: {screenToWorld}");
             _screenToWorldParam.SetValue( screenToWorld );

@@ -237,10 +237,10 @@ namespace Nez
 
 
 		/// <summary>
-		/// Creates a new <see cref="vec2"/> that contains a transformation of 2d-vector by the specified <see cref="Matrix"/>.
+		/// Creates a new <see cref="vec2"/> that contains a transformation of 2d-vector by the specified <see cref="mat4"/>.
 		/// </summary>
 		/// <param name="position">Source <see cref="vec2"/>.</param>
-		/// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+		/// <param name="matrix">The transformation <see cref="mat4"/>.</param>
 		/// <returns>Transformed <see cref="vec2"/>.</returns>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static vec2 transform( vec2 position, Matrix2D matrix )
@@ -250,10 +250,10 @@ namespace Nez
 
 
 		/// <summary>
-		/// Creates a new <see cref="vec2"/> that contains a transformation of 2d-vector by the specified <see cref="Matrix"/>.
+		/// Creates a new <see cref="vec2"/> that contains a transformation of 2d-vector by the specified <see cref="mat4"/>.
 		/// </summary>
 		/// <param name="position">Source <see cref="vec2"/>.</param>
-		/// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+		/// <param name="matrix">The transformation <see cref="mat4"/>.</param>
 		/// <param name="result">Transformed <see cref="vec2"/> as an output parameter.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void transform( ref vec2 position, ref Matrix2D matrix, out vec2 result )
@@ -266,11 +266,11 @@ namespace Nez
 
 
 		/// <summary>
-		/// Apply transformation on vectors within array of <see cref="vec2"/> by the specified <see cref="Matrix"/> and places the results in an another array.
+		/// Apply transformation on vectors within array of <see cref="vec2"/> by the specified <see cref="mat4"/> and places the results in an another array.
 		/// </summary>
 		/// <param name="sourceArray">Source array.</param>
 		/// <param name="sourceIndex">The starting index of transformation in the source array.</param>
-		/// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+		/// <param name="matrix">The transformation <see cref="mat4"/>.</param>
 		/// <param name="destinationArray">Destination array.</param>
 		/// <param name="destinationIndex">The starting index in the destination array, where the first <see cref="vec2"/> should be written.</param>
 		/// <param name="length">The number of vectors to be transformed.</param>
@@ -289,10 +289,10 @@ namespace Nez
 
 
 		/// <summary>
-		/// Apply transformation on all vectors within array of <see cref="vec2"/> by the specified <see cref="Matrix"/> and places the results in an another array.
+		/// Apply transformation on all vectors within array of <see cref="vec2"/> by the specified <see cref="mat4"/> and places the results in an another array.
 		/// </summary>
 		/// <param name="sourceArray">Source array.</param>
-		/// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
+		/// <param name="matrix">The transformation <see cref="mat4"/>.</param>
 		/// <param name="destinationArray">Destination array.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void transform( vec2[] sourceArray, ref Matrix2D matrix, vec2[] destinationArray )

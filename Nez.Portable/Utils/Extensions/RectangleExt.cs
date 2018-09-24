@@ -219,7 +219,7 @@ namespace Nez
 				Matrix2D.createTranslation( worldPosX, worldPosY, out tempMat ); // translate back
 				Matrix2D.multiply( ref transformMatrix, ref tempMat, out transformMatrix );
 
-				// TODO: this is a bit silly. we can just leave the worldPos translation in the Matrix and avoid this
+				// TODO: this is a bit silly. we can just leave the worldPos translation in the mat4 and avoid this
 				// get all four corners in world space
 				var topLeft = new vec2( worldPosX, worldPosY );
 				var topRight = new vec2( worldPosX + width, worldPosY );

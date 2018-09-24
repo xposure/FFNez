@@ -72,7 +72,7 @@ namespace Nez.Svg
 				}
 			}
 
-			var matrix = System.Activator.CreateInstance( System.Type.GetType( "System.Drawing.Drawing2D.Matrix, System.Drawing" ) );
+			var matrix = System.Activator.CreateInstance( System.Type.GetType( "System.Drawing.Drawing2D.mat4, System.Drawing" ) );
 			path.Flatten( matrix, flatness );
 
 			return path.pathPointsAsVectors();

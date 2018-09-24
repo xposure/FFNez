@@ -15,12 +15,12 @@ namespace Nez
 		}
 
 
-		public void setMatrixTransform(  Matrix matrixTransform )
+		public void setMatrixTransform(  mat4 matrixTransform )
         {
             _matrixTransformParam.SetValue(matrixTransform);
         }
 
-        public void setMatrixTransform( ref Matrix matrixTransform )
+        public void setMatrixTransform( ref mat4 matrixTransform )
 		{
 			_matrixTransformParam.SetValue( matrixTransform );
 		}

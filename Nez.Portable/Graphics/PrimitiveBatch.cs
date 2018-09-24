@@ -30,7 +30,7 @@ namespace Nez
 
 			// set up a new basic effect, and enable vertex colors.
 			_basicEffect = new BasicEffect( Core.graphicsDevice );
-			_basicEffect.World = Matrix.Identity;
+			_basicEffect.World = mat4.Identity;
 			_basicEffect.VertexColorEnabled = true;
 		}
 			
@@ -58,8 +58,8 @@ namespace Nez
 		/// </summary>
 		public void begin()
 		{
-			var projection = Matrix.CreateOrthographicOffCenter( 0, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0, 0, -1 );
-            var view = Matrix.CreateLookAt(vec3.Zero, new vec3(0, 0, -1), new vec3(0, 1, 0));
+			var projection = mat4.CreateOrthographicOffCenter( 0, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0, 0, -1 );
+            var view = mat4.LookAt(vec3.Zero, new vec3(0, 0, -1), new vec3(0, 1, 0));
 
 			begin( ref projection, ref view );
 		}
@@ -71,7 +71,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="projection">The projection.</param>
 		/// <param name="view">The view.</param>
-		public void begin( ref Matrix projection, ref Matrix view )
+		public void begin( ref mat4 projection, ref mat4 view )
 		{
 			Assert.isFalse( _hasBegun, "Invalid state. End must be called before Begin can be called again." );
 
@@ -91,7 +91,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="projection">The projection.</param>
 		/// <param name="view">The view.</param>
-		public void begin( Matrix projection, Matrix view )
+		public void begin( mat4 projection, mat4 view )
 		{
 			begin( ref projection, ref view );
 		}

@@ -9,9 +9,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Graphics\SVG\**" />
     <Compile Remove="Redesign\**" />
+    <EmbeddedResource Remove="Graphics\SVG\**" />
     <EmbeddedResource Remove="Redesign\**" />
     <None Remove="Content\**\*" />
+    <None Remove="Graphics\SVG\**" />
     <None Remove="Redesign\**" />
   </ItemGroup>
   <ItemGroup>

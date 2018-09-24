@@ -948,9 +948,9 @@ namespace Nez
 		}
 
 
-		public static implicit operator Matrix( Matrix2D mat )
+		public static implicit operator mat4( Matrix2D mat )
 		{
-			return new Matrix
+			return new mat4
 			(
 				mat.M11, mat.M12, 0, 0,
 				mat.M21, mat.M22, 0, 0,
@@ -958,18 +958,6 @@ namespace Nez
 				mat.M31, mat.M32, 0, 1
 			);
 		}
-
-        public static implicit operator Nez.mat4(Matrix2D mat)
-        {
-            return new Nez.mat4
-            (
-                mat.M11, mat.M12, 0, 0,
-                mat.M21, mat.M22, 0, 0,
-                0, 0, 1, 0,
-                mat.M31, mat.M32, 0, 1
-            );
-            //return new Atma.mat4(new Atma.mat3(mat.M11, mat.M12, 0, mat.M21, mat.M22, 0, mat.M31, mat.M32, 0));
-        }
 
         internal string debugDisplayString
 		{

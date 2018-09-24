@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Nez
 {
-    using Matrix = Nez.mat4;
-
 	public class Camera : Component
 	{
 		struct CameraInset
@@ -196,13 +194,13 @@ namespace Nez
 		/// the 2D Cameras projection matrix
 		/// </summary>
 		/// <value>The projection matrix.</value>
-		public Matrix projectionMatrix
+		public mat4 projectionMatrix
 		{
 			get
 			{
 				if( _isProjectionMatrixDirty )
 				{
-					_projectionMatrix = Matrix.CreateOrthographicOffCenter( 0, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0, 0, -1);
+					_projectionMatrix = mat4.CreateOrthographicOffCenter( 0, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0, 0, -1);
 					_isProjectionMatrixDirty = false;
 				}
 				return _projectionMatrix;
@@ -213,7 +211,7 @@ namespace Nez
 		/// gets the view-projection matrix which is the transformMatrix * the projection matrix
 		/// </summary>
 		/// <value>The view projection matrix.</value>
-		public Matrix viewProjectionMatrix { get { return Matrix.Multiply(transformMatrix, projectionMatrix); } }
+		public mat4 viewProjectionMatrix { get { return mat4.Multiply(transformMatrix, projectionMatrix); } }
 
 		//#region 3D Camera Matrixes
 
@@ -221,27 +219,27 @@ namespace Nez
 		///// returns a perspective projection for this camera for use when rendering 3D objects
 		///// </summary>
 		///// <value>The projection matrix3 d.</value>
-		//public Matrix projectionMatrix3D
+		//public mat4 projectionMatrix3D
 		//{
 		//	get
 		//	{
 		//		var targetHeight = ( Core.graphicsDevice.Viewport.Height / _zoom );
 		//		var fov = (float)Math.Atan( targetHeight / ( 2f * positionZ3D ) ) * 2f;
-		//		return Matrix.CreatePerspectiveFieldOfView( fov, Core.graphicsDevice.Viewport.AspectRatio, nearClipPlane3D, farClipPlane3D );
+		//		return mat4.CreatePerspectiveFieldOfView( fov, Core.graphicsDevice.Viewport.AspectRatio, nearClipPlane3D, farClipPlane3D );
 		//	}
 		//}
 
 		///// <summary>
-		///// returns a view Matrix via CreateLookAt for this camera for use when rendering 3D objects
+		///// returns a view mat4 via CreateLookAt for this camera for use when rendering 3D objects
 		///// </summary>
 		///// <value>The view matrix3 d.</value>
-		//public Matrix viewMatrix3D
+		//public mat4 viewMatrix3D
 		//{
 		//	get
 		//	{
 		//		// we need to always invert the y-values to match the way Batcher/SpriteBatch does things
 		//		var position3D = new vec3( position.X, -position.Y, positionZ3D );
-		//		return Matrix.CreateLookAt( position3D, position3D + vec3.Forward, vec3.Up );
+		//		return mat4.CreateLookAt( position3D, position3D + vec3.Forward, vec3.Up );
 		//	}
 		//}
 
@@ -268,7 +266,7 @@ namespace Nez
 		CameraInset _inset;
 		Matrix2D _transformMatrix = Matrix2D.identity;
 		Matrix2D _inverseTransformMatrix = Matrix2D.identity;
-		Matrix _projectionMatrix;
+		mat4 _projectionMatrix;
 		vec2 _origin;
 
 		bool _areMatrixesDirty = true;

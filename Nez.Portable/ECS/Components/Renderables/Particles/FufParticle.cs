@@ -46,7 +46,7 @@ namespace Nez.ECS.Components.Renderables.Particles
             velocity = new vec2((float) Math.Cos(launchAngle), (float) Math.Sin(launchAngle)) * speed;
 
             var offset = emitterConfig.offset.nextValue();
-            offset = vec2.Transform(offset, Matrix.CreateRotationZ(launchAngle));
+            offset = vec2.Transform(offset, mat4.RotateZ(launchAngle));
             position += offset;
 
             (_startScale, _endScale) = emitterConfig.scale.nextValues();

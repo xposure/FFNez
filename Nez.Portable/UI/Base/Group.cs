@@ -8,7 +8,7 @@ namespace Nez.UI
 	{
 		internal List<Element> children = new List<Element>();
 		protected bool transform = false;
-		Matrix _previousBatcherTransform;
+		mat4 _previousBatcherTransform;
 		Rectangle? _cullingArea;
 
 		public T addElement<T>( T element ) where T : Element
@@ -346,7 +346,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <param name="graphics">Graphics.</param>
 		/// <param name="transform">Transform.</param>
-		protected void applyTransform( Graphics graphics, Matrix transform )
+		protected void applyTransform( Graphics graphics, mat4 transform )
 		{
 			_previousBatcherTransform = graphics.batcher.transformMatrix;
 			graphics.batcher.end();

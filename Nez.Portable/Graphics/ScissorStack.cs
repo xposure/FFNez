@@ -71,7 +71,7 @@ namespace Nez
 		/// <param name="camera">Camera.</param>
 		/// <param name="batchTransform">Batch transform.</param>
 		/// <param name="scissor">Area.</param>
-		public static Rectangle calculateScissors( Camera camera, Matrix batchTransform, Rectangle scissor )
+		public static Rectangle calculateScissors( Camera camera, mat4 batchTransform, Rectangle scissor )
 		{
 			// convert the top-left point to screen space
 			var tmp = new vec2( scissor.X, scissor.Y );
