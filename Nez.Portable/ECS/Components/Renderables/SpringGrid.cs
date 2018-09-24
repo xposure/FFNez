@@ -143,13 +143,13 @@ namespace Nez
 		Rectangle _gridSize;
 
 
-		public SpringGrid( Rectangle gridSize, Vector2 spacing )
+		public SpringGrid( Rectangle gridSize, vec2 spacing )
 		{
 			_gridSize = gridSize;
 			var springList = new List<Spring>();
 
 			// we offset the gridSize location by half-spacing so the padding is applied evenly all around
-			gridSize.Location -= spacing.ToPoint();
+			gridSize.Location -= (Point)spacing;
 			gridSize.Width += (int)spacing.X;
 			gridSize.Height += (int)spacing.Y;
 

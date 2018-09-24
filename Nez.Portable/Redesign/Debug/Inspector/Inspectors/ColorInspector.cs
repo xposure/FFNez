@@ -21,7 +21,7 @@ namespace Nez
             base.render();
 
             var c = getValue<Color>();
-            var v = c.ToVector4();
+            var v = (Vector4)c;
             ImGui.ColorEdit4(_name, ref v, ColorEditFlags.Default);
             setValue(new Color(v));
         }

@@ -1,4 +1,4 @@
-﻿namespace Atma
+﻿namespace Nez
 {
     using System;
     using System.Runtime.InteropServices;
@@ -87,14 +87,14 @@
             this._packedValue = other._packedValue;
         }
 
-        public Color(Color color, byte alpha)
+        public Color(Color color, int alpha)
         {
             _packedValue = 0;
 
             R = color.R;
             G = color.G;
             B = color.B;
-            A = alpha;
+            A = (byte)alpha;
         }
 
         public Color(Color color, float alpha)
@@ -117,23 +117,23 @@
             A = 255;
         }
 
-        public Color(byte r, byte g, byte b)
+        public Color(int r, int g, int b)
         {
             _packedValue = 0;
-            R = r;
-            G = g;
-            B = b;
+            R = (byte)r;
+            G = (byte)g;
+            B = (byte)b;
             A = (byte)255;
         }
 
 
-        public Color(byte r, byte g, byte b, byte alpha)
+        public Color(int r, int g, int b, int alpha)
         {
             _packedValue = 0;
-            R = r;
-            G = g;
-            B = b;
-            A = alpha;
+            R = (byte)glm.Clamp(r, Byte.MinValue, Byte.MaxValue);
+            G = (byte)glm.Clamp(g, Byte.MinValue, Byte.MaxValue);
+            B = (byte)glm.Clamp(b, Byte.MinValue, Byte.MaxValue);
+            A = (byte)glm.Clamp(alpha, Byte.MinValue, Byte.MaxValue);
         }
 
         public Color(float r, float g, float b, float alpha)

@@ -181,6 +181,8 @@ namespace Nez.Particles
 				var t = ( _particleLifetime - _timeToLive ) / _particleLifetime;
 				ColorExt.lerp( ref _startColor, ref _finishColor, out color, t );
 
+                //color *= color.A / 255f;
+
 				// update the particle size
 				particleSize += _particleSizeDelta * Time.deltaTime;
 				particleSize = MathHelper.Max( 0, particleSize );

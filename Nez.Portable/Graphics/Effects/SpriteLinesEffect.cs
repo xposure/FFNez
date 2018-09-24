@@ -19,7 +19,7 @@ namespace Nez
 			get { return new Color( _lineColor ); }
 			set
 			{
-				var blinkVec = value.ToVector4();
+				var blinkVec = value;
 				if( _lineColor != blinkVec )
 				{
 					_lineColor = blinkVec;

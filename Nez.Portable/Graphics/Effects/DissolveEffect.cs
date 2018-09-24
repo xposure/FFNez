@@ -43,7 +43,7 @@ namespace Nez
 			get { return _dissolveThresholdColor; }
 			set
 			{
-				_dissolveThresholdColorParam.SetValue( value.ToVector4() );
+				_dissolveThresholdColorParam.SetValue( value );
 				_dissolveThresholdColor = value;
 			}
 		}
@@ -77,7 +77,7 @@ namespace Nez
 
 			_progressParam.SetValue( _progress );
 			_dissolveThresholdParam.SetValue( _dissolveThreshold );
-			_dissolveThresholdColorParam.SetValue( _dissolveThresholdColor.ToVector4() );
+			_dissolveThresholdColorParam.SetValue( _dissolveThresholdColor );
 			_dissolveTexParam.SetValue( dissolveTexture );
 		}
 	}

@@ -23,7 +23,7 @@ namespace Nez
 					_color = value;
 
 					if( effect != null )
-						_colorParam.SetValue( _color.ToVector4() );
+						_colorParam.SetValue( _color );
 				}
 			}
 		}
@@ -64,7 +64,7 @@ namespace Nez
 
 			_colorParam = effect.Parameters["_color"];
 			_letterboxSizeParam = effect.Parameters["_letterboxSize"];
-			_colorParam.SetValue( _color.ToVector4() );
+			_colorParam.SetValue( _color );
 			_letterboxSizeParam.SetValue( _letterboxSize );
 		}
 

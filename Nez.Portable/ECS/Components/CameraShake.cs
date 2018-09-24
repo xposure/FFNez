@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Nez
 {
-    using Vector2 = Atma.vec2;
+    using Vector2 = Nez.vec2;
 	public class CameraShake : Component, IUpdatable
 	{
 		Vector2 _shakeDirection;

@@ -89,7 +89,7 @@ namespace Nez
 		void IUpdatable.update()
 		{
 			// set position of first trail node;
-			_trailNodes[0].position = Input.rawMousePosition.ToVector2();
+			_trailNodes[0].position = Input.rawMousePosition;
 
 			// update the trails
 			for( var i = 1; i < _trailNodeCount; i++ )
@@ -149,8 +149,8 @@ namespace Nez
 
 		private struct TrailNode
 		{
-			public Vector2 position;
-			public Vector2 velocity;
+			public vec2 position;
+			public vec2 velocity;
 		}
 	}
 }

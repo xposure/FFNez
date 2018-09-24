@@ -43,7 +43,7 @@ using System.Runtime.InteropServices;
 
 #endregion Namespace Declarations
 
-namespace Atma
+namespace Nez
 {
     /// <summary>
     ///		This class is necessary so we can store the color components as floating

@@ -147,7 +147,7 @@ namespace Nez
 			Content.RootDirectory = contentDirectory;
 			content = new NezGlobalContentManager( Services, Content.RootDirectory );
 			IsMouseVisible = true;
-			IsFixedTimeStep = false;
+			IsFixedTimeStep = true;
 
 			entitySystemsEnabled = enableEntitySystems;
 

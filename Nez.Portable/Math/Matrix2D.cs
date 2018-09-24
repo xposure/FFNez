@@ -959,9 +959,9 @@ namespace Nez
 			);
 		}
 
-        public static implicit operator Atma.mat4(Matrix2D mat)
+        public static implicit operator Nez.mat4(Matrix2D mat)
         {
-            return new Atma.mat4
+            return new Nez.mat4
             (
                 mat.M11, mat.M12, 0, 0,
                 mat.M21, mat.M22, 0, 0,

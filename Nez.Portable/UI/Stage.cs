@@ -97,7 +97,7 @@ namespace Nez.UI
 		{
 			if( debugUnderMouse || debugParentUnderMouse || debugTableUnderMouse != Table.TableDebug.None )
 			{
-				var mousePos = screenToStageCoordinates( Input.rawMousePosition.ToVector2() );
+				var mousePos = screenToStageCoordinates( Input.rawMousePosition );
 				var element = hit( mousePos );
 				if( element == null )
 				{
@@ -168,7 +168,7 @@ namespace Nez.UI
 		/// <returns>The mouse position.</returns>
 		public Vector2 getMousePosition()
 		{
-			return entity != null && !isFullScreen ? Input.scaledMousePosition : Input.rawMousePosition.ToVector2();
+			return entity != null && !isFullScreen ? Input.scaledMousePosition : Input.rawMousePosition;
 		}
 
 

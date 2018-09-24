@@ -11,9 +11,9 @@ using Nez.Textures;
 
 namespace Nez
 {
-    using Vector2 = Atma.vec2;
-    using Vector3 = Atma.vec3;
-    using Matrix = Atma.mat4;
+    using Vector2 = Nez.vec2;
+    using Vector3 = Nez.vec3;
+    using Matrix = Nez.mat4;
 
 
     public class Batcher : GraphicsResource

@@ -532,7 +532,7 @@ namespace Nez.Console
 			if( _underscore )
 				commandLineString += "_";
 
-			var commandTextPosition = commandEntryRect.Location.ToVector2() + new Vector2( TEXT_PADDING_X, TEXT_PADDING_Y );
+			var commandTextPosition = commandEntryRect.Location + new Vector2( TEXT_PADDING_X, TEXT_PADDING_Y );
 			Graphics.instance.batcher.drawString( Graphics.instance.bitmapFont, commandLineString, commandTextPosition, Color.White, 0, Vector2.Zero, new Vector2( renderScale ), SpriteEffects.None, 0 );
 
 			if( _drawCommands.Count > 0 )

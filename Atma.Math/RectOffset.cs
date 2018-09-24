@@ -1,5 +1,5 @@
 ﻿
-namespace Atma
+namespace Nez
 {
     public struct RectOffset
     {

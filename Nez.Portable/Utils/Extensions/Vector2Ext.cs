@@ -6,17 +6,17 @@ namespace Nez
 {
 	public static class Vector2Ext
 	{
-        public static Atma.vec2[] ToVec2(this Vector2[] it)
+        public static Nez.vec2[] ToVec2(this Vector2[] it)
         {
-            var v = new Atma.vec2[it.Length];
+            var v = new Nez.vec2[it.Length];
             for (var i = 0; i < it.Length; i++)
                 v[i] = it[i];
             return v;
         }
 
-        public static Atma.vec3[] ToVec3(this Vector3[] it)
+        public static Nez.vec3[] ToVec3(this Vector3[] it)
         {
-            var v = new Atma.vec3[it.Length];
+            var v = new Nez.vec3[it.Length];
             for (var i = 0; i < it.Length; i++)
                 v[i] = it[i];
             return v;

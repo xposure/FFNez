@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Numerics;
 using System.Linq;
-using Atma.Swizzle;
+using Nez.Swizzle;
 
 // ReSharper disable InconsistentNaming
 
-namespace Atma
+namespace Nez
 {
 
     /// <summary>

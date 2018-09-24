@@ -102,7 +102,7 @@ namespace Nez
 			Assert.isNotNull( collisionLayer, "collisionLayer must not be null!" );
 
 			// offset the passed in world position to compensate for the entity position
-			bounds.Location -= ( entity.transform.position + _localOffset ).ToPoint();
+			bounds.Location -= (Point)( entity.transform.position + _localOffset );
 			return collisionLayer.getTilesIntersectingBounds( bounds );
 		}
 

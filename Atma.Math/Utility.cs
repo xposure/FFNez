@@ -48,7 +48,7 @@ using System.Diagnostics;
 
 #endregion Namespace Declarations
 
-namespace Atma
+namespace Nez
 {
     public static partial class glm
     {

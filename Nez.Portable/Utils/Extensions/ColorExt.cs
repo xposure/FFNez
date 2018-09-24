@@ -84,7 +84,12 @@ namespace Nez
 		/// <param name="from">From.</param>
 		/// <param name="to">To.</param>
 		/// <param name="t">T.</param>
-		public static Color lerp( Color from, Color to, float t )
+		public static void lerp(ref  Color from,ref Color to, out Microsoft.Xna.Framework.Color result, float t)
+        {
+            var t255 = (int)(t * 255);
+            result = new Color(from.R + (to.R - from.R) * t255 / 255, from.G + (to.G - from.G) * t255 / 255, from.B + (to.B - from.B) * t255 / 255, from.A + (to.A - from.A) * t255 / 255);
+        }
+        public static Color lerp( Color from, Color to, float t )
 		{
 			var t255 = (int)( t * 255 );
 			return new Color( from.R + ( to.R - from.R ) * t255 / 255, from.G + ( to.G - from.G ) * t255 / 255, from.B + ( to.B - from.B ) * t255 / 255, from.A + ( to.A - from.A ) * t255 / 255 );

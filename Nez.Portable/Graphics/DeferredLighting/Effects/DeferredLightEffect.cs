@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Nez.DeferredLighting
 {
-    using Matrix = Atma.mat4;
+    using Matrix = Nez.mat4;
 
 	public class DeferredLightEffect : Effect
 	{

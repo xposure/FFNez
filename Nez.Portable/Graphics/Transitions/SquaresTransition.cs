@@ -18,7 +18,7 @@ namespace Nez
 		/// <value>The color of the square.</value>
 		public Color squareColor
 		{
-			set { _squaresEffect.Parameters["_color"].SetValue( value.ToVector4() ); }
+			set { _squaresEffect.Parameters["_color"].SetValue( value ); }
 		}
 
 		public float smoothness

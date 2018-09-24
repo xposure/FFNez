@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Numerics;
 using System.Linq;
-using Atma.Swizzle;
+using Nez.Swizzle;
 
 // ReSharper disable InconsistentNaming
 
-namespace Atma
+namespace Nez
 {
     
     /// <summary>
@@ -26,6 +26,7 @@ namespace Atma
 #if DEBUG
         public static implicit operator Microsoft.Xna.Framework.Vector2(vec2 v) => new Microsoft.Xna.Framework.Vector2(v.x, v.y);
         public static implicit operator vec2(Microsoft.Xna.Framework.Vector2 v) => new vec2(v.X, v.Y);
+        public static explicit operator Point(vec2 v) => new Point((int)v.X, (int)v.Y);
 
         public static vec2 One => Ones;
         //public static vec2 Zero => new vec2(0, 0);

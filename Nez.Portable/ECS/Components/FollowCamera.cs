@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Nez
 {
-    using Vector2 = Atma.vec2;
+    using Vector2 = Nez.vec2;
 
 	/// <summary>
 	/// basic follow camera. LockOn mode uses no deadzone and just centers the camera on the target. CameraWindow mode wraps a deadzone

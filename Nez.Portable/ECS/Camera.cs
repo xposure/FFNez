@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Nez
 {
-    using Vector2 = Atma.vec2;
+    using Vector2 = Nez.vec2;
     //using Vector3 = Atma.vec3;
-    using Matrix = Atma.mat4;
+    using Matrix = Nez.mat4;
 
 	public class Camera : Component
 	{
@@ -511,7 +511,7 @@ namespace Nez
 		/// <param name="screenPosition">Screen position.</param>
 		public Vector2 screenToWorldPoint( Point screenPosition )
 		{
-			return screenToWorldPoint( screenPosition.ToVector2() );
+			return screenToWorldPoint( screenPosition );
 		}
 
 

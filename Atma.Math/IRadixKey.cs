@@ -1,4 +1,4 @@
-﻿namespace Atma
+﻿namespace Nez
 {
     public interface IRadixKey
     {

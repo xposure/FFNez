@@ -1,4 +1,4 @@
-﻿namespace Atma
+﻿namespace Nez
 {
     using System.Diagnostics;
 

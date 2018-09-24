@@ -29,7 +29,7 @@ namespace Nez
 		/// <value>The color.</value>
 		public Color color
 		{
-			set { _textureWipeEffect.Parameters["_color"].SetValue( value.ToVector4() ); }
+			set { _textureWipeEffect.Parameters["_color"].SetValue( value ); }
 		}
 
 		/// <summary>

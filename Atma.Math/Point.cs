@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Atma
+namespace Nez
 {
     public struct Point : IEquatable<Point>
     {
 #if DEBUG
         public static implicit operator vec2(Point v) => new vec2(v.X, v.Y);
+        public static explicit operator Point(Microsoft.Xna.Framework.Vector2 v) => new Point((int)v.X, (int)v.Y);
+        public static implicit operator Microsoft.Xna.Framework.Point(Point v) => new Microsoft.Xna.Framework.Point(v.X, v.Y);
+        public static implicit operator Microsoft.Xna.Framework.Vector2(Point v) => new Microsoft.Xna.Framework.Vector2(v.X, v.Y);
+        public static implicit operator Point(Microsoft.Xna.Framework.Point v) => new Point(v.X, v.Y);
 
 
 #endif

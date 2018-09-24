@@ -17,7 +17,7 @@ namespace Nez
 			get { return new Color( _blinkColor ); }
 			set
 			{
-				var blinkVec = value.ToVector4();
+				var blinkVec = value;
 				if( _blinkColor != blinkVec )
 				{
 					_blinkColor = blinkVec;

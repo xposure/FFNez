@@ -271,7 +271,7 @@ namespace Nez
 
 		public static void translate( ref Rectangle rect, Vector2 vec )
 		{
-			rect.Location += vec.ToPoint();
+            rect.Location += (Point)vec;
 		}
 
 		
