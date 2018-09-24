@@ -16,16 +16,16 @@ namespace Nez.DeferredLighting
 		{
 			var verts = new VertexPositionTexture[] {
 				new VertexPositionTexture(
-					new Vector3( 1, -1, 0 ),
+					new vec3( 1, -1, 0 ),
 					new vec2( 1, 1 ) ),
 				new VertexPositionTexture(
-					new Vector3( -1, -1, 0 ),
+					new vec3( -1, -1, 0 ),
 					new vec2( 0, 1 ) ),
 				new VertexPositionTexture(
-					new Vector3( -1, 1, 0 ),
+					new vec3( -1, 1, 0 ),
 					new vec2( 0, 0 ) ),
 				new VertexPositionTexture(
-					new Vector3( 1, 1, 0 ),
+					new vec3( 1, 1, 0 ),
 					new vec2( 1, 0 ) )
 			};
 

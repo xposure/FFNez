@@ -275,7 +275,7 @@ namespace Nez
 		/// <summary>
 		/// Creates a new scaling <see cref="Matrix2D"/>.
 		/// </summary>
-		/// <param name="scale"><see cref="Vector3"/> representing x,y and z scale values.</param>
+		/// <param name="scale"><see cref="vec3"/> representing x,y and z scale values.</param>
 		/// <param name="result">The scaling <see cref="Matrix2D"/> as an output parameter.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static void createScale( ref vec2 scale, out Matrix2D result )

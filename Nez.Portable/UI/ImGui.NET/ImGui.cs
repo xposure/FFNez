@@ -191,7 +191,7 @@ namespace ImGuiNET
 
         public static unsafe bool ColorEdit3(string label, ref float r, ref float g, ref float b, ColorEditFlags flags = ColorEditFlags.Default)
         {
-            Vector3 localColor = new Vector3(r, g, b);
+            vec3 localColor = new vec3(r, g, b);
             bool result = ImGuiNative.igColorEdit3(label, &localColor, flags);
             if (result)
             {
@@ -203,9 +203,9 @@ namespace ImGuiNET
             return result;
         }
 
-        public static unsafe bool ColorEdit3(string label, ref Vector3 color, ColorEditFlags flags = ColorEditFlags.Default)
+        public static unsafe bool ColorEdit3(string label, ref vec3 color, ColorEditFlags flags = ColorEditFlags.Default)
         {
-            Vector3 localColor = color;
+            vec3 localColor = color;
             bool result = ImGuiNative.igColorEdit3(label, &localColor, flags);
             if (result)
             {
@@ -242,9 +242,9 @@ namespace ImGuiNET
             return result;
         }
 
-        public static unsafe bool ColorPicker3(string label, ref Vector3 color, ColorEditFlags flags = ColorEditFlags.Default)
+        public static unsafe bool ColorPicker3(string label, ref vec3 color, ColorEditFlags flags = ColorEditFlags.Default)
         {
-            Vector3 localColor = color;
+            vec3 localColor = color;
             bool result = ImGuiNative.igColorPicker3(label, &localColor, flags);
             if (result)
             {
@@ -326,7 +326,7 @@ namespace ImGuiNET
             return ImGuiNative.igSliderFloat2(label, ref value, min, max, displayText, power);
         }
 
-        public static bool SliderVector3(string label, ref Vector3 value, float min, float max, string displayText, float power)
+        public static bool SliderVector3(string label, ref vec3 value, float min, float max, string displayText, float power)
         {
             return ImGuiNative.igSliderFloat3(label, ref value, min, max, displayText, power);
         }
@@ -371,7 +371,7 @@ namespace ImGuiNET
             return ImGuiNative.igDragFloat2(label, ref value, dragSpeed, min, max, displayFormat, dragPower);
         }
 
-        public static bool DragVector3(string label, ref Vector3 value, float min, float max, float dragSpeed = 1f, string displayFormat = "%f", float dragPower = 1f)
+        public static bool DragVector3(string label, ref vec3 value, float min, float max, float dragSpeed = 1f, string displayFormat = "%f", float dragPower = 1f)
         {
             return ImGuiNative.igDragFloat3(label, ref value, dragSpeed, min, max, displayFormat, dragPower);
         }

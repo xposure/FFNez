@@ -31,9 +31,9 @@ namespace Nez
 		/// wraps Transform.position along with a private Z position
 		/// </summary>
 		/// <value>The position.</value>
-		public Vector3 position
+		public vec3 position
 		{
-			get { return new Vector3( transform.position, _positionZ ); }
+			get { return new vec3( transform.position, _positionZ ); }
 			set
 			{
 				_positionZ = value.Z;
@@ -44,15 +44,15 @@ namespace Nez
 		/// <summary>
 		/// the scale of the object. 80 by default. You will need to adjust this depending on your Scene's backbuffer size.
 		/// </summary>
-		public Vector3 scale = new Vector3( 80f );
+		public vec3 scale = new vec3( 80f );
 
 		/// <summary>
 		/// wraps Transform.rotation for the Z rotation along with a private X and Y rotation.
 		/// </summary>
 		/// <value>The rotation.</value>
-		public Vector3 rotation
+		public vec3 rotation
 		{
-			get { return new Vector3( _rotationXY, transform.rotation ); }
+			get { return new vec3( _rotationXY, transform.rotation ); }
 			set
 			{
 				_rotationXY.x = value.X;
@@ -65,9 +65,9 @@ namespace Nez
 		/// rotation in degrees
 		/// </summary>
 		/// <value>The rotation degrees.</value>
-		public Vector3 rotationDegrees
+		public vec3 rotationDegrees
 		{
-			get { return new Vector3( _rotationXY, transform.rotation ) * Mathf.rad2Deg; }
+			get { return new vec3( _rotationXY, transform.rotation ) * Mathf.rad2Deg; }
 			set { rotation = value *= Mathf.deg2Rad; }
 		}
 

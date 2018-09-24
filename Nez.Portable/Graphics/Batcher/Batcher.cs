@@ -11,7 +11,6 @@ using Nez.Textures;
 
 namespace Nez
 {
-    using Vector3 = Nez.vec3;
     using Matrix = Nez.mat4;
 
 
@@ -544,7 +543,7 @@ namespace Nez
 		/// <param name="verts">Verts.</param>
 		/// <param name="textureCoords">Texture coords.</param>
 		/// <param name="colors">Colors.</param>
-		public void drawRaw( Texture2D texture, Vector3[] verts, vec2[] textureCoords, Color[] colors )
+		public void drawRaw( Texture2D texture, vec3[] verts, vec2[] textureCoords, Color[] colors )
 		{
 			Assert.isTrue( verts.Length == 4, "there must be only 4 verts" );
 			Assert.isTrue( textureCoords.Length == 4, "there must be only 4 texture coordinates" );
@@ -590,7 +589,7 @@ namespace Nez
 		/// <param name="verts">Verts.</param>
 		/// <param name="textureCoords">Texture coords.</param>
 		/// <param name="color">Color.</param>
-		public void drawRaw( Texture2D texture, Vector3[] verts, vec2[] textureCoords, Color color )
+		public void drawRaw( Texture2D texture, vec3[] verts, vec2[] textureCoords, Color color )
 		{
 			Assert.isTrue( verts.Length == 4, "there must be only 4 verts" );
 			Assert.isTrue( textureCoords.Length == 4, "there must be only 4 texture coordinates" );
@@ -1108,16 +1107,16 @@ namespace Nez
 
 			VertexDeclaration IVertexType.VertexDeclaration { get { throw new NotImplementedException(); } }
 
-			public Vector3 position0;
+			public vec3 position0;
 			public Color color0;
 			public vec2 textureCoordinate0;
-			public Vector3 position1;
+			public vec3 position1;
 			public Color color1;
 			public vec2 textureCoordinate1;
-			public Vector3 position2;
+			public vec3 position2;
 			public Color color2;
 			public vec2 textureCoordinate2;
-			public Vector3 position3;
+			public vec3 position3;
 			public Color color3;
 			public vec2 textureCoordinate3;
 		}

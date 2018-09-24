@@ -18,7 +18,7 @@
 
 //		#region Initialization and configuration
 
-//		protected void addVertex( Vector3 position, Color color, Vector3 normal )
+//		protected void addVertex( vec3 position, Color color, vec3 normal )
 //		{
 //			_vertices.Add( new VertexPositionColorNormal( position, color, normal ) );
 //		}

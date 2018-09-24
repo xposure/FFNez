@@ -240,8 +240,8 @@ namespace Nez
 		//	get
 		//	{
 		//		// we need to always invert the y-values to match the way Batcher/SpriteBatch does things
-		//		var position3D = new Vector3( position.X, -position.Y, positionZ3D );
-		//		return Matrix.CreateLookAt( position3D, position3D + Vector3.Forward, Vector3.Up );
+		//		var position3D = new vec3( position.X, -position.Y, positionZ3D );
+		//		return Matrix.CreateLookAt( position3D, position3D + vec3.Forward, vec3.Up );
 		//	}
 		//}
 

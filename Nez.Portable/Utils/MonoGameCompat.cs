@@ -86,11 +86,11 @@ namespace Microsoft.Xna.Framework.Graphics
 	[StructLayout( LayoutKind.Sequential, Pack = 1 )]
 	public struct VertexPosition : IVertexType
 	{
-		public Vector3 Position;
+		public vec3 Position;
 
 		public static readonly VertexDeclaration VertexDeclaration;
 
-		public VertexPosition( Vector3 position )
+		public VertexPosition( vec3 position )
 		{
 			Position = position;
 		}
@@ -135,7 +135,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
 		static VertexPosition()
 		{
-			VertexElement[] elements = { new VertexElement( 0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0 ) };
+			VertexElement[] elements = { new VertexElement( 0, VertexElementFormat.vec3, VertexElementUsage.Position, 0 ) };
 			VertexDeclaration declaration = new VertexDeclaration( elements );
 			VertexDeclaration = declaration;
 		}

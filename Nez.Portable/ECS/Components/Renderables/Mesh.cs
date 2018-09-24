@@ -175,7 +175,7 @@ namespace Nez
 		/// sets the vert positions. If the positions array does not match the verts array size the verts array will be recreated.
 		/// </summary>
 		/// <param name="positions">Positions.</param>
-		public Mesh setVertPositions( Vector3[] positions )
+		public Mesh setVertPositions( vec3[] positions )
 		{
 			if( _verts == null || _verts.Length != positions.Length )
 				_verts = new VertexPositionColorTexture[positions.Length];

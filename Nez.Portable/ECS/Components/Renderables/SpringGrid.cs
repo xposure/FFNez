@@ -16,21 +16,21 @@ namespace Nez
 
 		class PointMass
 		{
-			public Vector3 position;
-			public Vector3 velocity;
+			public vec3 position;
+			public vec3 velocity;
 			public float inverseMass;
 
-			Vector3 _acceleration;
+			vec3 _acceleration;
 			float _damping = 0.98f;
 
-			public PointMass( Vector3 position, float invMass )
+			public PointMass( vec3 position, float invMass )
 			{
 				this.position = position;
 				this.inverseMass = invMass;
 			}
 
 
-			public void applyForce( Vector3 force )
+			public void applyForce( vec3 force )
 			{
 				_acceleration += force * inverseMass;
 			}
@@ -46,9 +46,9 @@ namespace Nez
 			{
 				velocity += _acceleration;
 				position += velocity;
-				_acceleration = Vector3.Zero;
-				if( velocity.LengthSquared() < 0.001f * 0.001f )
-					velocity = Vector3.Zero;
+				_acceleration = vec3.Zero;
+				if( velocity.LengthSqr < 0.001f * 0.001f )
+					velocity = vec3.Zero;
 
 				velocity *= _damping;
 				_damping = 0.98f;
@@ -71,7 +71,7 @@ namespace Nez
 				this.end2 = end2;
 				this.stiffness = stiffness;
 				this.damping = damping;
-				targetLength = Vector3.Distance( end1.position, end2.position ) * 0.95f;
+				targetLength = vec3.Distance( end1.position, end2.position ) * 0.95f;
 			}
 
 
@@ -79,7 +79,7 @@ namespace Nez
 			{
 				var x = end1.position - end2.position;
 
-				var length = x.Length();
+				var length = x.Length;
 				// these springs can only pull, not push
 				if( length <= targetLength )
 					return;
@@ -166,8 +166,8 @@ namespace Nez
 			{
 				for( float x = gridSize.Left; x <= gridSize.Right; x += spacing.x )
 				{
-					_points[column, row] = new PointMass( new Vector3( x, y, 0 ), 1 );
-					fixedPoints[column, row] = new PointMass( new Vector3( x, y, 0 ), 0 );
+					_points[column, row] = new PointMass( new vec3( x, y, 0 ), 1 );
+					fixedPoints[column, row] = new PointMass( new vec3( x, y, 0 ), 0 );
 					column++;
 				}
 				row++;
@@ -206,7 +206,7 @@ namespace Nez
 		/// <param name="radius">Radius.</param>
 		public void applyDirectedForce( vec2 force, vec2 position, float radius )
 		{
-			applyDirectedForce( new Vector3( force, 0 ), new Vector3( position, 0 ), radius );
+			applyDirectedForce( new vec3( force, 0 ), new vec3( position, 0 ), radius );
 		}
 
 
@@ -216,14 +216,14 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void applyDirectedForce( Vector3 force, Vector3 position, float radius )
+		public void applyDirectedForce( vec3 force, vec3 position, float radius )
 		{
 			// translate position into our coordinate space
-			position -= new Vector3( entity.transform.position + localOffset, 0 );
+			position -= new vec3( entity.transform.position + localOffset, 0 );
 			foreach( var mass in _points )
 			{
-				if( Vector3.DistanceSquared( position, mass.position ) < radius * radius )
-					mass.applyForce( 10 * force / ( 10 + Vector3.Distance( position, mass.position ) ) );
+				if( vec3.DistanceSquared( position, mass.position ) < radius * radius )
+					mass.applyForce( 10 * force / ( 10 + vec3.Distance( position, mass.position ) ) );
 			}
 		}
 
@@ -236,7 +236,7 @@ namespace Nez
 		/// <param name="radius">Radius.</param>
 		public void applyImplosiveForce( float force, vec2 position, float radius )
 		{
-			applyImplosiveForce( force, new Vector3( position, 0 ), radius );
+			applyImplosiveForce( force, new vec3( position, 0 ), radius );
 		}
 
 
@@ -246,13 +246,13 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void applyImplosiveForce( float force, Vector3 position, float radius )
+		public void applyImplosiveForce( float force, vec3 position, float radius )
 		{
 			// translate position into our coordinate space
-			position -= new Vector3( entity.transform.position + localOffset, 0 );
+			position -= new vec3( entity.transform.position + localOffset, 0 );
 			foreach( var mass in _points )
 			{
-				var dist2 = Vector3.DistanceSquared( position, mass.position );
+				var dist2 = vec3.DistanceSquared( position, mass.position );
 				if( dist2 < radius * radius )
 				{
 					mass.applyForce( 10 * force * ( position - mass.position ) / ( 100 + dist2 ) );
@@ -270,7 +270,7 @@ namespace Nez
 		/// <param name="radius">Radius.</param>
 		public void applyExplosiveForce( float force, vec2 position, float radius )
 		{
-			applyExplosiveForce( force, new Vector3( position, 0 ), radius );
+			applyExplosiveForce( force, new vec3( position, 0 ), radius );
 		}
 
 
@@ -280,13 +280,13 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void applyExplosiveForce( float force, Vector3 position, float radius )
+		public void applyExplosiveForce( float force, vec3 position, float radius )
 		{
 			// translate position into our coordinate space
-			position -= new Vector3( entity.transform.position + localOffset, 0 );
+			position -= new vec3( entity.transform.position + localOffset, 0 );
 			foreach( var mass in _points )
 			{
-				var dist2 = Vector3.DistanceSquared( position, mass.position );
+				var dist2 = vec3.DistanceSquared( position, mass.position );
 				if( dist2 < radius * radius )
 				{
 					mass.applyForce( 100 * force * ( mass.position - position ) / ( 10000 + dist2 ) );
@@ -399,7 +399,7 @@ namespace Nez
 		}
 
 
-		vec2 projectToVector2( Vector3 v )
+		vec2 projectToVector2( vec3 v )
 		{
 			// do a perspective projection
 			var factor = ( v.Z + 2000 ) * 0.0005f;

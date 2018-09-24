@@ -87,9 +87,9 @@ namespace Nez.Tweens
 		}
 
 
-		public static ITween<Vector3> vector3PropertyTo( object self, string memberName, Vector3 to, float duration )
+		public static ITween<vec3> vector3PropertyTo( object self, string memberName, vec3 to, float duration )
 		{
-			var tweenTarget = new PropertyTarget<Vector3>( self, memberName );
+			var tweenTarget = new PropertyTarget<vec3>( self, memberName );
 			var tween = TweenManager.cacheVector3Tweens ? Pool<Vector3Tween>.obtain() : new Vector3Tween();
 			tween.initialize( tweenTarget, to, duration );
 

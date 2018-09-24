@@ -59,7 +59,7 @@ namespace Nez
 		public void begin()
 		{
 			var projection = Matrix.CreateOrthographicOffCenter( 0, Core.graphicsDevice.Viewport.Width, Core.graphicsDevice.Viewport.Height, 0, 0, -1 );
-			var view = Matrix.CreateLookAt( Vector3.Zero, Vector3.Forward, Vector3.Up );
+            var view = Matrix.CreateLookAt(vec3.Zero, new vec3(0, 0, -1), new vec3(0, 1, 0));
 
 			begin( ref projection, ref view );
 		}
@@ -124,7 +124,7 @@ namespace Nez
 				if( _triangleVertsCount >= _triangleVertices.Length )
 					flushTriangles();
 
-				_triangleVertices[_triangleVertsCount].Position = new Vector3( vertex, 0 );
+				_triangleVertices[_triangleVertsCount].Position = new vec3( vertex, 0 );
 				_triangleVertices[_triangleVertsCount].Color = color;
 				_triangleVertsCount++;
 			}
@@ -134,7 +134,7 @@ namespace Nez
 				if( _lineVertsCount >= _lineVertices.Length )
 					flushLines();
 
-				_lineVertices[_lineVertsCount].Position = new Vector3( vertex, 0 );
+				_lineVertices[_lineVertsCount].Position = new vec3( vertex, 0 );
 				_lineVertices[_lineVertsCount].Color = color;
 				_lineVertsCount++;
 			}

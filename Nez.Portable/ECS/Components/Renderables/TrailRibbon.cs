@@ -57,15 +57,15 @@ namespace Nez
 		/// </summary>
 		void initializeVertices()
 		{
-			var radiusVec = new Vector3( 0, -ribbonRadius, 0 );
+			var radiusVec = new vec3( 0, -ribbonRadius, 0 );
 			_vertices = new VertexPositionColor[_ribbonLength * 2 + 3];
 
 			// head of ribbon
-			_vertices[0].Position = new Vector3( entity.transform.position, 0f ) + radiusVec;
+			_vertices[0].Position = new vec3( entity.transform.position, 0f ) + radiusVec;
 			_vertices[0].Color = Color.Red;
-			_vertices[1].Position = new Vector3( entity.transform.position, 0f ) + radiusVec;
+			_vertices[1].Position = new vec3( entity.transform.position, 0f ) + radiusVec;
 			_vertices[1].Color = Color.Yellow;
-			_vertices[2].Position = new Vector3( entity.transform.position, 0f ) + radiusVec;
+			_vertices[2].Position = new vec3( entity.transform.position, 0f ) + radiusVec;
 			_vertices[2].Color = Color.Green;
 
 			var pos = entity.transform.position;
@@ -89,8 +89,8 @@ namespace Nez
 			if( !_areVertsDirty )
 				return;
 			
-			var center = new Vector3( entity.transform.position, 0f );
-			var radVec = new Vector3( 0, -ribbonRadius, 0 );
+			var center = new vec3( entity.transform.position, 0f );
+			var radVec = new vec3( 0, -ribbonRadius, 0 );
 			
 			// starting triangle, the head
 			_vertices[0].Position = center + radVec;
@@ -219,21 +219,21 @@ namespace Nez
 			// normalized
 			public float radius;
 
-			public Vector3 topPoint
+			public vec3 topPoint
 			{
 				get
 				{
 					var tp = ( position + radiusDirection * radius );
-					return new Vector3( tp.x, tp.y, 1 );
+					return new vec3( tp.x, tp.y, 1 );
 				}
 			}
 
-			public Vector3 bottomPoint
+			public vec3 bottomPoint
 			{
 				get
 				{
 					var bp = position - radiusDirection * radius;
-					return new Vector3( bp.x, bp.y, 1 );
+					return new vec3( bp.x, bp.y, 1 );
 				}
 			}
 

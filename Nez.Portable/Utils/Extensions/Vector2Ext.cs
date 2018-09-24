@@ -14,7 +14,7 @@ namespace Nez
             return v;
         }
 
-        public static Nez.vec3[] ToVec3(this Vector3[] it)
+        public static Nez.vec3[] ToVec3(this vec3[] it)
         {
             var v = new Nez.vec3[it.Length];
             for (var i = 0; i < it.Length; i++)
@@ -211,14 +211,14 @@ namespace Nez
 
 
 		/// <summary>
-		/// converts a vec2 to a Vector3 with a 0 z-position
+		/// converts a vec2 to a vec3 with a 0 z-position
 		/// </summary>
 		/// <returns>The vector3.</returns>
 		/// <param name="vec">Vec.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Vector3 toVector3( this vec2 vec )
+		public static vec3 toVector3( this vec2 vec )
 		{
-			return new Vector3( vec, 0 );
+			return new vec3( vec, 0 );
 		}
 
 

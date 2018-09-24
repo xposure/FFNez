@@ -16,7 +16,7 @@ namespace Nez.DeferredLighting
 		/// <summary>
 		/// direction of the light
 		/// </summary>
-		public Vector3 direction = new Vector3( 500, 500, 50 );
+		public vec3 direction = new vec3( 500, 500, 50 );
 
 		/// <summary>
 		/// brightness of the light
@@ -49,7 +49,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public AreaLight setDirection( Vector3 direction )
+		public AreaLight setDirection( vec3 direction )
 		{
 			this.direction = direction;
 			return this;

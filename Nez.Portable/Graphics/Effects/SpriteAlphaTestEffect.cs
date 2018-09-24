@@ -60,7 +60,7 @@ namespace Nez
 
 		void updateEffectParameter()
 		{
-			var value = new Vector3();
+			var value = new vec3();
 
 			// reference alpha is packed in the x param
 			value.X = _referenceAlpha;

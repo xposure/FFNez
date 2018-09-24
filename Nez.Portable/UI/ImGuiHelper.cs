@@ -382,7 +382,7 @@ namespace Mnemonic
         //private static bool _mainWindowOpened;
         //private static int _pressCount;
         //private static float _sliderVal;
-        //private static System.Numerics.Vector3 _positionValue;
+        //private static System.Numerics.vec3 _positionValue;
         //private static System.Numerics.Vector4 _buttonColor;
         //private static IntPtr _textInputBuffer;
         //private static int _textInputBufferLength;
@@ -443,7 +443,7 @@ namespace Mnemonic
         //        null);
 
         //    ImGui.SliderFloat("SlidableValue", ref _sliderVal, -50f, 100f, $"{_sliderVal.ToString("##0.00")}", 1.0f);
-        //    ImGui.DragVector3("Vector3", ref _positionValue, -100, 100);
+        //    ImGui.DragVector3("vec3", ref _positionValue, -100, 100);
 
         //    if (ImGui.TreeNode("First Item"))
         //    {

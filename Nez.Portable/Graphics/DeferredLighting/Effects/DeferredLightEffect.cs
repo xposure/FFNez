@@ -142,7 +142,7 @@ namespace Nez.DeferredLighting
 		/// <param name="light">Light.</param>
 		public void updateForLight( PointLight light )
 		{
-			setLightPosition( new Vector3( light.entity.transform.position + light.localOffset, light.zPosition ) );
+			setLightPosition( new vec3( light.entity.transform.position + light.localOffset, light.zPosition ) );
 			setColor( light.color );
 			setLightRadius( light.radius * light.entity.transform.scale.x );
 			setLightIntensity( light.intensity );
@@ -255,7 +255,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public void setLightPosition( Vector3 lightPosition )
+		public void setLightPosition( vec3 lightPosition )
 		{
 			_lightPositionParam.SetValue( lightPosition );
 		}
@@ -327,7 +327,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public void setAreaDirectionalLightDirection( Vector3 lightDir )
+		public void setAreaDirectionalLightDirection( vec3 lightDir )
 		{
 			_dirAreaLightDirectionParam.SetValue( lightDir );
 		}

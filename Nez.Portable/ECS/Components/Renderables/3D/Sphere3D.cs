@@ -12,8 +12,8 @@
 
 //			var latitudeBands = tessellation;
 //			var longitudeBands = tessellation * 2;
-//			var normal = new Vector3();
-//			var uv = new Vector3();
+//			var normal = new vec3();
+//			var uv = new vec3();
 
 //			for( var latNumber = 0; latNumber <= latitudeBands; latNumber++ )
 //			{

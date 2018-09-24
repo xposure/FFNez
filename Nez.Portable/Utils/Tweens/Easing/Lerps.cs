@@ -62,22 +62,22 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector3 lerp( Vector3 from, Vector3 to, float t )
+		public static vec3 lerp( vec3 from, vec3 to, float t )
 		{
-			return new Vector3( from.X + ( to.X - from.X ) * t, from.Y + ( to.Y - from.Y ) * t, from.Z + ( to.Z - from.Z ) * t );
+			return new vec3( from.X + ( to.X - from.X ) * t, from.Y + ( to.Y - from.Y ) * t, from.Z + ( to.Z - from.Z ) * t );
 		}
 
 
 		// remainingFactorPerSecond is the percentage of the distance it covers every second. should be between 0 and 1.
 		// if it's 0.25 it means it covers 75% of the remaining distance every second independent of the framerate
-		public static Vector3 lerpTowards( Vector3 from, Vector3 to, float remainingFactorPerSecond, float deltaTime )
+		public static vec3 lerpTowards( vec3 from, vec3 to, float remainingFactorPerSecond, float deltaTime )
 		{
 			return lerp( from, to, 1f - Mathf.pow( remainingFactorPerSecond, deltaTime ) );
 		}
 
 
 		// a different variant that requires the target details to calculate the lerp
-		public static Vector3 lerpTowards( Vector3 followerCurrentPosition, Vector3 targetPreviousPosition, Vector3 targetCurrentPosition, float smoothFactor, float deltaTime )
+		public static vec3 lerpTowards( vec3 followerCurrentPosition, vec3 targetPreviousPosition, vec3 targetCurrentPosition, float smoothFactor, float deltaTime )
 		{
 			var targetDiff = targetCurrentPosition - targetPreviousPosition;
 			var temp = followerCurrentPosition - targetPreviousPosition + targetDiff / ( smoothFactor * deltaTime );
@@ -153,7 +153,7 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector3 ease( EaseType easeType, Vector3 from, Vector3 to, float t, float duration )
+		public static vec3 ease( EaseType easeType, vec3 from, vec3 to, float t, float duration )
 		{
 			return lerp( from, to, EaseHelper.ease( easeType, t, duration ) );
 		}

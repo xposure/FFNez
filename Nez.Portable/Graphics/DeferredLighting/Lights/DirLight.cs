@@ -15,7 +15,7 @@ namespace Nez.DeferredLighting
 		/// <summary>
 		/// direction of the light
 		/// </summary>
-		public Vector3 direction = new Vector3( 50, 20, 100 );
+		public vec3 direction = new vec3( 50, 20, 100 );
 
 		/// <summary>
 		/// specular intensity. 0 - 1 range
@@ -40,13 +40,13 @@ namespace Nez.DeferredLighting
 		}
 
 
-		public DirLight( Color color, Vector3 lightDirection ) : this( color )
+		public DirLight( Color color, vec3 lightDirection ) : this( color )
 		{
 			this.direction = lightDirection;
 		}
 
 
-		public DirLight setDirection( Vector3 direction )
+		public DirLight setDirection( vec3 direction )
 		{
 			this.direction = direction;
 			return this;

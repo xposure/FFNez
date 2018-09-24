@@ -8,14 +8,14 @@ namespace Nez.Overlap2D
 		public vec2[] polygon;
 
 
-		public Vector3[] getPolygon3D()
+		public vec3[] getPolygon3D()
 		{
-			var poly3d = new Vector3[polygon.Length + 1];
+			var poly3d = new vec3[polygon.Length + 1];
 
 			for( var i = 0; i < polygon.Length; i++ )
-				poly3d[i] = new Vector3( polygon[i], 0 );
+				poly3d[i] = new vec3( polygon[i], 0 );
 
-			poly3d[polygon.Length] = new Vector3( polygon[0], 0 );
+			poly3d[polygon.Length] = new vec3( polygon[0], 0 );
 
 			return poly3d;
 		}

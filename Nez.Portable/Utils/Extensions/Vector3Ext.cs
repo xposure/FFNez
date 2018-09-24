@@ -10,7 +10,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The vector2.</returns>
 		/// <param name="vec">Vec.</param>
-		public static vec2 toVector2( this Vector3 vec )
+		public static vec2 toVector2( this vec3 vec )
 		{
 			return new vec2( vec.X, vec.Y );
 		}
