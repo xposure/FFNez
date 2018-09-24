@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿
 
 
 namespace Nez
@@ -109,7 +109,7 @@ namespace Nez
 			switch( waveFunction )
 			{
 				case WaveFunctions.Sin:
-					y = Mathf.sin( 1f * t * MathHelper.Pi );
+					y = Mathf.sin( 1f * t * glm.PI );
 					break;
 				case WaveFunctions.Triangle:
 					if( t < 0.5f )

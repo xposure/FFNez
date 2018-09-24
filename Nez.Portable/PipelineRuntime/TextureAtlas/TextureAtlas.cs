@@ -2,7 +2,7 @@ using Nez.Textures;
 using Nez.Sprites;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.TextureAtlases

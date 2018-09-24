@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.DeferredLighting
@@ -299,7 +299,7 @@ namespace Nez.DeferredLighting
 		/// <param name="degrees">Degrees.</param>
 		public void setSpotLightDirection( float degrees )
 		{
-			var radians = MathHelper.ToRadians( degrees );
+			var radians = glm.Radians( degrees );
 			var dir = new vec2( (float)Math.Cos( radians ), (float)Math.Sin( radians ) );
 			setSpotLightDirection( dir );
 		}

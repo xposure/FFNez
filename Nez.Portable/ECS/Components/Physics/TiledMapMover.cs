@@ -1,6 +1,6 @@
 ﻿//#define DEBUG_MOVER
 using System;
-using Microsoft.Xna.Framework;
+
 using System.Collections.Generic;
 
 
@@ -202,7 +202,7 @@ namespace Nez.Tiled
 					collisionState._movementRemainderY.reset();
 
 					if( collisionState.below && collisionState._lastGroundTile != null && collisionState._lastGroundTile.isSlope() )
-						collisionState.slopeAngle = MathHelper.ToDegrees( (float)Math.Atan( collisionState._lastGroundTile.getSlope() ) );
+						collisionState.slopeAngle = glm.Degrees( (float)Math.Atan( collisionState._lastGroundTile.getSlope() ) );
 				}
 				else
 				{

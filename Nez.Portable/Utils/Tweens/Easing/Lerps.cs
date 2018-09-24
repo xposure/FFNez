@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿
 
 
 namespace Nez.Tweens
@@ -44,7 +44,7 @@ namespace Nez.Tweens
 		/// <param name="dt">Dt.</param>
 		public static float lerpDamp( float source, float target, float smoothing )
 		{
-			return MathHelper.Lerp( source, target, 1 - Mathf.pow( smoothing, Time.deltaTime ) );
+			return glm.Lerp( source, target, 1 - Mathf.pow( smoothing, Time.deltaTime ) );
 		}
 
 
@@ -93,9 +93,9 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector4 lerp( Vector4 from, Vector4 to, float t )
+		public static vec4 lerp( vec4 from, vec4 to, float t )
 		{
-			return new Vector4( from.X + ( to.X - from.X ) * t, from.Y + ( to.Y - from.Y ) * t, from.Z + ( to.Z - from.Z ) * t, from.W + ( to.W - from.W ) * t );
+			return new vec4( from.x + ( to.x - from.x ) * t, from.y + ( to.y - from.y ) * t, from.z + ( to.z - from.z ) * t, from.w + ( to.w - from.w ) * t );
 		}
 
 
@@ -165,15 +165,15 @@ namespace Nez.Tweens
 		}
 
 
-		public static Vector4 ease( EaseType easeType, Vector4 from, Vector4 to, float t, float duration )
+		public static vec4 ease( EaseType easeType, vec4 from, vec4 to, float t, float duration )
 		{
 			return lerp( from, to, EaseHelper.ease( easeType, t, duration ) );
 		}
 
 
-		public static Quaternion ease( EaseType easeType, Quaternion from, Quaternion to, float t, float duration )
+		public static quat ease( EaseType easeType, quat from, quat to, float t, float duration )
 		{
-			return Quaternion.Lerp( from, to, EaseHelper.ease( easeType, t, duration ) );
+			return quat.Lerp( from, to, EaseHelper.ease( easeType, t, duration ) );
 		}
 
 

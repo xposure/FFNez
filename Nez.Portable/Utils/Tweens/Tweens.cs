@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+
 
 
 // concrete implementations of all tweenable types
@@ -172,7 +172,7 @@ namespace Nez.Tweens
 	}
 
 
-	public class Vector4Tween : Tween<Vector4>
+	public class Vector4Tween : Tween<vec4>
 	{
 		public static Vector4Tween create()
 		{
@@ -184,13 +184,13 @@ namespace Nez.Tweens
 		{ }
 
 
-		public Vector4Tween( ITweenTarget<Vector4> target, Vector4 to, float duration )
+		public Vector4Tween( ITweenTarget<vec4> target, vec4 to, float duration )
 		{
 			initialize( target, to, duration );
 		}
 
 
-		public override ITween<Vector4> setIsRelative()
+		public override ITween<vec4> setIsRelative()
 		{
 			_isRelative = true;
 			_toValue += _fromValue;
@@ -214,7 +214,7 @@ namespace Nez.Tweens
 	}
 
 
-	public class QuaternionTween : Tween<Quaternion>
+	public class QuaternionTween : Tween<quat>
 	{
 		public static QuaternionTween create()
 		{
@@ -226,13 +226,13 @@ namespace Nez.Tweens
 		{ }
 
 
-		public QuaternionTween( ITweenTarget<Quaternion> target, Quaternion to, float duration )
+		public QuaternionTween( ITweenTarget<quat> target, quat to, float duration )
 		{
 			initialize( target, to, duration );
 		}
 
 
-		public override ITween<Quaternion> setIsRelative()
+		public override ITween<quat> setIsRelative()
 		{
 			_isRelative = true;
 			_toValue *= _fromValue;

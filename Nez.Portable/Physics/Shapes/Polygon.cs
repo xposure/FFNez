@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.PhysicsShapes
@@ -124,7 +124,7 @@ namespace Nez.PhysicsShapes
 
 			for( var i = 0; i < vertCount; i++ )
 			{
-				var a = 2.0f * MathHelper.Pi * ( i / (float)vertCount );
+				var a = 2.0f * glm.PI * ( i / (float)vertCount );
 				verts[i] = new vec2( Mathf.cos( a ), Mathf.sin( a ) ) * radius;
 			}
 

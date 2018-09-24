@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿
 using Nez.Textures;
 
 namespace Nez.ECS.Components.Renderables.Particles

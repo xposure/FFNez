@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿
 using Microsoft.Xna.Framework.Graphics;
 
 
@@ -126,7 +126,7 @@ namespace Nez
 				var node = _trailNodes[i];
 				var lerpFactor = (float)i / (float)( _trailNodeCount - 1 );
 				lerpFactor = Mathf.pow( lerpFactor, lerpExponent );
-				var scale = MathHelper.Lerp( borderStartScale, borderEndScale, lerpFactor );
+				var scale = glm.Lerp( borderStartScale, borderEndScale, lerpFactor );
 
 				// draw using the border Color
 				graphics.batcher.draw( _cursorTexture, node.position, null, borderColor, 0.0f, _textureCenter, scale, SpriteEffects.None, 0.0f );
@@ -139,7 +139,7 @@ namespace Nez
 				var node = _trailNodes[i];
 				var lerpFactor = (float)i / (float)( _trailNodeCount - 1 );
 				lerpFactor = Mathf.pow( lerpFactor, lerpExponent );
-				var scale = MathHelper.Lerp( startScale, endScale, lerpFactor );
+				var scale = glm.Lerp( startScale, endScale, lerpFactor );
 
 				// draw using the fill color
 				graphics.batcher.draw( _cursorTexture, node.position, null, fillColor, 0.0f, _textureCenter, scale, SpriteEffects.None, 0.0f );

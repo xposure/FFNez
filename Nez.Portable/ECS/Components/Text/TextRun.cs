@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 using Microsoft.Xna.Framework.Graphics;
 using Nez.BitmapFonts;
 
@@ -203,15 +203,15 @@ namespace Nez
 				if( requiresTransformation )
 					Vector2Ext.transform( ref p, ref _transformationMatrix, out p );
 
-				var destination = new Vector4( p.x, p.y, currentFontRegion.width * _scale.x, currentFontRegion.height * _scale.y );
+				var destination = new vec4( p.x, p.y, currentFontRegion.width * _scale.x, currentFontRegion.height * _scale.y );
 				_charDetails[i].texture = currentFontRegion.subtexture.texture2D;
 
 
 				// Batcher calculations
 				var sourceRectangle = currentFontRegion.subtexture.sourceRect;
 				float sourceX, sourceY, sourceW, sourceH;
-				var destW = destination.Z;
-				var destH = destination.W;
+				var destW = destination.z;
+				var destH = destination.w;
 
 				// calculate uvs
 				var inverseTexW = 1.0f / (float)currentFontRegion.subtexture.texture2D.Width;
@@ -246,8 +246,8 @@ namespace Nez
 
 				// Calculate vertices, finally.
 				// top-left
-				_charDetails[i].verts[0].X = rotationMatrix2X + rotationMatrix1X + destination.X - 1;
-				_charDetails[i].verts[0].Y = rotationMatrix2Y + rotationMatrix1Y + destination.Y - 1;
+				_charDetails[i].verts[0].X = rotationMatrix2X + rotationMatrix1X + destination.x - 1;
+				_charDetails[i].verts[0].Y = rotationMatrix2Y + rotationMatrix1Y + destination.y - 1;
 
 				// top-right
 				var cornerX = _cornerOffsetX[1] * destW;
@@ -255,12 +255,12 @@ namespace Nez
 				_charDetails[i].verts[1].X = (
 					( rotationMatrix2X * cornerY ) +
 					( rotationMatrix1X * cornerX ) +
-					destination.X
+					destination.x
 				);
 				_charDetails[i].verts[1].Y = (
 					( rotationMatrix2Y * cornerY ) +
 					( rotationMatrix1Y * cornerX ) +
-					destination.Y
+					destination.y
 				);
 
 				// bottom-left
@@ -269,12 +269,12 @@ namespace Nez
 				_charDetails[i].verts[2].X = (
 					( rotationMatrix2X * cornerY ) +
 					( rotationMatrix1X * cornerX ) +
-					destination.X
+					destination.x
 				);
 				_charDetails[i].verts[2].Y = (
 					( rotationMatrix2Y * cornerY ) +
 					( rotationMatrix1Y * cornerX ) +
-					destination.Y
+					destination.y
 				);
 
 				// bottom-right
@@ -283,12 +283,12 @@ namespace Nez
 				_charDetails[i].verts[3].X = (
 					( rotationMatrix2X * cornerY ) +
 					( rotationMatrix1X * cornerX ) +
-					destination.X
+					destination.x
 				);
 				_charDetails[i].verts[3].Y = (
 					( rotationMatrix2Y * cornerY ) +
 					( rotationMatrix1Y * cornerX ) +
-					destination.Y
+					destination.y
 				);
 
 

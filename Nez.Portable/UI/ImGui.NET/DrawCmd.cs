@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Nez;
+using System;
 using System.Runtime.InteropServices;
 
 #if MONOGAME
-using Microsoft.Xna.Framework;
+
 #else
 using System.Numerics;
 #endif
@@ -23,7 +24,7 @@ namespace ImGuiNET
         /// <summary>
         /// Clipping rectangle (x1, y1, x2, y2)
         /// </summary>
-        public Vector4 ClipRect;
+        public vec4 ClipRect;
         /// <summary>
         /// User-provided texture ID. Set by user in ImfontAtlas::SetTexID() for fonts or passed to Image*() functions.
         /// Ignore if never using images or multiple fonts atlas.

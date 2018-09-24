@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.Verlet
@@ -51,10 +51,10 @@ namespace Nez.Verlet
 			var angleBetween = angleBetweenParticles();
 			var diff = angleBetween - angleInRadians;
 
-			if( diff <= -MathHelper.Pi )
-				diff += 2 * MathHelper.Pi;
-			else if( diff >= MathHelper.Pi )
-				diff -= 2 * MathHelper.Pi;
+			if( diff <= -glm.PI )
+				diff += 2 * glm.PI;
+			else if( diff >= glm.PI )
+				diff -= 2 * glm.PI;
 
 			diff *= stiffness;
 

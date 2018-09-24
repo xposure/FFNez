@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.UI
@@ -745,8 +745,8 @@ namespace Nez.UI
 			}
 			else
 			{
-				var cos = Mathf.cos( MathHelper.ToRadians( rotation ) );
-				var sin = Mathf.sin( MathHelper.ToRadians( rotation ) );
+				var cos = Mathf.cos( glm.Radians( rotation ) );
+				var sin = Mathf.sin( glm.Radians( rotation ) );
 				var tox = parentCoords.x - x - originX;
 				var toy = parentCoords.y - y - originY;
 				parentCoords.x = ( tox * cos + toy * sin ) / scaleX + originX;
@@ -781,8 +781,8 @@ namespace Nez.UI
 			}
 			else
 			{
-				var cos = Mathf.cos( MathHelper.ToRadians( rotation ) );
-				var sin = Mathf.sin( MathHelper.ToRadians( rotation ) );
+				var cos = Mathf.cos( glm.Radians( rotation ) );
+				var sin = Mathf.sin( glm.Radians( rotation ) );
 
 				var tox = ( localCoords.x - originX ) * scaleX;
 				var toy = ( localCoords.y - originY ) * scaleY;

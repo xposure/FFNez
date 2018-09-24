@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
@@ -11,6 +10,7 @@ using Nez.BitmapFonts;
 using Nez.Analysis;
 using Nez.Textures;
 using System.Threading;
+using Microsoft.Xna.Framework;
 
 namespace Nez
 {

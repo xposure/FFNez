@@ -52,6 +52,7 @@ namespace Nez
 {
     public static partial class glm
     {
+        public const float E = (float)Math.E;
         public static readonly float PIOverTwo = (float)(Math.PI / 2.0);
         public static readonly float PIOverFour = (float)(Math.PI / 4.0);
         public static readonly float PI = (float)Math.PI;

@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 using Nez.PhysicsShapes;
 
 
@@ -58,7 +58,7 @@ namespace Nez.Particles
 
 			// init the direction of the   The newAngle is calculated using the angle passed in and the
 			// angle variance.
-			var newAngle = MathHelper.ToRadians( emitterConfig.angle + emitterConfig.angleVariance * Random.minusOneToOne() );
+			var newAngle = glm.Radians( emitterConfig.angle + emitterConfig.angleVariance * Random.minusOneToOne() );
 
 			// create a new vec2 using the newAngle
 			var vector = new vec2( Mathf.cos( newAngle ), Mathf.sin( newAngle ) );
@@ -71,7 +71,7 @@ namespace Nez.Particles
 			_direction = vector * vectorSpeed;
 
 			// calculate the particles life span using the life span and variance passed in
-			_timeToLive = MathHelper.Max( 0, emitterConfig.particleLifespan + emitterConfig.particleLifespanVariance * Random.minusOneToOne() );
+			_timeToLive = glm.Max( 0, emitterConfig.particleLifespan + emitterConfig.particleLifespanVariance * Random.minusOneToOne() );
 			_particleLifetime = _timeToLive;
 
 			var startRadius = emitterConfig.maxRadius + emitterConfig.maxRadiusVariance * Random.minusOneToOne();
@@ -80,8 +80,8 @@ namespace Nez.Particles
 			// set the default diameter of the particle from the source position
 			_radius = startRadius;
 			_radiusDelta = (endRadius - startRadius) / _timeToLive;
-			_angle = MathHelper.ToRadians( emitterConfig.angle + emitterConfig.angleVariance * Random.minusOneToOne() );
-			_degreesPerSecond = MathHelper.ToRadians( emitterConfig.rotatePerSecond + emitterConfig.rotatePerSecondVariance * Random.minusOneToOne() );
+			_angle = glm.Radians( emitterConfig.angle + emitterConfig.angleVariance * Random.minusOneToOne() );
+			_degreesPerSecond = glm.Radians( emitterConfig.rotatePerSecond + emitterConfig.rotatePerSecondVariance * Random.minusOneToOne() );
 
 			_radialAcceleration = emitterConfig.radialAcceleration + emitterConfig.radialAccelVariance * Random.minusOneToOne();
 			_tangentialAcceleration = emitterConfig.tangentialAcceleration + emitterConfig.tangentialAccelVariance * Random.minusOneToOne();
@@ -90,7 +90,7 @@ namespace Nez.Particles
 			var particleStartSize = emitterConfig.startParticleSize + emitterConfig.startParticleSizeVariance * Random.minusOneToOne();
 			var particleFinishSize = emitterConfig.finishParticleSize + emitterConfig.finishParticleSizeVariance * Random.minusOneToOne();
 			_particleSizeDelta = ( particleFinishSize - particleStartSize ) / _timeToLive;
-			particleSize = MathHelper.Max( 0, particleStartSize );
+			particleSize = glm.Max( 0, particleStartSize );
 
 
 			// calculate the color the particle should have when it starts its life. All the elements
@@ -115,8 +115,8 @@ namespace Nez.Particles
 			);
 
 			// calculate the rotation
-			var startA = MathHelper.ToRadians( emitterConfig.rotationStart + emitterConfig.rotationStartVariance * Random.minusOneToOne() );
-			var endA = MathHelper.ToRadians( emitterConfig.rotationEnd + emitterConfig.rotationEndVariance * Random.minusOneToOne() );
+			var startA = glm.Radians( emitterConfig.rotationStart + emitterConfig.rotationStartVariance * Random.minusOneToOne() );
+			var endA = glm.Radians( emitterConfig.rotationEnd + emitterConfig.rotationEndVariance * Random.minusOneToOne() );
 			rotation = startA;
 			_rotationDelta = ( endA - startA ) / _timeToLive;
 		}
@@ -185,7 +185,7 @@ namespace Nez.Particles
 
 				// update the particle size
 				particleSize += _particleSizeDelta * Time.deltaTime;
-				particleSize = MathHelper.Max( 0, particleSize );
+				particleSize = glm.Max( 0, particleSize );
 
 				// update the rotation of the particle
 				rotation += _rotationDelta * Time.deltaTime;

@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 using Microsoft.Xna.Framework.Graphics;
 using Nez.Tweens;
 using System.Collections;
@@ -48,7 +48,7 @@ namespace Nez
 		/// <summary>
 		/// maximum rotation of the mask animation
 		/// </summary>
-		public float maxRotation = MathHelper.TwoPi;
+		public float maxRotation = glm.TwoPI;
 
 		/// <summary>
 		/// ease equation to use for the rotation animation

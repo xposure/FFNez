@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
+
 using System.Collections.Generic;
 using Nez.Systems;
 using System.Runtime.CompilerServices;
+using Microsoft.Xna.Framework;
 #if !FNA
 using Microsoft.Xna.Framework.Input.Touch;
 #endif

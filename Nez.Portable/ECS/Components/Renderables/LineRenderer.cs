@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+
 using Nez.PhysicsShapes;
 using System.Runtime.CompilerServices;
 
@@ -881,7 +881,7 @@ namespace Nez
 
 				// rotate 90 degrees before calculating and cache cos/sin
 				var radians = Mathf.atan2( nextPoint.position.y - point.position.y, nextPoint.position.x - point.position.x );
-				radians += MathHelper.PiOver2;
+				radians += glm.PIOverTwo;
 				var halfCos = Mathf.cos( radians ) * 0.5f;
 				var halfSin = Mathf.sin( radians ) * 0.5f;
 

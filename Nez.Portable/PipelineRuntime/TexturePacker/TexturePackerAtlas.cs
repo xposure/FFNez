@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Nez.Textures;
-using Microsoft.Xna.Framework;
+
 using Nez.Sprites;
 
 

@@ -355,7 +355,7 @@ namespace Mnemonic
                     }
                     else
                     {
-                        graphicsDevice.ScissorRectangle = new Rectangle((int)pcmd->ClipRect.X, (int)pcmd->ClipRect.Y, (int)(pcmd->ClipRect.Z - pcmd->ClipRect.X), (int)(pcmd->ClipRect.W - pcmd->ClipRect.Y));
+                        graphicsDevice.ScissorRectangle = new Rectangle((int)pcmd->ClipRect.x, (int)pcmd->ClipRect.y, (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y));
                         if (pcmd->TextureId.ToInt32() == fontTexture.GetHashCode())
                         {
                             effect.Texture = fontTexture;
@@ -383,7 +383,7 @@ namespace Mnemonic
         //private static int _pressCount;
         //private static float _sliderVal;
         //private static System.Numerics.vec3 _positionValue;
-        //private static System.Numerics.Vector4 _buttonColor;
+        //private static System.Numerics.vec4 _buttonColor;
         //private static IntPtr _textInputBuffer;
         //private static int _textInputBufferLength;
 
@@ -433,7 +433,7 @@ namespace Mnemonic
         //        _pressCount += 1;
         //    }
 
-        //    ImGui.Text($"Button pressed {_pressCount} times.", new System.Numerics.Vector4(0, 1, 1, 1));
+        //    ImGui.Text($"Button pressed {_pressCount} times.", new System.Numerics.vec4(0, 1, 1, 1));
 
         //    ImGui.InputText("test", asdf, 64, InputTextFlags.Default, null);
         //    ImGui.InputTextMultiline("Input some text:",
@@ -455,7 +455,7 @@ namespace Mnemonic
         //        ImGui.ColorButton("Color button", _buttonColor, ColorEditFlags.Default, new System.Numerics.vec2(0, 0));
         //        if (ImGui.Button("Push me to change color", new System.Numerics.vec2(0, 30)))
         //        {
-        //            _buttonColor = new System.Numerics.Vector4(_buttonColor.Y + .25f, _buttonColor.Z, _buttonColor.X, _buttonColor.W);
+        //            _buttonColor = new System.Numerics.vec4(_buttonColor.Y + .25f, _buttonColor.Z, _buttonColor.X, _buttonColor.W);
         //            if (_buttonColor.X > 1.0f)
         //            {
         //                _buttonColor.X -= 1.0f;
@@ -516,7 +516,7 @@ namespace Mnemonic
         //// Demonstrate creating a simple static window with no decoration + a context-menu to choose which corner of the screen to use.
         //static int corner = 3;
         //static bool p_open = true;
-        //static System.Numerics.Vector4 c = new System.Numerics.Vector4(1, 1, 1, 1);
+        //static System.Numerics.vec4 c = new System.Numerics.vec4(1, 1, 1, 1);
         //public static void ShowExampleAppFixedOverlay()
         //{
 

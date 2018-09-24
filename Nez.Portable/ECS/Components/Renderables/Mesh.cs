@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez
@@ -57,10 +57,10 @@ namespace Nez
 
 			for( var i = 0; i < _verts.Length; i++ )
 			{
-				_topLeftVertPosition.x = MathHelper.Min( _topLeftVertPosition.x, _verts[i].Position.X );
-				_topLeftVertPosition.y = MathHelper.Min( _topLeftVertPosition.y, _verts[i].Position.Y );
-				max.x = MathHelper.Max( max.x, _verts[i].Position.X );
-				max.y = MathHelper.Max( max.y, _verts[i].Position.Y );
+				_topLeftVertPosition.x = glm.Min( _topLeftVertPosition.x, _verts[i].Position.X );
+				_topLeftVertPosition.y = glm.Min( _topLeftVertPosition.y, _verts[i].Position.Y );
+				max.x = glm.Max( max.x, _verts[i].Position.X );
+				max.y = glm.Max( max.y, _verts[i].Position.Y );
 			}
 
 			_width = max.x - _topLeftVertPosition.x;

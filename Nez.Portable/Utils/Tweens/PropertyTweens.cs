@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.Tweens
@@ -97,9 +97,9 @@ namespace Nez.Tweens
 		}
 
 
-		public static ITween<Vector4> vector4PropertyTo( object self, string memberName, Vector4 to, float duration )
+		public static ITween<vec4> vector4PropertyTo( object self, string memberName, vec4 to, float duration )
 		{
-			var tweenTarget = new PropertyTarget<Vector4>( self, memberName );
+			var tweenTarget = new PropertyTarget<vec4>( self, memberName );
 			var tween = TweenManager.cacheVector4Tweens ? Pool<Vector4Tween>.obtain() : new Vector4Tween();
 			tween.initialize( tweenTarget, to, duration );
 
@@ -107,9 +107,9 @@ namespace Nez.Tweens
 		}
 
 
-		public static ITween<Quaternion> quaternionPropertyTo( object self, string memberName, Quaternion to, float duration )
+		public static ITween<quat> quaternionPropertyTo( object self, string memberName, quat to, float duration )
 		{
-			var tweenTarget = new PropertyTarget<Quaternion>( self, memberName );
+			var tweenTarget = new PropertyTarget<quat>( self, memberName );
 			var tween = TweenManager.cacheQuaternionTweens ? Pool<QuaternionTween>.obtain() : new QuaternionTween();
 			tween.initialize( tweenTarget, to, duration );
 

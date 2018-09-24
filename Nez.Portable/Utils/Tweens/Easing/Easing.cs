@@ -1,6 +1,6 @@
 using System.Collections;
 using System;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.Tweens
@@ -170,7 +170,7 @@ namespace Nez.Tweens
 
 				float p = d * .3f;
 				float s = p / 4;
-				return -( 1 * Mathf.pow( 2, 10 * ( t -= 1 ) ) * Mathf.sin( ( t * d - s ) * ( 2 * MathHelper.Pi ) / p ) );
+				return -( 1 * Mathf.pow( 2, 10 * ( t -= 1 ) ) * Mathf.sin( ( t * d - s ) * ( 2 * glm.PI ) / p ) );
 			}
 
 
@@ -184,7 +184,7 @@ namespace Nez.Tweens
 
 				float p = d * .3f;
 				float s = p / 4;
-				return ( 1 * Mathf.pow( 2, -10 * t ) * Mathf.sin( ( t * d - s ) * ( 2 * MathHelper.Pi ) / p ) + 1 );
+				return ( 1 * Mathf.pow( 2, -10 * t ) * Mathf.sin( ( t * d - s ) * ( 2 * glm.PI ) / p ) + 1 );
 			}
 
 
@@ -200,9 +200,9 @@ namespace Nez.Tweens
 				float s = p / 4;
 
 				if( t < 1 )
-					return -.5f * ( Mathf.pow( 2, 10 * ( t -= 1 ) ) * Mathf.sin( ( t * d - s ) * ( 2 * MathHelper.Pi ) / p ) );
+					return -.5f * ( Mathf.pow( 2, 10 * ( t -= 1 ) ) * Mathf.sin( ( t * d - s ) * ( 2 * glm.PI ) / p ) );
 
-				return ( Mathf.pow( 2f, -10f * ( t -= 1f ) ) * Mathf.sin( ( t * d - s ) * ( 2 * MathHelper.Pi ) / p ) * 0.5f + 1f );
+				return ( Mathf.pow( 2f, -10f * ( t -= 1f ) ) * Mathf.sin( ( t * d - s ) * ( 2 * glm.PI ) / p ) * 0.5f + 1f );
 			}
 
 
@@ -215,7 +215,7 @@ namespace Nez.Tweens
 		            return 0;
 
 		        const float p = 0.3f;
-				return ( Mathf.pow( 2, -10 * t ) * Mathf.sin( t * ( 2 * MathHelper.Pi ) / p ) );
+				return ( Mathf.pow( 2, -10 * t ) * Mathf.sin( t * ( 2 * glm.PI ) / p ) );
 		    }
 		}
 
@@ -305,19 +305,19 @@ namespace Nez.Tweens
 		{
 			public static float EaseIn( float t, float d )
 			{
-				return -1 * Mathf.cos( t / d * ( MathHelper.Pi / 2 ) ) + 1f;
+				return -1 * Mathf.cos( t / d * ( glm.PI / 2 ) ) + 1f;
 			}
 
 
 			public static float EaseOut( float t, float d )
 			{
-				return Mathf.sin( t / d * ( MathHelper.Pi / 2 ) );
+				return Mathf.sin( t / d * ( glm.PI / 2 ) );
 			}
 
 
 			public static float EaseInOut( float t, float d )
 			{
-				return -0.5f * ( Mathf.cos( MathHelper.Pi * t / d ) - 1 );
+				return -0.5f * ( Mathf.cos( glm.PI * t / d ) - 1 );
 			}
 		}
 	}

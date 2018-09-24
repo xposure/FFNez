@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.UI
@@ -317,7 +317,7 @@ namespace Nez.UI
 				mat = Matrix2D.multiply( mat, Matrix2D.createTranslation( -originX, -originY ) );
 			
 			if( rotation != 0 )
-				mat = Matrix2D.multiply( mat, Matrix2D.createRotation( MathHelper.ToRadians( rotation ) ) );
+				mat = Matrix2D.multiply( mat, Matrix2D.createRotation( glm.Radians( rotation ) ) );
 
 			if( scaleX != 1 || scaleY != 1 )
 				mat = Matrix2D.multiply( mat, Matrix2D.createScale( scaleX, scaleY ) );

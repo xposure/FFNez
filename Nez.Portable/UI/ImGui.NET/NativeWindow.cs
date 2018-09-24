@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 
 #if MONOGAME
-using Microsoft.Xna.Framework;
+
 using Nez;
 #else
 using System.Numerics;

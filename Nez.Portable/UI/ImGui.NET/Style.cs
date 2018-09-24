@@ -1,5 +1,5 @@
 ﻿#if MONOGAME
-using Microsoft.Xna.Framework;
+
 using Nez;
 #else
 using System.Numerics;
@@ -219,19 +219,19 @@ namespace ImGuiNET
         /// </summary>
         /// <param name="target">The type of UI element.</param>
         /// <returns>The element's color as currently configured.</returns>
-        public Vector4 GetColor(ColorTarget target) => *(Vector4*)&NativePtr->Colors[(int)target * 4];
+        public vec4 GetColor(ColorTarget target) => *(vec4*)&NativePtr->Colors[(int)target * 4];
 
         /// <summary>
         /// Sets the style color for a particular UI element type.
         /// </summary>
         /// <param name="target">The type of UI element.</param>
         /// <param name="value">The new color.</param>
-        public void SetColor(ColorTarget target, Vector4 value)
+        public void SetColor(ColorTarget target, vec4 value)
         {
-            NativePtr->Colors[(int)target * 4 + 0] = value.X;
-            NativePtr->Colors[(int)target * 4 + 1] = value.Y;
-            NativePtr->Colors[(int)target * 4 + 2] = value.Z;
-            NativePtr->Colors[(int)target * 4 + 3] = value.W;
+            NativePtr->Colors[(int)target * 4 + 0] = value.x;
+            NativePtr->Colors[(int)target * 4 + 1] = value.y;
+            NativePtr->Colors[(int)target * 4 + 2] = value.z;
+            NativePtr->Colors[(int)target * 4 + 3] = value.w;
         }
     }
 }

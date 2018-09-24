@@ -3,7 +3,7 @@ using System;
 using Nez;
 
 #if MONOGAME
-using Microsoft.Xna.Framework;
+
 #else
 using System.Numerics;
 #endif

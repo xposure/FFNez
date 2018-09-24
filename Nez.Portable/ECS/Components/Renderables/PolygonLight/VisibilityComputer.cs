@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿
 using System;
 using System.Collections.Generic;
 using Nez.PhysicsShapes;
@@ -93,8 +93,8 @@ namespace Nez.Shadows
 			// The distance to each corner is half of the width times sqrt(2)
 			var radius = width * 0.5f * 1.41f;
 
-			// Add Pi/4 to get the corners
-			rotation += MathHelper.PiOver4;
+            // Add Pi/4 to get the corners
+            rotation += glm.PIOverFour;
 
 			for( var i = 0; i < 4; i++ )
 			{
@@ -137,8 +137,8 @@ namespace Nez.Shadows
 			var dirToCircle = position - _origin;
 			var angle = Mathf.atan2( dirToCircle.y, dirToCircle.x );
 
-			var stepSize = MathHelper.Pi / lineCountForCircleApproximation;
-			var startAngle = angle + MathHelper.PiOver2;
+			var stepSize = glm.PI / lineCountForCircleApproximation;
+			var startAngle = angle + glm.PIOverTwo;
 			var lastPt = Mathf.angleToVector( startAngle, radius ) + position;
 			for( var i = 1; i < lineCountForCircleApproximation; i++ )
 			{
@@ -276,8 +276,8 @@ namespace Nez.Shadows
 		{
 			//const float maxDistance = (float)Math.PI * 0.5f; // 90 degrees
 
-			//return Math.Abs( MathHelper.WrapAngle( min - value ) ) < maxDistance
-			//	       && Math.Abs( MathHelper.WrapAngle( max - value ) ) < maxDistance;
+			//return Math.Abs( glm.WrapAngle( min - value ) ) < maxDistance
+			//	       && Math.Abs( glm.WrapAngle( max - value ) ) < maxDistance;
 			
 			
 			//var normalisedMin = min > 0 ? min : 2 * Math.PI + min;
@@ -353,11 +353,11 @@ namespace Nez.Shadows
 
 				// Map angle between -Pi and Pi
 				var dAngle = segment.p2.angle - segment.p1.angle;
-				if( dAngle <= -MathHelper.Pi )
-					dAngle += MathHelper.TwoPi;
+				if( dAngle <= -glm.PI )
+					dAngle += glm.TwoPI;
 
-				if( dAngle > MathHelper.Pi )
-					dAngle -= MathHelper.TwoPi;
+				if( dAngle > glm.PI )
+					dAngle -= glm.TwoPI;
 
 				segment.p1.begin = ( dAngle > 0.0f );
 				segment.p2.begin = !segment.p1.begin;

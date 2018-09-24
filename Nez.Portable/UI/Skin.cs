@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Nez.LibGdxAtlases;
 using Nez.Textures;
-using Microsoft.Xna.Framework;
+
 using Nez.BitmapFonts;
 using Nez.TextureAtlases;
 using Nez.Systems;

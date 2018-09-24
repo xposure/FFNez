@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez
@@ -77,8 +77,8 @@ namespace Nez
 		/// <value>The rotation degrees.</value>
 		public float rotationDegrees
 		{
-			get { return MathHelper.ToDegrees( rotation ); }
-			set { rotation = MathHelper.ToRadians( value ); }
+			get { return glm.Degrees( rotation ); }
+			set { rotation = glm.Radians( value ); }
 		}
 
 		/// <summary>

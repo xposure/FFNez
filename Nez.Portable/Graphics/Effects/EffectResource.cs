@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.IO;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez
@@ -73,7 +74,7 @@ namespace Nez
 			name = name.Replace( ".ogl.mgfxo", ".fxb" );
 			#endif
 
-			var assembly = ReflectionUtils.getAssembly( typeof( MathHelper ) );
+			var assembly = ReflectionUtils.getAssembly( typeof( Microsoft.Xna.Framework.Vector2 ) );
 			using( var stream = assembly.GetManifestResourceStream( name ) )
 			{
 				using( var ms = new MemoryStream() )

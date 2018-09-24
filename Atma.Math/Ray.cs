@@ -1,6 +1,4 @@
-﻿#if ATMA_PHYSICS
-
-#region LGPL License
+﻿#region LGPL License
 
 /*
 Axiom Graphics Engine Library
@@ -45,14 +43,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 #region Namespace Declarations
 
-using Atma;
 using System;
 
 //using Axiom.Math.Collections;
 
 #endregion Namespace Declarations
 
-namespace Atma
+namespace Nez
 {
     /// <summary>
     /// 	Representation of a ray in space, ie a line with an origin and direction.
@@ -114,18 +111,18 @@ namespace Atma
 
 #region Intersection Methods
 
-        /// <summary>
-        ///    Tests whether this ray intersects the given box.
-        /// </summary>
-        /// <param name="box"></param>
-        /// <returns>
-        ///		Struct containing info on whether there was a hit, and the distance from the 
-        ///		origin of this ray where the intersect happened.
-        ///	</returns>
-        public IntersectResult Intersects(AxisAlignedBox box)
-        {
-            return glm.Intersects(this, box);
-        }
+        ///// <summary>
+        /////    Tests whether this ray intersects the given box.
+        ///// </summary>
+        ///// <param name="box"></param>
+        ///// <returns>
+        /////		Struct containing info on whether there was a hit, and the distance from the 
+        /////		origin of this ray where the intersect happened.
+        /////	</returns>
+        //public IntersectResult Intersects(AxisAlignedBox box)
+        //{
+        //    return glm.Intersects(this, box);
+        //}
 
         /// <summary>
         ///		Tests whether this ray intersects the given plane. 
@@ -140,18 +137,18 @@ namespace Atma
         //    return Utility.Intersects(this, plane);
         //}
 
-        /// <summary>
-        ///		Tests whether this ray intersects the given sphere. 
-        /// </summary>
-        /// <param name="circle"></param>
-        /// <returns>
-        ///		Struct containing info on whether there was a hit, and the distance from the 
-        ///		origin of this ray where the intersect happened.
-        ///	</returns>
-        public IntersectResult Intersects(Circle circle)
-        {
-            return glm.Intersects(this, circle);
-        }
+        ///// <summary>
+        /////		Tests whether this ray intersects the given sphere. 
+        ///// </summary>
+        ///// <param name="circle"></param>
+        ///// <returns>
+        /////		Struct containing info on whether there was a hit, and the distance from the 
+        /////		origin of this ray where the intersect happened.
+        /////	</returns>
+        //public IntersectResult Intersects(Circle circle)
+        //{
+        //    return glm.Intersects(this, circle);
+        //}
 
         /// <summary>
         ///		Tests whether this ray intersects the given PlaneBoundedVolume. 
@@ -224,4 +221,3 @@ namespace Atma
 #endregion
     }
 }
-#endif

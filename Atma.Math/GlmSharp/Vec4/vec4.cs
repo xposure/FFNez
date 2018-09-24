@@ -29,7 +29,6 @@ namespace Nez
 
 
         #region Fields
-
         /// <summary>
         /// x-component
         /// </summary>

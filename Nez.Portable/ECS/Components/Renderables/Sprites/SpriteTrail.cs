@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 using Nez.Textures;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;

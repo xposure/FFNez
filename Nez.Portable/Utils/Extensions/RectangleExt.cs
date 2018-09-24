@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez
@@ -297,8 +297,8 @@ namespace Nez
 					num7 = num14;
 				}
 
-				distance = MathHelper.Max( num8, distance );
-				maxValue = MathHelper.Min( num7, maxValue );
+				distance = glm.Max( num8, distance );
+				maxValue = glm.Min( num7, maxValue );
 				if( distance > maxValue )
 					return false;
 			}
@@ -322,8 +322,8 @@ namespace Nez
 					num5 = num13;
 				}
 
-				distance = MathHelper.Max( num6, distance );
-				maxValue = MathHelper.Min( num5, maxValue );
+				distance = glm.Max( num6, distance );
+				maxValue = glm.Min( num5, maxValue );
 				if( distance > maxValue )
 					return false;
 			}
@@ -337,16 +337,16 @@ namespace Nez
 			var num = 0f;
 			var maxValue = float.MaxValue;
 
-			if( Math.Abs( ray.Direction.X ) < 1E-06f )
+			if( Math.Abs( ray.Direction.x ) < 1E-06f )
 			{
-				if( ( ray.Position.X < rectangle.Left ) || ( ray.Position.X > rectangle.Right ) )
+				if( ( ray.Origin.x < rectangle.Left ) || ( ray.Origin.x > rectangle.Right ) )
 					return null;
 			}
 			else
 			{
-				float num11 = 1f / ray.Direction.X;
-				float num8 = ( rectangle.Left - ray.Position.X ) * num11;
-				float num7 = ( rectangle.Right - ray.Position.X ) * num11;
+				float num11 = 1f / ray.Direction.x;
+				float num8 = ( rectangle.Left - ray.Origin.x ) * num11;
+				float num7 = ( rectangle.Right - ray.Origin.x ) * num11;
 				if( num8 > num7 )
 				{
 					float num14 = num8;
@@ -354,26 +354,26 @@ namespace Nez
 					num7 = num14;
 				}
 
-				num = MathHelper.Max( num8, num );
-				maxValue = MathHelper.Min( num7, maxValue );
+				num = glm.Max( num8, num );
+				maxValue = glm.Min( num7, maxValue );
 				if( num > maxValue )
 				{
 					return null;  
 				}  
 			}
 
-			if( Math.Abs( ray.Direction.Y ) < 1E-06f )
+			if( Math.Abs( ray.Direction.y ) < 1E-06f )
 			{
-				if( ( ray.Position.Y < rectangle.Top ) || ( ray.Position.Y > rectangle.Bottom ) )
+				if( ( ray.Origin.y< rectangle.Top ) || ( ray.Origin.y> rectangle.Bottom ) )
 				{
 					return null;
 				}
 			}
 			else
 			{
-				float num10 = 1f / ray.Direction.Y;
-				float num6 = ( rectangle.Top - ray.Position.Y ) * num10;
-				float num5 = ( rectangle.Bottom - ray.Position.Y ) * num10;
+				float num10 = 1f / ray.Direction.y;
+				float num6 = ( rectangle.Top - ray.Origin.y) * num10;
+				float num5 = ( rectangle.Bottom - ray.Origin.y) * num10;
 				if( num6 > num5 )
 				{
 					float num13 = num6;
@@ -381,8 +381,8 @@ namespace Nez
 					num5 = num13;
 				}
 
-				num = MathHelper.Max( num6, num );
-				maxValue = MathHelper.Min( num5, maxValue );
+				num = glm.Max( num6, num );
+				maxValue = glm.Min( num5, maxValue );
 				if( num > maxValue )
 					return null;
 			}
@@ -548,8 +548,8 @@ namespace Nez
 		{
 			// for each axis, if the point is outside the box clamp it to the box else leave it alone
 			var res = new vec2();
-			res.x = MathHelper.Clamp( point.x, rect.Left, rect.Right );
-			res.y = MathHelper.Clamp( point.y, rect.Top, rect.Bottom );
+			res.x = glm.Clamp( point.x, rect.Left, rect.Right );
+			res.y = glm.Clamp( point.y, rect.Top, rect.Bottom );
 
 			return res;
 		}

@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.Verlet
@@ -7,7 +7,7 @@ namespace Nez.Verlet
 	{
 		public Tire( vec2 origin, float radius, int segments, float spokeStiffness = 1, float treadStiffness = 1 )
 		{
-			var stride = 2 * MathHelper.Pi / segments;
+			var stride = 2 * glm.PI / segments;
 
 			// particles
 			for( var i = 0; i < segments; i++ )

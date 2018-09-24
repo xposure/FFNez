@@ -1,5 +1,5 @@
 ﻿using ImGuiNET;
-using Microsoft.Xna.Framework;
+
 using Nez.UI;
 
 
@@ -21,7 +21,7 @@ namespace Nez
             base.render();
 
             var c = getValue<Color>();
-            var v = (Vector4)c;
+            var v = (vec4)c;
             ImGui.ColorEdit4(_name, ref v, ColorEditFlags.Default);
             setValue(new Color(v));
         }

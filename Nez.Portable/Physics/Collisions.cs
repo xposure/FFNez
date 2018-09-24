@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez
@@ -78,7 +78,7 @@ namespace Nez
 			var v = lineB - lineA;
 			var w = closestTo - lineA;
 			var t = vec2.Dot( w, v ) / vec2.Dot( v, v );
-			t = MathHelper.Clamp( t, 0, 1 );
+			t = glm.Clamp( t, 0, 1 );
 
 			return lineA + v * t;
 		}

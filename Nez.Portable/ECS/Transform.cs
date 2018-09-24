@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -120,8 +120,8 @@ namespace Nez
 		/// <value>The rotation degrees.</value>
 		public float rotationDegrees
 		{
-			get { return MathHelper.ToDegrees( _rotation ); }
-			set { setRotation( MathHelper.ToRadians( value ) ); }
+			get { return glm.Degrees( _rotation ); }
+			set { setRotation( glm.Radians( value ) ); }
 		}
 
 
@@ -146,8 +146,8 @@ namespace Nez
 		/// <value>The rotation degrees.</value>
 		public float localRotationDegrees
 		{
-			get { return MathHelper.ToDegrees( _localRotation ); }
-			set { localRotation = MathHelper.ToRadians( value ); }
+			get { return glm.Degrees( _localRotation ); }
+			set { localRotation = glm.Radians( value ); }
 		}
 
 
@@ -390,7 +390,7 @@ namespace Nez
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public Transform setRotationDegrees( float degrees )
 		{
-			return setRotation( MathHelper.ToRadians( degrees ) );
+			return setRotation( glm.Radians( degrees ) );
 		}
 
 
@@ -420,7 +420,7 @@ namespace Nez
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public Transform setLocalRotationDegrees( float degrees )
 		{
-			return setLocalRotation( MathHelper.ToRadians( degrees ) );
+			return setLocalRotation( glm.Radians( degrees ) );
 		}
 
 

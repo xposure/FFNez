@@ -1,6 +1,6 @@
 ﻿using System;
 using Nez.Textures;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez

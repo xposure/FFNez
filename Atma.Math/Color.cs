@@ -8,7 +8,7 @@
     ///		values in the range [0,255].  
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct Color : IComparable
+    public struct Color : IComparable, IEquatable<Color>
     {
 #if DEBUG
         public static explicit operator vec4(Color v) => new vec4(v.R / 255f, v.G / 255f, v.B / 255f, v.A / 255f);
@@ -409,6 +409,20 @@
         }
 
         #endregion IComparable Members
+
+        #region IEquatable<Color> Members
+
+        /// <summary>
+        /// Compares whether current instance is equal to specified <see cref="Color"/>.
+        /// </summary>
+        /// <param name="other">The <see cref="Color"/> to compare.</param>
+        /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
+        public bool Equals(Color other)
+        {
+            return this.PackedValue == other.PackedValue;
+        }
+
+        #endregion
 
         #region ICloneable Implementation
 

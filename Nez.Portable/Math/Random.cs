@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez
@@ -69,7 +69,7 @@ namespace Nez
 		/// <returns>The angle.</returns>
 		static public float nextAngle()
 		{
-			return (float)random.NextDouble() * MathHelper.TwoPi;
+			return (float)random.NextDouble() * glm.TwoPI;
 		}
 
 

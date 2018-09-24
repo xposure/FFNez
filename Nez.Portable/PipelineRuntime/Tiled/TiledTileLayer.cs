@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+
 using Microsoft.Xna.Framework.Graphics;
 using Nez.Textures;
 
@@ -117,27 +117,27 @@ namespace Nez.Tiled
 						if( tile.flippedHorizonally && tile.flippedVertically )
 						{
 							spriteEffects ^= SpriteEffects.FlipVertically;
-							rotation = MathHelper.PiOver2;
+							rotation = glm.PIOverTwo;
 							tx += tiledMap.tileHeight + ( tileRegion.sourceRect.Height - tiledMap.tileHeight );
 							ty -= ( tileRegion.sourceRect.Width - tiledMap.tileWidth );
 						}
 						else if( tile.flippedHorizonally )
 						{
 							spriteEffects ^= SpriteEffects.FlipVertically;
-							rotation = -MathHelper.PiOver2;
+							rotation = -glm.PIOverTwo;
 							ty += tiledMap.tileHeight;
 						}
 						else if( tile.flippedVertically )
 						{
 							spriteEffects ^= SpriteEffects.FlipHorizontally;
-							rotation = MathHelper.PiOver2;
+							rotation = glm.PIOverTwo;
 							tx += tiledMap.tileWidth + ( tileRegion.sourceRect.Height - tiledMap.tileHeight );
 							ty += ( tiledMap.tileWidth - tileRegion.sourceRect.Width );
 						}
 						else
 						{
 							spriteEffects ^= SpriteEffects.FlipHorizontally;
-							rotation = -MathHelper.PiOver2;
+							rotation = -glm.PIOverTwo;
 							ty += tiledMap.tileHeight;
 						}
 					}

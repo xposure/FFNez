@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 using Microsoft.Xna.Framework.Graphics;
 
 
@@ -60,7 +60,7 @@ namespace Nez.DeferredLighting
 			var points = new vec2[vertCount];
 			for( var i = 0; i < vertCount; i++ )
 			{
-				var a = 2.0f * MathHelper.Pi * ( i / (float)vertCount );
+				var a = 2.0f * glm.PI * ( i / (float)vertCount );
 				points[i] = new vec2( (float)Math.Cos( a ) * radius, (float)Math.Sin( a ) * radius );
 			}
 

@@ -1,5 +1,5 @@
 using System;
-using Microsoft.Xna.Framework;
+
 using Nez.TextureAtlases;
 using System.Text;
 using Nez.BitmapFonts;

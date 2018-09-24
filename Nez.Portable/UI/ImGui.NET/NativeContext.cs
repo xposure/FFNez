@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 #if MONOGAME
-using Microsoft.Xna.Framework;
+
 using Nez;
 #else
 using System.Numerics;
@@ -101,7 +101,7 @@ namespace ImGuiNET
         public NativeFont InputTextPasswordFont;
         public uint ScalarAsInputTextId;                // Temporary text input when CTRL+clicking on a slider, etc.
         public int ColorEditOptions;                   // Store user options for color edit widgets
-        public Vector4 ColorPickerRef;
+        public vec4 ColorPickerRef;
         public float DragCurrentValue;                   // Currently dragged value, always float, not rounded by end-user precision settings
         public vec2 DragLastMouseDelta;
         public float DragSpeedDefaultRatio;              // If speed == 0.0f, uses (max-min) * DragSpeedDefaultRatio
@@ -140,7 +140,7 @@ namespace ImGuiNET
         public NativeFont* Font;                       // Current/default font (optional, for simplified AddText overload)
         public float FontSize;                   // Current/default font size (optional, for simplified AddText overload)
         public float CurveTessellationTol;
-        public Vector4 ClipRectFullscreen;         // Value for PushClipRectFullscreen()
+        public vec4 ClipRectFullscreen;         // Value for PushClipRectFullscreen()
 
         // Const data
         public fixed float CircleVtx12[12 * 2];

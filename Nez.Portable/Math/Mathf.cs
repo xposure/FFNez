@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez
@@ -323,9 +323,9 @@ namespace Nez
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static float deltaAngleRadians( float current, float target )
 		{
-			var num = repeat( target - current, 2 * MathHelper.Pi );
-			if( num > MathHelper.Pi )
-				num -= 2 * MathHelper.Pi;
+			var num = repeat( target - current, 2 * glm.PI );
+			if( num > glm.PI )
+				num -= 2 * glm.PI;
 
 			return num;
 		}
@@ -716,7 +716,7 @@ namespace Nez
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static vec2 rotateAround( vec2 point, vec2 center, float angleInDegrees )
 		{
-			angleInDegrees = MathHelper.ToRadians( angleInDegrees );
+			angleInDegrees = glm.Radians( angleInDegrees );
 			var cos = Mathf.cos( angleInDegrees );
 			var sin = Mathf.sin( angleInDegrees );
 			var rotatedX = cos * ( point.x - center.x ) - sin * ( point.y - center.y ) + center.x;
@@ -736,7 +736,7 @@ namespace Nez
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public static vec2 pointOnCircle( vec2 circleCenter, float radius, float angleInDegrees )
 		{
-			var radians = MathHelper.ToRadians( angleInDegrees );
+			var radians = glm.Radians( angleInDegrees );
 			return new vec2
 			{
 				x = cos( radians ) * radius + circleCenter.x,
@@ -779,7 +779,7 @@ namespace Nez
 		public static vec2 lissajouDamped( float xFrequency = 2f, float yFrequency = 3f, float xMagnitude = 1, float yMagnitude = 1, float phase = 0.5f, float damping = 0f, float oscillationInterval = 5f )
 		{
 			var wrappedTime = Mathf.pingPong( Time.time, oscillationInterval );
-			var damped = Mathf.pow( MathHelper.E, -damping * wrappedTime );
+			var damped = Mathf.pow( glm.E, -damping * wrappedTime );
 
 			var x = damped * Mathf.sin( Time.time * xFrequency + phase ) * xMagnitude;
 			var y = damped * Mathf.cos( Time.time * yFrequency ) * yMagnitude;

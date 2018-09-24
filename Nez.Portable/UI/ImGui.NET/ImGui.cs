@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using Nez;
 
 #if MONOGAME
-using Microsoft.Xna.Framework;
+
 #else
 using System.Numerics;
 #endif
@@ -76,7 +76,7 @@ namespace ImGuiNET
             ImGuiNative.igText(message);
         }
 
-        public static void Text(string message, Vector4 color)
+        public static void Text(string message, vec4 color)
         {
             ImGuiNative.igTextColored(color, message);
         }
@@ -121,7 +121,7 @@ namespace ImGuiNET
             return ImGuiNative.igInvisibleButton(id, size);
         }
 
-        public static void Image(IntPtr userTextureID, vec2 size, vec2 uv0, vec2 uv1, Vector4 tintColor, Vector4 borderColor)
+        public static void Image(IntPtr userTextureID, vec2 size, vec2 uv0, vec2 uv1, vec4 tintColor, vec4 borderColor)
         {
             ImGuiNative.igImage(userTextureID, size, uv0, uv1, tintColor, borderColor);
         }
@@ -132,8 +132,8 @@ namespace ImGuiNET
             vec2 uv0,
             vec2 uv1,
             int framePadding,
-            Vector4 backgroundColor,
-            Vector4 tintColor)
+            vec4 backgroundColor,
+            vec4 tintColor)
         {
             return ImGuiNative.igImageButton(userTextureID, size, uv0, uv1, framePadding, backgroundColor, tintColor);
         }
@@ -184,7 +184,7 @@ namespace ImGuiNET
             return ImGuiNative.igCombo(label, ref current_item, items, items.Length, heightInItems);
         }
 
-        public static bool ColorButton(string desc_id, Vector4 color, ColorEditFlags flags, vec2 size)
+        public static bool ColorButton(string desc_id, vec4 color, ColorEditFlags flags, vec2 size)
         {
             return ImGuiNative.igColorButton(desc_id, color, flags, size);
         }
@@ -217,22 +217,22 @@ namespace ImGuiNET
 
         public static unsafe bool ColorEdit4(string label, ref float r, ref float g, ref float b, ref float a, ColorEditFlags flags = ColorEditFlags.Default)
         {
-            Vector4 localColor = new Vector4(r, g, b, a);
+            vec4 localColor = new vec4(r, g, b, a);
             bool result = ImGuiNative.igColorEdit4(label, &localColor, flags);
             if (result)
             {
-                r = localColor.X;
-                g = localColor.Y;
-                b = localColor.Z;
-                a = localColor.W;
+                r = localColor.x;
+                g = localColor.y;
+                b = localColor.z;
+                a = localColor.w;
             }
 
             return result;
         }
 
-        public static unsafe bool ColorEdit4(string label, ref Vector4 color, ColorEditFlags flags = ColorEditFlags.Default)
+        public static unsafe bool ColorEdit4(string label, ref vec4 color, ColorEditFlags flags = ColorEditFlags.Default)
         {
-            Vector4 localColor = color;
+            vec4 localColor = color;
             bool result = ImGuiNative.igColorEdit4(label, &localColor, flags);
             if (result)
             {
@@ -253,9 +253,9 @@ namespace ImGuiNET
             return result;
         }
 
-        public static unsafe bool ColorPicker4(string label, ref Vector4 color, ColorEditFlags flags = ColorEditFlags.Default)
+        public static unsafe bool ColorPicker4(string label, ref vec4 color, ColorEditFlags flags = ColorEditFlags.Default)
         {
-            Vector4 localColor = color;
+            vec4 localColor = color;
             bool result = ImGuiNative.igColorPicker4(label, &localColor, flags);
             if (result)
             {
@@ -331,7 +331,7 @@ namespace ImGuiNET
             return ImGuiNative.igSliderFloat3(label, ref value, min, max, displayText, power);
         }
 
-        public static bool SliderVector4(string label, ref Vector4 value, float min, float max, string displayText, float power)
+        public static bool SliderVector4(string label, ref vec4 value, float min, float max, string displayText, float power)
         {
             return ImGuiNative.igSliderFloat4(label, ref value, min, max, displayText, power);
         }
@@ -376,7 +376,7 @@ namespace ImGuiNET
             return ImGuiNative.igDragFloat3(label, ref value, dragSpeed, min, max, displayFormat, dragPower);
         }
 
-        public static bool DragVector4(string label, ref Vector4 value, float min, float max, float dragSpeed = 1f, string displayFormat = "%f", float dragPower = 1f)
+        public static bool DragVector4(string label, ref vec4 value, float min, float max, float dragSpeed = 1f, string displayFormat = "%f", float dragPower = 1f)
         {
             return ImGuiNative.igDragFloat4(label, ref value, dragSpeed, min, max, displayFormat, dragPower);
         }
@@ -482,7 +482,7 @@ namespace ImGuiNET
                 {
                     DrawCmd* drawCmdList = (DrawCmd*)cmd_list->CmdBuffer.Data;
                     DrawCmd* cmd = &drawCmdList[cmd_i];
-                    cmd->ClipRect = new Vector4(cmd->ClipRect.X * scale.x, cmd->ClipRect.Y * scale.y, cmd->ClipRect.Z * scale.x, cmd->ClipRect.W * scale.y);
+                    cmd->ClipRect = new vec4(cmd->ClipRect.x * scale.x, cmd->ClipRect.y * scale.y, cmd->ClipRect.z * scale.x, cmd->ClipRect.w * scale.y);
                 }
             }
         }
@@ -630,7 +630,7 @@ namespace ImGuiNET
             ImGuiNative.igEnd();
         }
 
-        public static void PushStyleColor(ColorTarget target, Vector4 color)
+        public static void PushStyleColor(ColorTarget target, vec4 color)
         {
             ImGuiNative.igPushStyleColor(target, color);
         }

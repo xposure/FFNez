@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+
 using Nez.BitmapFonts;
 using System.Runtime.CompilerServices;
 using Nez.Textures;

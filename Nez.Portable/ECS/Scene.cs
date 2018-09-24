@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+
 using Nez.Systems;
 using Nez.Textures;
 using Microsoft.Xna.Framework.Graphics;
@@ -698,10 +698,10 @@ namespace Nez
 					var safeScaleX = (float)screenSize.X / ( designSize.X - _designBleedSize.X );
 					var safeScaleY = (float)screenSize.Y / ( designSize.Y - _designBleedSize.Y );
 
-					var resolutionScale = MathHelper.Max( resolutionScaleX, resolutionScaleY );
-					var safeScale = MathHelper.Min( safeScaleX, safeScaleY );
+					var resolutionScale = glm.Max( resolutionScaleX, resolutionScaleY );
+					var safeScale = glm.Min( safeScaleX, safeScaleY );
 
-					resolutionScaleX = resolutionScaleY = MathHelper.Min( resolutionScale, safeScale );
+					resolutionScaleX = resolutionScaleY = glm.Min( resolutionScale, safeScale );
 
 					renderTargetWidth = designSize.X;
 					renderTargetHeight = designSize.Y;

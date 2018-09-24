@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Nez.Pipeline.Content;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.Tiled

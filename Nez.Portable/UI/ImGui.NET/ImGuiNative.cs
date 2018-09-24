@@ -3,7 +3,7 @@ using System;
 using Nez;
 
 #if MONOGAME
-using Microsoft.Xna.Framework;
+
 #else
 using System.Numerics;
 #endif
@@ -165,7 +165,7 @@ namespace ImGuiNET
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igPopFont();
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void igPushStyleColor(ColorTarget idx, Vector4 col);
+        public static extern void igPushStyleColor(ColorTarget idx, vec4 col);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igPopStyleColor(int count);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
@@ -183,7 +183,7 @@ namespace ImGuiNET
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint igGetColorU32(ColorTarget idx, float alpha_mul);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint igGetColorU32Vec(Vector4* col);
+        public static extern uint igGetColorU32Vec(vec4* col);
 
         // Parameters stacks (current window)
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
@@ -295,7 +295,7 @@ namespace ImGuiNET
         public static extern void igText(string fmt);
 
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void igTextColored(Vector4 col, string fmt);
+        public static extern void igTextColored(vec4 col, string fmt);
 
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igTextDisabled(string fmt);
@@ -323,10 +323,10 @@ namespace ImGuiNET
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool igInvisibleButton(string str_id, vec2 size);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void igImage(IntPtr user_texture_id, vec2 size, vec2 uv0, vec2 uv1, Vector4 tint_col, Vector4 border_col);
+        public static extern void igImage(IntPtr user_texture_id, vec2 size, vec2 uv0, vec2 uv1, vec4 tint_col, vec4 border_col);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool igImageButton(IntPtr user_texture_id, vec2 size, vec2 uv0, vec2 uv1, int frame_padding, Vector4 bg_col, Vector4 tint_col);
+        public static extern bool igImageButton(IntPtr user_texture_id, vec2 size, vec2 uv0, vec2 uv1, int frame_padding, vec4 bg_col, vec4 tint_col);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool igCheckbox(string label, ref bool v);
@@ -370,19 +370,19 @@ namespace ImGuiNET
 
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool igColorButton(string desc_id, Vector4 col, ColorEditFlags flags, vec2 size);
+        public static extern bool igColorButton(string desc_id, vec4 col, ColorEditFlags flags, vec2 size);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool igColorEdit3(string label, vec3* col, ColorEditFlags flags = 0);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool igColorEdit4(string label, Vector4* col, ColorEditFlags flags = 0);
+        public static extern bool igColorEdit4(string label, vec4* col, ColorEditFlags flags = 0);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool igColorPicker3(string label, vec3* col, ColorEditFlags flags = 0);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool igColorPicker4(string label, Vector4* col, ColorEditFlags flags = 0, float* ref_col = null);
+        public static extern bool igColorPicker4(string label, vec4* col, ColorEditFlags flags = 0, float* ref_col = null);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetColorEditOptions(ColorEditFlags flags);
 
@@ -412,7 +412,7 @@ namespace ImGuiNET
         public static extern bool igSliderFloat3(string label, ref vec3 v, float v_min, float v_max, string display_format, float power);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool igSliderFloat4(string label, ref Vector4 v, float v_min, float v_max, string display_format, float power);
+        public static extern bool igSliderFloat4(string label, ref vec4 v, float v_min, float v_max, string display_format, float power);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool igSliderAngle(string label, ref float v_rad, float v_degrees_min, float v_degrees_max);
@@ -447,7 +447,7 @@ namespace ImGuiNET
         public static extern bool igDragFloat3(string label, ref vec3 v, float v_speed, float v_min, float v_max, string display_format, float power);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool igDragFloat4(string label, ref Vector4 v, float v_speed, float v_min, float v_max, string display_format, float power);
+        public static extern bool igDragFloat4(string label, ref vec4 v, float v_speed, float v_min, float v_max, string display_format, float power);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool igDragFloatRange2(string label, ref float v_current_min, ref float v_current_max, float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, string display_format = "%.3f", string display_format_max = null, float power = 1.0f);
@@ -486,7 +486,7 @@ namespace ImGuiNET
         public static extern bool igInputFloat3(string label, vec3 v, int decimal_precision, InputTextFlags extra_flags);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool igInputFloat4(string label, Vector4 v, int decimal_precision, InputTextFlags extra_flags);
+        public static extern bool igInputFloat4(string label, vec4 v, int decimal_precision, InputTextFlags extra_flags);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool igInputInt(string label, int* v, int step, int step_fast, InputTextFlags extra_flags);
@@ -740,9 +740,9 @@ namespace ImGuiNET
         public static extern void igEndChildFrame();
 
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void igColorConvertU32ToFloat4(Vector4* pOut, uint @in);
+        public static extern void igColorConvertU32ToFloat4(vec4* pOut, uint @in);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint igColorConvertFloat4ToU32(Vector4 @in);
+        public static extern uint igColorConvertFloat4ToU32(vec4 @in);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         public static extern void igColorConvertRGBtoHSV(float r, float g, float b, float* out_h, float* out_s, float* out_v);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
@@ -927,7 +927,7 @@ namespace ImGuiNET
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImDrawList_AddText(NativeDrawList* list, vec2 pos, uint col, byte* text_begin, byte* text_end);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImDrawList_AddTextExt(NativeDrawList* list, NativeFont* font, float font_size, vec2 pos, uint col, byte* text_begin, byte* text_end, float wrap_width, Vector4* cpu_fine_clip_rect);
+        public static extern void ImDrawList_AddTextExt(NativeDrawList* list, NativeFont* font, float font_size, vec2 pos, uint col, byte* text_begin, byte* text_end, float wrap_width, vec4* cpu_fine_clip_rect);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImDrawList_AddImage(NativeDrawList* list, void* user_texture_id, vec2 a, vec2 b, vec2 uv_a, vec2 uv_b, uint col);
         [DllImport(cimguiLib, CallingConvention = CallingConvention.Cdecl)]

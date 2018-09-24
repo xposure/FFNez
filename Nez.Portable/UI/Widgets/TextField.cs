@@ -1,6 +1,6 @@
 ﻿using System;
 using Nez.BitmapFonts;
-using Microsoft.Xna.Framework;
+
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;

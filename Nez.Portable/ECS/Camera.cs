@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 #if !FNA
 using Microsoft.Xna.Framework.Input.Touch;
 #endif

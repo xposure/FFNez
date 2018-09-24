@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez
@@ -17,7 +17,7 @@ namespace Nez
 			get { return new Color( _blinkColor ); }
 			set
 			{
-				var blinkVec = value;
+				var blinkVec = (vec4)value;
 				if( _blinkColor != blinkVec )
 				{
 					_blinkColor = blinkVec;
@@ -26,7 +26,7 @@ namespace Nez
 			}
 		}
 
-		Vector4 _blinkColor = new Vector4( 1, 1, 1, 0 );
+		vec4 _blinkColor = new vec4( 1, 1, 1, 0 );
 		EffectParameter _blinkColorParam;
 
 

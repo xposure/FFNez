@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Nez.Textures;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.Sprites

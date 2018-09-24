@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 using Nez.PhysicsShapes;
 
 namespace Nez.ECS.Components.Renderables.Particles
@@ -41,7 +41,7 @@ namespace Nez.ECS.Components.Renderables.Particles
 
             _lifetime = _timeToLive = emitterConfig.life.nextValue();
             rotation = emitterConfig.particleRotation.nextValue();
-            var launchAngle = MathHelper.ToRadians(emitterConfig.launchAngle.nextValue());
+            var launchAngle = glm.Radians(emitterConfig.launchAngle.nextValue());
             var speed = emitterConfig.speed.nextValue();
             velocity = new vec2((float) Math.Cos(launchAngle), (float) Math.Sin(launchAngle)) * speed;
 

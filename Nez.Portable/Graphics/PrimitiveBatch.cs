@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 using Microsoft.Xna.Framework.Graphics;
 
 
@@ -234,7 +234,7 @@ namespace Nez
 
 		public void drawCircle( vec2 center, float radius, Color color, int circleSegments = 32 )
 		{
-			var increment = MathHelper.Pi * 2.0f / circleSegments;
+			var increment = glm.PI * 2.0f / circleSegments;
 			var theta = 0.0f;
 
 			var v0 = center + radius * new vec2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );

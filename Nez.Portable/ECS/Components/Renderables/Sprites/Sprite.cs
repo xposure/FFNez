@@ -1,6 +1,6 @@
 ﻿using Nez.Textures;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez.Sprites

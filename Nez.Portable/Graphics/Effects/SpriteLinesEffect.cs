@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+
 
 
 namespace Nez
@@ -19,7 +19,7 @@ namespace Nez
 			get { return new Color( _lineColor ); }
 			set
 			{
-				var blinkVec = value;
+				var blinkVec = (vec4)value;
 				if( _lineColor != blinkVec )
 				{
 					_lineColor = blinkVec;
@@ -62,7 +62,7 @@ namespace Nez
 			}
 		}
 
-		Vector4 _lineColor = new Vector4( 1, 0, 0, 1 );
+		vec4 _lineColor = new vec4( 1, 0, 0, 1 );
 		float _lineSize = 5f;
 		bool _isVertical = true;
 

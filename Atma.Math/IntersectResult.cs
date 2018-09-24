@@ -1,6 +1,4 @@
-﻿#if ATMA_PHYSICS
-
-namespace Atma
+﻿namespace Nez
 {
     /// <summary>
     ///		Simple struct to allow returning a complex intersection result.
@@ -35,4 +33,3 @@ namespace Atma
         }
     }
 }
-#endif

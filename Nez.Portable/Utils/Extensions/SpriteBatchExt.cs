@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection;
@@ -131,7 +131,7 @@ namespace Nez
 
 			for( int i = 1; i <= resolution; i++ )
 			{
-				var at = Mathf.angleToVector( i * MathHelper.PiOver2 / resolution, radius );
+				var at = Mathf.angleToVector( i * glm.PIOverTwo / resolution, radius );
 				var atP = Vector2Ext.perpendicular( at );
 
 				drawLine( spriteBatch, position + last, position + at, color, thickness );
