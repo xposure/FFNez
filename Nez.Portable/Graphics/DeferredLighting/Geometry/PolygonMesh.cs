@@ -21,11 +21,11 @@ namespace Nez.DeferredLighting
 
 		public static PolygonMesh createRectangle()
 		{
-			var points = new Vector2[] {
-				new Vector2( 1, 1 ),
-				new Vector2( 0, 1 ),
-				new Vector2( 0, 0 ),
-				new Vector2( 1, 0 )
+			var points = new vec2[] {
+				new vec2( 1, 1 ),
+				new vec2( 0, 1 ),
+				new vec2( 0, 0 ),
+				new vec2( 1, 0 )
 			};
 			return new PolygonMesh( points );
 		}
@@ -55,13 +55,13 @@ namespace Nez.DeferredLighting
 		}
 
 
-		static Vector2[] buildSymmetricalPolygon( int vertCount, float radius )
+		static vec2[] buildSymmetricalPolygon( int vertCount, float radius )
 		{
-			var points = new Vector2[vertCount];
+			var points = new vec2[vertCount];
 			for( var i = 0; i < vertCount; i++ )
 			{
 				var a = 2.0f * MathHelper.Pi * ( i / (float)vertCount );
-				points[i] = new Vector2( (float)Math.Cos( a ) * radius, (float)Math.Sin( a ) * radius );
+				points[i] = new vec2( (float)Math.Cos( a ) * radius, (float)Math.Sin( a ) * radius );
 			}
 
 			return points;
@@ -70,7 +70,7 @@ namespace Nez.DeferredLighting
 		#endregion
 
 
-		public PolygonMesh( Vector2[] points )
+		public PolygonMesh( vec2[] points )
 		{
 			var verts = generateVerts( points );
 
@@ -92,7 +92,7 @@ namespace Nez.DeferredLighting
 		}
 
 
-		VertexPosition[] generateVerts( Vector2[] points )
+		VertexPosition[] generateVerts( vec2[] points )
 		{
 			// we need to make tris from the points. all points will be shared with the center (0,0)
 			var verts = new VertexPosition[points.Length + 1];
@@ -100,8 +100,8 @@ namespace Nez.DeferredLighting
 			// the first point is the center so we start at 1
 			for( var i = 1; i <= points.Length; i++ )
 			{
-				verts[i].Position.X = points[i - 1].X;
-				verts[i].Position.Y = points[i - 1].Y;
+				verts[i].Position.X = points[i - 1].x;
+				verts[i].Position.Y = points[i - 1].y;
 			}
 
 			return verts;

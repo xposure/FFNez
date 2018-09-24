@@ -34,8 +34,8 @@ namespace Nez.Farseer
 			destroyFixture();
 
 			var edgeShape = _fixtureDef.shape as EdgeShape;
-			edgeShape.vertex1 = _vertex1 * transform.scale * FSConvert.displayToSim;
-			edgeShape.vertex2 = _vertex2 * transform.scale * FSConvert.displayToSim;
+			edgeShape.vertex1 = (vec2)_vertex1 * transform.scale * FSConvert.displayToSim;
+			edgeShape.vertex2 = (vec2)_vertex2 * transform.scale * FSConvert.displayToSim;
 
 			createFixture();
 		}

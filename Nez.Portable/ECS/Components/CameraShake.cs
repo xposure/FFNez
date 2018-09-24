@@ -4,11 +4,10 @@ using Microsoft.Xna.Framework;
 
 namespace Nez
 {
-    using Vector2 = Nez.vec2;
 	public class CameraShake : Component, IUpdatable
 	{
-		Vector2 _shakeDirection;
-		Vector2 _shakeOffset;
+		vec2 _shakeDirection;
+		vec2 _shakeOffset;
 		float _shakeIntensity = 0f;
 		float _shakeDegredation = 0.95f;
 
@@ -21,7 +20,7 @@ namespace Nez
 		/// <param name="shakeDegredation">higher values cause faster degradation</param>
 		/// <param name="shakeDirection">Vector3.zero will result in a shake on just the x/y axis. any other values will result in the passed
 		/// in shakeDirection * intensity being the offset the camera is moved</param>
-		public void shake( float shakeIntensity = 15f, float shakeDegredation = 0.9f, Vector2 shakeDirection = default( Vector2 ) )
+		public void shake( float shakeIntensity = 15f, float shakeDegredation = 0.9f, vec2 shakeDirection = default( vec2 ) )
 		{
 			enabled = true;
 			if( _shakeIntensity < shakeIntensity )
@@ -41,14 +40,14 @@ namespace Nez
 			if( Math.Abs( _shakeIntensity ) > 0f )
 			{
 				_shakeOffset = _shakeDirection;
-				if( _shakeOffset.X != 0f || _shakeOffset.Y != 0f )
+				if( _shakeOffset.x != 0f || _shakeOffset.y != 0f )
 				{
 					_shakeOffset.Normalize();
 				}
 				else
 				{
-					_shakeOffset.X = _shakeOffset.X + Random.nextFloat() - 0.5f;
-					_shakeOffset.Y = _shakeOffset.Y + Random.nextFloat() - 0.5f;
+					_shakeOffset.x = _shakeOffset.x + Random.nextFloat() - 0.5f;
+					_shakeOffset.y = _shakeOffset.y + Random.nextFloat() - 0.5f;
 				}
 
 				// TODO: this needs to be multiplied by camera zoom so that less shake gets applied when zoomed in

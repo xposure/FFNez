@@ -41,7 +41,7 @@ namespace Nez
 		/// gets the Screen's center
 		/// </summary>
 		/// <value>The center.</value>
-		public static Vector2 center { get { return new Vector2( width / 2, height / 2 ); } }
+		public static vec2 center { get { return new vec2( width / 2, height / 2 ); } }
 
 
 		public static int preferredBackBufferWidth

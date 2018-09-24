@@ -8,12 +8,12 @@ namespace Nez.Verlet
 	/// </summary>
 	public class Box : Composite
 	{
-		public Box( Vector2 center, float width, float height, float borderStiffness = 0.2f, float diagonalStiffness = 0.5f )
+		public Box( vec2 center, float width, float height, float borderStiffness = 0.2f, float diagonalStiffness = 0.5f )
 		{
-			var tl = addParticle( new Particle( center + new Vector2( -width / 2, -height / 2 ) ) );
-			var tr = addParticle( new Particle( center + new Vector2( width / 2, -height / 2 ) ) );
-			var br = addParticle( new Particle( center + new Vector2( width / 2, height / 2 ) ) );
-			var bl = addParticle( new Particle( center + new Vector2( -width / 2, height / 2 ) ) );
+			var tl = addParticle( new Particle( center + new vec2( -width / 2, -height / 2 ) ) );
+			var tr = addParticle( new Particle( center + new vec2( width / 2, -height / 2 ) ) );
+			var br = addParticle( new Particle( center + new vec2( width / 2, height / 2 ) ) );
+			var bl = addParticle( new Particle( center + new vec2( -width / 2, height / 2 ) ) );
 
 			// outside edges
 			addConstraint( new DistanceConstraint( tl, tr, borderStiffness ) );

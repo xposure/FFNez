@@ -42,7 +42,7 @@ namespace Nez.Verlet
 			var first = _particleA.position - _centerParticle.position;
 			var second = _particleC.position - _centerParticle.position;
 
-			return Mathf.atan2( first.X * second.Y - first.Y * second.X, first.X * second.X + first.Y * second.Y );
+			return Mathf.atan2( first.x * second.y - first.y * second.x, first.x * second.x + first.y * second.y );
 		}
 
 

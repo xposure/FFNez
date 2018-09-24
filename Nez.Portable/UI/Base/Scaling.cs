@@ -64,9 +64,9 @@ namespace Nez.UI
 		/// <param name="sourceHeight">Source height.</param>
 		/// <param name="targetWidth">Target width.</param>
 		/// <param name="targetHeight">Target height.</param>
-		public static Vector2 apply( this Scaling self, float sourceWidth, float sourceHeight, float targetWidth, float targetHeight )
+		public static vec2 apply( this Scaling self, float sourceWidth, float sourceHeight, float targetWidth, float targetHeight )
 		{
-			var temp = new Vector2();
+			var temp = new vec2();
 			switch ( self )
 			{
 				case Scaling.Fit:
@@ -74,8 +74,8 @@ namespace Nez.UI
 					var targetRatio = targetHeight / targetWidth;
 					var sourceRatio = sourceHeight / sourceWidth;
 					var scale = targetRatio > sourceRatio ? targetWidth / sourceWidth : targetHeight / sourceHeight;
-					temp.X = sourceWidth * scale;
-					temp.Y = sourceHeight * scale;
+					temp.x = sourceWidth * scale;
+					temp.y = sourceHeight * scale;
 					break;
 				}
 				case Scaling.Fill:
@@ -83,39 +83,39 @@ namespace Nez.UI
 					var targetRatio = targetHeight / targetWidth;
 					var sourceRatio = sourceHeight / sourceWidth;
 					var scale = targetRatio < sourceRatio ? targetWidth / sourceWidth : targetHeight / sourceHeight;
-					temp.X = sourceWidth * scale;
-					temp.Y = sourceHeight * scale;
+					temp.x = sourceWidth * scale;
+					temp.y = sourceHeight * scale;
 					break;
 				}
 				case Scaling.FillX:
 				{
 					var scale = targetWidth / sourceWidth;
-					temp.X = sourceWidth * scale;
-					temp.Y = sourceHeight * scale;
+					temp.x = sourceWidth * scale;
+					temp.y = sourceHeight * scale;
 					break;
 				}
 				case Scaling.FillY:
 				{
 					var scale = targetHeight / sourceHeight;
-					temp.X = sourceWidth * scale;
-					temp.Y = sourceHeight * scale;
+					temp.x = sourceWidth * scale;
+					temp.y = sourceHeight * scale;
 					break;
 				}
 				case Scaling.Stretch:
-					temp.X = targetWidth;
-					temp.Y = targetHeight;
+					temp.x = targetWidth;
+					temp.y = targetHeight;
 				break;
 				case Scaling.StretchX:
-					temp.X = targetWidth;
-					temp.Y = sourceHeight;
+					temp.x = targetWidth;
+					temp.y = sourceHeight;
 				break;
 				case Scaling.StretchY:
-					temp.X = sourceWidth;
-					temp.Y = targetHeight;
+					temp.x = sourceWidth;
+					temp.y = targetHeight;
 				break;
 				case Scaling.None:
-					temp.X = sourceWidth;
-					temp.Y = sourceHeight;
+					temp.x = sourceWidth;
+					temp.y = sourceHeight;
 				break;
 			}
 

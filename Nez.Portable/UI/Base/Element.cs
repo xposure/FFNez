@@ -669,7 +669,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to local coordinates.</returns>
 		/// <param name="screenCoords">Screen coords.</param>
-		public Vector2 screenToLocalCoordinates( Vector2 screenCoords )
+		public vec2 screenToLocalCoordinates( vec2 screenCoords )
 		{
 			if( stage == null )
 				return screenCoords;
@@ -682,7 +682,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to local coordinates.</returns>
 		/// <param name="stageCoords">Stage coords.</param>
-		public Vector2 stageToLocalCoordinates( Vector2 stageCoords )
+		public vec2 stageToLocalCoordinates( vec2 stageCoords )
 		{
 			if( parent != null )
 				stageCoords = parent.stageToLocalCoordinates( stageCoords );
@@ -697,7 +697,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to stage coordinates.</returns>
 		/// <param name="localCoords">Local coords.</param>
-		public Vector2 localToStageCoordinates( Vector2 localCoords )
+		public vec2 localToStageCoordinates( vec2 localCoords )
 		{
 			return localToAscendantCoordinates( null, localCoords );
 		}
@@ -709,7 +709,7 @@ namespace Nez.UI
 		/// <returns>The to ascendant coordinates.</returns>
 		/// <param name="ascendant">Ascendant.</param>
 		/// <param name="localCoords">Local coords.</param>
-		public Vector2 localToAscendantCoordinates( Element ascendant, Vector2 localCoords )
+		public vec2 localToAscendantCoordinates( Element ascendant, vec2 localCoords )
 		{
 			Element element = this;
 			while( element != null )
@@ -728,29 +728,29 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to local coordinates.</returns>
 		/// <param name="parentCoords">Parent coords.</param>
-		public Vector2 parentToLocalCoordinates( Vector2 parentCoords )
+		public vec2 parentToLocalCoordinates( vec2 parentCoords )
 		{
 			if( rotation == 0 )
 			{
 				if( scaleX == 1 && scaleY == 1 )
 				{
-					parentCoords.X -= x;
-					parentCoords.Y -= y;
+					parentCoords.x -= x;
+					parentCoords.y -= y;
 				}
 				else
 				{
-					parentCoords.X = ( parentCoords.X - x - originX ) / scaleX + originX;
-					parentCoords.Y = ( parentCoords.Y - y - originY ) / scaleY + originY;
+					parentCoords.x = ( parentCoords.x - x - originX ) / scaleX + originX;
+					parentCoords.y = ( parentCoords.y - y - originY ) / scaleY + originY;
 				}
 			}
 			else
 			{
 				var cos = Mathf.cos( MathHelper.ToRadians( rotation ) );
 				var sin = Mathf.sin( MathHelper.ToRadians( rotation ) );
-				var tox = parentCoords.X - x - originX;
-				var toy = parentCoords.Y - y - originY;
-				parentCoords.X = ( tox * cos + toy * sin ) / scaleX + originX;
-				parentCoords.Y = ( tox * -sin + toy * cos ) / scaleY + originY;
+				var tox = parentCoords.x - x - originX;
+				var toy = parentCoords.y - y - originY;
+				parentCoords.x = ( tox * cos + toy * sin ) / scaleX + originX;
+				parentCoords.y = ( tox * -sin + toy * cos ) / scaleY + originY;
 			}
 
 			return parentCoords;
@@ -762,7 +762,7 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The to parent coordinates.</returns>
 		/// <param name="localCoords">Local coords.</param>
-		public Vector2 localToParentCoordinates( Vector2 localCoords )
+		public vec2 localToParentCoordinates( vec2 localCoords )
 		{
 			var rotation = -this.rotation;
 
@@ -770,13 +770,13 @@ namespace Nez.UI
 			{
 				if( scaleX == 1 && scaleY == 1 )
 				{
-					localCoords.X += x;
-					localCoords.Y += y;
+					localCoords.x += x;
+					localCoords.y += y;
 				}
 				else
 				{
-					localCoords.X = ( localCoords.X - originX ) * scaleX + originX + x;
-					localCoords.Y = ( localCoords.Y - originY ) * scaleY + originY + y;
+					localCoords.x = ( localCoords.x - originX ) * scaleX + originX + x;
+					localCoords.y = ( localCoords.y - originY ) * scaleY + originY + y;
 				}
 			}
 			else
@@ -784,10 +784,10 @@ namespace Nez.UI
 				var cos = Mathf.cos( MathHelper.ToRadians( rotation ) );
 				var sin = Mathf.sin( MathHelper.ToRadians( rotation ) );
 
-				var tox = ( localCoords.X - originX ) * scaleX;
-				var toy = ( localCoords.Y - originY ) * scaleY;
-				localCoords.X = ( tox * cos + toy * sin ) + originX + x;
-				localCoords.Y = ( tox * -sin + toy * cos ) + originY + y;
+				var tox = ( localCoords.x - originX ) * scaleX;
+				var toy = ( localCoords.y - originY ) * scaleY;
+				localCoords.x = ( tox * cos + toy * sin ) + originX + x;
+				localCoords.y = ( tox * -sin + toy * cos ) + originY + y;
 			}
 
 			return localCoords;
@@ -802,10 +802,10 @@ namespace Nez.UI
 		/// </summary>
 		/// <returns>The outside bounds to point.</returns>
 		/// <param name="Point">Point.</param>
-		protected float distanceOutsideBoundsToPoint( Vector2 point )
+		protected float distanceOutsideBoundsToPoint( vec2 point )
 		{
-			var offsetX = Math.Max( -point.X, point.X - width );
-			var offsetY = Math.Max( -point.Y, point.Y - height );
+			var offsetX = Math.Max( -point.x, point.x - width );
+			var offsetY = Math.Max( -point.y, point.y - height );
 
 			return Math.Max( offsetX, offsetY );
 		}
@@ -838,13 +838,13 @@ namespace Nez.UI
 		}
 
 
-		public virtual Element hit( Vector2 point )
+		public virtual Element hit( vec2 point )
 		{
 			// if we are not Touchable or us or any parent is not visible bail out
 			if( touchable != Touchable.Enabled || !areParentsVisible() )
 				return null;
 
-			if( point.X >= 0 && point.X < width && point.Y >= 0 && point.Y < height )
+			if( point.x >= 0 && point.x < width && point.y >= 0 && point.y < height )
 				return this;
 			return null;
 		}

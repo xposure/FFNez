@@ -281,7 +281,8 @@ namespace FarseerPhysics.Dynamics.Joints
 			{
 				_axis1 = value;
 				localXAxis = bodyA.getLocalVector( _axis1 );
-				Nez.Vector2Ext.normalize( ref localXAxis );
+                localXAxis.Normalize();
+				//Nez.Vector2Ext.normalize( ref localXAxis );
 				_localYAxisA = MathUtils.cross( 1.0f, localXAxis );
 			}
 		}

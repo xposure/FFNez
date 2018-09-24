@@ -56,7 +56,7 @@ namespace Nez
 		/// <summary>
 		/// velocity of this rigidbody
 		/// </summary>
-		public Vector2 velocity;
+		public vec2 velocity;
 
 		/// <summary>
 		/// rigidbodies with a mass of 0 are considered immovable. Changing velocity and collisions will have no effect on them.
@@ -139,7 +139,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The velocity.</returns>
 		/// <param name="velocity">Velocity.</param>
-		public ArcadeRigidbody setVelocity( Vector2 velocity )
+		public ArcadeRigidbody setVelocity( vec2 velocity )
 		{
 			this.velocity = velocity;
 			return this;
@@ -153,7 +153,7 @@ namespace Nez
 		/// force is multiplied by 100000 to make the values more reasonable to use.
 		/// </summary>
 		/// <param name="force">Force.</param>
-		public void addImpulse( Vector2 force )
+		public void addImpulse( vec2 force )
 		{
 			if( !isImmovable )
 				velocity += force * 100000 * ( _inverseMass * Time.deltaTime * Time.deltaTime );
@@ -170,7 +170,7 @@ namespace Nez
 		{
 			if( isImmovable )
 			{
-				velocity = Vector2.Zero;
+				velocity = vec2.Zero;
 				return;
 			}
 
@@ -218,7 +218,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="other">Other.</param>
 		/// <param name="minimumTranslationVector"></param>
-		void processOverlap( ArcadeRigidbody other, ref Vector2 minimumTranslationVector )
+		void processOverlap( ArcadeRigidbody other, ref vec2 minimumTranslationVector )
 		{
 			if( isImmovable )
 			{
@@ -241,7 +241,7 @@ namespace Nez
 		/// </summary>
 		/// <param name="other">Other.</param>
 		/// <param name="inverseMTV">Inverse MT.</param>
-		void processCollision( ArcadeRigidbody other, ref Vector2 minimumTranslationVector )
+		void processCollision( ArcadeRigidbody other, ref vec2 minimumTranslationVector )
 		{
 			// we compute a response for the two colliding objects. The calculations are based on the relative velocity of the objects
 			// which gets reflected along the collided surface normal. Then a part of the response gets added to each object based on mass.
@@ -265,28 +265,28 @@ namespace Nez
 		/// </summary>
 		/// <param name="relativeVelocity">Relative velocity.</param>
 		/// <param name="minimumTranslationVector">Minimum translation vector.</param>
-		void calculateResponseVelocity( ref Vector2 relativeVelocity, ref Vector2 minimumTranslationVector, out Vector2 responseVelocity )
+		void calculateResponseVelocity( ref vec2 relativeVelocity, ref vec2 minimumTranslationVector, out vec2 responseVelocity )
 		{
 			// first, we get the normalized MTV in the opposite direction: the surface normal
 			var inverseMTV = minimumTranslationVector * -1f;
-			Vector2 normal;
-			Vector2.Normalize( ref inverseMTV, out normal );
+			vec2 normal;
+			vec2.Normalize( ref inverseMTV, out normal );
 
 			// the velocity is decomposed along the normal of the collision and the plane of collision.
 			// The elasticity will affect the response along the normal (normalVelocityComponent) and the friction will affect
 			// the tangential component of the velocity (tangentialVelocityComponent)
 			float n;
-			Vector2.Dot( ref relativeVelocity, ref normal, out n );
+			vec2.Dot( ref relativeVelocity, ref normal, out n );
 
 			var normalVelocityComponent = normal * n;
 			var tangentialVelocityComponent = relativeVelocity - normalVelocityComponent;
 
 			if( n > 0.0f )
-				normalVelocityComponent = Vector2.Zero;
+				normalVelocityComponent = vec2.Zero;
 
 			// if the squared magnitude of the tangential component is less than glue then we bump up the friction to the max
 			var coefficientOfFriction = _friction;
-			if( tangentialVelocityComponent.LengthSquared() < _glue )
+			if( tangentialVelocityComponent.LengthSqr < _glue )
 				coefficientOfFriction = 1.01f;
 
 			// elasticity affects the normal component of the velocity and friction affects the tangential component

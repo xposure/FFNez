@@ -863,7 +863,8 @@ namespace FarseerPhysics.Common.TextureTools
 					if( edgeFound )
 					{
 						slope = polygon[nearestEdgeVertex2Index] - polygon[nearestEdgeVertex1Index];
-						Nez.Vector2Ext.normalize( ref slope );
+                        slope.Normalize();
+						//Nez.Vector2Ext.normalize( ref slope );
 
 						var tempVector = polygon[nearestEdgeVertex1Index];
 						distance = Vector2.Distance( tempVector, foundEdgeCoord );

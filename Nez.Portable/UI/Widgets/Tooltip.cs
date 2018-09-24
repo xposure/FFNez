@@ -109,7 +109,7 @@ namespace Nez.UI
 		#endregion
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			// we do some rejiggering here by checking for hits on our target and using that
 			var local = _targetElement.screenToLocalCoordinates( point );
@@ -120,7 +120,7 @@ namespace Nez.UI
 					_isMouseOver = true;
 					_manager.enter( this );
 				}
-				setContainerPosition( local.X, local.Y );
+				setContainerPosition( local.x, local.y );
 			}
 			else if( _isMouseOver )
 			{
@@ -139,20 +139,20 @@ namespace Nez.UI
 
 			_container.pack();
 			float offsetX = _manager.offsetX, offsetY = _manager.offsetY, dist = _manager.edgeDistance;
-			var point = _targetElement.localToStageCoordinates( new Vector2( x + offsetX - _container.getWidth() / 2, y - offsetY - _container.getHeight() ) );
-			if( point.Y < dist )
-				point = _targetElement.localToStageCoordinates( new Vector2( x + offsetX, y + offsetY ) );
-			if( point.X < dist )
-				point.X = dist;
-			if( point.X + _container.getWidth() > stage.getWidth() - dist )
-				point.X = stage.getWidth() - dist - _container.getWidth();
-			if( point.Y + _container.getHeight() > stage.getHeight() - dist )
-				point.Y = stage.getHeight() - dist - _container.getHeight();
-			_container.setPosition( point.X, point.Y );
+			var point = _targetElement.localToStageCoordinates( new vec2( x + offsetX - _container.getWidth() / 2, y - offsetY - _container.getHeight() ) );
+			if( point.y < dist )
+				point = _targetElement.localToStageCoordinates( new vec2( x + offsetX, y + offsetY ) );
+			if( point.x < dist )
+				point.x = dist;
+			if( point.x + _container.getWidth() > stage.getWidth() - dist )
+				point.x = stage.getWidth() - dist - _container.getWidth();
+			if( point.y + _container.getHeight() > stage.getHeight() - dist )
+				point.y = stage.getHeight() - dist - _container.getHeight();
+			_container.setPosition( point.x, point.y );
 
-			point = _targetElement.localToStageCoordinates( new Vector2( _targetElement.getWidth() / 2, _targetElement.getHeight() / 2 ) );
-			point -= new Vector2( _container.getX(), _container.getY() );
-			_container.setOrigin( point.X, point.Y );
+			point = _targetElement.localToStageCoordinates( new vec2( _targetElement.getWidth() / 2, _targetElement.getHeight() / 2 ) );
+			point -= new vec2( _container.getX(), _container.getY() );
+			_container.setOrigin( point.x, point.y );
 		}
 
 	}

@@ -265,10 +265,10 @@ namespace Nez.Tiled
 		}
 
 
-		static Vector2[] readVector2Array( ContentReader reader )
+		static vec2[] readVector2Array( ContentReader reader )
 		{
 			var pointCount = reader.ReadInt32();
-			var points = new Vector2[pointCount];
+			var points = new vec2[pointCount];
 
 			for( var i = 0; i < pointCount; i++ )
 				points[i] = reader.ReadVector2();

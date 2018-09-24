@@ -144,12 +144,12 @@ namespace Nez.DeferredLighting
 		{
 			setLightPosition( new Vector3( light.entity.transform.position + light.localOffset, light.zPosition ) );
 			setColor( light.color );
-			setLightRadius( light.radius * light.entity.transform.scale.X );
+			setLightRadius( light.radius * light.entity.transform.scale.x );
 			setLightIntensity( light.intensity );
 
 
-            var scale = Matrix.CreateScale(light.radius * light.entity.transform.scale.X);
-            var translate = Matrix.CreateTranslation(light.entity.transform.position.X + light.localOffset.X, light.entity.transform.position.Y + light.localOffset.Y, 0);
+            var scale = Matrix.CreateScale(light.radius * light.entity.transform.scale.x);
+            var translate = Matrix.CreateTranslation(light.entity.transform.position.x + light.localOffset.x, light.entity.transform.position.y + light.localOffset.y, 0);
             Matrix.Multiply(ref scale, ref translate, out var objToWorld);
             setObjectToWorldMatrix(objToWorld);
 
@@ -181,7 +181,7 @@ namespace Nez.DeferredLighting
 			setAreaDirectionalLightDirection( light.direction );
 			setLightIntensity( light.intensity );
 
-            var scale = Matrix.CreateScale(light.bounds.width * light.entity.transform.scale.X, light.bounds.height * light.entity.transform.scale.Y, 1f);
+            var scale = Matrix.CreateScale(light.bounds.width * light.entity.transform.scale.x, light.bounds.height * light.entity.transform.scale.y, 1f);
             var translate = Matrix.CreateTranslation(light.bounds.x - light.bounds.width * 0.5f, light.bounds.y - light.bounds.height * 0.5f, 0);
             Matrix.Multiply(ref scale, ref translate, out var objToWorld);
             setObjectToWorldMatrix(objToWorld);
@@ -287,7 +287,7 @@ namespace Nez.DeferredLighting
 		/// directly sets the light direction
 		/// </summary>
 		/// <param name="lightDirection">Light direction.</param>
-		public void setSpotLightDirection( Vector2 lightDirection )
+		public void setSpotLightDirection( vec2 lightDirection )
 		{
 			_lightDirectionParam.SetValue( lightDirection );
 		}
@@ -300,7 +300,7 @@ namespace Nez.DeferredLighting
 		public void setSpotLightDirection( float degrees )
 		{
 			var radians = MathHelper.ToRadians( degrees );
-			var dir = new Vector2( (float)Math.Cos( radians ), (float)Math.Sin( radians ) );
+			var dir = new vec2( (float)Math.Cos( radians ), (float)Math.Sin( radians ) );
 			setSpotLightDirection( dir );
 		}
 

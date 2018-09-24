@@ -12,7 +12,7 @@ namespace Nez
 			{
 				if( _areBoundsDirty )
 				{
-					_bounds.calculateBounds( entity.transform.position, _localOffset, _origin, entity.transform.scale, entity.transform.rotation, _size.X, _size.Y );
+					_bounds.calculateBounds( entity.transform.position, _localOffset, _origin, entity.transform.scale, entity.transform.rotation, _size.x, _size.y );
 					_areBoundsDirty = false;
 				}
 
@@ -55,10 +55,10 @@ namespace Nez
 		protected VerticalAlign _verticalAlign;
 		protected IFont _font;
 		protected string _text;
-		Vector2 _size;
+		vec2 _size;
 
 
-		public Text( IFont font, string text, Vector2 localOffset, Color color )
+		public Text( IFont font, string text, vec2 localOffset, Color color )
 		{
 			_font = font;
 			_text = text;
@@ -124,20 +124,20 @@ namespace Nez
 			var oldOrigin = _origin;
 
 			if( _horizontalAlign == HorizontalAlign.Left )
-				oldOrigin.X = 0;
+				oldOrigin.x = 0;
 			else if( _horizontalAlign == HorizontalAlign.Center )
-				oldOrigin.X = _size.X / 2;
+				oldOrigin.x = _size.x / 2;
 			else
-				oldOrigin.X = _size.X;
+				oldOrigin.x = _size.x;
 
 			if( _verticalAlign == VerticalAlign.Top )
-				oldOrigin.Y = 0;
+				oldOrigin.y = 0;
 			else if( _verticalAlign == VerticalAlign.Center )
-				oldOrigin.Y = _size.Y / 2;
+				oldOrigin.y = _size.y / 2;
 			else
-				oldOrigin.Y = _size.Y;
+				oldOrigin.y = _size.y;
 
-			origin = new Vector2( (int)oldOrigin.X, (int)oldOrigin.Y );
+			origin = new vec2( (int)oldOrigin.x, (int)oldOrigin.y );
 		}
 
 

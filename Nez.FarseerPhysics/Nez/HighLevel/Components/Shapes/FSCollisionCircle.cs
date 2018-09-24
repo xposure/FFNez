@@ -52,7 +52,7 @@ namespace Nez.Farseer
 
 		void recreateFixture()
 		{
-			_fixtureDef.shape.radius = _radius * transform.scale.X * FSConvert.displayToSim;
+			_fixtureDef.shape.radius = _radius * transform.scale.x * FSConvert.displayToSim;
 			( _fixtureDef.shape as CircleShape ).position = FSConvert.displayToSim * _center;
 
 			if( _fixture != null )

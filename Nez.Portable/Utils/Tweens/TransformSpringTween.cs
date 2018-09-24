@@ -10,8 +10,8 @@ namespace Nez.Tweens
 		
 		Transform _transform;
 		TransformTargetType _targetType;
-		Vector2 _targetValue;
-		Vector2 _velocity;
+		vec2 _targetValue;
+		vec2 _velocity;
 
 		// configuration of dampingRatio and angularFrequency are public for easier value tweaking at design time
 
@@ -36,7 +36,7 @@ namespace Nez.Tweens
 		/// should be between 0.01f, 1f to avoid unstable systems.</param>
 		/// <param name="angularFrequency">An angular frequency of 2pi (radians per second) means the oscillation completes one
 		/// full period over one second, i.e. 1Hz. should be less than 35 or so to remain stable</param>
-		public TransformSpringTween( Transform transform, TransformTargetType targetType, Vector2 targetValue )
+		public TransformSpringTween( Transform transform, TransformTargetType targetType, vec2 targetValue )
 		{
 			_transform = transform;
 			_targetType = targetType;
@@ -45,13 +45,13 @@ namespace Nez.Tweens
 
 
 		/// <summary>
-		/// you can call setTargetValue at any time to reset the target value to a new Vector2. If you have not called start to add the
+		/// you can call setTargetValue at any time to reset the target value to a new vec2. If you have not called start to add the
 		/// spring tween it will be called for you.
 		/// </summary>
 		/// <param name="targetValue">Target value.</param>
-		public void setTargetValue( Vector2 targetValue )
+		public void setTargetValue( vec2 targetValue )
 		{
-			_velocity = Vector2.Zero;
+			_velocity = vec2.Zero;
 			_targetValue = targetValue;
 
 			if( !_isCurrentlyManagedByTweenManager )
@@ -82,7 +82,7 @@ namespace Nez.Tweens
 		#endregion
 
 
-		void setTweenedValue( Vector2 value )
+		void setTweenedValue( vec2 value )
 		{
 			switch( _targetType )
 			{
@@ -96,10 +96,10 @@ namespace Nez.Tweens
 					_transform.localScale = value;
 					break;
 				case TransformTargetType.RotationDegrees:
-					_transform.rotationDegrees = value.X;
+					_transform.rotationDegrees = value.x;
 					break;
 				case TransformTargetType.LocalRotationDegrees:
-					_transform.localRotationDegrees = value.X;
+					_transform.localRotationDegrees = value.x;
 					break;
 				default:
 					throw new System.ArgumentOutOfRangeException();
@@ -107,7 +107,7 @@ namespace Nez.Tweens
 		}
 
 
-		Vector2 getCurrentValueOfTweenedTargetType()
+		vec2 getCurrentValueOfTweenedTargetType()
 		{
 			switch( _targetType )
 			{
@@ -118,12 +118,12 @@ namespace Nez.Tweens
 				case TransformTargetType.LocalScale:
 					return _transform.localScale;
 				case TransformTargetType.RotationDegrees:
-					return new Vector2( _transform.rotationDegrees, 0 );
+					return new vec2( _transform.rotationDegrees, 0 );
 				case TransformTargetType.LocalRotationDegrees:
-					return new Vector2( _transform.localRotationDegrees, 0 );
+					return new vec2( _transform.localRotationDegrees, 0 );
 			}
 
-			return Vector2.Zero;
+			return vec2.Zero;
 		}
 
 	}

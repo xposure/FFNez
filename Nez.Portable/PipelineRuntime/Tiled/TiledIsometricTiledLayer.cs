@@ -56,7 +56,7 @@ namespace Nez.Tiled
 		}
 
 
-		public override void draw( Batcher batcher, Vector2 position, float layerDepth, RectangleF cameraClipBounds )
+		public override void draw( Batcher batcher, vec2 position, float layerDepth, RectangleF cameraClipBounds )
 		{
 			// offset render position by the layer offset, used for isometric layer depth
 			position += offset;
@@ -67,8 +67,8 @@ namespace Nez.Tiled
 			{
 				// we expand our cameraClipBounds by the excess tile width/height of the largest tiles to ensure we include tiles whose
 				// origin might be outside of the cameraClipBounds
-				cameraClipBounds.location -= new Vector2( tiledMap.largestTileWidth, tiledMap.largestTileHeight - tiledMap.tileHeight );
-				cameraClipBounds.size += new Vector2( tiledMap.largestTileWidth, tiledMap.largestTileHeight - tiledMap.tileHeight );
+				cameraClipBounds.location -= new vec2( tiledMap.largestTileWidth, tiledMap.largestTileHeight - tiledMap.tileHeight );
+				cameraClipBounds.size += new vec2( tiledMap.largestTileWidth, tiledMap.largestTileHeight - tiledMap.tileHeight );
 			}
 
 			Point min, max;
@@ -85,7 +85,7 @@ namespace Nez.Tiled
 						continue;
 
 					var tileworldpos = tiledMap.isometricTileToWorldPosition( x, y );
-					if( tileworldpos.X < cameraClipBounds.left || tileworldpos.Y < cameraClipBounds.top || tileworldpos.X > cameraClipBounds.right || tileworldpos.Y > cameraClipBounds.bottom )
+					if( tileworldpos.x < cameraClipBounds.left || tileworldpos.y < cameraClipBounds.top || tileworldpos.x > cameraClipBounds.right || tileworldpos.y > cameraClipBounds.bottom )
 						continue;
 
 					var tileRegion = tile.textureRegion;
@@ -94,7 +94,7 @@ namespace Nez.Tiled
 					if( tiledMap.requiresLargeTileCulling )
 					{
 						// TODO: this only checks left and bottom. we should check top and right as well to deal with rotated, odd-sized tiles
-						if( tileworldpos.X + tileRegion.sourceRect.Width < cameraClipBounds.left || tileworldpos.Y - tileRegion.sourceRect.Height > cameraClipBounds.bottom )
+						if( tileworldpos.x + tileRegion.sourceRect.Width < cameraClipBounds.left || tileworldpos.y - tileRegion.sourceRect.Height > cameraClipBounds.bottom )
 							continue;
 					}
 
@@ -104,7 +104,7 @@ namespace Nez.Tiled
 		}
 
 
-		public void drawTile( Batcher batcher, Vector2 position, float layerDepth, int x, int y, float scale )
+		public void drawTile( Batcher batcher, vec2 position, float layerDepth, int x, int y, float scale )
 		{
 			var tile = getTile( x, y );
 			if( tile == null )
@@ -128,39 +128,39 @@ namespace Nez.Tiled
 				{
 					spriteEffects ^= SpriteEffects.FlipVertically;
 					rotation = MathHelper.PiOver2;
-					t.X += tiledMap.tileHeight + ( tileRegion.sourceRect.Height - tiledMap.tileHeight );
-					t.Y -= ( tileRegion.sourceRect.Width - tiledMap.tileWidth );
+					t.x += tiledMap.tileHeight + ( tileRegion.sourceRect.Height - tiledMap.tileHeight );
+					t.y -= ( tileRegion.sourceRect.Width - tiledMap.tileWidth );
 				}
 				else if( tile.flippedHorizonally )
 				{
 					spriteEffects ^= SpriteEffects.FlipVertically;
 					rotation = -MathHelper.PiOver2;
-					t.Y += tiledMap.tileHeight;
+					t.y += tiledMap.tileHeight;
 				}
 				else if( tile.flippedVertically )
 				{
 					spriteEffects ^= SpriteEffects.FlipHorizontally;
 					rotation = MathHelper.PiOver2;
-					t.X += tiledMap.tileWidth + ( tileRegion.sourceRect.Height - tiledMap.tileHeight );
-					t.Y += ( tiledMap.tileWidth - tileRegion.sourceRect.Width );
+					t.x += tiledMap.tileWidth + ( tileRegion.sourceRect.Height - tiledMap.tileHeight );
+					t.y += ( tiledMap.tileWidth - tileRegion.sourceRect.Width );
 				}
 				else
 				{
 					spriteEffects ^= SpriteEffects.FlipHorizontally;
 					rotation = -MathHelper.PiOver2;
-					t.Y += tiledMap.tileHeight;
+					t.y += tiledMap.tileHeight;
 				}
 			}
 
 			// if we had no rotations (diagonal flipping) shift our y-coord to account for any non-tileSized tiles to account for
 			// Tiled being bottom-left origin
 			if( rotation == 0 )
-				t.Y += ( tiledMap.tileHeight - tileRegion.sourceRect.Height );
+				t.y += ( tiledMap.tileHeight - tileRegion.sourceRect.Height );
 
             // Scale the tile's relative position, but not the origin
-            t = t * new Vector2(scale) + position;
+            t = t * new vec2(scale) + position;
 
-			batcher.draw( tileRegion.texture2D, t, tileRegion.sourceRect, color, rotation, Vector2.Zero, scale, spriteEffects, layerDepth );
+			batcher.draw( tileRegion.texture2D, t, tileRegion.sourceRect, color, rotation, vec2.Zero, scale, spriteEffects, layerDepth );
 		}
 
 
@@ -231,13 +231,13 @@ namespace Nez.Tiled
 
 
 		/// <summary>
-		/// note that world position assumes that the Vector2 was normalized to be in the tilemaps coordinates. i.e. if the tilemap
+		/// note that world position assumes that the vec2 was normalized to be in the tilemaps coordinates. i.e. if the tilemap
 		/// is not at 0,0 then the world position should be moved so that it takes into consideration the tilemap offset from 0,0.
 		/// Example: if the tilemap is at 300,300 then the passed in value should be worldPos - (300,300)
 		/// </summary>
 		/// <returns>The tile at world position.</returns>
 		/// <param name="pos">Position.</param>
-		public TiledTile getTileAtWorldPosition( Vector2 pos )
+		public TiledTile getTileAtWorldPosition( vec2 pos )
 		{
 			Point tilePos = tiledMap.isometricWorldToTilePosition( pos );
 			return getTile( tilePos.X, tilePos.Y );
@@ -366,7 +366,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <param name="start">Start.</param>
 		/// <param name="end">End.</param>
-		public TiledTile linecast( Vector2 start, Vector2 end )
+		public TiledTile linecast( vec2 start, vec2 end )
 		{
 			var direction = end - start;
 
@@ -374,8 +374,8 @@ namespace Nez.Tiled
 			var startCell = tiledMap.isometricWorldToTilePosition( start );
 			var endCell = tiledMap.isometricWorldToTilePosition( end );
 
-			start.X /= tiledMap.tileWidth;
-			start.Y /= tiledMap.tileHeight;
+			start.x /= tiledMap.tileWidth;
+			start.y /= tiledMap.tileHeight;
 
 			// what tile are we on
 			var intX = startCell.X;
@@ -386,8 +386,8 @@ namespace Nez.Tiled
 				return null;
 
 			// which way we go
-			var stepX = Math.Sign( direction.X );
-			var stepY = Math.Sign( direction.Y );
+			var stepX = Math.Sign( direction.x );
+			var stepY = Math.Sign( direction.y );
 
 			// Calculate cell boundaries. when the step is positive, the next cell is after this one meaning we add 1.
 			// If negative, cell is before this one in which case dont add to boundary
@@ -397,16 +397,16 @@ namespace Nez.Tiled
 			// determine the value of t at which the ray crosses the first vertical tile boundary. same for y/horizontal.
 			// The minimum of these two values will indicate how much we can travel along the ray and still remain in the current tile
 			// may be infinite for near vertical/horizontal rays
-			var tMaxX = ( boundaryX - start.X ) / direction.X;
-			var tMaxY = ( boundaryY - start.Y ) / direction.Y;
-			if( direction.X == 0f )
+			var tMaxX = ( boundaryX - start.x ) / direction.x;
+			var tMaxY = ( boundaryY - start.y ) / direction.y;
+			if( direction.x == 0f )
 				tMaxX = float.PositiveInfinity;
-			if( direction.Y == 0f )
+			if( direction.y == 0f )
 				tMaxY = float.PositiveInfinity;
 
 			// how far do we have to walk before crossing a cell from a cell boundary. may be infinite for near vertical/horizontal rays
-			var tDeltaX = stepX / direction.X;
-			var tDeltaY = stepY / direction.Y;
+			var tDeltaX = stepX / direction.x;
+			var tDeltaY = stepY / direction.y;
 
 			// start walking and returning the intersecting tiles
 			var tile = tiles[intX + intY * width];

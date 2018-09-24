@@ -79,7 +79,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			if( _selection.isDisabled() || _items.Count == 0 )
 				return false;
@@ -97,11 +97,11 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{}
 
 
@@ -111,7 +111,7 @@ namespace Nez.UI
 		}
 
 
-		int getItemIndexUnderMousePosition( Vector2 mousePos )
+		int getItemIndexUnderMousePosition( vec2 mousePos )
 		{
 			if( _selection.isDisabled() || _items.Count == 0 )
 				return -1;
@@ -120,10 +120,10 @@ namespace Nez.UI
 			if( _style.background != null )
 			{
 				top += _style.background.topHeight + _style.background.bottomHeight;
-				mousePos.Y += _style.background.bottomHeight;
+				mousePos.y += _style.background.bottomHeight;
 			}
 
-			var index = (int)( ( top + mousePos.Y ) / _itemHeight );
+			var index = (int)( ( top + mousePos.y ) / _itemHeight );
 			if( index < 0 || index > _items.Count - 1 )
 				return -1;
 
@@ -146,7 +146,7 @@ namespace Nez.UI
 
 			_prefWidth = 0;
 			for( var i = 0; i < _items.Count; i++ )
-				_prefWidth = Math.Max( font.measureString( _items[i].ToString() ).X, _prefWidth );
+				_prefWidth = Math.Max( font.measureString( _items[i].ToString() ).x, _prefWidth );
 
 			_prefWidth += selectedDrawable.leftWidth + selectedDrawable.rightWidth;
 			_prefHeight = _items.Count * _itemHeight;
@@ -215,7 +215,7 @@ namespace Nez.UI
 						fontColor = unselectedFontColor;
 					}
 
-					var textPos = new Vector2( x + _textOffsetX, y + itemY + _textOffsetY );
+					var textPos = new vec2( x + _textOffsetX, y + itemY + _textOffsetY );
 					graphics.batcher.drawString( font, item.ToString(), textPos, fontColor );
 				}
 				else if( itemY < _cullingArea.Value.Y )

@@ -20,7 +20,7 @@ namespace Nez
 		/// <summary>
 		/// set by the Scene and used to scale mouse input
 		/// </summary>
-		internal static Vector2 _resolutionScale;
+		internal static vec2 _resolutionScale;
 		/// <summary>
 		/// set by the Scene and used to scale input
 		/// </summary>
@@ -85,16 +85,16 @@ namespace Nez
 		/// </summary>
 		/// <value>The scaled position.</value>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Vector2 scaledPosition( Vector2 position )
+		public static vec2 scaledPosition( vec2 position )
 		{
-			var scaledPos = new Vector2( position.X - _resolutionOffset.X, position.Y - _resolutionOffset.Y );
+			var scaledPos = new vec2( position.x - _resolutionOffset.X, position.y - _resolutionOffset.Y );
 			return scaledPos * _resolutionScale;
 		}
 
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public static Vector2 scaledPosition( Point position )
+		public static vec2 scaledPosition( Point position )
 		{
-			return scaledPosition( new Vector2( position.X, position.Y ) );
+			return scaledPosition( new vec2( position.X, position.Y ) );
 		}
 
 		#region Keyboard
@@ -290,24 +290,24 @@ namespace Nez
 		/// alias for scaledMousePosition
 		/// </summary>
 		/// <value>The mouse position.</value>
-		public static Vector2 mousePosition { get { return scaledMousePosition; } }
+		public static vec2 mousePosition { get { return scaledMousePosition; } }
 
 		/// <summary>
 		/// this takes into account the SceneResolutionPolicy and returns the value scaled to the RenderTargets coordinates
 		/// </summary>
 		/// <value>The scaled mouse position.</value>
-		public static Vector2 scaledMousePosition { get { return scaledPosition( new Vector2( _currentMouseState.X, _currentMouseState.Y ) ); } }
+		public static vec2 scaledMousePosition { get { return scaledPosition( new vec2( _currentMouseState.X, _currentMouseState.Y ) ); } }
 
 		public static Point mousePositionDelta
 		{
 			get { return new Point( _currentMouseState.X, _currentMouseState.Y ) - new Point( _previousMouseState.X, _previousMouseState.Y ); }
 		}
 
-		public static Vector2 scaledMousePositionDelta
+		public static vec2 scaledMousePositionDelta
 		{
 			get
 			{
-				var pastPos = new Vector2( _previousMouseState.X - _resolutionOffset.X, _previousMouseState.Y - _resolutionOffset.Y );
+				var pastPos = new vec2( _previousMouseState.X - _resolutionOffset.X, _previousMouseState.Y - _resolutionOffset.Y );
 				pastPos *= _resolutionScale;
 				return scaledMousePosition - pastPos;
 			}

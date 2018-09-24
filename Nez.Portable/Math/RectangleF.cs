@@ -86,7 +86,7 @@ namespace Nez
 		/// gets the max point of the rectangle, the bottom-right corner
 		/// </summary>
 		/// <value>The max.</value>
-		public Vector2 max { get { return new Vector2( right, bottom ); } }
+		public vec2 max { get { return new vec2( right, bottom ); } }
 
 		/// <summary>
 		/// Whether or not this <see cref="RectangleF"/> has a <see cref="Width"/> and
@@ -103,32 +103,32 @@ namespace Nez
 		/// <summary>
 		/// The top-left coordinates of this <see cref="RectangleF"/>.
 		/// </summary>
-		public Vector2 location
+		public vec2 location
 		{
 			get
 			{
-				return new Vector2( this.x, this.y );
+				return new vec2( this.x, this.y );
 			}
 			set
 			{
-				x = value.X;
-				y = value.Y;
+				x = value.x;
+				y = value.y;
 			}
 		}
 
 		/// <summary>
 		/// The width-height coordinates of this <see cref="RectangleF"/>.
 		/// </summary>
-		public Vector2 size
+		public vec2 size
 		{
 			get
 			{
-				return new Vector2( this.width, this.height );
+				return new vec2( this.width, this.height );
 			}
 			set
 			{
-				width = value.X;
-				height = value.Y;
+				width = value.x;
+				height = value.y;
 			}
 		}
 
@@ -139,9 +139,9 @@ namespace Nez
 		/// If <see cref="Width"/> or <see cref="Height"/> is an odd number,
 		/// the center point will be rounded down.
 		/// </remarks>
-		public Vector2 center
+		public vec2 center
 		{
-			get { return new Vector2( this.x + ( this.width / 2 ), this.y + ( this.height / 2 ) ); }
+			get { return new vec2( this.x + ( this.width / 2 ), this.y + ( this.height / 2 ) ); }
 		}
 
 		#endregion
@@ -187,12 +187,12 @@ namespace Nez
 		/// </summary>
 		/// <param name="location">The x and y coordinates of the top-left corner of the created <see cref="RectangleF"/>.</param>
 		/// <param name="size">The width and height of the created <see cref="RectangleF"/>.</param>
-		public RectangleF( Vector2 location, Vector2 size )
+		public RectangleF( vec2 location, vec2 size )
 		{
-			this.x = location.X;
-			this.y = location.Y;
-			this.width = size.X;
-			this.height = size.Y;
+			this.x = location.x;
+			this.y = location.y;
+			this.width = size.x;
+			this.height = size.y;
 		}
 
 
@@ -202,9 +202,9 @@ namespace Nez
 		/// <returns>The minimum max points.</returns>
 		/// <param name="min">Minimum.</param>
 		/// <param name="max">Max.</param>
-		public static RectangleF fromMinMax( Vector2 min, Vector2 max )
+		public static RectangleF fromMinMax( vec2 min, vec2 max )
 		{
-			return new RectangleF( min.X, min.Y, max.X - min.X, max.Y - min.Y );
+			return new RectangleF( min.x, min.y, max.x - min.x, max.y - min.y );
 		}
 
 
@@ -225,7 +225,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The from polygon points.</returns>
 		/// <param name="points">Points.</param>
-		public static RectangleF rectEncompassingPoints( Vector2[] points )
+		public static RectangleF rectEncompassingPoints( vec2[] points )
 		{
 			// we need to find the min/max x/y values
 			var minX = float.PositiveInfinity;
@@ -237,15 +237,15 @@ namespace Nez
 			{
 				var pt = points[i];
 
-				if( pt.X < minX )
-					minX = pt.X;
-				if( pt.X > maxX )
-					maxX = pt.X;
+				if( pt.x < minX )
+					minX = pt.x;
+				if( pt.x > maxX )
+					maxX = pt.x;
 
-				if( pt.Y < minY )
-					minY = pt.Y;
-				if( pt.Y > maxY )
-					maxY = pt.Y;
+				if( pt.y < minY )
+					minY = pt.y;
+				if( pt.y > maxY )
+					maxY = pt.y;
 			}
 
 			return RectangleF.fromMinMax( minX, minY, maxX, maxY );
@@ -324,24 +324,24 @@ namespace Nez
 
 
 		/// <summary>
-		/// Gets whether or not the provided <see cref="Vector2"/> lies within the bounds of this <see cref="RectangleF"/>.
+		/// Gets whether or not the provided <see cref="vec2"/> lies within the bounds of this <see cref="RectangleF"/>.
 		/// </summary>
 		/// <param name="value">The coordinates to check for inclusion in this <see cref="RectangleF"/>.</param>
-		/// <returns><c>true</c> if the provided <see cref="Vector2"/> lies inside this <see cref="RectangleF"/>; <c>false</c> otherwise.</returns>
-		public bool contains( Vector2 value )
+		/// <returns><c>true</c> if the provided <see cref="vec2"/> lies inside this <see cref="RectangleF"/>; <c>false</c> otherwise.</returns>
+		public bool contains( vec2 value )
 		{
-			return ( ( ( ( this.x <= value.X ) && ( value.X < ( this.x + this.width ) ) ) && ( this.y <= value.Y ) ) && ( value.Y < ( this.y + this.height ) ) );
+			return ( ( ( ( this.x <= value.x ) && ( value.x < ( this.x + this.width ) ) ) && ( this.y <= value.y ) ) && ( value.y < ( this.y + this.height ) ) );
 		}
 
 
 		/// <summary>
-		/// Gets whether or not the provided <see cref="Vector2"/> lies within the bounds of this <see cref="RectangleF"/>.
+		/// Gets whether or not the provided <see cref="vec2"/> lies within the bounds of this <see cref="RectangleF"/>.
 		/// </summary>
 		/// <param name="value">The coordinates to check for inclusion in this <see cref="RectangleF"/>.</param>
-		/// <param name="result"><c>true</c> if the provided <see cref="Vector2"/> lies inside this <see cref="RectangleF"/>; <c>false</c> otherwise. As an output parameter.</param>
-		public void contains( ref Vector2 value, out bool result )
+		/// <param name="result"><c>true</c> if the provided <see cref="vec2"/> lies inside this <see cref="RectangleF"/>; <c>false</c> otherwise. As an output parameter.</param>
+		public void contains( ref vec2 value, out bool result )
 		{
-			result = ( ( ( ( this.x <= value.X ) && ( value.X < ( this.x + this.width ) ) ) && ( this.y <= value.Y ) ) && ( value.Y < ( this.y + this.height ) ) );
+			result = ( ( ( ( this.x <= value.x ) && ( value.x < ( this.x + this.width ) ) ) && ( this.y <= value.y ) ) && ( value.y < ( this.y + this.height ) ) );
 		}
 
 
@@ -440,16 +440,16 @@ namespace Nez
 			distance = 0f;
 			var maxValue = float.MaxValue;
 
-			if( Math.Abs( ray.direction.X ) < 1E-06f )
+			if( Math.Abs( ray.direction.x ) < 1E-06f )
 			{
-				if( ( ray.start.X < x ) || ( ray.start.X > x + width ) )
+				if( ( ray.start.x < x ) || ( ray.start.x > x + width ) )
 					return false;
 			}
 			else
 			{
-				var num11 = 1f / ray.direction.X;
-				var num8 = ( x - ray.start.X ) * num11;
-				var num7 = ( x + width - ray.start.X ) * num11;
+				var num11 = 1f / ray.direction.x;
+				var num8 = ( x - ray.start.x ) * num11;
+				var num7 = ( x + width - ray.start.x ) * num11;
 				if( num8 > num7 )
 				{
 					var num14 = num8;
@@ -463,18 +463,18 @@ namespace Nez
 					return false;
 			}
 
-			if( Math.Abs( ray.direction.Y ) < 1E-06f )
+			if( Math.Abs( ray.direction.y ) < 1E-06f )
 			{
-				if( ( ray.start.Y < y ) || ( ray.start.Y > y + height ) )
+				if( ( ray.start.y < y ) || ( ray.start.y > y + height ) )
 				{
 					return false;
 				}
 			}
 			else
 			{
-				var num10 = 1f / ray.direction.Y;
-				var num6 = ( y - ray.start.Y ) * num10;
-				var num5 = ( y + height - ray.start.Y ) * num10;
+				var num10 = 1f / ray.direction.y;
+				var num6 = ( y - ray.start.y ) * num10;
+				var num5 = ( y + height - ray.start.y ) * num10;
 				if( num6 > num5 )
 				{
 					var num13 = num6;
@@ -547,31 +547,31 @@ namespace Nez
 		}
 
 
-		public Vector2 getClosestPointOnBoundsToOrigin()
+		public vec2 getClosestPointOnBoundsToOrigin()
 		{
 			var max = this.max;
-			var minDist = Math.Abs( location.X );
-			var boundsPoint = new Vector2( location.X, 0 );
+			var minDist = Math.Abs( location.x );
+			var boundsPoint = new vec2( location.x, 0 );
 
-			if( Math.Abs( max.X ) < minDist )
+			if( Math.Abs( max.x ) < minDist )
 			{
-				minDist = Math.Abs( max.X );
-				boundsPoint.X = max.X;
-				boundsPoint.Y = 0f;
+				minDist = Math.Abs( max.x );
+				boundsPoint.x = max.x;
+				boundsPoint.y = 0f;
 			}
 
-			if( Math.Abs( max.Y ) < minDist )
+			if( Math.Abs( max.y ) < minDist )
 			{
-				minDist = Math.Abs( max.Y );
-				boundsPoint.X = 0f;
-				boundsPoint.Y = max.Y;
+				minDist = Math.Abs( max.y );
+				boundsPoint.x = 0f;
+				boundsPoint.y = max.y;
 			}
 
-			if( Math.Abs( location.Y ) < minDist )
+			if( Math.Abs( location.y ) < minDist )
 			{
-				minDist = Math.Abs( location.Y );
-				boundsPoint.X = 0;
-				boundsPoint.Y = location.Y;
+				minDist = Math.Abs( location.y );
+				boundsPoint.x = 0;
+				boundsPoint.y = location.y;
 			}
 
 			return boundsPoint;
@@ -583,12 +583,12 @@ namespace Nez
 		/// </summary>
 		/// <returns>The closest point on rectangle to point.</returns>
 		/// <param name="point">Point.</param>
-		public Vector2 getClosestPointOnRectangleFToPoint( Vector2 point )
+		public vec2 getClosestPointOnRectangleFToPoint( vec2 point )
 		{
 			// for each axis, if the point is outside the box clamp it to the box else leave it alone
-			var res = new Vector2();
-			res.X = MathHelper.Clamp( point.X, left, right );
-			res.Y = MathHelper.Clamp( point.Y, top, bottom );
+			var res = new vec2();
+			res.x = MathHelper.Clamp( point.x, left, right );
+			res.y = MathHelper.Clamp( point.y, top, bottom );
 
 			return res;
 		}
@@ -599,55 +599,55 @@ namespace Nez
 		/// </summary>
 		/// <returns>The closest point on rectangle border to point.</returns>
 		/// <param name="point">Point.</param>
-		public Vector2 getClosestPointOnRectangleBorderToPoint( Vector2 point, out Vector2 edgeNormal )
+		public vec2 getClosestPointOnRectangleBorderToPoint( vec2 point, out vec2 edgeNormal )
 		{
-			edgeNormal = Vector2.Zero;
+			edgeNormal = vec2.Zero;
 
 			// for each axis, if the point is outside the box clamp it to the box else leave it alone
-			var res = new Vector2();
-			res.X = MathHelper.Clamp( point.X, left, right );
-			res.Y = MathHelper.Clamp( point.Y, top, bottom );
+			var res = new vec2();
+			res.x = MathHelper.Clamp( point.x, left, right );
+			res.y = MathHelper.Clamp( point.y, top, bottom );
 
 			// if point is inside the rectangle we need to push res to the border since it will be inside the rect
 			if( contains( res ) )
 			{
-				var dl = res.X - left;
-				var dr = right - res.X;
-				var dt = res.Y - top;
-				var db = bottom - res.Y;
+				var dl = res.x - left;
+				var dr = right - res.x;
+				var dt = res.y - top;
+				var db = bottom - res.y;
 
 				var min = Mathf.minOf( dl, dr, dt, db );
 				if( min == dt )
 				{
-					res.Y = top;
-					edgeNormal.Y = -1;
+					res.y = top;
+					edgeNormal.y = -1;
 				}
 				else if( min == db )
 				{
-					res.Y = bottom;
-					edgeNormal.Y = 1;
+					res.y = bottom;
+					edgeNormal.y = 1;
 				}
 				else if( min == dl )
 				{
-					res.X = left;
-					edgeNormal.X = -1;
+					res.x = left;
+					edgeNormal.x = -1;
 				}
 				else
 				{
-					res.X = right;
-					edgeNormal.X = 1;
+					res.x = right;
+					edgeNormal.x = 1;
 				}
 			}
 			else
 			{
-				if( res.X == left )
-					edgeNormal.X = -1;
-				if( res.X == right )
-					edgeNormal.X = 1;
-				if( res.Y == top )
-					edgeNormal.Y = -1;
-				if( res.Y == bottom )
-					edgeNormal.Y = 1;
+				if( res.x == left )
+					edgeNormal.x = -1;
+				if( res.x == right )
+					edgeNormal.x = 1;
+				if( res.y == top )
+					edgeNormal.y = -1;
+				if( res.y == bottom )
+					edgeNormal.y = 1;
 			}
 
 			return res;
@@ -730,10 +730,10 @@ namespace Nez
 		/// Changes the <see cref="Location"/> of this <see cref="RectangleF"/>.
 		/// </summary>
 		/// <param name="amount">The x and y components to add to this <see cref="RectangleF"/>.</param>
-		public void offset( Vector2 amount )
+		public void offset( vec2 amount )
 		{
-			x += amount.X;
-			y += amount.Y;
+			x += amount.x;
+			y += amount.y;
 		}
 
 
@@ -768,24 +768,24 @@ namespace Nez
 		}
 
 
-		public void calculateBounds( Vector2 parentPosition, Vector2 position, Vector2 origin, Vector2 scale, float rotation, float width, float height )
+		public void calculateBounds( vec2 parentPosition, vec2 position, vec2 origin, vec2 scale, float rotation, float width, float height )
 		{
 			if( rotation == 0f )
 			{
-				x = parentPosition.X + position.X - origin.X * scale.X;
-				y = parentPosition.Y + position.Y - origin.Y * scale.Y;
-				this.width = width * scale.X;
-				this.height = height * scale.Y;
+				x = parentPosition.x + position.x - origin.x * scale.x;
+				y = parentPosition.y + position.y - origin.y * scale.y;
+				this.width = width * scale.x;
+				this.height = height * scale.y;
 			}
 			else
 			{
 				// special care for rotated bounds. we need to find our absolute min/max values and create the bounds from that
-				var worldPosX = parentPosition.X + position.X;
-				var worldPosY = parentPosition.Y + position.Y;
+				var worldPosX = parentPosition.x + position.x;
+				var worldPosY = parentPosition.y + position.y;
 
 				// set the reference point to world reference taking origin into account
-				Matrix2D.createTranslation( -worldPosX - origin.X, -worldPosY - origin.Y, out _transformMat );
-				Matrix2D.createScale( scale.X, scale.Y, out _tempMat ); // scale ->
+				Matrix2D.createTranslation( -worldPosX - origin.x, -worldPosY - origin.y, out _transformMat );
+				Matrix2D.createScale( scale.x, scale.y, out _tempMat ); // scale ->
 				Matrix2D.multiply( ref _transformMat, ref _tempMat, out _transformMat );
 				Matrix2D.createRotation( rotation, out _tempMat ); // rotate ->
 				Matrix2D.multiply( ref _transformMat, ref _tempMat, out _transformMat );
@@ -794,10 +794,10 @@ namespace Nez
 
 				// TODO: this is a bit silly. we can just leave the worldPos translation in the Matrix and avoid this
 				// get all four corners in world space
-				var topLeft = new Vector2( worldPosX, worldPosY );
-				var topRight = new Vector2( worldPosX + width, worldPosY );
-				var bottomLeft = new Vector2( worldPosX, worldPosY + height );
-				var bottomRight = new Vector2( worldPosX + width, worldPosY + height );
+				var topLeft = new vec2( worldPosX, worldPosY );
+				var topRight = new vec2( worldPosX + width, worldPosY );
+				var bottomLeft = new vec2( worldPosX, worldPosY + height );
+				var bottomRight = new vec2( worldPosX + width, worldPosY + height );
 
 				// transform the corners into our work space
 				Vector2Ext.transform( ref topLeft, ref _transformMat, out topLeft );
@@ -806,12 +806,12 @@ namespace Nez
 				Vector2Ext.transform( ref bottomRight, ref _transformMat, out bottomRight );
 
 				// find the min and max values so we can concoct our bounding box
-				var minX = Mathf.minOf( topLeft.X, bottomRight.X, topRight.X, bottomLeft.X );
-				var maxX = Mathf.maxOf( topLeft.X, bottomRight.X, topRight.X, bottomLeft.X );
-				var minY = Mathf.minOf( topLeft.Y, bottomRight.Y, topRight.Y, bottomLeft.Y );
-				var maxY = Mathf.maxOf( topLeft.Y, bottomRight.Y, topRight.Y, bottomLeft.Y );
+				var minX = Mathf.minOf( topLeft.x, bottomRight.x, topRight.x, bottomLeft.x );
+				var maxX = Mathf.maxOf( topLeft.x, bottomRight.x, topRight.x, bottomLeft.x );
+				var minY = Mathf.minOf( topLeft.y, bottomRight.y, topRight.y, bottomLeft.y );
+				var maxY = Mathf.maxOf( topLeft.y, bottomRight.y, topRight.y, bottomLeft.y );
 
-				location = new Vector2( minX, minY );
+				location = new vec2( minX, minY );
 				this.width = maxX - minX;
 				this.height = maxY - minY;
 			}
@@ -877,9 +877,9 @@ namespace Nez
 		/// <returns>
 		/// The amount of overlap between two intersecting rectangles. These depth values can be negative depending on which sides the rectangles
 		/// intersect. This allows callers to determine the correct direction to push objects in order to resolve collisions.
-		/// If the rectangles are not intersecting, Vector2.Zero is returned.
+		/// If the rectangles are not intersecting, vec2.Zero is returned.
 		/// </returns>
-		public static Vector2 getIntersectionDepth( ref RectangleF rectA, ref RectangleF rectB )
+		public static vec2 getIntersectionDepth( ref RectangleF rectA, ref RectangleF rectB )
 		{
 			// calculate half sizes
 			var halfWidthA = rectA.width / 2.0f;
@@ -888,24 +888,24 @@ namespace Nez
 			var halfHeightB = rectB.height / 2.0f;
 
 			// calculate centers
-			var centerA = new Vector2( rectA.left + halfWidthA, rectA.top + halfHeightA );
-			var centerB = new Vector2( rectB.left + halfWidthB, rectB.top + halfHeightB );
+			var centerA = new vec2( rectA.left + halfWidthA, rectA.top + halfHeightA );
+			var centerB = new vec2( rectB.left + halfWidthB, rectB.top + halfHeightB );
 
 			// calculate current and minimum-non-intersecting distances between centers
-			var distanceX = centerA.X - centerB.X;
-			var distanceY = centerA.Y - centerB.Y;
+			var distanceX = centerA.x - centerB.x;
+			var distanceY = centerA.y - centerB.y;
 			var minDistanceX = halfWidthA + halfWidthB;
 			var minDistanceY = halfHeightA + halfHeightB;
 
 			// if we are not intersecting at all, return (0, 0)
 			if( Math.Abs( distanceX ) >= minDistanceX || Math.Abs( distanceY ) >= minDistanceY )
-				return Vector2.Zero;
+				return vec2.Zero;
 
 			// calculate and return intersection depths
 			var depthX = distanceX > 0 ? minDistanceX - distanceX : -minDistanceX - distanceX;
 			var depthY = distanceY > 0 ? minDistanceY - distanceY : -minDistanceY - distanceY;
 
-			return new Vector2( depthX, depthY );
+			return new vec2( depthX, depthY );
 		}
 
 

@@ -35,7 +35,7 @@ namespace Nez
 			{
 				if( _areBoundsDirty )
 				{
-					_bounds.calculateBounds( entity.transform.position, _localOffset, Vector2.Zero, entity.transform.scale, entity.transform.rotation, width, height );
+					_bounds.calculateBounds( entity.transform.position, _localOffset, vec2.Zero, entity.transform.scale, entity.transform.rotation, width, height );
 					_areBoundsDirty = false;
 				}
 
@@ -78,7 +78,7 @@ namespace Nez
 		/// offset from the parent entity. Useful for adding multiple Renderables to an Entity that need specific positioning.
 		/// </summary>
 		/// <value>The local position.</value>
-		public Vector2 localOffset
+		public vec2 localOffset
 		{
 			get { return _localOffset; }
 			set { setLocalOffset( value ); }
@@ -105,7 +105,7 @@ namespace Nez
 			}
 		}
 
-		protected Vector2 _localOffset;
+		protected vec2 _localOffset;
 		protected float _layerDepth;
 		protected int _renderLayer;
 		protected RectangleF _bounds;
@@ -245,7 +245,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The local offset.</returns>
 		/// <param name="offset">Offset.</param>
-		public RenderableComponent setLocalOffset( Vector2 offset )
+		public RenderableComponent setLocalOffset( vec2 offset )
 		{
 			if( _localOffset != offset )
 			{

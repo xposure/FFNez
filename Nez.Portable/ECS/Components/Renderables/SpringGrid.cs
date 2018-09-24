@@ -139,7 +139,7 @@ namespace Nez
 
 		Spring[] _springs;
 		PointMass[,] _points;
-		Vector2 _screenSize;
+		vec2 _screenSize;
 		Rectangle _gridSize;
 
 
@@ -150,11 +150,11 @@ namespace Nez
 
 			// we offset the gridSize location by half-spacing so the padding is applied evenly all around
 			gridSize.Location -= (Point)spacing;
-			gridSize.Width += (int)spacing.X;
-			gridSize.Height += (int)spacing.Y;
+			gridSize.Width += (int)spacing.x;
+			gridSize.Height += (int)spacing.y;
 
-			var numColumns = (int)( gridSize.Width / spacing.X ) + 1;
-			var numRows = (int)( gridSize.Height / spacing.Y ) + 1;
+			var numColumns = (int)( gridSize.Width / spacing.x ) + 1;
+			var numRows = (int)( gridSize.Height / spacing.y ) + 1;
 			_points = new PointMass[numColumns, numRows];
 
 			// these fixed points will be used to anchor the grid to fixed positions on the screen
@@ -162,9 +162,9 @@ namespace Nez
 
 			// create the point masses
 			int column = 0, row = 0;
-			for( float y = gridSize.Top; y <= gridSize.Bottom; y += spacing.Y )
+			for( float y = gridSize.Top; y <= gridSize.Bottom; y += spacing.y )
 			{
-				for( float x = gridSize.Left; x <= gridSize.Right; x += spacing.X )
+				for( float x = gridSize.Left; x <= gridSize.Right; x += spacing.x )
 				{
 					_points[column, row] = new PointMass( new Vector3( x, y, 0 ), 1 );
 					fixedPoints[column, row] = new PointMass( new Vector3( x, y, 0 ), 0 );
@@ -204,7 +204,7 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void applyDirectedForce( Vector2 force, Vector2 position, float radius )
+		public void applyDirectedForce( vec2 force, vec2 position, float radius )
 		{
 			applyDirectedForce( new Vector3( force, 0 ), new Vector3( position, 0 ), radius );
 		}
@@ -234,7 +234,7 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void applyImplosiveForce( float force, Vector2 position, float radius )
+		public void applyImplosiveForce( float force, vec2 position, float radius )
 		{
 			applyImplosiveForce( force, new Vector3( position, 0 ), radius );
 		}
@@ -268,7 +268,7 @@ namespace Nez
 		/// <param name="force">Force.</param>
 		/// <param name="position">Position.</param>
 		/// <param name="radius">Radius.</param>
-		public void applyExplosiveForce( float force, Vector2 position, float radius )
+		public void applyExplosiveForce( float force, vec2 position, float radius )
 		{
 			applyExplosiveForce( force, new Vector3( position, 0 ), radius );
 		}
@@ -298,8 +298,8 @@ namespace Nez
 
 		void IUpdatable.update()
 		{
-			_screenSize.X = Screen.width;
-			_screenSize.Y = Screen.height;
+			_screenSize.x = Screen.width;
+			_screenSize.y = Screen.height;
 
 			foreach( var spring in _springs )
 				spring.update();
@@ -319,8 +319,8 @@ namespace Nez
 			{
 				for( var x = 1; x < width; x++ )
 				{
-					var left = new Vector2();
-					var up = new Vector2();
+					var left = new vec2();
+					var up = new vec2();
 					var p = projectToVector2( _points[x, y].position );
 
 					if( x > 1 )
@@ -342,10 +342,10 @@ namespace Nez
 						// use Catmull-Rom interpolation to help smooth bends in the grid
 						left = projectToVector2( _points[x - 1, y].position );
 						var clampedX = Math.Min( x + 1, width - 1 );
-						var mid = Vector2.CatmullRom( projectToVector2( _points[x - 2, y].position ), left, p, projectToVector2( _points[clampedX, y].position ), 0.5f );
+						var mid = vec2.CatmullRom( projectToVector2( _points[x - 2, y].position ), left, p, projectToVector2( _points[clampedX, y].position ), 0.5f );
 
 						// If the grid is very straight here, draw a single straight line. Otherwise, draw lines to our new interpolated midpoint
-						if( Vector2.DistanceSquared( mid, ( left + p ) / 2 ) > 1 )
+						if( vec2.DistanceSquared( mid, ( left + p ) / 2 ) > 1 )
 						{
 							drawLine( graphics.batcher, left, mid, gridColor, thickness );
 							drawLine( graphics.batcher, mid, p, gridColor, thickness );
@@ -373,9 +373,9 @@ namespace Nez
 
 						up = projectToVector2( _points[x, y - 1].position );
 						var clampedY = Math.Min( y + 1, height - 1 );
-						var mid = Vector2.CatmullRom( projectToVector2( _points[x, y - 2].position ), up, p, projectToVector2( _points[x, clampedY].position ), 0.5f );
+						var mid = vec2.CatmullRom( projectToVector2( _points[x, y - 2].position ), up, p, projectToVector2( _points[x, clampedY].position ), 0.5f );
 
-						if( Vector2.DistanceSquared( mid, ( up + p ) / 2 ) > 1 )
+						if( vec2.DistanceSquared( mid, ( up + p ) / 2 ) > 1 )
 						{
 							drawLine( graphics.batcher, up, mid, gridColor, thickness );
 							drawLine( graphics.batcher, mid, p, gridColor, thickness );
@@ -399,19 +399,19 @@ namespace Nez
 		}
 
 
-		Vector2 projectToVector2( Vector3 v )
+		vec2 projectToVector2( Vector3 v )
 		{
 			// do a perspective projection
 			var factor = ( v.Z + 2000 ) * 0.0005f;
-			return ( new Vector2( v.X, v.Y ) - _screenSize * 0.5f ) * factor + _screenSize * 0.5f;
+			return ( new vec2( v.X, v.Y ) - _screenSize * 0.5f ) * factor + _screenSize * 0.5f;
 		}
 
 
-		void drawLine( Batcher batcher, Vector2 start, Vector2 end, Color color, float thickness = 2f )
+		void drawLine( Batcher batcher, vec2 start, vec2 end, Color color, float thickness = 2f )
 		{
 			var delta = end - start;
-			var angle = (float)Math.Atan2( delta.Y, delta.X );
-			batcher.draw( Graphics.instance.pixelTexture, start + entity.transform.position + localOffset, Graphics.instance.pixelTexture.sourceRect, color, angle, new Vector2( 0, 0.5f ), new Vector2( delta.Length(), thickness ), SpriteEffects.None, layerDepth );
+			var angle = (float)Math.Atan2( delta.y, delta.x );
+			batcher.draw( Graphics.instance.pixelTexture, start + entity.transform.position + localOffset, Graphics.instance.pixelTexture.sourceRect, color, angle, new vec2( 0, 0.5f ), new vec2( delta.Length, thickness ), SpriteEffects.None, layerDepth );
 		}
 
 	}

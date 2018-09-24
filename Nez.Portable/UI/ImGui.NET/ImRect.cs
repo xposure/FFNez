@@ -1,5 +1,6 @@
 ﻿#if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -8,21 +9,21 @@ namespace ImGuiNET
 {
     public struct ImRect
     {
-        public Vector2 Min;
-        public Vector2 Max;
+        public vec2 Min;
+        public vec2 Max;
 
-        public ImRect(Vector2 min, Vector2 max)
+        public ImRect(vec2 min, vec2 max)
         {
             Min = min;
             Max = max;
         }
 
-        public bool Contains(Vector2 p)
+        public bool Contains(vec2 p)
         {
-            return p.X >= Min.X && p.Y >= Min.Y && p.X < Max.X && p.Y < Max.Y;
+            return p.x >= Min.x && p.y >= Min.y && p.x < Max.x && p.y < Max.y;
         }
 
-        public Vector2 GetSize()
+        public vec2 GetSize()
         {
             return Max - Min;
         }

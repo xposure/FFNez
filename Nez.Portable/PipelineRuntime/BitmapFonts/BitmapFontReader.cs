@@ -11,7 +11,7 @@ namespace Nez.BitmapFonts
 		protected override BitmapFont Read( ContentReader reader, BitmapFont existingInstance )
 		{
 			Texture2D[] textures = null;
-			Vector2[] atlasOrigins = null;
+			vec2[] atlasOrigins = null;
 
 			var hasTextures = reader.ReadBoolean();
 			if( hasTextures )
@@ -24,7 +24,7 @@ namespace Nez.BitmapFonts
 			else
 			{
 				var totalTextureNames = reader.ReadInt32();
-				atlasOrigins = new Vector2[totalTextureNames];
+				atlasOrigins = new vec2[totalTextureNames];
 				textures = new Texture2D[totalTextureNames];
 				for( var i = 0; i < totalTextureNames; i++ )
 				{
@@ -59,7 +59,7 @@ namespace Nez.BitmapFonts
 				if( hasTextures )
 					textureRegion = new Subtexture( textures[textureIndex], x, y, width, height );
 				else
-					textureRegion = new Subtexture( textures[textureIndex], atlasOrigins[textureIndex].X + x, atlasOrigins[textureIndex].Y + y, width, height );
+					textureRegion = new Subtexture( textures[textureIndex], atlasOrigins[textureIndex].x + x, atlasOrigins[textureIndex].y + y, width, height );
 				
 				regions[r] = new BitmapFontRegion( textureRegion, character, xOffset, yOffset, xAdvance );
 			}

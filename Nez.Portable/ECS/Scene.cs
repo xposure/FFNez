@@ -724,7 +724,7 @@ namespace Nez
 			var scaleX = renderTargetWidth / (float)_finalRenderDestinationRect.Width;
 			var scaleY = renderTargetHeight / (float)_finalRenderDestinationRect.Height;
 
-			Input._resolutionScale = new Vector2( scaleX, scaleY );
+			Input._resolutionScale = new vec2( scaleX, scaleY );
 			Input._resolutionOffset = _finalRenderDestinationRect.Location;
 
 			// resize our RenderTargets
@@ -997,7 +997,7 @@ namespace Nez
 		/// <returns>The entity.</returns>
 		/// <param name="name">Name.</param>
 		/// <param name="position">Position.</param>
-		public Entity createEntity( string name, Vector2 position )
+		public Entity createEntity( string name, vec2 position )
 		{
 			var entity = new Entity( name );
 			entity.transform.position = position;

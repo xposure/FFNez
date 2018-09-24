@@ -13,7 +13,7 @@ namespace Nez.Verlet
 		/// <summary>
 		/// gravity for the simulation
 		/// </summary>
-		public Vector2 gravity = new Vector2( 0, 980f );
+		public vec2 gravity = new vec2( 0, 980f );
 
 		/// <summary>
 		/// number of iterations that will be used for Constraint solving
@@ -112,27 +112,27 @@ namespace Nez.Verlet
 
 			if( p.radius == 0 )
 			{
-				if( tempPos.Y > bounds.Height )
-					tempPos.Y = bounds.Height;
-				else if( tempPos.Y < bounds.Y )
-					tempPos.Y = bounds.Y;
+				if( tempPos.y > bounds.Height )
+					tempPos.y = bounds.Height;
+				else if( tempPos.y < bounds.Y )
+					tempPos.y = bounds.Y;
 
-				if( tempPos.X < bounds.X )
-					tempPos.X = bounds.X;
-				else if( tempPos.X > bounds.Width )
-					tempPos.X = bounds.Width;
+				if( tempPos.x < bounds.X )
+					tempPos.x = bounds.X;
+				else if( tempPos.x > bounds.Width )
+					tempPos.x = bounds.Width;
 			}
 			else
 			{
 				// special care for larger particles
-				if( tempPos.Y < bounds.Y + p.radius )
-					tempPos.Y = 2f * ( bounds.Y + p.radius ) - tempPos.Y;
-				if( tempPos.Y > bounds.Height - p.radius )
-					tempPos.Y = 2f * ( bounds.Height - p.radius ) - tempPos.Y;
-				if( tempPos.X > bounds.Width - p.radius )
-					tempPos.X = 2f * ( bounds.Width - p.radius ) - tempPos.X;
-				if( tempPos.X < bounds.X + p.radius )
-					tempPos.X = 2f * ( bounds.X + p.radius ) - tempPos.X;
+				if( tempPos.y < bounds.Y + p.radius )
+					tempPos.y = 2f * ( bounds.Y + p.radius ) - tempPos.y;
+				if( tempPos.y > bounds.Height - p.radius )
+					tempPos.y = 2f * ( bounds.Height - p.radius ) - tempPos.y;
+				if( tempPos.x > bounds.Width - p.radius )
+					tempPos.x = 2f * ( bounds.Width - p.radius ) - tempPos.x;
+				if( tempPos.x < bounds.X + p.radius )
+					tempPos.x = 2f * ( bounds.X + p.radius ) - tempPos.x;
 			}
 
 			p.position = tempPos;
@@ -242,7 +242,7 @@ namespace Nez.Verlet
 		/// <returns>The nearest particle.</returns>
 		/// <param name="position">Position.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public Particle getNearestParticle( Vector2 position )
+		public Particle getNearestParticle( vec2 position )
 		{
 			// less than 64 and we count it
 			var nearestSquaredDistance = selectionRadiusSquared;
@@ -255,7 +255,7 @@ namespace Nez.Verlet
 				for( var i = 0; i < particles.length; i++ )
 				{
 					var p = particles.buffer[i];
-					var squaredDistanceToParticle = Vector2.DistanceSquared( p.position, position );
+					var squaredDistanceToParticle = vec2.DistanceSquared( p.position, position );
 					if( squaredDistanceToParticle <= selectionRadiusSquared && ( particle == null || squaredDistanceToParticle < nearestSquaredDistance ) )
 					{
 						particle = p;

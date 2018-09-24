@@ -9,13 +9,13 @@ namespace Nez.PhysicsShapes
 		/// <summary>
 		/// the points that make up the Polygon. They should be CW and convex.
 		/// </summary>
-		public Vector2[] points;
+		public vec2[] points;
 
 		/// <summary>
 		/// edge normals are used for SAT collision detection. We cache them to avoid the squareroots. Note that Boxes will only have
 		/// 2 edgeNormals since the other two sides are parallel.
 		/// </summary>
-		public Vector2[] edgeNormals
+		public vec2[] edgeNormals
 		{
 			get
 			{
@@ -26,11 +26,11 @@ namespace Nez.PhysicsShapes
 		}
 
 		bool _areEdgeNormalsDirty = true;
-		public Vector2[] _edgeNormals;
+		public vec2[] _edgeNormals;
 
 		// we cache the original details of our polygon
-		internal Vector2[] _originalPoints;
-		internal Vector2 _polygonCenter;
+		internal vec2[] _originalPoints;
+		internal vec2 _polygonCenter;
 
 		// used as an optimization for unrotated Box collisions
 		internal bool isBox;
@@ -42,23 +42,23 @@ namespace Nez.PhysicsShapes
 		/// they should be centered around 0,0.
 		/// </summary>
 		/// <param name="points">Points.</param>
-		public Polygon( Vector2[] points )
+		public Polygon( vec2[] points )
 		{
 			this.points = points;
 			recalculateCenterAndEdgeNormals();
 
-			_originalPoints = new Vector2[points.Length];
+			_originalPoints = new vec2[points.Length];
 			Array.Copy( points, _originalPoints, points.Length );
 		}
 
 
-		internal Polygon( Vector2[] points, bool isBox )
+		internal Polygon( vec2[] points, bool isBox )
 		{
 			this.points = points;
 			this.isBox = isBox;
 			recalculateCenterAndEdgeNormals();
 
-			_originalPoints = new Vector2[points.Length];
+			_originalPoints = new vec2[points.Length];
 			Array.Copy( points, _originalPoints, points.Length );
 		}
 
@@ -90,9 +90,9 @@ namespace Nez.PhysicsShapes
 			// for boxes we only require 2 edges since the other 2 are parallel
 			var totalEdges = isBox ? 2 : points.Length;
 			if( _edgeNormals == null || _edgeNormals.Length != totalEdges )
-				_edgeNormals = new Vector2[totalEdges];
+				_edgeNormals = new vec2[totalEdges];
 			
-			Vector2 p2;
+			vec2 p2;
 			for( var i = 0; i < totalEdges; i++ )
 			{
 				var p1 = points[i];
@@ -118,14 +118,14 @@ namespace Nez.PhysicsShapes
 		/// <returns>The symmetrical polygon.</returns>
 		/// <param name="vertCount">Vert count.</param>
 		/// <param name="radius">Radius.</param>
-		public static Vector2[] buildSymmetricalPolygon( int vertCount, float radius )
+		public static vec2[] buildSymmetricalPolygon( int vertCount, float radius )
 		{
-			var verts = new Vector2[vertCount];
+			var verts = new vec2[vertCount];
 
 			for( var i = 0; i < vertCount; i++ )
 			{
 				var a = 2.0f * MathHelper.Pi * ( i / (float)vertCount );
-				verts[i] = new Vector2( Mathf.cos( a ), Mathf.sin( a ) ) * radius;
+				verts[i] = new vec2( Mathf.cos( a ), Mathf.sin( a ) ) * radius;
 			}
 
 			return verts;
@@ -136,7 +136,7 @@ namespace Nez.PhysicsShapes
 		/// recenters the points of the polygon
 		/// </summary>
 		/// <param name="points">Points.</param>
-		public static void recenterPolygonVerts( Vector2[] points )
+		public static void recenterPolygonVerts( vec2[] points )
 		{
 			var center = findPolygonCenter( points );
 			for( var i = 0; i < points.Length; i++ )
@@ -149,32 +149,32 @@ namespace Nez.PhysicsShapes
 		/// </summary>
 		/// <returns>The polygon center.</returns>
 		/// <param name="points">Points.</param>
-		public static Vector2 findPolygonCenter( Vector2[] points )
+		public static vec2 findPolygonCenter( vec2[] points )
 		{
 			float x = 0, y = 0;
 
 			for( var i = 0; i < points.Length; i++ )
 			{
-				x += points[i].X;
-				y += points[i].Y;
+				x += points[i].x;
+				y += points[i].y;
 			}
 
-			return new Vector2( x / points.Length, y / points.Length );
+			return new vec2( x / points.Length, y / points.Length );
 		}
 
 
 		// Dont know adjancent vertices so take each vertex
 		// If you know adjancent vertices, perform hill climbing algorithm
-		public static Vector2 getFarthestPointInDirection( Vector2[] points, Vector2 direction )
+		public static vec2 getFarthestPointInDirection( vec2[] points, vec2 direction )
 		{
 			var index = 0;
 			float dot;
 			float maxDot;
-			Vector2.Dot( ref points[index], ref direction, out maxDot );
+			vec2.Dot( ref points[index], ref direction, out maxDot );
 
 			for( var i = 1; i < points.Length; i++ )
 			{
-				Vector2.Dot( ref points[i], ref direction, out dot );
+				vec2.Dot( ref points[i], ref direction, out dot );
 				if( dot > maxDot )
 				{
 					maxDot = dot;
@@ -194,11 +194,11 @@ namespace Nez.PhysicsShapes
 		/// <param name="point">Point.</param>
 		/// <param name="distanceSquared">Distance squared.</param>
 		/// <param name="edgeNormal">Edge normal.</param>
-		public static Vector2 getClosestPointOnPolygonToPoint( Vector2[] points, Vector2 point, out float distanceSquared, out Vector2 edgeNormal )
+		public static vec2 getClosestPointOnPolygonToPoint( vec2[] points, vec2 point, out float distanceSquared, out vec2 edgeNormal )
 		{
 			distanceSquared = float.MaxValue;
-			edgeNormal = Vector2.Zero;
-			var closestPoint = Vector2.Zero;
+			edgeNormal = vec2.Zero;
+			var closestPoint = vec2.Zero;
 
 			float tempDistanceSquared;
 			for( var i = 0; i < points.Length; i++ )
@@ -208,7 +208,7 @@ namespace Nez.PhysicsShapes
 					j = 0;
 				
 				var closest = ShapeCollisions.closestPointOnLine( points[i], points[j], point );
-				Vector2.DistanceSquared( ref point, ref closest, out tempDistanceSquared );
+				vec2.DistanceSquared( ref point, ref closest, out tempDistanceSquared );
 
 				if( tempDistanceSquared < distanceSquared )
 				{
@@ -217,8 +217,8 @@ namespace Nez.PhysicsShapes
 
 					// get the normal of the line
 					var line = points[j] - points[i];
-					edgeNormal.X = -line.Y;
-					edgeNormal.Y = line.X;
+					edgeNormal.x = -line.y;
+					edgeNormal.y = line.x;
 				}
 			}
 
@@ -234,7 +234,7 @@ namespace Nez.PhysicsShapes
 		/// <param name="radians">Radians.</param>
 		/// <param name="originalPoints">Original points.</param>
 		/// <param name="rotatedPoints">Rotated points.</param>
-		public static void rotatePolygonVerts( float radians, Vector2[] originalPoints, Vector2[] rotatedPoints )
+		public static void rotatePolygonVerts( float radians, vec2[] originalPoints, vec2[] rotatedPoints )
 		{
 			var cos = Mathf.cos( radians );
 			var sin = Mathf.sin( radians );
@@ -242,7 +242,7 @@ namespace Nez.PhysicsShapes
 			for( var i = 0; i < originalPoints.Length; i++ )
 			{
 				var position = originalPoints[i];
-				rotatedPoints[i] = new Vector2( ( position.X * cos + position.Y * -sin ), ( position.X * sin + position.Y * cos ) );
+				rotatedPoints[i] = new vec2( ( position.x * cos + position.y * -sin ), ( position.x * sin + position.y * cos ) );
 			}
 		}
 
@@ -262,9 +262,9 @@ namespace Nez.PhysicsShapes
 				Matrix2D tempMat;
 				var combinedMatrix = Matrix2D.createTranslation( -_polygonCenter );
 
-				if( collider.entity.transform.scale != Vector2.One )
+				if( collider.entity.transform.scale != vec2.One )
 				{
-					Matrix2D.createScale( collider.entity.transform.scale.X, collider.entity.transform.scale.Y, out tempMat );
+					Matrix2D.createScale( collider.entity.transform.scale.x, collider.entity.transform.scale.y, out tempMat );
 					Matrix2D.multiply( ref combinedMatrix, ref tempMat, out combinedMatrix );
 
 					hasUnitScale = false;
@@ -280,9 +280,9 @@ namespace Nez.PhysicsShapes
 
 					// to deal with rotation with an offset origin we just move our center in a circle around 0,0 with our offset making the 0 angle
 					// we have to deal with scale here as well so we scale our offset to get the proper length first.
-					var offsetAngle = Mathf.atan2( collider.localOffset.Y, collider.localOffset.X ) * Mathf.rad2Deg;
-					var offsetLength = hasUnitScale ? collider._localOffsetLength : ( collider.localOffset * collider.entity.transform.scale ).Length();
-					center = Mathf.pointOnCircle( Vector2.Zero, offsetLength, collider.entity.transform.rotationDegrees + offsetAngle );
+					var offsetAngle = Mathf.atan2( collider.localOffset.y, collider.localOffset.x ) * Mathf.rad2Deg;
+					var offsetLength = hasUnitScale ? collider._localOffsetLength : ( collider.localOffset * collider.entity.transform.scale ).Length;
+					center = Mathf.pointOnCircle( vec2.Zero, offsetLength, collider.entity.transform.rotationDegrees + offsetAngle );
 				}
 
 				Matrix2D.createTranslation( ref _polygonCenter, out tempMat ); // translate back center
@@ -343,7 +343,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public override bool collidesWithLine( Vector2 start, Vector2 end, out RaycastHit hit )
+		public override bool collidesWithLine( vec2 start, vec2 end, out RaycastHit hit )
 		{
 			hit = new RaycastHit();
 			return ShapeCollisions.lineToPoly( start, end, this, out hit );
@@ -356,7 +356,7 @@ namespace Nez.PhysicsShapes
 		/// </summary>
 		/// <returns>The point.</returns>
 		/// <param name="point">Point.</param>
-		public override bool containsPoint( Vector2 point )
+		public override bool containsPoint( vec2 point )
 		{
 			// normalize the point to be in our Polygon coordinate space
 			point -= position;
@@ -364,8 +364,8 @@ namespace Nez.PhysicsShapes
 			var isInside = false;
 			for( int i = 0, j = points.Length - 1; i < points.Length; j = i++ )
 			{
-				if( ( ( points[i].Y > point.Y ) != ( points[j].Y > point.Y ) ) &&
-				( point.X < ( points[j].X - points[i].X ) * ( point.Y - points[i].Y ) / ( points[j].Y - points[i].Y ) + points[i].X ) )
+				if( ( ( points[i].y > point.y ) != ( points[j].y > point.y ) ) &&
+				( point.x < ( points[j].x - points[i].x ) * ( point.y - points[i].y ) / ( points[j].y - points[i].y ) + points[i].x ) )
 				{
 					isInside = !isInside;
 				}
@@ -375,7 +375,7 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public override bool pointCollidesWithShape( Vector2 point, out CollisionResult result )
+		public override bool pointCollidesWithShape( vec2 point, out CollisionResult result )
 		{
 			return ShapeCollisions.pointToPoly( point, this, out result );
 		}

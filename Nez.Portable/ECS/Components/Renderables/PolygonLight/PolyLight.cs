@@ -22,7 +22,7 @@ namespace Nez.Shadows
 			{
 				if( _areBoundsDirty )
 				{
-					_bounds.calculateBounds( entity.transform.position, _localOffset, new Vector2( _radius, _radius ), Vector2.One, 0, _radius * 2f, _radius * 2f );
+					_bounds.calculateBounds( entity.transform.position, _localOffset, new vec2( _radius, _radius ), vec2.One, 0, _radius * 2f, _radius * 2f );
 					_areBoundsDirty = false;
 				}
 
@@ -147,7 +147,7 @@ namespace Nez.Shadows
 				// generate a triangle list from the encounter points
 				var encounters = _visibility.end();
 				generateVertsFromEncounters( encounters );
-				ListPool<Vector2>.free( encounters );
+				ListPool<vec2>.free( encounters );
 
 				var primitiveCount = _vertices.length / 2;
 				if( primitiveCount == 0 )
@@ -189,7 +189,7 @@ namespace Nez.Shadows
 		/// <param name="position">Position.</param>
 		/// <param name="texCoord">Tex coordinate.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		void addVert( Vector2 position )
+		void addVert( vec2 position )
 		{
 			var index = _vertices.length;
 			_vertices.ensureCapacity();
@@ -213,7 +213,7 @@ namespace Nez.Shadows
 		}
 
 
-		void generateVertsFromEncounters( List<Vector2> encounters )
+		void generateVertsFromEncounters( List<vec2> encounters )
 		{
 			_vertices.reset();
 

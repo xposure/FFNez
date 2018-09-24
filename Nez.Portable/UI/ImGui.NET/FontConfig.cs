@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -53,12 +54,12 @@ namespace ImGuiNET
         /// Extra spacing (in pixels) between glyphs.
         /// Set to (0, 0).
         /// </summary>
-        public Vector2 GlyphExtraSpacing;
+        public vec2 GlyphExtraSpacing;
         /// <summary>
         /// Offset all glyphs from this font input.
         /// Set to (0, 0).
         /// </summary>
-        public Vector2 GlyphOffset;
+        public vec2 GlyphOffset;
         /// <summary>
         /// List of Unicode range (2 value per range, values are inclusive, zero-terminated list).
         /// </summary>

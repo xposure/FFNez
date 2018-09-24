@@ -15,7 +15,7 @@ namespace Nez.Verlet
 		/// <param name="stiffness">Stiffness.</param>
 		/// <param name="tearSensitivity">Tear sensitivity.</param>
 		/// <param name="connectHorizontalParticles">If set to <c>true</c> connect horizontal particles.</param>
-		public Cloth( Vector2 topLeftPosition, float width, float height, int segments = 20, float stiffness = 0.25f, float tearSensitivity = 5, bool connectHorizontalParticles = true )
+		public Cloth( vec2 topLeftPosition, float width, float height, int segments = 20, float stiffness = 0.25f, float tearSensitivity = 5, bool connectHorizontalParticles = true )
 		{
 			var xStride = width / segments;
 			var yStride = height / segments;
@@ -24,9 +24,9 @@ namespace Nez.Verlet
 			{
 				for( var x = 0; x < segments; x++ )
 				{
-					var px = topLeftPosition.X + x * xStride;
-					var py = topLeftPosition.Y + y * yStride;
-					var particle = addParticle( new Particle( new Vector2( px, py ) ) );
+					var px = topLeftPosition.x + x * xStride;
+					var py = topLeftPosition.y + y * yStride;
+					var particle = addParticle( new Particle( new vec2( px, py ) ) );
 
 					// remove this constraint to make only vertical constaints for a hair-like cloth
 					if( connectHorizontalParticles && x > 0 )

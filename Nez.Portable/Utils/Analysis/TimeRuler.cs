@@ -258,7 +258,7 @@ namespace Nez.Analysis
 
 
 		// TimerRuler draw position.
-		Vector2 _position;
+		vec2 _position;
 
 		#endregion
 
@@ -290,8 +290,8 @@ namespace Nez.Analysis
 		void onGraphicsDeviceReset()
 		{
 			var layout = new Layout( Core.graphicsDevice.Viewport );
-            _position = layout.place( new Vector2( width, barHeight ), 0, 0.075f, Alignment.TopCenter );
-            //_position = new Vector2(0, 50);// layout.place( new Vector2( width, barHeight ), 0, 0.05f, Alignment.TopCenter );
+            _position = layout.place( new vec2( width, barHeight ), 0, 0.075f, Alignment.TopCenter );
+            //_position = new vec2(0, 50);// layout.place( new vec2( width, barHeight ), 0, 0.05f, Alignment.TopCenter );
 		}
 
 
@@ -581,7 +581,7 @@ namespace Nez.Analysis
 
 
 		[Conditional( "DEBUG" )]
-		public void render( Vector2 position, int width )
+		public void render( vec2 position, int width )
 		{
 			// Reset update count.
 			Interlocked.Exchange( ref updateCount, 0 );
@@ -628,7 +628,7 @@ namespace Nez.Analysis
 			var msToPs = (float)width / sampleSpan;
 
 			// Draw start position.
-			var startY = (int)position.Y - ( height - barHeight );
+			var startY = (int)position.y - ( height - barHeight );
 
 			// Current y position.
 			var y = startY;
@@ -636,7 +636,7 @@ namespace Nez.Analysis
 			batcher.begin();
 
 			// Draw transparency background.
-			var rc = new Rectangle( (int)position.X, y, width, height );
+			var rc = new Rectangle( (int)position.x, y, width, height );
 			batcher.drawRect( rc, new Color( 0, 0, 0, 128 ) );
 
 			// Draw markers for each bars.
@@ -650,8 +650,8 @@ namespace Nez.Analysis
 					{
 						var bt = bar.markers[j].beginTime;
 						var et = bar.markers[j].endTime;
-						var sx = (int)( position.X + bt * msToPs );
-						var ex = (int)( position.X + et * msToPs );
+						var sx = (int)( position.x + bt * msToPs );
+						var ex = (int)( position.x + et * msToPs );
 						rc.X = sx;
 						rc.Width = Math.Max( ex - sx, 1 );
 
@@ -664,17 +664,17 @@ namespace Nez.Analysis
 
 			// Draw grid lines.
 			// Each grid represents ms.
-			rc = new Rectangle( (int)position.X, (int)startY, 1, height );
+			rc = new Rectangle( (int)position.x, (int)startY, 1, height );
 			for( float t = 1.0f; t < sampleSpan; t += 1.0f )
 			{
-				rc.X = (int)( position.X + t * msToPs );
+				rc.X = (int)( position.x + t * msToPs );
 				batcher.drawRect( rc, Color.Gray );
 			}
 
 			// Draw frame grid.
 			for( var i = 0; i <= sampleFrames; ++i )
 			{
-				rc.X = (int)( position.X + frameSpan * (float)i * msToPs );
+				rc.X = (int)( position.x + frameSpan * (float)i * msToPs );
 				batcher.drawRect( rc, Color.White );
 			}
 
@@ -706,18 +706,18 @@ namespace Nez.Analysis
 
 			// Compute background size and draw it.
 			var size = font.measureString( logString );
-			rc = new Rectangle( (int)position.X, (int)y, (int)size.X + 25, (int)size.Y + 5 );
+			rc = new Rectangle( (int)position.x, (int)y, (int)size.x + 25, (int)size.y + 5 );
 			batcher.drawRect( rc, new Color( 0, 0, 0, 128 ) );
 
 			// Draw log string.
-			batcher.drawString( font, logString, new Vector2( position.X + 22, y + 3 ), Color.White );
+			batcher.drawString( font, logString, new vec2( position.x + 22, y + 3 ), Color.White );
 
 
 			// Draw log color boxes.
             y +=barPadding;
             //y += (int)( (float)font.lineHeight * 0.3f );
-            rc = new Rectangle( (int)position.X + 4, y, 10, 10 );
-			var rc2 = new Rectangle( (int)position.X + 5 , y + 1, 8, 8 );
+            rc = new Rectangle( (int)position.x + 4, y, 10, 10 );
+			var rc2 = new Rectangle( (int)position.x + 5 , y + 1, 8, 8 );
 			foreach( var markerInfo in markers )
 			{
 				for( var i = 0; i < maxBars; ++i )

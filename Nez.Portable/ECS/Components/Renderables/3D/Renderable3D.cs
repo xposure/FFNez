@@ -55,8 +55,8 @@ namespace Nez
 			get { return new Vector3( _rotationXY, transform.rotation ); }
 			set
 			{
-				_rotationXY.X = value.X;
-				_rotationXY.Y = value.Y;
+				_rotationXY.x = value.X;
+				_rotationXY.y = value.Y;
 				transform.setRotation( value.Z );
 			}
 		}
@@ -93,6 +93,6 @@ namespace Nez
 
 
 		float _positionZ;
-		Vector2 _rotationXY;
+		vec2 _rotationXY;
 	}
 }

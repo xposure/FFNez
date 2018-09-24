@@ -74,7 +74,7 @@ namespace Nez
             }
 
             var selectSize = ImGui.GetLastItemRectSize();
-            ImGui.SameLine(selectSize.X - 10);
+            ImGui.SameLine(selectSize.x - 10);
             ImGui.LabelText(string.Empty, _expanded ? "-" : "+");
 
             if (_expanded)

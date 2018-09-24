@@ -1,7 +1,7 @@
 ﻿using ImGuiNET;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Nez;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,7 +29,7 @@ namespace Mnemonic
         private static KeyboardState kbState;
         private static VertexBuffer _vertexBuffer;
         private static IndexBuffer _indexBuffer;
-        private static Game _game;
+        private static Microsoft.Xna.Framework.Game _game;
 
         [StructLayout(LayoutKind.Sequential, Pack = 0)]
         private struct ImGuiVertex : IVertexType
@@ -126,7 +126,7 @@ namespace Mnemonic
         }
         #endregion
 
-        public static unsafe void Initiailize(Game game)
+        public static unsafe void Initiailize(Microsoft.Xna.Framework.Game game)
         {
             _game = game;
             var graphicsDevice = _game.GraphicsDevice;
@@ -175,14 +175,14 @@ namespace Mnemonic
 
         }
 
-        public static void newFrame(GameTime gt)
+        public static void newFrame(Microsoft.Xna.Framework.GameTime gt)
         {
             IO io = ImGui.GetIO();
             var graphicsDevice = _game.GraphicsDevice;
             var width = graphicsDevice.PresentationParameters.BackBufferWidth;
             var height = graphicsDevice.PresentationParameters.BackBufferHeight;
-            io.DisplaySize = new Vector2(width, height);
-            io.DisplayFramebufferScale = new Vector2(_scaleFactor);
+            io.DisplaySize = new vec2(width, height);
+            io.DisplayFramebufferScale = new vec2(_scaleFactor);
             io.DeltaTime = (float)gt.ElapsedGameTime.TotalSeconds;
 
 
@@ -193,11 +193,11 @@ namespace Mnemonic
             {
                 //Point windowPoint = _nativeWindow.PointToClient(new Point(cursorState.X, cursorState.Y));
                 Point windowPoint = new Point(mouseState.X, mouseState.Y);
-                io.MousePosition = new Vector2(windowPoint.X / io.DisplayFramebufferScale.X, windowPoint.Y / io.DisplayFramebufferScale.Y);
+                io.MousePosition = new vec2(windowPoint.X / io.DisplayFramebufferScale.x, windowPoint.Y / io.DisplayFramebufferScale.y);
             }
             else
             {
-                io.MousePosition = new Vector2(-1f, -1f);
+                io.MousePosition = new vec2(-1f, -1f);
             }
 
             io.MouseDown[0] = mouseState.LeftButton == ButtonState.Pressed;
@@ -291,13 +291,13 @@ namespace Mnemonic
 
             //var effect = Assets.defaultEffect;
             //effect.Texture = Assets.dummyTexture;
-            effect.World = Matrix.Identity;
-            effect.View = Matrix.Identity;// camera.viewMatrix3D;
+            effect.World = mat4.Identity;
+            effect.View = mat4.Identity;// camera.viewMatrix3D;
             effect.Projection =
-                Matrix.CreateOrthographicOffCenter(
+                mat4.CreateOrthographicOffCenter(
                     0.0f,
-                    io.DisplaySize.X / io.DisplayFramebufferScale.X,
-                    io.DisplaySize.Y / io.DisplayFramebufferScale.Y,
+                    io.DisplaySize.x / io.DisplayFramebufferScale.x,
+                    io.DisplaySize.y / io.DisplayFramebufferScale.y,
                     0.0f,
                     -1.0f,
                     1.0f
@@ -324,10 +324,10 @@ namespace Mnemonic
                 for (int i = 0; i < vertexElements; i++)
                 {
                     DrawVert vert = *vtx_buffer++;
-                    vertices[i].x = vert.pos.X;
-                    vertices[i].y = vert.pos.Y;
-                    vertices[i].tx = vert.uv.X;
-                    vertices[i].ty = vert.uv.Y;
+                    vertices[i].x = vert.pos.x;
+                    vertices[i].y = vert.pos.y;
+                    vertices[i].tx = vert.uv.x;
+                    vertices[i].ty = vert.uv.y;
                     vertices[i].color = vert.col;
                 }
 
@@ -404,8 +404,8 @@ namespace Mnemonic
 
         //    ImGui.GetStyle().WindowRounding = 0;
 
-        //    ImGui.SetNextWindowSize(new System.Numerics.Vector2(Screen.width - 10, Screen.height - 20), Condition.Always);
-        //    ImGui.SetNextWindowPos(ImGui.GetIO().DisplaySize, Condition.Always, new System.Numerics.Vector2(1f));
+        //    ImGui.SetNextWindowSize(new System.Numerics.vec2(Screen.width - 10, Screen.height - 20), Condition.Always);
+        //    ImGui.SetNextWindowPos(ImGui.GetIO().DisplaySize, Condition.Always, new System.Numerics.vec2(1f));
         //    ImGui.BeginWindow("ImGUI.NET Sample Program", ref _mainWindowOpened, WindowFlags.NoResize | WindowFlags.NoTitleBar | WindowFlags.NoMove);
 
         //    ImGui.BeginMainMenuBar();
@@ -438,7 +438,7 @@ namespace Mnemonic
         //    ImGui.InputText("test", asdf, 64, InputTextFlags.Default, null);
         //    ImGui.InputTextMultiline("Input some text:",
         //        _textInputBuffer, (uint)_textInputBufferLength,
-        //        new System.Numerics.Vector2(360, 240),
+        //        new System.Numerics.vec2(360, 240),
         //        InputTextFlags.Default,
         //        null);
 
@@ -452,8 +452,8 @@ namespace Mnemonic
         //    }
         //    if (ImGui.TreeNode("Second Item"))
         //    {
-        //        ImGui.ColorButton("Color button", _buttonColor, ColorEditFlags.Default, new System.Numerics.Vector2(0, 0));
-        //        if (ImGui.Button("Push me to change color", new System.Numerics.Vector2(0, 30)))
+        //        ImGui.ColorButton("Color button", _buttonColor, ColorEditFlags.Default, new System.Numerics.vec2(0, 0));
+        //        if (ImGui.Button("Push me to change color", new System.Numerics.vec2(0, 30)))
         //        {
         //            _buttonColor = new System.Numerics.Vector4(_buttonColor.Y + .25f, _buttonColor.Z, _buttonColor.X, _buttonColor.W);
         //            if (_buttonColor.X > 1.0f)
@@ -465,7 +465,7 @@ namespace Mnemonic
         //        ImGui.TreePop();
         //    }
 
-        //    if (ImGui.Button("Press me!", new System.Numerics.Vector2(100, 30)))
+        //    if (ImGui.Button("Press me!", new System.Numerics.vec2(100, 30)))
         //    {
         //        ImGuiNative.igOpenPopup("SmallButtonPopup");
         //    }
@@ -486,11 +486,11 @@ namespace Mnemonic
         //    {
         //        ImGui.Text("You can't press on anything else right now.");
         //        ImGui.Text("You are stuck here.");
-        //        if (ImGui.Button("OK", new System.Numerics.Vector2(0, 0))) { }
+        //        if (ImGui.Button("OK", new System.Numerics.vec2(0, 0))) { }
         //        ImGui.SameLine();
         //        ImGui.Dummy(100f, 0f);
         //        ImGui.SameLine();
-        //        if (ImGui.Button("Please go away", new System.Numerics.Vector2(0, 0))) { ImGui.CloseCurrentPopup(); }
+        //        if (ImGui.Button("Please go away", new System.Numerics.vec2(0, 0))) { ImGui.CloseCurrentPopup(); }
 
         //        ImGui.EndPopup();
         //    }
@@ -521,8 +521,8 @@ namespace Mnemonic
         //{
 
         //    const float DISTANCE = 10.0f;
-        //    System.Numerics.Vector2 window_pos = new System.Numerics.Vector2((corner & 1) == 1 ? ImGui.GetIO().DisplaySize.X - DISTANCE : DISTANCE, (corner & 2) == 2 ? ImGui.GetIO().DisplaySize.Y - DISTANCE : DISTANCE);
-        //    System.Numerics.Vector2 window_pos_pivot = new System.Numerics.Vector2((corner & 1) == 1 ? 1.0f : 0.0f, (corner & 2) == 2 ? 1.0f : 0.0f);
+        //    System.Numerics.vec2 window_pos = new System.Numerics.vec2((corner & 1) == 1 ? ImGui.GetIO().DisplaySize.X - DISTANCE : DISTANCE, (corner & 2) == 2 ? ImGui.GetIO().DisplaySize.Y - DISTANCE : DISTANCE);
+        //    System.Numerics.vec2 window_pos_pivot = new System.Numerics.vec2((corner & 1) == 1 ? 1.0f : 0.0f, (corner & 2) == 2 ? 1.0f : 0.0f);
         //    ImGui.SetNextWindowPos(window_pos, Condition.Always, window_pos_pivot);
         //    //ImGui.SetNextWindowBgAlpha(0.3f); // Transparent background
         //    if (ImGui.BeginWindow("Example: Fixed Overlay", ref p_open, WindowFlags.NoTitleBar | WindowFlags.NoResize | WindowFlags.AlwaysAutoResize | WindowFlags.NoMove | WindowFlags.NoSavedSettings | WindowFlags.NoFocusOnAppearing ))

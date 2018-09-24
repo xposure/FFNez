@@ -48,7 +48,7 @@ namespace Nez.UI
 		bool _variableSizeKnobs = true;
 
 		// input data
-		Vector2 _lastMousePos;
+		vec2 _lastMousePos;
 		float _lastHandlePosition;
 
 
@@ -356,7 +356,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			if( _scrollX && _hScrollBounds.Contains( mousePos ) )
 			{
@@ -368,7 +368,7 @@ namespace Nez.UI
 					_touchScrollH = true;
 					return true;
 				}
-				setScrollX( _amountX + _areaWidth * ( mousePos.X < _hKnobBounds.X ? -1 : 1 ) );
+				setScrollX( _amountX + _areaWidth * ( mousePos.x < _hKnobBounds.X ? -1 : 1 ) );
 				return true;
 			}
 
@@ -382,24 +382,24 @@ namespace Nez.UI
 					_touchScrollV = true;
 					return true;
 				}
-				setScrollY( _amountY + _areaHeight * ( mousePos.Y > _vKnobBounds.Y ? 1 : -1 ) );
+				setScrollY( _amountY + _areaHeight * ( mousePos.y > _vKnobBounds.Y ? 1 : -1 ) );
 				return true;
 			}
 			return true;
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{
 			resetFade();
 
 			if( _touchScrollH )
 			{
-				var delta = mousePos.X - _lastMousePos.X;
+				var delta = mousePos.x - _lastMousePos.x;
 				var scrollH = _lastHandlePosition + delta;
 				_lastHandlePosition = scrollH;
-				scrollH = Math.Max( _hScrollBounds.X, scrollH );
-				scrollH = Math.Min( _hScrollBounds.X + _hScrollBounds.Width - _hKnobBounds.Width, scrollH );
+				scrollH = Math.Max(_hScrollBounds.X, (float)scrollH );
+				scrollH = Math.Min(_hScrollBounds.X + _hScrollBounds.Width - _hKnobBounds.Width, (float)scrollH );
 				var total = _hScrollBounds.Width - _hKnobBounds.Width;
 				if( total != 0 )
 					setScrollPercentX( ( scrollH - _hScrollBounds.X ) / total );
@@ -407,11 +407,11 @@ namespace Nez.UI
 			}
 			else if( _touchScrollV )
 			{
-				var delta = mousePos.Y - _lastMousePos.Y;
+				var delta = mousePos.y - _lastMousePos.y;
 				var scrollV = _lastHandlePosition + delta;
 				_lastHandlePosition = scrollV;
-				scrollV = Math.Max( _vScrollBounds.Y, scrollV );
-				scrollV = Math.Min( _vScrollBounds.Y + _vScrollBounds.Height - _vKnobBounds.Height, scrollV );
+				scrollV = Math.Max(_vScrollBounds.Y, (float)scrollV );
+				scrollV = Math.Min(_vScrollBounds.Y + _vScrollBounds.Height - _vKnobBounds.Height, (float)scrollV );
 				float total = _vScrollBounds.Height - _vKnobBounds.Height;
 				if( total != 0 )
 				{
@@ -426,7 +426,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{
 			cancel();
 		}
@@ -1014,10 +1014,10 @@ namespace Nez.UI
 		}
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			// first we do a bounds check, then check our x and y scroll bars
-			if( point.X < 0 || point.X >= getWidth() || point.Y < 0 || point.Y >= getHeight() )
+			if( point.x < 0 || point.x >= getWidth() || point.y < 0 || point.y >= getHeight() )
 				return null;
 			if( _scrollX && _hScrollBounds.Contains( point ) )
 				return this;

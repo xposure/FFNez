@@ -1,5 +1,6 @@
 ﻿#if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -9,10 +10,10 @@ namespace ImGuiNET
     // Transient per-window data, reset at the beginning of the frame
     public unsafe struct NativeDrawContext
     {
-        public Vector2 CursorPos;
-        public Vector2 CursorPosPrevLine;
-        public Vector2 CursorStartPos;
-        public Vector2 CursorMaxPos;           // Implicitly calculate the size of our contents, always extending. Saved into window->SizeContents at the end of the frame
+        public vec2 CursorPos;
+        public vec2 CursorPosPrevLine;
+        public vec2 CursorStartPos;
+        public vec2 CursorMaxPos;           // Implicitly calculate the size of our contents, always extending. Saved into window->SizeContents at the end of the frame
         public float CurrentLineHeight;
         public float CurrentLineTextBaseOffset;
         public float PrevLineHeight;

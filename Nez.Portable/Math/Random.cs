@@ -108,14 +108,14 @@ namespace Nez
 
 
 		/// <summary>
-		/// Returns a random Vector2, and x- and y-values of which are between min (inclusive) and max (exclusive)
+		/// Returns a random vec2, and x- and y-values of which are between min (inclusive) and max (exclusive)
 		/// </summary>
 		/// <param name="min"></param>
 		/// <param name="max"></param>
 		/// <returns></returns>
-		static public Vector2 range( Vector2 min, Vector2 max )
+		static public vec2 range( vec2 min, vec2 max )
 		{
-			return min + new Vector2( nextFloat( max.X - min.X ), nextFloat( max.Y - min.Y ) );
+			return min + new vec2( nextFloat( max.x - min.x ), nextFloat( max.y - min.y ) );
 		}
 
 

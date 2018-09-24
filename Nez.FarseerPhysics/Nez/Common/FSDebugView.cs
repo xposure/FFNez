@@ -710,7 +710,8 @@ namespace Nez.Farseer
 
 			// Create directional reference
 			var rotation = ( start - end );
-			Nez.Vector2Ext.normalize( ref rotation );
+            rotation.Normalize();
+			//Nez.Vector2Ext.normalize( ref rotation );
 
 			// Calculate angle of directional vector
 			var angle = (float)Math.Atan2( rotation.X, -rotation.Y );

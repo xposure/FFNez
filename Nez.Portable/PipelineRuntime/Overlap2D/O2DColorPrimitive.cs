@@ -5,7 +5,7 @@ namespace Nez.Overlap2D
 {
 	public class O2DColorPrimitive : O2DMainItem
 	{
-		public Vector2[] polygon;
+		public vec2[] polygon;
 
 
 		public Vector3[] getPolygon3D()

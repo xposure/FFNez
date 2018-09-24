@@ -105,7 +105,7 @@ namespace Nez.UI
             var newX = x + newWidth / 2 - (newWidth - width) / 2;
             var newY = y + newHeight / 2 - (newHeight - height) / 2;
             var destRect = new Rectangle((int)newX, (int)newY, (int)newWidth, (int)newHeight);
-            graphics.batcher.draw(_subtexture.texture2D, destRect, _subtexture.sourceRect, color, rotation, new Vector2(subtexture.sourceRect.Width, subtexture.sourceRect.Height) * 0.5f, spriteEffects, 0f);
+            graphics.batcher.draw(_subtexture.texture2D, destRect, _subtexture.sourceRect, color, rotation, new vec2(subtexture.sourceRect.Width, subtexture.sourceRect.Height) * 0.5f, spriteEffects, 0f);
 		}
 
 

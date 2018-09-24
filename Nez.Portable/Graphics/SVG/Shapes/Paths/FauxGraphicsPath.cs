@@ -83,20 +83,20 @@ namespace Nez.Svg
 		}
 
 
-		public Vector2[] pathPointsAsVectors()
+		public vec2[] pathPointsAsVectors()
 		{
 			var pathPoints = PathPoints;
 			if( pathPoints.Length == 0 )
-				return new Vector2[0];
+				return new vec2[0];
 
-			var pts = new Vector2[pathPoints.Length];
+			var pts = new vec2[pathPoints.Length];
 			var getX = ReflectionUtils.getPropertyInfo( pathPoints.GetValue( 0 ), "X" );
 			var getY = ReflectionUtils.getPropertyInfo( pathPoints.GetValue( 0 ), "Y" );
 
 			for( var i = 0; i < pathPoints.Length; i++ )
 			{
 				var obj = pathPoints.GetValue( i );
-				pts[i] = new Microsoft.Xna.Framework.Vector2( (float)getX.GetValue( obj ), (float)getY.GetValue( obj ) );
+				pts[i] = new vec2( (float)getX.GetValue( obj ), (float)getY.GetValue( obj ) );
 			}
 
 			return pts;

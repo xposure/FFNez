@@ -16,8 +16,8 @@ namespace Nez.DeferredLighting
                 if( _areBoundsDirty )
                 {
 					// the size of the light only uses the x scale value
-					var size = radius * entity.transform.scale.X * 2;
-                    _bounds.calculateBounds( entity.transform.position, _localOffset, _radius * entity.transform.scale, Vector2.One, 0, size, size );
+					var size = radius * entity.transform.scale.x * 2;
+                    _bounds.calculateBounds( entity.transform.position, _localOffset, _radius * entity.transform.scale, vec2.One, 0, size, size );
                     _areBoundsDirty = false;
                 }
 
@@ -94,7 +94,7 @@ namespace Nez.DeferredLighting
 		/// <param name="graphics">Graphics.</param>
 		public override void debugRender( Graphics graphics )
 		{
-			graphics.batcher.drawCircle( entity.transform.position + _localOffset, radius * entity.transform.scale.X, Color.DarkOrchid, 2 );
+			graphics.batcher.drawCircle( entity.transform.position + _localOffset, radius * entity.transform.scale.x, Color.DarkOrchid, 2 );
 		}
 
 	}

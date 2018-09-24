@@ -16,21 +16,21 @@ namespace Nez
         {
             public Texture2D texture;
             public Vector3[] verts;
-            public Vector2[] texCoords;
+            public vec2[] texCoords;
             public Color color;
 
             public void initialize()
             {
                 verts = new Vector3[4];
-                texCoords = new Vector2[4];
+                texCoords = new vec2[4];
             }
 		}
 
-		public float width { get { return _size.X; } }
-		public float height { get { return _size.Y; } }
-		public Vector2 origin { get { return _origin; } }
+		public float width { get { return _size.x; } }
+		public float height { get { return _size.y; } }
+		public vec2 origin { get { return _origin; } }
 		public float rotation;
-		public Vector2 position;
+		public vec2 position;
 
 		/// <summary>
 		/// text to draw
@@ -67,10 +67,10 @@ namespace Nez
 		VerticalAlign _verticalAlign;
 		BitmapFont _font;
 		string _text;
-		Vector2 _size;
+		vec2 _size;
 		Color _color = Color.White;
-		Vector2 _origin;
-		Vector2 _scale = Vector2.One;
+		vec2 _origin;
+		vec2 _scale = vec2.One;
 		CharDetails[] _charDetails;
 
 		static readonly float[] _cornerOffsetX = { 0.0f, 1.0f, 0.0f, 1.0f };
@@ -131,23 +131,23 @@ namespace Nez
 
 		void updateCentering()
 		{
-			var newOrigin = Vector2.Zero;
+			var newOrigin = vec2.Zero;
 
 			if( _horizontalAlign == HorizontalAlign.Left )
-				newOrigin.X = 0;
+				newOrigin.x = 0;
 			else if( _horizontalAlign == HorizontalAlign.Center )
-				newOrigin.X = _size.X / 2;
+				newOrigin.x = _size.x / 2;
 			else
-				newOrigin.X = _size.X;
+				newOrigin.x = _size.x;
 
 			if( _verticalAlign == VerticalAlign.Top )
-				newOrigin.Y = 0;
+				newOrigin.y = 0;
 			else if( _verticalAlign == VerticalAlign.Center )
-				newOrigin.Y = _size.Y / 2;
+				newOrigin.y = _size.y / 2;
 			else
-				newOrigin.Y = _size.Y;
+				newOrigin.y = _size.y;
 
-			_origin = new Vector2( (int)( newOrigin.X * _scale.X ), (int)( newOrigin.Y * _scale.Y ) );
+			_origin = new vec2( (int)( newOrigin.x * _scale.x ), (int)( newOrigin.y * _scale.y ) );
 		}
 
 
@@ -162,20 +162,20 @@ namespace Nez
 			var effects = (byte)SpriteEffects.None;
 
 			var _transformationMatrix = Matrix2D.identity;
-			var requiresTransformation = rotation != 0f || _scale != Vector2.One;
+			var requiresTransformation = rotation != 0f || _scale != vec2.One;
 			if( requiresTransformation )
 			{
 				Matrix2D temp;
-				Matrix2D.createTranslation( -_origin.X, -_origin.Y, out _transformationMatrix );
-				Matrix2D.createScale( _scale.X, _scale.Y, out temp );
+				Matrix2D.createTranslation( -_origin.x, -_origin.y, out _transformationMatrix );
+				Matrix2D.createScale( _scale.x, _scale.y, out temp );
 				Matrix2D.multiply( ref _transformationMatrix, ref temp, out _transformationMatrix );
 				Matrix2D.createRotation( rotation, out temp );
 				Matrix2D.multiply( ref _transformationMatrix, ref temp, out _transformationMatrix );
-				Matrix2D.createTranslation( position.X, position.Y, out temp );
+				Matrix2D.createTranslation( position.x, position.y, out temp );
 				Matrix2D.multiply( ref _transformationMatrix, ref temp, out _transformationMatrix );
 			}
 
-			var offset = requiresTransformation ? Vector2.Zero : position - _origin;
+			var offset = requiresTransformation ? vec2.Zero : position - _origin;
 
 			for( var i = 0; i < _text.Length; ++i )
 			{
@@ -185,25 +185,25 @@ namespace Nez
 				var c = _text[i];
 				if( c == '\n' )
 				{
-					offset.X = requiresTransformation ? 0f : position.X - _origin.X;
-					offset.Y += _font.lineHeight;
+					offset.x = requiresTransformation ? 0f : position.x - _origin.x;
+					offset.y += _font.lineHeight;
 					currentFontRegion = null;
 					continue;
 				}
 
 				if( currentFontRegion != null )
-					offset.X += _font.spacing + currentFontRegion.xAdvance;
+					offset.x += _font.spacing + currentFontRegion.xAdvance;
 
 				currentFontRegion = _font.fontRegionForChar( c, true );
 				var p = offset;
-				p.X += currentFontRegion.xOffset;
-				p.Y += currentFontRegion.yOffset;
+				p.x += currentFontRegion.xOffset;
+				p.y += currentFontRegion.yOffset;
 
 				// transform our point if we need to
 				if( requiresTransformation )
 					Vector2Ext.transform( ref p, ref _transformationMatrix, out p );
 
-				var destination = new Vector4( p.X, p.Y, currentFontRegion.width * _scale.X, currentFontRegion.height * _scale.Y );
+				var destination = new Vector4( p.x, p.y, currentFontRegion.width * _scale.x, currentFontRegion.height * _scale.y );
 				_charDetails[i].texture = currentFontRegion.subtexture.texture2D;
 
 
@@ -293,14 +293,14 @@ namespace Nez
 
 
 				// texture coordintes
-				_charDetails[i].texCoords[0].X = ( _cornerOffsetX[0 ^ effects] * sourceW ) + sourceX;
-				_charDetails[i].texCoords[0].Y = ( _cornerOffsetY[0 ^ effects] * sourceH ) + sourceY;
-				_charDetails[i].texCoords[1].X = ( _cornerOffsetX[1 ^ effects] * sourceW ) + sourceX;
-				_charDetails[i].texCoords[1].Y = ( _cornerOffsetY[1 ^ effects] * sourceH ) + sourceY;
-				_charDetails[i].texCoords[2].X = ( _cornerOffsetX[2 ^ effects] * sourceW ) + sourceX;
-				_charDetails[i].texCoords[2].Y = ( _cornerOffsetY[2 ^ effects] * sourceH ) + sourceY;
-				_charDetails[i].texCoords[3].X = ( _cornerOffsetX[3 ^ effects] * sourceW ) + sourceX;
-				_charDetails[i].texCoords[3].Y = ( _cornerOffsetY[3 ^ effects] * sourceH ) + sourceY;
+				_charDetails[i].texCoords[0].x = ( _cornerOffsetX[0 ^ effects] * sourceW ) + sourceX;
+				_charDetails[i].texCoords[0].y = ( _cornerOffsetY[0 ^ effects] * sourceH ) + sourceY;
+				_charDetails[i].texCoords[1].x = ( _cornerOffsetX[1 ^ effects] * sourceW ) + sourceX;
+				_charDetails[i].texCoords[1].y = ( _cornerOffsetY[1 ^ effects] * sourceH ) + sourceY;
+				_charDetails[i].texCoords[2].x = ( _cornerOffsetX[2 ^ effects] * sourceW ) + sourceX;
+				_charDetails[i].texCoords[2].y = ( _cornerOffsetY[2 ^ effects] * sourceH ) + sourceY;
+				_charDetails[i].texCoords[3].x = ( _cornerOffsetX[3 ^ effects] * sourceW ) + sourceX;
+				_charDetails[i].texCoords[3].y = ( _cornerOffsetY[3 ^ effects] * sourceH ) + sourceY;
 			}
 		}
 

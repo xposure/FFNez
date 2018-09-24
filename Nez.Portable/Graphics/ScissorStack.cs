@@ -74,25 +74,25 @@ namespace Nez
 		public static Rectangle calculateScissors( Camera camera, Matrix batchTransform, Rectangle scissor )
 		{
 			// convert the top-left point to screen space
-			var tmp = new Vector2( scissor.X, scissor.Y );
-			tmp = Vector2.Transform( tmp, batchTransform );
+			var tmp = new vec2( scissor.X, scissor.Y );
+			tmp = vec2.Transform( tmp, batchTransform );
 
 			if( camera != null )
 				tmp = camera.worldToScreenPoint( tmp );
 
 			var newScissor = new Rectangle();
-			newScissor.X = (int)tmp.X;
-			newScissor.Y = (int)tmp.Y;
+			newScissor.X = (int)tmp.x;
+			newScissor.Y = (int)tmp.y;
 
 			// convert the bottom-right point to screen space
-			tmp.X = scissor.X + scissor.Width;
-			tmp.Y = scissor.Y + scissor.Height;
-			tmp = Vector2.Transform( tmp, batchTransform );
+			tmp.x = scissor.X + scissor.Width;
+			tmp.y = scissor.Y + scissor.Height;
+			tmp = vec2.Transform( tmp, batchTransform );
 
 			if( camera != null )
 				tmp = camera.worldToScreenPoint( tmp );
-			newScissor.Width = (int)tmp.X - newScissor.X;
-			newScissor.Height = (int)tmp.Y - newScissor.Y;
+			newScissor.Width = (int)tmp.x - newScissor.X;
+			newScissor.Height = (int)tmp.y - newScissor.Y;
 
 			return newScissor;
 		}
@@ -109,25 +109,25 @@ namespace Nez
 		public static Rectangle calculateScissors( Camera camera, Matrix2D batchTransform, Rectangle scissor )
 		{
 			// convert the top-left point to screen space
-			var tmp = new Vector2( scissor.X, scissor.Y );
-			tmp = Vector2.Transform( tmp, batchTransform );
+			var tmp = new vec2( scissor.X, scissor.Y );
+			tmp = vec2.Transform( tmp, batchTransform );
 
 			if( camera != null )
 				tmp = camera.worldToScreenPoint( tmp );
 
 			var newScissor = new Rectangle();
-			newScissor.X = (int)tmp.X;
-			newScissor.Y = (int)tmp.Y;
+			newScissor.X = (int)tmp.x;
+			newScissor.Y = (int)tmp.y;
 
 			// convert the bottom-right point to screen space
-			tmp.X = scissor.X + scissor.Width;
-			tmp.Y = scissor.Y + scissor.Height;
-			tmp = Vector2.Transform( tmp, batchTransform );
+			tmp.x = scissor.X + scissor.Width;
+			tmp.y = scissor.Y + scissor.Height;
+			tmp = vec2.Transform( tmp, batchTransform );
 
 			if( camera != null )
 				tmp = camera.worldToScreenPoint( tmp );
-			newScissor.Width = (int)tmp.X - newScissor.X;
-			newScissor.Height = (int)tmp.Y - newScissor.Y;
+			newScissor.Width = (int)tmp.x - newScissor.X;
+			newScissor.Height = (int)tmp.y - newScissor.Y;
 
 			return newScissor;
 		}

@@ -85,7 +85,7 @@ namespace Nez.Overlap2D
 
 			// special care needs to be taken here. if we have 4 verts everything will be fine. If we have any other number we need to
 			// reverse the array
-			colorPrim.polygon = new Vector2[count];
+			colorPrim.polygon = new vec2[count];
 
 			for( var i = 0; i < count; i++ )
 				colorPrim.polygon[i] = reader.ReadVector2();

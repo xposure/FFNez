@@ -11,7 +11,7 @@
         /// </summary>
         Alpha,
         /// <summary>
-        /// System.Numerics.Vector2
+        /// System.Numerics.vec2
         /// </summary>
         WindowPadding,
         /// <summary>
@@ -23,7 +23,7 @@
         /// </summary>
         WindowBorderSize,
         /// <summary>
-        /// System.Numerics.Vector2
+        /// System.Numerics.vec2
         /// </summary>
         WindowMinSize,
         /// <summary>
@@ -43,7 +43,7 @@
         /// </summary>
         PopupBorderSize,
         /// <summary>
-        /// System.Numerics.Vector2
+        /// System.Numerics.vec2
         /// </summary>
         FramePadding,
         /// <summary>
@@ -55,11 +55,11 @@
         /// </summary>
         FrameBorderSize,
         /// <summary>
-        /// System.Numerics.Vector2
+        /// System.Numerics.vec2
         /// </summary>
         ItemSpacing,
         /// <summary>
-        /// System.Numerics.Vector2
+        /// System.Numerics.vec2
         /// </summary>
         ItemInnerSpacing,
         /// <summary>
@@ -71,7 +71,7 @@
         /// </summary>
         GrabMinSize,
         /// <summary>
-        /// System.Numerics.Vector2
+        /// System.Numerics.vec2
         /// </summary>
         ButtonTextAlign,
     };

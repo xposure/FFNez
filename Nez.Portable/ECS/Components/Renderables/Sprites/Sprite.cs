@@ -29,7 +29,7 @@ namespace Nez.Sprites
 		/// the origin of the Sprite. This is set automatically when setting a Subtexture.
 		/// </summary>
 		/// <value>The origin.</value>
-		public Vector2 origin
+		public vec2 origin
 		{
 			get { return _origin; }
 			set { setOrigin( value ); }
@@ -39,10 +39,10 @@ namespace Nez.Sprites
 		/// helper property for setting the origin in normalized fashion (0-1 for x and y)
 		/// </summary>
 		/// <value>The origin normalized.</value>
-		public Vector2 originNormalized
+		public vec2 originNormalized
 		{
-			get { return new Vector2( _origin.X / width, _origin.Y / height ); }
-			set { setOrigin( new Vector2( value.X * width, value.Y * height ) ); }
+			get { return new vec2( _origin.x / width, _origin.y / height ); }
+			set { setOrigin( new vec2( value.x * width, value.y * height ) ); }
 		}
 
 		/// <summary>
@@ -92,7 +92,7 @@ namespace Nez.Sprites
 			set { setSubtexture( value ); }
 		}
 
-		protected Vector2 _origin;
+		protected vec2 _origin;
 		protected Subtexture _subtexture;
 
 
@@ -134,7 +134,7 @@ namespace Nez.Sprites
 		/// </summary>
 		/// <returns>The origin.</returns>
 		/// <param name="origin">Origin.</param>
-		public Sprite setOrigin( Vector2 origin )
+		public Sprite setOrigin( vec2 origin )
 		{
 			if( _origin != origin )
 			{
@@ -150,9 +150,9 @@ namespace Nez.Sprites
 		/// </summary>
 		/// <returns>The origin normalized.</returns>
 		/// <param name="origin">Origin.</param>
-		public Sprite setOriginNormalized( Vector2 value )
+		public Sprite setOriginNormalized( vec2 value )
 		{
-			setOrigin( new Vector2( value.X * width, value.Y * height ) );
+			setOrigin( new vec2( value.x * width, value.y * height ) );
 			return this;
 		}
 
@@ -189,7 +189,7 @@ namespace Nez.Sprites
 				{
 					if( i != 0 || j != 0 )
 					{
-						_localOffset = originalPosition + new Vector2( i * offset, j * offset );
+						_localOffset = originalPosition + new vec2( i * offset, j * offset );
 						render( graphics, camera );
 					}
 				}

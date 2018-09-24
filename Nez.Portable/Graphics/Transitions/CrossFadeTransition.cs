@@ -59,7 +59,7 @@ namespace Nez
 		{
 			Core.graphicsDevice.setRenderTarget( null );
 			graphics.batcher.begin( BlendState.NonPremultiplied, Core.defaultSamplerState, DepthStencilState.None, null );
-			graphics.batcher.draw( previousSceneRender, Vector2.Zero, _color );
+			graphics.batcher.draw( previousSceneRender, vec2.Zero, _color );
 			graphics.batcher.end();
 		}
 	}

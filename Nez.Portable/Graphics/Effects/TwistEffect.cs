@@ -34,7 +34,7 @@ namespace Nez
 			}
 		}
 
-		public Vector2 offset
+		public vec2 offset
 		{
 			get { return _offset; }
 			set
@@ -49,7 +49,7 @@ namespace Nez
 
 		float _radius = 0.5f;
 		float _angle = 5f;
-		Vector2 _offset = Vector2Ext.halfVector();
+		vec2 _offset = Vector2Ext.halfVector();
 
 		EffectParameter _radiusParam;
 		EffectParameter _angleParam;

@@ -11,7 +11,6 @@ using Nez.Textures;
 
 namespace Nez
 {
-    using Vector2 = Nez.vec2;
     using Vector3 = Nez.vec3;
     using Matrix = Nez.mat4;
 
@@ -259,19 +258,19 @@ namespace Nez
 
 		#region Public draw methods
 
-		public void draw( Texture2D texture, Vector2 position )
+		public void draw( Texture2D texture, vec2 position )
 		{
 			checkBegin();
-			pushSprite( texture, null, position.X, position.Y, 1.0f, 1.0f,
-				Color.White, Vector2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0 );
+			pushSprite( texture, null, position.x, position.y, 1.0f, 1.0f,
+				Color.White, vec2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0 );
 		}
 
 
-		public void draw( Texture2D texture, Vector2 position, Color color )
+		public void draw( Texture2D texture, vec2 position, Color color )
 		{
 			checkBegin();
-			pushSprite( texture, null, position.X, position.Y, 1.0f, 1.0f,
-				color, Vector2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0 );
+			pushSprite( texture, null, position.x, position.y, 1.0f, 1.0f,
+				color, vec2.Zero, 0.0f, 0.0f, 0, false, 0, 0, 0, 0 );
 		}
 
 
@@ -279,7 +278,7 @@ namespace Nez
 		{
 			checkBegin();
 			pushSprite( texture, null, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, destinationRectangle.Height,
-				Color.White, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
+				Color.White, vec2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
 		}
 
 
@@ -287,7 +286,7 @@ namespace Nez
 		{
 			checkBegin();
 			pushSprite( texture, null, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, destinationRectangle.Height,
-				color, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
+				color, vec2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
 		}
 
 
@@ -295,14 +294,14 @@ namespace Nez
 		{
 			checkBegin();
 			pushSprite( texture, sourceRectangle, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, destinationRectangle.Height,
-				color, Vector2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
+				color, vec2.Zero, 0.0f, 0.0f, 0, true, 0, 0, 0, 0 );
 		}
 
 		public void draw( Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, SpriteEffects effects )
 		{
 			checkBegin();
 			pushSprite( texture, sourceRectangle, destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, destinationRectangle.Height,
-				color, Vector2.Zero, 0.0f, 0.0f, (byte)( effects & (SpriteEffects)0x03 ), true, 0, 0, 0, 0 );
+				color, vec2.Zero, 0.0f, 0.0f, (byte)( effects & (SpriteEffects)0x03 ), true, 0, 0, 0, 0 );
 		}
 
 
@@ -326,7 +325,7 @@ namespace Nez
 				destinationRectangle.Width,
 				destinationRectangle.Height,
 				color,
-				Vector2.Zero,
+				vec2.Zero,
 				rotation,
 				layerDepth,
 				(byte)( effects & (SpriteEffects)0x03 ),
@@ -336,18 +335,18 @@ namespace Nez
 		}
 
 
-		public void draw( Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color )
+		public void draw( Texture2D texture, vec2 position, Rectangle? sourceRectangle, Color color )
 		{
 			checkBegin();
 			pushSprite(
 				texture,
 				sourceRectangle,
-				position.X,
-				position.Y,
+				position.x,
+				position.y,
 				1.0f,
 				1.0f,
 				color,
-				Vector2.Zero,
+				vec2.Zero,
 				0.0f,
 				0.0f,
 				0,
@@ -359,11 +358,11 @@ namespace Nez
 
 		public void draw(
 			Texture2D texture,
-			Vector2 position,
+			vec2 position,
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
+			vec2 origin,
 			float scale,
 			SpriteEffects effects,
 			float layerDepth
@@ -373,8 +372,8 @@ namespace Nez
 			pushSprite(
 				texture,
 				sourceRectangle,
-				position.X,
-				position.Y,
+				position.x,
+				position.y,
 				scale,
 				scale,
 				color,
@@ -390,10 +389,10 @@ namespace Nez
 
 		public void draw(
 			Subtexture subtexture,
-			Vector2 position,
+			vec2 position,
 			Color color,
 			float rotation,
-			Vector2 origin,
+			vec2 origin,
 			float scale,
 			SpriteEffects effects,
 			float layerDepth
@@ -402,8 +401,8 @@ namespace Nez
 			checkBegin();
 			pushSprite(
 				subtexture,
-				position.X,
-				position.Y,
+				position.x,
+				position.y,
 				scale,
 				scale,
 				color,
@@ -418,12 +417,12 @@ namespace Nez
 
 		public void draw(
 			Texture2D texture,
-			Vector2 position,
+			vec2 position,
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
-			Vector2 scale,
+			vec2 origin,
+			vec2 scale,
 			SpriteEffects effects,
 			float layerDepth
 		)
@@ -432,10 +431,10 @@ namespace Nez
 			pushSprite(
 				texture,
 				sourceRectangle,
-				position.X,
-				position.Y,
-				scale.X,
-				scale.Y,
+				position.x,
+				position.y,
+				scale.x,
+				scale.y,
 				color,
 				origin,
 				rotation,
@@ -449,11 +448,11 @@ namespace Nez
 
 		public void draw(
 			Subtexture subtexture,
-			Vector2 position,
+			vec2 position,
 			Color color,
 			float rotation,
-			Vector2 origin,
-			Vector2 scale,
+			vec2 origin,
+			vec2 scale,
 			SpriteEffects effects,
 			float layerDepth
 		)
@@ -461,10 +460,10 @@ namespace Nez
 			checkBegin();
 			pushSprite(
 				subtexture,
-				position.X,
-				position.Y,
-				scale.X,
-				scale.Y,
+				position.x,
+				position.y,
+				scale.x,
+				scale.y,
 				color,
 				origin,
 				rotation,
@@ -477,12 +476,12 @@ namespace Nez
 
 		public void draw(
 			Texture2D texture,
-			Vector2 position,
+			vec2 position,
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
-			Vector2 scale,
+			vec2 origin,
+			vec2 scale,
 			SpriteEffects effects,
 			float layerDepth,
 			float skewTopX, float skewBottomX, float skewLeftY, float skewRightY
@@ -492,10 +491,10 @@ namespace Nez
 			pushSprite(
 				texture,
 				sourceRectangle,
-				position.X,
-				position.Y,
-				scale.X,
-				scale.Y,
+				position.x,
+				position.y,
+				scale.x,
+				scale.y,
 				color,
 				origin,
 				rotation,
@@ -513,7 +512,7 @@ namespace Nez
 			Rectangle? sourceRectangle,
 			Color color,
 			float rotation,
-			Vector2 origin,
+			vec2 origin,
 			SpriteEffects effects,
 			float layerDepth
 		)
@@ -545,7 +544,7 @@ namespace Nez
 		/// <param name="verts">Verts.</param>
 		/// <param name="textureCoords">Texture coords.</param>
 		/// <param name="colors">Colors.</param>
-		public void drawRaw( Texture2D texture, Vector3[] verts, Vector2[] textureCoords, Color[] colors )
+		public void drawRaw( Texture2D texture, Vector3[] verts, vec2[] textureCoords, Color[] colors )
 		{
 			Assert.isTrue( verts.Length == 4, "there must be only 4 verts" );
 			Assert.isTrue( textureCoords.Length == 4, "there must be only 4 texture coordinates" );
@@ -591,7 +590,7 @@ namespace Nez
 		/// <param name="verts">Verts.</param>
 		/// <param name="textureCoords">Texture coords.</param>
 		/// <param name="color">Color.</param>
-		public void drawRaw( Texture2D texture, Vector3[] verts, Vector2[] textureCoords, Color color )
+		public void drawRaw( Texture2D texture, Vector3[] verts, vec2[] textureCoords, Color color )
 		{
 			Assert.isTrue( verts.Length == 4, "there must be only 4 verts" );
 			Assert.isTrue( textureCoords.Length == 4, "there must be only 4 texture coordinates" );
@@ -631,8 +630,8 @@ namespace Nez
 
 
 		[System.Obsolete( "SpriteFont is too locked down to use directly. Wrap it in a NezSpriteFont" )]
-		public void DrawString( SpriteFont spriteFont, string text, Vector2 position, Color color, float rotation,
-			Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth )
+		public void DrawString( SpriteFont spriteFont, string text, vec2 position, Color color, float rotation,
+			vec2 origin, vec2 scale, SpriteEffects effects, float layerDepth )
 		{
 			throw new NotImplementedException( "SpriteFont is too locked down to use directly. Wrap it in a NezSpriteFont" );
 		}
@@ -660,7 +659,7 @@ namespace Nez
 		/// the meat of the Batcher. This is where it all goes down
 		/// </summary>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		void pushSprite( Texture2D texture, Rectangle? sourceRectangle, float destinationX, float destinationY, float destinationW, float destinationH, Color color, Vector2 origin,
+		void pushSprite( Texture2D texture, Rectangle? sourceRectangle, float destinationX, float destinationY, float destinationW, float destinationH, Color color, vec2 origin,
 						float rotation, float depth, byte effects, bool destSizeInPixels, float skewTopX, float skewBottomX, float skewLeftY, float skewRightY )
 		{
 			// out of space, flush
@@ -680,8 +679,8 @@ namespace Nez
 				sourceW = sourceRectangle.Value.Width * inverseTexW;
 				sourceH = sourceRectangle.Value.Height * inverseTexH;
 
-				originX = ( origin.X / sourceW ) * inverseTexW;
-				originY = ( origin.Y / sourceH ) * inverseTexH;
+				originX = ( origin.x / sourceW ) * inverseTexW;
+				originY = ( origin.y / sourceH ) * inverseTexH;
 
 				if( !destSizeInPixels )
 				{
@@ -696,8 +695,8 @@ namespace Nez
 				sourceW = 1.0f;
 				sourceH = 1.0f;
 
-				originX = origin.X * ( 1.0f / texture.Width );
-				originY = origin.Y * ( 1.0f / texture.Height );
+				originX = origin.x * ( 1.0f / texture.Width );
+				originY = origin.y * ( 1.0f / texture.Height );
 
 				if( !destSizeInPixels )
 				{
@@ -795,14 +794,14 @@ namespace Nez
 				destinationY
 			);
 
-			_vertexInfo[_numSprites].textureCoordinate0.X = ( _cornerOffsetX[0 ^ effects] * sourceW ) + sourceX;
-			_vertexInfo[_numSprites].textureCoordinate0.Y = ( _cornerOffsetY[0 ^ effects] * sourceH ) + sourceY;
-			_vertexInfo[_numSprites].textureCoordinate1.X = ( _cornerOffsetX[1 ^ effects] * sourceW ) + sourceX;
-			_vertexInfo[_numSprites].textureCoordinate1.Y = ( _cornerOffsetY[1 ^ effects] * sourceH ) + sourceY;
-			_vertexInfo[_numSprites].textureCoordinate2.X = ( _cornerOffsetX[2 ^ effects] * sourceW ) + sourceX;
-			_vertexInfo[_numSprites].textureCoordinate2.Y = ( _cornerOffsetY[2 ^ effects] * sourceH ) + sourceY;
-			_vertexInfo[_numSprites].textureCoordinate3.X = ( _cornerOffsetX[3 ^ effects] * sourceW ) + sourceX;
-			_vertexInfo[_numSprites].textureCoordinate3.Y = ( _cornerOffsetY[3 ^ effects] * sourceH ) + sourceY;
+			_vertexInfo[_numSprites].textureCoordinate0.x = ( _cornerOffsetX[0 ^ effects] * sourceW ) + sourceX;
+			_vertexInfo[_numSprites].textureCoordinate0.y = ( _cornerOffsetY[0 ^ effects] * sourceH ) + sourceY;
+			_vertexInfo[_numSprites].textureCoordinate1.x = ( _cornerOffsetX[1 ^ effects] * sourceW ) + sourceX;
+			_vertexInfo[_numSprites].textureCoordinate1.y = ( _cornerOffsetY[1 ^ effects] * sourceH ) + sourceY;
+			_vertexInfo[_numSprites].textureCoordinate2.x = ( _cornerOffsetX[2 ^ effects] * sourceW ) + sourceX;
+			_vertexInfo[_numSprites].textureCoordinate2.y = ( _cornerOffsetY[2 ^ effects] * sourceH ) + sourceY;
+			_vertexInfo[_numSprites].textureCoordinate3.x = ( _cornerOffsetX[3 ^ effects] * sourceW ) + sourceX;
+			_vertexInfo[_numSprites].textureCoordinate3.y = ( _cornerOffsetY[3 ^ effects] * sourceH ) + sourceY;
 			_vertexInfo[_numSprites].position0.Z = depth;
 			_vertexInfo[_numSprites].position1.Z = depth;
 			_vertexInfo[_numSprites].position2.Z = depth;
@@ -829,7 +828,7 @@ namespace Nez
 		/// Subtexture alternative to the old SpriteBatch pushSprite
 		/// </summary>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		void pushSprite( Subtexture subtexture, float destinationX, float destinationY, float destinationW, float destinationH, Color color, Vector2 origin,
+		void pushSprite( Subtexture subtexture, float destinationX, float destinationY, float destinationW, float destinationH, Color color, vec2 origin,
 				float rotation, float depth, byte effects, float skewTopX, float skewBottomX, float skewLeftY, float skewRightY )
 		{
 			// out of space, flush
@@ -837,8 +836,8 @@ namespace Nez
 				flushBatch();
 
 			// Source/Destination/Origin Calculations. destinationW/H is the scale value so we multiply by the size of the texture region
-			var originX = ( origin.X / subtexture.uvs.width ) / subtexture.texture2D.Width;
-			var originY = ( origin.Y / subtexture.uvs.height ) / subtexture.texture2D.Height;
+			var originX = ( origin.x / subtexture.uvs.width ) / subtexture.texture2D.Width;
+			var originY = ( origin.y / subtexture.uvs.height ) / subtexture.texture2D.Height;
 			destinationW *= subtexture.sourceRect.Width;
 			destinationH *= subtexture.sourceRect.Height;
 
@@ -931,14 +930,14 @@ namespace Nez
 				destinationY
 			);
 
-			_vertexInfo[_numSprites].textureCoordinate0.X = ( _cornerOffsetX[0 ^ effects] * subtexture.uvs.width ) + subtexture.uvs.x;
-			_vertexInfo[_numSprites].textureCoordinate0.Y = ( _cornerOffsetY[0 ^ effects] * subtexture.uvs.height ) + subtexture.uvs.y;
-			_vertexInfo[_numSprites].textureCoordinate1.X = ( _cornerOffsetX[1 ^ effects] * subtexture.uvs.width ) + subtexture.uvs.x;
-			_vertexInfo[_numSprites].textureCoordinate1.Y = ( _cornerOffsetY[1 ^ effects] * subtexture.uvs.height ) + subtexture.uvs.y;
-			_vertexInfo[_numSprites].textureCoordinate2.X = ( _cornerOffsetX[2 ^ effects] * subtexture.uvs.width ) + subtexture.uvs.x;
-			_vertexInfo[_numSprites].textureCoordinate2.Y = ( _cornerOffsetY[2 ^ effects] * subtexture.uvs.height ) + subtexture.uvs.y;
-			_vertexInfo[_numSprites].textureCoordinate3.X = ( _cornerOffsetX[3 ^ effects] * subtexture.uvs.width ) + subtexture.uvs.x;
-			_vertexInfo[_numSprites].textureCoordinate3.Y = ( _cornerOffsetY[3 ^ effects] * subtexture.uvs.height ) + subtexture.uvs.y;
+			_vertexInfo[_numSprites].textureCoordinate0.x = ( _cornerOffsetX[0 ^ effects] * subtexture.uvs.width ) + subtexture.uvs.x;
+			_vertexInfo[_numSprites].textureCoordinate0.y = ( _cornerOffsetY[0 ^ effects] * subtexture.uvs.height ) + subtexture.uvs.y;
+			_vertexInfo[_numSprites].textureCoordinate1.x = ( _cornerOffsetX[1 ^ effects] * subtexture.uvs.width ) + subtexture.uvs.x;
+			_vertexInfo[_numSprites].textureCoordinate1.y = ( _cornerOffsetY[1 ^ effects] * subtexture.uvs.height ) + subtexture.uvs.y;
+			_vertexInfo[_numSprites].textureCoordinate2.x = ( _cornerOffsetX[2 ^ effects] * subtexture.uvs.width ) + subtexture.uvs.x;
+			_vertexInfo[_numSprites].textureCoordinate2.y = ( _cornerOffsetY[2 ^ effects] * subtexture.uvs.height ) + subtexture.uvs.y;
+			_vertexInfo[_numSprites].textureCoordinate3.x = ( _cornerOffsetX[3 ^ effects] * subtexture.uvs.width ) + subtexture.uvs.x;
+			_vertexInfo[_numSprites].textureCoordinate3.y = ( _cornerOffsetY[3 ^ effects] * subtexture.uvs.height ) + subtexture.uvs.y;
 			_vertexInfo[_numSprites].position0.Z = depth;
 			_vertexInfo[_numSprites].position1.Z = depth;
 			_vertexInfo[_numSprites].position2.Z = depth;
@@ -1111,16 +1110,16 @@ namespace Nez
 
 			public Vector3 position0;
 			public Color color0;
-			public Vector2 textureCoordinate0;
+			public vec2 textureCoordinate0;
 			public Vector3 position1;
 			public Color color1;
-			public Vector2 textureCoordinate1;
+			public vec2 textureCoordinate1;
 			public Vector3 position2;
 			public Color color2;
-			public Vector2 textureCoordinate2;
+			public vec2 textureCoordinate2;
 			public Vector3 position3;
 			public Color color3;
-			public Vector2 textureCoordinate3;
+			public vec2 textureCoordinate3;
 		}
 
 		#endregion

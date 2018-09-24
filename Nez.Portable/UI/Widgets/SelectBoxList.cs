@@ -12,7 +12,7 @@ namespace Nez.UI
 
 		SelectBox<T> _selectBox;
 		Element _previousScrollFocus;
-		Vector2 _screenPosition;
+		vec2 _screenPosition;
 		bool _isListBelowSelectBox;
 
 
@@ -45,7 +45,7 @@ namespace Nez.UI
 
 			stage.addElement( this );
 
-			_screenPosition = _selectBox.localToStageCoordinates( Vector2.Zero );
+			_screenPosition = _selectBox.localToStageCoordinates( vec2.Zero );
 
 			// show the list above or below the select box, limited to a number of items and the available height in the stage.
 			float itemHeight = listBox.getItemHeight();
@@ -57,8 +57,8 @@ namespace Nez.UI
 			if( listBackground != null )
 				height += listBackground.topHeight + listBackground.bottomHeight;
 
-			float heightAbove = _screenPosition.Y;
-			float heightBelow = Screen.height /*camera.viewportHeight */ - _screenPosition.Y - _selectBox.getHeight();
+			float heightAbove = _screenPosition.y;
+			float heightBelow = Screen.height /*camera.viewportHeight */ - _screenPosition.y - _selectBox.getHeight();
 			_isListBelowSelectBox = true;
 			if( height > heightBelow )
 			{
@@ -74,10 +74,10 @@ namespace Nez.UI
 			}
 
 			if( !_isListBelowSelectBox )
-				setY( _screenPosition.Y - height );
+				setY( _screenPosition.y - height );
 			else
-				setY( _screenPosition.Y + _selectBox.getHeight() );
-			setX( _screenPosition.X );
+				setY( _screenPosition.y + _selectBox.getHeight() );
+			setX( _screenPosition.x );
 			setHeight( height );
 			validate();
 
@@ -117,7 +117,7 @@ namespace Nez.UI
 
 		public override void draw( Graphics graphics, float parentAlpha )
 		{
-			var temp = _selectBox.localToStageCoordinates( Vector2.Zero );
+			var temp = _selectBox.localToStageCoordinates( vec2.Zero );
 			if( temp != _screenPosition )
 				Core.schedule( 0f, false, this, t => ((SelectBoxList<T>)t.context).hide() );
 			
@@ -147,7 +147,7 @@ namespace Nez.UI
 				else
 					yMax += _selectBox.height;
 				
-				if( point.X < 0 || point.X > width || point.Y > yMax || point.Y < yMin )
+				if( point.x < 0 || point.x > width || point.y > yMax || point.y < yMin )
 					Core.schedule( 0f, false, this, t => ( (SelectBoxList<T>)t.context ).hide() );
 			}
 			

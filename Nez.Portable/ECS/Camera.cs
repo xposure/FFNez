@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Nez
 {
-    using Vector2 = Nez.vec2;
-    //using Vector3 = Atma.vec3;
     using Matrix = Nez.mat4;
 
 	public class Camera : Component
@@ -48,7 +46,7 @@ namespace Nez
 		/// shortcut to entity.transform.position
 		/// </summary>
 		/// <value>The position.</value>
-		public Vector2 position
+		public vec2 position
 		{
 			get { return entity.transform.position; }
 			set { entity.transform.position = value; }
@@ -134,29 +132,29 @@ namespace Nez
 				if( _areBoundsDirty )
 				{
 					// top-left and bottom-right are needed by either rotated or non-rotated bounds
-					var topLeft = screenToWorldPoint( new Vector2( Core.graphicsDevice.Viewport.X + _inset.left, Core.graphicsDevice.Viewport.Y + _inset.top ) );
-					var bottomRight = screenToWorldPoint( new Vector2( Core.graphicsDevice.Viewport.X + Core.graphicsDevice.Viewport.Width - _inset.right, Core.graphicsDevice.Viewport.Y + Core.graphicsDevice.Viewport.Height - _inset.bottom ) );
+					var topLeft = screenToWorldPoint( new vec2( Core.graphicsDevice.Viewport.X + _inset.left, Core.graphicsDevice.Viewport.Y + _inset.top ) );
+					var bottomRight = screenToWorldPoint( new vec2( Core.graphicsDevice.Viewport.X + Core.graphicsDevice.Viewport.Width - _inset.right, Core.graphicsDevice.Viewport.Y + Core.graphicsDevice.Viewport.Height - _inset.bottom ) );
 
 					if ( entity.transform.rotation != 0 )
 					{
 						// special care for rotated bounds. we need to find our absolute min/max values and create the bounds from that
-						var topRight = screenToWorldPoint( new Vector2( Core.graphicsDevice.Viewport.X + Core.graphicsDevice.Viewport.Width - _inset.right, Core.graphicsDevice.Viewport.Y + _inset.top ) );
-						var bottomLeft = screenToWorldPoint( new Vector2( Core.graphicsDevice.Viewport.X + _inset.left, Core.graphicsDevice.Viewport.Y + Core.graphicsDevice.Viewport.Height - _inset.bottom ) );
+						var topRight = screenToWorldPoint( new vec2( Core.graphicsDevice.Viewport.X + Core.graphicsDevice.Viewport.Width - _inset.right, Core.graphicsDevice.Viewport.Y + _inset.top ) );
+						var bottomLeft = screenToWorldPoint( new vec2( Core.graphicsDevice.Viewport.X + _inset.left, Core.graphicsDevice.Viewport.Y + Core.graphicsDevice.Viewport.Height - _inset.bottom ) );
 
-						var minX = Mathf.minOf( topLeft.X, bottomRight.X, topRight.X, bottomLeft.X );
-						var maxX = Mathf.maxOf( topLeft.X, bottomRight.X, topRight.X, bottomLeft.X );
-						var minY = Mathf.minOf( topLeft.Y, bottomRight.Y, topRight.Y, bottomLeft.Y );
-						var maxY = Mathf.maxOf( topLeft.Y, bottomRight.Y, topRight.Y, bottomLeft.Y );
+						var minX = Mathf.minOf( topLeft.x, bottomRight.x, topRight.x, bottomLeft.x );
+						var maxX = Mathf.maxOf( topLeft.x, bottomRight.x, topRight.x, bottomLeft.x );
+						var minY = Mathf.minOf( topLeft.y, bottomRight.y, topRight.y, bottomLeft.y );
+						var maxY = Mathf.maxOf( topLeft.y, bottomRight.y, topRight.y, bottomLeft.y );
 
-						_bounds.location = new Vector2( minX, minY );
+						_bounds.location = new vec2( minX, minY );
 						_bounds.width = maxX - minX;
 						_bounds.height = maxY - minY;
 					}
 					else
 					{
 						_bounds.location = topLeft;
-						_bounds.width = bottomRight.X - topLeft.X;
-						_bounds.height = bottomRight.Y - topLeft.Y;
+						_bounds.width = bottomRight.x - topLeft.x;
+						_bounds.height = bottomRight.y - topLeft.y;
 					}
 
 					_areBoundsDirty = false;
@@ -249,7 +247,7 @@ namespace Nez
 
 		//#endregion
 
-		public Vector2 origin
+		public vec2 origin
 		{
 			get { return _origin; }
 			internal set
@@ -271,7 +269,7 @@ namespace Nez
 		Matrix2D _transformMatrix = Matrix2D.identity;
 		Matrix2D _inverseTransformMatrix = Matrix2D.identity;
 		Matrix _projectionMatrix;
-		Vector2 _origin;
+		vec2 _origin;
 
 		bool _areMatrixesDirty = true;
 		bool _areBoundsDirty = true;
@@ -295,10 +293,10 @@ namespace Nez
 		{
 			_isProjectionMatrixDirty = true;
 			var oldOrigin = _origin;
-			origin = new Vector2( newWidth / 2f, newHeight / 2f );
+			origin = new vec2( newWidth / 2f, newHeight / 2f );
             var change = _origin - oldOrigin;
             // offset our position to match the new center
-            entity.transform.position = (Vector2)entity.transform.position + change;
+            entity.transform.position = (vec2)entity.transform.position + change;
 		}
 
 
@@ -308,7 +306,7 @@ namespace Nez
 				return;
 
 			Matrix2D tempMat;
-			_transformMatrix = Matrix2D.createTranslation( -entity.transform.position.X, -entity.transform.position.Y ); // position
+			_transformMatrix = Matrix2D.createTranslation( -entity.transform.position.x, -entity.transform.position.y ); // position
 
 			if( _zoom != 1f )
 			{
@@ -322,7 +320,7 @@ namespace Nez
 				Matrix2D.multiply( ref _transformMatrix, ref tempMat, out _transformMatrix );
 			}
 
-			Matrix2D.createTranslation( (int)_origin.X, (int)_origin.Y, out tempMat ); // translate -origin
+			Matrix2D.createTranslation( (int)_origin.x, (int)_origin.y, out tempMat ); // translate -origin
 			Matrix2D.multiply( ref _transformMatrix, ref tempMat, out _transformMatrix );
 
 			// calculate our inverse as well
@@ -355,7 +353,7 @@ namespace Nez
 		/// shortcut to entity.transform.setPosition
 		/// </summary>
 		/// <param name="position">Position.</param>
-		public Camera setPosition( Vector2 position )
+		public Camera setPosition( vec2 position )
 		{
 			entity.transform.setPosition( position );
 			return this;
@@ -481,10 +479,10 @@ namespace Nez
 		/// </summary>
 		/// <returns>The to screen point.</returns>
 		/// <param name="worldPosition">World position.</param>
-		public Vector2 worldToScreenPoint( Vector2 worldPosition )
+		public vec2 worldToScreenPoint( vec2 worldPosition )
 		{
 			updateMatrixes();
-            worldPosition = Vector2.Transform(worldPosition, _transformMatrix);
+            worldPosition = vec2.Transform(worldPosition, _transformMatrix);
 			//Vector2Ext.transform( ref worldPosition, ref _transformMatrix, out worldPosition );
 			return worldPosition;
 		}
@@ -495,10 +493,10 @@ namespace Nez
 		/// </summary>
 		/// <returns>The to world point.</returns>
 		/// <param name="screenPosition">Screen position.</param>
-		public Vector2 screenToWorldPoint( Vector2 screenPosition )
+		public vec2 screenToWorldPoint( vec2 screenPosition )
 		{
 			updateMatrixes();
-            screenPosition = Vector2.Transform(screenPosition, inverseTransformMatrix);
+            screenPosition = vec2.Transform(screenPosition, inverseTransformMatrix);
 			//Vector2Ext.transform( ref screenPosition, ref _inverseTransformMatrix, out screenPosition );
 			return screenPosition;
 		}
@@ -509,7 +507,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The to world point.</returns>
 		/// <param name="screenPosition">Screen position.</param>
-		public Vector2 screenToWorldPoint( Point screenPosition )
+		public vec2 screenToWorldPoint( Point screenPosition )
 		{
 			return screenToWorldPoint( screenPosition );
 		}
@@ -519,7 +517,7 @@ namespace Nez
 		/// returns the mouse position in world space
 		/// </summary>
 		/// <returns>The to world point.</returns>
-		public Vector2 mouseToWorldPoint()
+		public vec2 mouseToWorldPoint()
 		{
 			return screenToWorldPoint( Input.mousePosition );
 		}
@@ -530,7 +528,7 @@ namespace Nez
 		/// returns the touch position in world space
 		/// </summary>
 		/// <returns>The to world point.</returns>
-		public Vector2 touchToWorldPoint( TouchLocation touch )
+		public vec2 touchToWorldPoint( TouchLocation touch )
 		{
 			return screenToWorldPoint( touch.scaledPosition() );
 		}

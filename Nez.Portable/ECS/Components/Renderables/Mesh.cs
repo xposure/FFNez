@@ -23,7 +23,7 @@ namespace Nez
 			{
 				if( _areBoundsDirty )
 				{
-					_bounds.calculateBounds( entity.transform.position + _topLeftVertPosition, Vector2.Zero, Vector2.Zero, entity.transform.scale, entity.transform.rotation, _width, _height );
+					_bounds.calculateBounds( entity.transform.position + _topLeftVertPosition, vec2.Zero, vec2.Zero, entity.transform.scale, entity.transform.rotation, _width, _height );
 					_areBoundsDirty = false;
 				}
 
@@ -36,7 +36,7 @@ namespace Nez
 		BasicEffect _basicEffect;
 
 		int _primitiveCount;
-		Vector2 _topLeftVertPosition;
+		vec2 _topLeftVertPosition;
 		float _width;
 		float _height;
 		int[] _triangles;
@@ -52,19 +52,19 @@ namespace Nez
 		/// <param name="recalculateUVs">If set to <c>true</c> recalculate U vs.</param>
 		public Mesh recalculateBounds( bool recalculateUVs )
 		{
-			_topLeftVertPosition = new Vector2( float.MaxValue, float.MaxValue );
-			var max = new Vector2( float.MinValue, float.MinValue );
+			_topLeftVertPosition = new vec2( float.MaxValue, float.MaxValue );
+			var max = new vec2( float.MinValue, float.MinValue );
 
 			for( var i = 0; i < _verts.Length; i++ )
 			{
-				_topLeftVertPosition.X = MathHelper.Min( _topLeftVertPosition.X, _verts[i].Position.X );
-				_topLeftVertPosition.Y = MathHelper.Min( _topLeftVertPosition.Y, _verts[i].Position.Y );
-				max.X = MathHelper.Max( max.X, _verts[i].Position.X );
-				max.Y = MathHelper.Max( max.Y, _verts[i].Position.Y );
+				_topLeftVertPosition.x = MathHelper.Min( _topLeftVertPosition.x, _verts[i].Position.X );
+				_topLeftVertPosition.y = MathHelper.Min( _topLeftVertPosition.y, _verts[i].Position.Y );
+				max.x = MathHelper.Max( max.x, _verts[i].Position.X );
+				max.y = MathHelper.Max( max.y, _verts[i].Position.Y );
 			}
 
-			_width = max.X - _topLeftVertPosition.X;
-			_height = max.Y - _topLeftVertPosition.Y;
+			_width = max.x - _topLeftVertPosition.x;
+			_height = max.y - _topLeftVertPosition.y;
 			_areBoundsDirty = true;
 
 			// handle UVs if need be
@@ -72,8 +72,8 @@ namespace Nez
 			{
 				for( var i = 0; i < _verts.Length; i++ )
 				{
-					_verts[i].TextureCoordinate.X = ( _verts[i].Position.X - _topLeftVertPosition.X ) / _width;
-					_verts[i].TextureCoordinate.Y = ( _verts[i].Position.Y - _topLeftVertPosition.Y ) / _height;
+					_verts[i].TextureCoordinate.X = ( _verts[i].Position.X - _topLeftVertPosition.x ) / _width;
+					_verts[i].TextureCoordinate.Y = ( _verts[i].Position.Y - _topLeftVertPosition.y ) / _height;
 				}
 			}
 
@@ -160,7 +160,7 @@ namespace Nez
 		/// sets the vert positions. If the positions array does not match the verts array size the verts array will be recreated.
 		/// </summary>
 		/// <param name="positions">Positions.</param>
-		public Mesh setVertPositions( Vector2[] positions )
+		public Mesh setVertPositions( vec2[] positions )
 		{
 			if( _verts == null || _verts.Length != positions.Length )
 				_verts = new VertexPositionColorTexture[positions.Length];

@@ -64,14 +64,14 @@ namespace Nez
 
 		public int getRowAtWorldPosition( float yPos )
 		{
-			yPos -= entity.transform.position.Y + _localOffset.Y;
+			yPos -= entity.transform.position.y + _localOffset.y;
 			return tiledMap.worldToTilePositionY( yPos );
 		}
 
 
 		public int getColumnAtWorldPosition( float xPos )
 		{
-			xPos -= entity.transform.position.X + _localOffset.X;
+			xPos -= entity.transform.position.x + _localOffset.x;
 			return tiledMap.worldToTilePositionY( xPos );
 		}
 
@@ -81,7 +81,7 @@ namespace Nez
 		/// </summary>
 		/// <returns>The tile at world position.</returns>
 		/// <param name="worldPos">World position.</param>
-		public TiledTile getTileAtWorldPosition( Vector2 worldPos )
+		public TiledTile getTileAtWorldPosition( vec2 worldPos )
 		{
 			Assert.isNotNull( collisionLayer, "collisionLayer must not be null!" );
 
@@ -186,7 +186,7 @@ namespace Nez
 			_colliders = new Collider[collisionRects.Count];
 			for( var i = 0; i < collisionRects.Count; i++ )
 			{
-				var collider = new BoxCollider( collisionRects[i].X + _localOffset.X, collisionRects[i].Y + _localOffset.Y, collisionRects[i].Width, collisionRects[i].Height );
+				var collider = new BoxCollider( collisionRects[i].X + _localOffset.x, collisionRects[i].Y + _localOffset.y, collisionRects[i].Width, collisionRects[i].Height );
 				collider.physicsLayer = physicsLayer;
 				collider.entity = entity;
 				_colliders[i] = collider;
@@ -223,7 +223,7 @@ namespace Nez
 				switch( obj.tiledObjectType )
 				{
 					case TiledObject.TiledObjectType.Ellipse:
-						graphics.batcher.drawCircle( new Vector2( renderPosition.X + obj.x + obj.width * 0.5f, renderPosition.Y + obj.y + obj.height * 0.5f ), obj.width * 0.5f, group.color );
+						graphics.batcher.drawCircle( new vec2( renderPosition.x + obj.x + obj.width * 0.5f, renderPosition.y + obj.y + obj.height * 0.5f ), obj.width * 0.5f, group.color );
 						break;
 					case TiledObject.TiledObjectType.Image:
 						throw new NotImplementedException( "Image layers are not yet supported" );
@@ -234,7 +234,7 @@ namespace Nez
 						graphics.batcher.drawPoints( renderPosition, obj.polyPoints, group.color, false );
 						break;
 					case TiledObject.TiledObjectType.None:
-						graphics.batcher.drawHollowRect( renderPosition.X + obj.x, renderPosition.Y + obj.y, obj.width, obj.height, group.color );
+						graphics.batcher.drawHollowRect( renderPosition.x + obj.x, renderPosition.y + obj.y, obj.width, obj.height, group.color );
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();

@@ -7,12 +7,12 @@ namespace Nez
 {
 	public static class GestureSampleExt
 	{
-		public static Vector2 scaledPosition( this GestureSample gestureSample )
+		public static vec2 scaledPosition( this GestureSample gestureSample )
 		{
 			return Input.scaledPosition( gestureSample.Position );
 		}
 
-		public static Vector2 scaledPosition2( this GestureSample gestureSample )
+		public static vec2 scaledPosition2( this GestureSample gestureSample )
 		{
 			return Input.scaledPosition( gestureSample.Position2 );
 		}

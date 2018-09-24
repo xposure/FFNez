@@ -173,11 +173,11 @@ namespace Nez
 			var velocity = entity.transform.position - _segments.First.Value.position;
 
 			// if the distance between the last segment and the current position is too tiny then just copy over the current head value
-			if( velocity.LengthSquared() > float.Epsilon * float.Epsilon )
+			if( velocity.LengthSqr > float.Epsilon * float.Epsilon )
 			{
 				seg.position = entity.transform.position;
 				seg.radius = ribbonRadius;
-				seg.radiusDirection = new Vector2( -velocity.Y, velocity.X );
+				seg.radiusDirection = new vec2( -velocity.y, velocity.x );
 				seg.radiusDirection.Normalize();
 			}
 			else
@@ -214,8 +214,8 @@ namespace Nez
 
 		class RibbonSegment
 		{
-			public Vector2 position;
-			public Vector2 radiusDirection;
+			public vec2 position;
+			public vec2 radiusDirection;
 			// normalized
 			public float radius;
 
@@ -224,7 +224,7 @@ namespace Nez
 				get
 				{
 					var tp = ( position + radiusDirection * radius );
-					return new Vector3( tp.X, tp.Y, 1 );
+					return new Vector3( tp.x, tp.y, 1 );
 				}
 			}
 
@@ -233,12 +233,12 @@ namespace Nez
 				get
 				{
 					var bp = position - radiusDirection * radius;
-					return new Vector3( bp.X, bp.Y, 1 );
+					return new Vector3( bp.x, bp.y, 1 );
 				}
 			}
 
 
-			public RibbonSegment( Vector2 position, float radius )
+			public RibbonSegment( vec2 position, float radius )
 			{
 				this.position = position;
 				this.radius = radius;

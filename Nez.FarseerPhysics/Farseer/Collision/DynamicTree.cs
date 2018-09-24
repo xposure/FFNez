@@ -360,7 +360,8 @@ namespace FarseerPhysics.Collision
 			var p2 = input.point2;
 			var r = p2 - p1;
 			Debug.Assert( r.LengthSquared() > 0.0f );
-			Nez.Vector2Ext.normalize( ref r );
+            r.Normalize();
+			//Nez.Vector2Ext.normalize( ref r );
 
 			// v is perpendicular to the segment.
 			var absV = MathUtils.abs( new Vector2( -r.Y, r.X ) ); //FPE: Inlined the 'v' variable

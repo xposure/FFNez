@@ -36,7 +36,7 @@ namespace Nez.Svg
 		/// <returns>The transformed drawing points.</returns>
 		/// <param name="pathBuilder">Path builder.</param>
 		/// <param name="flatness">Flatness.</param>
-		public Vector2[] getTransformedDrawingPoints( ISvgPathBuilder pathBuilder, float flatness = 3 )
+		public vec2[] getTransformedDrawingPoints( ISvgPathBuilder pathBuilder, float flatness = 3 )
 		{
 			var pts = pathBuilder.getDrawingPoints( segments, flatness );
 			var mat = getCombinedMatrix();
@@ -86,11 +86,11 @@ namespace Nez.Svg
 		/// </summary>
 		/// <returns>The optimized drawing points.</returns>
 		/// <param name="distanceTolerance">Distance tolerance.</param>
-		public List<Vector2> getOptimizedDrawingPoints( float distanceTolerance = 2f )
+		public List<vec2> getOptimizedDrawingPoints( float distanceTolerance = 2f )
 		{
 			Assert.isTrue( isPathCubicBezier(), "SvgPath is not a cubic bezier" );
 
-			var points = ListPool<Vector2>.obtain();
+			var points = ListPool<vec2>.obtain();
 			for( var i = 1; i < segments.Count; i++ )
 			{
 				var cub = segments[i] as SvgCubicCurveSegment;
@@ -100,7 +100,7 @@ namespace Nez.Svg
 				if( i != 1 )
 					pts.RemoveAt( 0 );
 				points.AddRange( pts );
-				ListPool<Vector2>.free( pts );
+				ListPool<vec2>.free( pts );
 			}
 
 			return points;
@@ -112,11 +112,11 @@ namespace Nez.Svg
 		/// </summary>
 		/// <returns>The optimized drawing points.</returns>
 		/// <param name="distanceTolerance">Distance tolerance.</param>
-		public Vector2[] getOptimizedTransformedDrawingPoints( float distanceTolerance = 2f )
+		public vec2[] getOptimizedTransformedDrawingPoints( float distanceTolerance = 2f )
 		{
 			var pointList = getOptimizedDrawingPoints( distanceTolerance );
 			var points = pointList.ToArray();
-			ListPool<Vector2>.free( pointList );
+			ListPool<vec2>.free( pointList );
 
 			var mat = getCombinedMatrix();
 			Vector2Ext.transform( points, ref mat, points );

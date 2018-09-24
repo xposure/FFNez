@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -20,7 +21,7 @@ namespace ImGuiNET
         /// Display size, in pixels. For clamping windows positions.
         /// Default value: [unset]
         /// </summary>
-        public Vector2 DisplaySize;
+        public vec2 DisplaySize;
         /// <summary>
         /// Time elapsed since last frame, in seconds.
         /// Default value: 1.0f / 10.0f.
@@ -103,17 +104,17 @@ namespace ImGuiNET
         /// User storage only, presently not used by ImGui.
         /// Default value: (1.0f, 1.0f).
         /// </summary>
-        public Vector2 DisplayFramebufferScale;
+        public vec2 DisplayFramebufferScale;
         /// <summary>
         /// If you use DisplaySize as a virtual space larger than your screen, set DisplayVisibleMin/Max to the visible area.
         /// Default value: (0.0f, 0.0f)
         /// </summary>
-        public Vector2 DisplayVisibleMin;
+        public vec2 DisplayVisibleMin;
         /// <summary>
         /// If the values are the same, we defaults to Min=0.0f) and Max=DisplaySize.
         /// Default value: (0.0f, 0.0f).
         /// </summary>
-        public Vector2 DisplayVisibleMax;
+        public vec2 DisplayVisibleMax;
         /// <summary>
         /// OS X style: Text editing cursor movement using Alt instead of Ctrl,
         /// Shortcuts using Cmd/Super instead of Ctrl,
@@ -179,7 +180,7 @@ namespace ImGuiNET
         /// <summary>
         /// Mouse position, in pixels (set to -1,-1 if no mouse / on another screen, etc.).
         /// </summary>
-        public Vector2 MousePos;
+        public vec2 MousePos;
         /// <summary>
         /// Mouse buttons: left, right, middle + extras.
         /// ImGui itself mostly only uses left button (BeginPopupContext** are using right button).
@@ -264,7 +265,7 @@ namespace ImGuiNET
         /// Mouse delta. Note that this is zero if either current or previous position are negative,
         /// so a disappearing/reappearing mouse won't have a huge delta for one frame.
         /// </summary>
-        public Vector2 MouseDelta;
+        public vec2 MouseDelta;
 
         //------------------------------------------------------------------
         // [Internal] ImGui will maintain those fields for you
@@ -273,27 +274,27 @@ namespace ImGuiNET
         /// <summary>
         /// Previous mouse position
         /// </summary>
-        public Vector2 MousePosPrev;
+        public vec2 MousePosPrev;
         /// <summary>
         /// Position at time of clicking
         /// </summary>
-        public Vector2 MouseClickedPos0;
+        public vec2 MouseClickedPos0;
         /// <summary>
         /// Position at time of clicking
         /// </summary>
-        public Vector2 MouseClickedPos1;
+        public vec2 MouseClickedPos1;
         /// <summary>
         /// Position at time of clicking
         /// </summary>
-        public Vector2 MouseClickedPos2;
+        public vec2 MouseClickedPos2;
         /// <summary>
         /// Position at time of clicking
         /// </summary>
-        public Vector2 MouseClickedPos3;
+        public vec2 MouseClickedPos3;
         /// <summary>
         /// Position at time of clicking
         /// </summary>
-        public Vector2 MouseClickedPos4;
+        public vec2 MouseClickedPos4;
         /// <summary>
         /// Time of last click (used to figure out double-click)
         /// </summary>
@@ -326,23 +327,23 @@ namespace ImGuiNET
         /// <summary>
         /// Maximum distance, absolute, on each axis, of how much mouse has traveled from the clicking point
         /// </summary>
-        public Vector2 MouseDragMaxDistanceAbs0;
+        public vec2 MouseDragMaxDistanceAbs0;
         /// <summary>
         /// Maximum distance, absolute, on each axis, of how much mouse has traveled from the clicking point
         /// </summary>
-        public Vector2 MouseDragMaxDistanceAbs1;
+        public vec2 MouseDragMaxDistanceAbs1;
         /// <summary>
         /// Maximum distance, absolute, on each axis, of how much mouse has traveled from the clicking point
         /// </summary>
-        public Vector2 MouseDragMaxDistanceAbs2;
+        public vec2 MouseDragMaxDistanceAbs2;
         /// <summary>
         /// Maximum distance, absolute, on each axis, of how much mouse has traveled from the clicking point
         /// </summary>
-        public Vector2 MouseDragMaxDistanceAbs3;
+        public vec2 MouseDragMaxDistanceAbs3;
         /// <summary>
         /// Maximum distance, absolute, on each axis, of how much mouse has traveled from the clicking point
         /// </summary>
-        public Vector2 MouseDragMaxDistanceAbs4;
+        public vec2 MouseDragMaxDistanceAbs4;
         /// <summary>
         /// Squared maximum distance of how much mouse has traveled from the click point
         /// </summary>

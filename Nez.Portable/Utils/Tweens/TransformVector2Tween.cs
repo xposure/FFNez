@@ -20,13 +20,13 @@ namespace Nez.Tweens
 	/// this is a special case since Transforms are by far the most tweened object. we encapsulate the Tween and the ITweenTarget
 	/// in a single, cacheable class
 	/// </summary>
-	public class TransformVector2Tween : Vector2Tween, ITweenTarget<Vector2>
+	public class TransformVector2Tween : Vector2Tween, ITweenTarget<vec2>
 	{
 		Transform _transform;
 		TransformTargetType _targetType;
 
 
-		public void setTweenedValue( Vector2 value )
+		public void setTweenedValue( vec2 value )
 		{
 			switch( _targetType )
 			{
@@ -43,10 +43,10 @@ namespace Nez.Tweens
 					_transform.localScale = value;
 					break;
 				case TransformTargetType.RotationDegrees:
-					_transform.rotationDegrees = value.X;
+					_transform.rotationDegrees = value.x;
 					break;
 				case TransformTargetType.LocalRotationDegrees:
-					_transform.localRotationDegrees = value.X;
+					_transform.localRotationDegrees = value.x;
 					break;
 				default:
 					throw new System.ArgumentOutOfRangeException();
@@ -54,7 +54,7 @@ namespace Nez.Tweens
 		}
 
 
-		public Vector2 getTweenedValue()
+		public vec2 getTweenedValue()
 		{
 			switch( _targetType )
 			{
@@ -67,9 +67,9 @@ namespace Nez.Tweens
 				case TransformTargetType.LocalScale:
 					return _transform.localScale;
 				case TransformTargetType.RotationDegrees:
-					return new Vector2( _transform.rotationDegrees );
+					return new vec2( _transform.rotationDegrees );
 				case TransformTargetType.LocalRotationDegrees:
-					return new Vector2( _transform.localRotationDegrees, 0 );
+					return new vec2( _transform.localRotationDegrees, 0 );
 				default:
 					throw new System.ArgumentOutOfRangeException();
 			}

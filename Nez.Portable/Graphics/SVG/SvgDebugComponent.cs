@@ -176,7 +176,7 @@ namespace Nez.Svg
 					else
 					{
 						var rect = image.rect;
-						var origin = new Vector2( 0.5f * rect.width, 0.5f * rect.height );
+						var origin = new vec2( 0.5f * rect.width, 0.5f * rect.height );
 						rect.location += origin;
 
 						batcher.draw( tex, rect, null, Color.White, rotation, origin, SpriteEffects.None, layerDepth );

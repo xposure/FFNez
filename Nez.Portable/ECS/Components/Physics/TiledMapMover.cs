@@ -63,25 +63,25 @@ namespace Nez.Tiled
 			/// resets collision state and does sub-pixel movement calculations
 			/// </summary>
 			/// <param name="motion">Motion.</param>
-			public void reset( ref Vector2 motion )
+			public void reset( ref vec2 motion )
 			{
-				if( motion.X == 0 )
+				if( motion.x == 0 )
 					right = left = false;
 
-				if( motion.Y == 0 )
+				if( motion.y == 0 )
 					above = below = false;
 				
 				becameGroundedThisFrame = isGroundedOnOneWayPlatform = false;
 				slopeAngle = 0f;
 
 				// deal with subpixel movement, storing off any non-integar remainder for the next frame
-				_movementRemainderX.update( ref motion.X );
-				_movementRemainderY.update( ref motion.Y );
+				_movementRemainderX.update( ref motion.x );
+				_movementRemainderY.update( ref motion.y );
 
 				// due to subpixel movement we might end up with 0 gravity when we really want there to be at least 1 pixel so slopes can work
-				if( below && motion.Y == 0 && _movementRemainderY.remainder > 0 )
+				if( below && motion.y == 0 && _movementRemainderY.remainder > 0 )
 				{
-					motion.Y = 1;
+					motion.y = 1;
 					_movementRemainderY.reset();
 				}
 			}
@@ -139,7 +139,7 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <param name="motion">Motion.</param>
 		/// <param name="boxCollider">Box collider.</param>
-		public void move( Vector2 motion, BoxCollider boxCollider, CollisionState collisionState )
+		public void move( vec2 motion, BoxCollider boxCollider, CollisionState collisionState )
 		{
 			// test for collisions then move the Entity
 			testCollisions( ref motion, boxCollider.bounds, collisionState );
@@ -150,7 +150,7 @@ namespace Nez.Tiled
 		}
 
 
-		public void testCollisions( ref Vector2 motion, Rectangle boxColliderBounds, CollisionState collisionState )
+		public void testCollisions( ref vec2 motion, Rectangle boxColliderBounds, CollisionState collisionState )
 		{
 			_boxColliderBounds = boxColliderBounds;
 
@@ -161,8 +161,8 @@ namespace Nez.Tiled
 			collisionState.reset( ref motion );
 
 			// reset rounded motion for us while dealing with subpixel movement so fetch the rounded values to use for our actual detection
-			var motionX = (int)motion.X;
-			var motionY = (int)motion.Y;
+			var motionX = (int)motion.x;
+			var motionY = (int)motion.y;
 
 			// first, check movement in the horizontal dir
 			if( motionX != 0 )
@@ -174,7 +174,7 @@ namespace Nez.Tiled
 				if( testMapCollision( sweptBounds, direction, collisionState, out collisionResponse ) )
 				{
 					// react to collision. get the distance between our leading edge and what we collided with
-					motion.X = collisionResponse - boxColliderBounds.getSide( direction );
+					motion.x = collisionResponse - boxColliderBounds.getSide( direction );
 					collisionState.left = direction == Edge.Left;
 					collisionState.right = direction == Edge.Right;
 					collisionState._movementRemainderX.reset();
@@ -190,13 +190,13 @@ namespace Nez.Tiled
 			{
 				var direction = motionY >= 0 ? Edge.Bottom : Edge.Top;
 				var sweptBounds = collisionRectForSide( direction, motionY );
-				sweptBounds.X += (int)motion.X;
+				sweptBounds.X += (int)motion.x;
 
 				int collisionResponse;
 				if( testMapCollision( sweptBounds, direction, collisionState, out collisionResponse ) )
 				{
 					// react to collision. get the distance between our leading edge and what we collided with
-					motion.Y = collisionResponse - boxColliderBounds.getSide( direction );
+					motion.y = collisionResponse - boxColliderBounds.getSide( direction );
 					collisionState.above = direction == Edge.Top;
 					collisionState.below = direction == Edge.Bottom;
 					collisionState._movementRemainderY.reset();
@@ -218,17 +218,17 @@ namespace Nez.Tiled
 				{
 					direction = direction.oppositeEdge();
 					sweptBounds = collisionRectForSide( direction, 0 );
-					sweptBounds.X += (int)motion.X;
-					sweptBounds.Y += (int)motion.Y;
+					sweptBounds.X += (int)motion.x;
+					sweptBounds.Y += (int)motion.y;
 
 					if( testMapCollision( sweptBounds, direction, collisionState, out collisionResponse ) )
 					{
 						// react to collision. get the distance between our leading edge and what we collided with
-						motion.Y = collisionResponse - boxColliderBounds.getSide( direction );
+						motion.y = collisionResponse - boxColliderBounds.getSide( direction );
 						// if we collide here this is an overlap of a slope above us. this small bump down will prevent hitches when hitting
 						// our head on a slope that connects to a solid tile. It puts us below the slope when the normal response would put us
 						// above it
-						motion.Y += 2;
+						motion.y += 2;
 						collisionState.above = true;
 					}
 				}
@@ -402,7 +402,7 @@ namespace Nez.Tiled
 			var primaryIncr = direction.isMax() ? 1 : -1;
 
 			var min = worldToTilePosition( isHorizontal ? bounds.Top : bounds.Left, oppositeAxis );
-			var mid = worldToTilePosition( isHorizontal ? bounds.getCenter().Y : bounds.getCenter().X, oppositeAxis );
+			var mid = worldToTilePosition( isHorizontal ? bounds.getCenter().y : bounds.getCenter().x, oppositeAxis );
 			var max = worldToTilePosition( isHorizontal ? bounds.Bottom : bounds.Right, oppositeAxis );
 
 			var isPositive = mid - min < max - mid;

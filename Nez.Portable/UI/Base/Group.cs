@@ -125,7 +125,7 @@ namespace Nez.UI
 		}
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			if( touchable == Touchable.Disabled )
 				return null;

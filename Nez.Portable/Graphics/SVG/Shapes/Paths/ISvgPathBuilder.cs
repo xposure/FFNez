@@ -9,6 +9,6 @@ namespace Nez.Svg
 	/// </summary>
 	public interface ISvgPathBuilder
 	{
-		Vector2[] getDrawingPoints( List<SvgPathSegment> segments, float flatness = 3 );
+		vec2[] getDrawingPoints( List<SvgPathSegment> segments, float flatness = 3 );
 	}
 }

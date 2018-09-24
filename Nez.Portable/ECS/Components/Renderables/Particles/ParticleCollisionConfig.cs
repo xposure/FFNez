@@ -34,7 +34,7 @@ namespace Nez
 		/// <summary>
 		/// gravity value used for simulation after a collision occurs
 		/// </summary>
-		public Vector2 gravity;
+		public vec2 gravity;
 
 		/// <summary>
 		/// how much a particle's lifetime is reduced after a collision. 0 is none and 1 is all of it.

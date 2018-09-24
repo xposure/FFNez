@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System;
+using Nez;
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
@@ -52,7 +53,7 @@ namespace ImGuiNET
         /// <summary>
         /// Texture coordinates to a white pixel (part of the TexExtraData block)
         /// </summary>
-        public Vector2 TexUvWhitePixel;
+        public vec2 TexUvWhitePixel;
 
         /// <summary>
         /// (ImVector(ImFont*)

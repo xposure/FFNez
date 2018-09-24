@@ -87,9 +87,9 @@ namespace Nez.Tiled
 		/// </summary>
 		/// <returns>The world position.</returns>
 		/// <param name="tilemap">Tilemap.</param>
-		public Vector2 getWorldPosition( TiledMap tilemap )
+		public vec2 getWorldPosition( TiledMap tilemap )
 		{
-			return new Vector2( x * tilemap.tileWidth, y * tilemap.tileHeight );
+			return new vec2( x * tilemap.tileWidth, y * tilemap.tileHeight );
 		}
 
 

@@ -19,7 +19,7 @@ namespace Nez
         }
         public override void render()
         {
-            var value = getValue<Vector2>();
+            var value = getValue<vec2>();
             ImGui.DragVector2(_name, ref value, float.MinValue, float.MaxValue);
             setValue(value);
         }

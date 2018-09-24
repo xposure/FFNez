@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
+using Nez;
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
@@ -114,23 +114,23 @@ namespace ImGuiNET
             ImGuiNative.igBulletText(text);
         }
 
-        public static bool InvisibleButton(string id) => InvisibleButton(id, Vector2.Zero);
+        public static bool InvisibleButton(string id) => InvisibleButton(id, vec2.Zero);
 
-        public static bool InvisibleButton(string id, Vector2 size)
+        public static bool InvisibleButton(string id, vec2 size)
         {
             return ImGuiNative.igInvisibleButton(id, size);
         }
 
-        public static void Image(IntPtr userTextureID, Vector2 size, Vector2 uv0, Vector2 uv1, Vector4 tintColor, Vector4 borderColor)
+        public static void Image(IntPtr userTextureID, vec2 size, vec2 uv0, vec2 uv1, Vector4 tintColor, Vector4 borderColor)
         {
             ImGuiNative.igImage(userTextureID, size, uv0, uv1, tintColor, borderColor);
         }
 
         public static bool ImageButton(
             IntPtr userTextureID,
-            Vector2 size,
-            Vector2 uv0,
-            Vector2 uv1,
+            vec2 size,
+            vec2 uv0,
+            vec2 uv1,
             int framePadding,
             Vector4 backgroundColor,
             Vector4 tintColor)
@@ -184,7 +184,7 @@ namespace ImGuiNET
             return ImGuiNative.igCombo(label, ref current_item, items, items.Length, heightInItems);
         }
 
-        public static bool ColorButton(string desc_id, Vector4 color, ColorEditFlags flags, Vector2 size)
+        public static bool ColorButton(string desc_id, Vector4 color, ColorEditFlags flags, vec2 size)
         {
             return ImGuiNative.igColorButton(desc_id, color, flags, size);
         }
@@ -271,7 +271,7 @@ namespace ImGuiNET
             string overlayText,
             float scaleMin,
             float scaleMax,
-            Vector2 graphSize,
+            vec2 graphSize,
             int stride)
         {
             fixed (float* valuesBasePtr = values)
@@ -299,7 +299,7 @@ namespace ImGuiNET
             ImGuiNative.igShowFontSelector(label);
         }
 
-        public unsafe static void PlotHistogram(string label, float[] values, int valuesOffset, string overlayText, float scaleMin, float scaleMax, Vector2 graphSize, int stride)
+        public unsafe static void PlotHistogram(string label, float[] values, int valuesOffset, string overlayText, float scaleMin, float scaleMax, vec2 graphSize, int stride)
         {
             fixed (float* valuesBasePtr = values)
             {
@@ -321,7 +321,7 @@ namespace ImGuiNET
             return ImGuiNative.igSliderFloat(sliderLabel, ref value, min, max, displayText, power);
         }
 
-        public static bool SliderVector2(string label, ref Vector2 value, float min, float max, string displayText, float power)
+        public static bool SliderVector2(string label, ref vec2 value, float min, float max, string displayText, float power)
         {
             return ImGuiNative.igSliderFloat2(label, ref value, min, max, displayText, power);
         }
@@ -366,7 +366,7 @@ namespace ImGuiNET
             return ImGuiNative.igDragFloat(label, ref value, dragSpeed, min, max, displayFormat, dragPower);
         }
 
-        public static bool DragVector2(string label, ref Vector2 value, float min, float max, float dragSpeed = 1f, string displayFormat = "%f", float dragPower = 1f)
+        public static bool DragVector2(string label, ref vec2 value, float min, float max, float dragSpeed = 1f, string displayFormat = "%f", float dragPower = 1f)
         {
             return ImGuiNative.igDragFloat2(label, ref value, dragSpeed, min, max, displayFormat, dragPower);
         }
@@ -438,15 +438,15 @@ namespace ImGuiNET
 
         public static bool Button(string message)
         {
-            return ImGuiNative.igButton(message, Vector2.Zero);
+            return ImGuiNative.igButton(message, vec2.Zero);
         }
 
-        public static bool Button(string message, Vector2 size)
+        public static bool Button(string message, vec2 size)
         {
             return ImGuiNative.igButton(message, size);
         }
 
-        public static void SetNextWindowSize(Vector2 size, Condition condition)
+        public static void SetNextWindowSize(vec2 size, Condition condition)
         {
             ImGuiNative.igSetNextWindowSize(size, condition);
         }
@@ -456,7 +456,7 @@ namespace ImGuiNET
             ImGuiNative.igSetNextWindowFocus();
         }
 
-        public static void SetNextWindowPos(Vector2 position, Condition condition, Vector2 pivot)
+        public static void SetNextWindowPos(vec2 position, Condition condition, vec2 pivot)
         {
             ImGuiNative.igSetNextWindowPos(position, condition, pivot);
         }
@@ -473,7 +473,7 @@ namespace ImGuiNET
         /// </summary>
         /// <param name="drawData">Pointer to the DrawData to scale.</param>
         /// <param name="scale">The scale to apply.</param>
-        public static unsafe void ScaleClipRects(DrawData* drawData, Vector2 scale)
+        public static unsafe void ScaleClipRects(DrawData* drawData, vec2 scale)
         {
             for (int i = 0; i < drawData->CmdListsCount; i++)
             {
@@ -482,7 +482,7 @@ namespace ImGuiNET
                 {
                     DrawCmd* drawCmdList = (DrawCmd*)cmd_list->CmdBuffer.Data;
                     DrawCmd* cmd = &drawCmdList[cmd_i];
-                    cmd->ClipRect = new Vector4(cmd->ClipRect.X * scale.X, cmd->ClipRect.Y * scale.Y, cmd->ClipRect.Z * scale.X, cmd->ClipRect.W * scale.Y);
+                    cmd->ClipRect = new Vector4(cmd->ClipRect.X * scale.x, cmd->ClipRect.Y * scale.y, cmd->ClipRect.Z * scale.x, cmd->ClipRect.W * scale.y);
                 }
             }
         }
@@ -498,22 +498,22 @@ namespace ImGuiNET
             return ImGuiNative.igGetWindowWidth();
         }
 
-        public static Vector2 GetWindowSize()
+        public static vec2 GetWindowSize()
         {
-            Vector2 size;
+            vec2 size;
             ImGuiNative.igGetWindowSize(out size);
             return size;
         }
 
-        public static Vector2 GetWindowPosition()
+        public static vec2 GetWindowPosition()
         {
-            Vector2 pos;
+            vec2 pos;
             ImGuiNative.igGetWindowPos(out pos);
             return pos;
         }
 
 
-        public static void SetWindowSize(Vector2 size, Condition cond = 0)
+        public static void SetWindowSize(vec2 size, Condition cond = 0)
         {
             ImGuiNative.igSetWindowSize(size, cond);
         }
@@ -533,15 +533,15 @@ namespace ImGuiNET
 
         public static bool BeginWindow(string windowTitle, ref bool opened, float backgroundAlpha, WindowFlags flags)
         {
-            return ImGuiNative.igBegin2(windowTitle, ref opened, new Vector2(), backgroundAlpha, flags);
+            return ImGuiNative.igBegin2(windowTitle, ref opened, new vec2(), backgroundAlpha, flags);
         }
 
-        public static bool BeginWindow(string windowTitle, ref bool opened, Vector2 startingSize, WindowFlags flags)
+        public static bool BeginWindow(string windowTitle, ref bool opened, vec2 startingSize, WindowFlags flags)
         {
             return ImGuiNative.igBegin2(windowTitle, ref opened, startingSize, 1f, flags);
         }
 
-        public static bool BeginWindow(string windowTitle, ref bool opened, Vector2 startingSize, float backgroundAlpha, WindowFlags flags)
+        public static bool BeginWindow(string windowTitle, ref bool opened, vec2 startingSize, float backgroundAlpha, WindowFlags flags)
         {
             return ImGuiNative.igBegin2(windowTitle, ref opened, startingSize, backgroundAlpha, flags);
         }
@@ -608,7 +608,7 @@ namespace ImGuiNET
 
         public static unsafe bool InputText(string label, byte[] textBuffer, uint bufferSize, InputTextFlags flags, TextEditCallback textEditCallback, IntPtr userData)
         {
-            Debug.Assert(bufferSize <= textBuffer.Length);
+            System.Diagnostics.Debug.Assert(bufferSize <= textBuffer.Length);
             fixed (byte* ptrBuf = textBuffer)
             {
                 return InputText(label, new IntPtr(ptrBuf), bufferSize, flags, textEditCallback, userData);
@@ -646,12 +646,12 @@ namespace ImGuiNET
         }
 
         public static void PushStyleVar(StyleVar var, float value) => ImGuiNative.igPushStyleVar(var, value);
-        public static void PushStyleVar(StyleVar var, Vector2 value) => ImGuiNative.igPushStyleVarVec(var, value);
+        public static void PushStyleVar(StyleVar var, vec2 value) => ImGuiNative.igPushStyleVarVec(var, value);
 
         public static void PopStyleVar() => ImGuiNative.igPopStyleVar(1);
         public static void PopStyleVar(int count) => ImGuiNative.igPopStyleVar(count);
 
-        public static unsafe void InputTextMultiline(string label, IntPtr textBuffer, uint bufferSize, Vector2 size, InputTextFlags flags, TextEditCallback callback)
+        public static unsafe void InputTextMultiline(string label, IntPtr textBuffer, uint bufferSize, vec2 size, InputTextFlags flags, TextEditCallback callback)
         {
             ImGuiNative.igInputTextMultiline(label, textBuffer, bufferSize, size, flags, callback, null);
         }
@@ -661,12 +661,12 @@ namespace ImGuiNET
             return ImGuiNative.igGetDrawData();
         }
 
-        public static unsafe void InputTextMultiline(string label, IntPtr textBuffer, uint bufferSize, Vector2 size, InputTextFlags flags, TextEditCallback callback, IntPtr userData)
+        public static unsafe void InputTextMultiline(string label, IntPtr textBuffer, uint bufferSize, vec2 size, InputTextFlags flags, TextEditCallback callback, IntPtr userData)
         {
             ImGuiNative.igInputTextMultiline(label, textBuffer, bufferSize, size, flags, callback, userData.ToPointer());
         }
 
-        public static bool BeginChildFrame(uint id, Vector2 size, WindowFlags flags)
+        public static bool BeginChildFrame(uint id, vec2 size, WindowFlags flags)
         {
             return ImGuiNative.igBeginChildFrame(id, size, flags);
         }
@@ -757,7 +757,7 @@ namespace ImGuiNET
             return ImGuiNative.igIsWindowHovered(flags);
         }
 
-        public static bool IsMouseHoveringRect(Vector2 minPosition, Vector2 maxPosition, bool clip)
+        public static bool IsMouseHoveringRect(vec2 minPosition, vec2 maxPosition, bool clip)
         {
             return ImGuiNative.igIsMouseHoveringRect(minPosition, maxPosition, clip);
         }
@@ -767,7 +767,7 @@ namespace ImGuiNET
             return ImGuiNative.igIsMousePosValid(null);
         }
 
-        public static unsafe bool IsMousePosValid(Vector2 mousePos)
+        public static unsafe bool IsMousePosValid(vec2 mousePos)
         {
             return ImGuiNative.igIsMousePosValid(&mousePos);
         }
@@ -777,23 +777,23 @@ namespace ImGuiNET
             return ImGuiNative.igIsMouseDragging(button, lockThreshold);
         }
 
-        public static Vector2 GetMousePos()
+        public static vec2 GetMousePos()
         {
-            Vector2 retVal;
+            vec2 retVal;
             ImGuiNative.igGetMousePos(out retVal);
             return retVal;
         }
 
-        public static Vector2 GetMousePosOnOpeningCurrentPopup()
+        public static vec2 GetMousePosOnOpeningCurrentPopup()
         {
-            Vector2 retVal;
+            vec2 retVal;
             ImGuiNative.igGetMousePosOnOpeningCurrentPopup(out retVal);
             return retVal;
         }
 
-        public static Vector2 GetMouseDragDelta(int button, float lockThreshold)
+        public static vec2 GetMouseDragDelta(int button, float lockThreshold)
         {
-            Vector2 retVal;
+            vec2 retVal;
             ImGuiNative.igGetMouseDragDelta(out retVal, button, lockThreshold);
             return retVal;
         }
@@ -815,21 +815,21 @@ namespace ImGuiNET
             }
         }
 
-        public static Vector2 GetCursorStartPos()
+        public static vec2 GetCursorStartPos()
         {
-            Vector2 retVal;
+            vec2 retVal;
             ImGuiNative.igGetCursorStartPos(out retVal);
             return retVal;
         }
 
-        public static unsafe Vector2 GetCursorScreenPos()
+        public static unsafe vec2 GetCursorScreenPos()
         {
-            Vector2 retVal;
+            vec2 retVal;
             ImGuiNative.igGetCursorScreenPos(&retVal);
             return retVal;
         }
 
-        public static void SetCursorScreenPos(Vector2 pos)
+        public static void SetCursorScreenPos(vec2 pos)
         {
             ImGuiNative.igSetCursorScreenPos(pos);
         }
@@ -847,15 +847,15 @@ namespace ImGuiNET
 
         public static bool BeginChild(string id, bool border = false, WindowFlags flags = 0)
         {
-            return BeginChild(id, new Vector2(0, 0), border, flags);
+            return BeginChild(id, new vec2(0, 0), border, flags);
         }
 
-        public static bool BeginChild(string id, Vector2 size, bool border, WindowFlags flags)
+        public static bool BeginChild(string id, vec2 size, bool border, WindowFlags flags)
         {
             return ImGuiNative.igBeginChild(id, size, border, flags);
         }
 
-        public static bool BeginChild(uint id, Vector2 size, bool border, WindowFlags flags)
+        public static bool BeginChild(uint id, vec2 size, bool border, WindowFlags flags)
         {
             return ImGuiNative.igBeginChildEx(id, size, border, flags);
         }
@@ -865,16 +865,16 @@ namespace ImGuiNET
             ImGuiNative.igEndChild();
         }
 
-        public static Vector2 GetContentRegionMax()
+        public static vec2 GetContentRegionMax()
         {
-            Vector2 value;
+            vec2 value;
             ImGuiNative.igGetContentRegionMax(out value);
             return value;
         }
 
-        public static Vector2 GetContentRegionAvailable()
+        public static vec2 GetContentRegionAvailable()
         {
-            Vector2 value;
+            vec2 value;
             ImGuiNative.igGetContentRegionAvail(out value);
             return value;
         }
@@ -884,16 +884,16 @@ namespace ImGuiNET
             return ImGuiNative.igGetContentRegionAvailWidth();
         }
 
-        public static Vector2 GetWindowContentRegionMin()
+        public static vec2 GetWindowContentRegionMin()
         {
-            Vector2 value;
+            vec2 value;
             ImGuiNative.igGetWindowContentRegionMin(out value);
             return value;
         }
 
-        public static Vector2 GetWindowContentRegionMax()
+        public static vec2 GetWindowContentRegionMax()
         {
-            Vector2 value;
+            vec2 value;
             ImGuiNative.igGetWindowContentRegionMax(out value);
             return value;
         }
@@ -964,27 +964,27 @@ namespace ImGuiNET
 
         public static bool Selectable(string label, bool isSelected, SelectableFlags flags)
         {
-            return Selectable(label, isSelected, flags, new Vector2());
+            return Selectable(label, isSelected, flags, new vec2());
         }
 
-        public static bool Selectable(string label, bool isSelected, SelectableFlags flags, Vector2 size)
+        public static bool Selectable(string label, bool isSelected, SelectableFlags flags, vec2 size)
         {
             return ImGuiNative.igSelectable(label, isSelected, flags, size);
         }
 
         public static bool SelectableEx(string label, ref bool isSelected)
         {
-            return ImGuiNative.igSelectableEx(label, ref isSelected, SelectableFlags.Default, new Vector2());
+            return ImGuiNative.igSelectableEx(label, ref isSelected, SelectableFlags.Default, new vec2());
         }
 
-        public static bool SelectableEx(string label, ref bool isSelected, SelectableFlags flags, Vector2 size)
+        public static bool SelectableEx(string label, ref bool isSelected, SelectableFlags flags, vec2 size)
         {
             return ImGuiNative.igSelectableEx(label, ref isSelected, flags, size);
         }
 
-        public static unsafe Vector2 GetTextSize(string text, float wrapWidth = Int32.MaxValue)
+        public static unsafe vec2 GetTextSize(string text, float wrapWidth = Int32.MaxValue)
         {
-            Vector2 result;
+            vec2 result;
             IntPtr buffer = Marshal.StringToHGlobalAnsi(text);
             byte* textStart = (byte*)buffer.ToPointer();
             byte* textEnd = textStart + text.Length;
@@ -1004,7 +1004,7 @@ namespace ImGuiNET
 
         public static unsafe void Dummy(float width, float height)
         {
-            Dummy(new Vector2(width, height));
+            Dummy(new vec2(width, height));
         }
 
         public static void EndPopup()
@@ -1017,7 +1017,7 @@ namespace ImGuiNET
             return ImGuiNative.igIsPopupOpen(id);
         }
 
-        public static unsafe void Dummy(Vector2 size)
+        public static unsafe void Dummy(vec2 size)
         {
             ImGuiNative.igDummy(&size);
         }
@@ -1094,7 +1094,7 @@ namespace ImGuiNET
 
         public static void EndDragDropTarget() => ImGuiNative.igEndDragDropTarget();
 
-        public static void PushClipRect(Vector2 min, Vector2 max, bool intersectWithCurrentCliRect)
+        public static void PushClipRect(vec2 min, vec2 max, bool intersectWithCurrentCliRect)
         {
             ImGuiNative.igPushClipRect(min, max, intersectWithCurrentCliRect ? (byte)1 : (byte)0);
         }
@@ -1176,23 +1176,23 @@ namespace ImGuiNET
             ImGuiNative.igTreePop();
         }
 
-        public static Vector2 GetLastItemRectSize()
+        public static vec2 GetLastItemRectSize()
         {
-            Vector2 result;
+            vec2 result;
             ImGuiNative.igGetItemRectSize(out result);
             return result;
         }
 
-        public static Vector2 GetLastItemRectMin()
+        public static vec2 GetLastItemRectMin()
         {
-            Vector2 result;
+            vec2 result;
             ImGuiNative.igGetItemRectMin(out result);
             return result;
         }
 
-        public static Vector2 GetLastItemRectMax()
+        public static vec2 GetLastItemRectMax()
         {
-            Vector2 result;
+            vec2 result;
             ImGuiNative.igGetItemRectMax(out result);
             return result;
         }

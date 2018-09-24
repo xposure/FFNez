@@ -67,12 +67,12 @@ namespace Nez
 		/// <summary>
 		/// position of the mask, the center of the screen
 		/// </summary>
-		Vector2 _maskPosition;
+		vec2 _maskPosition;
 
 		/// <summary>
 		/// origin of the mask, the center of the Texture
 		/// </summary>
-		Vector2 _maskOrigin;
+		vec2 _maskOrigin;
 
 		/// <summary>
 		/// multiplicative BlendState used for rendering the mask
@@ -87,10 +87,10 @@ namespace Nez
 
 		public ImageMaskTransition( Func<Scene> sceneLoadAction, Texture2D maskTexture ) : base( sceneLoadAction, true )
 		{
-			_maskPosition = new Vector2( Screen.width / 2, Screen.height / 2 );
+			_maskPosition = new vec2( Screen.width / 2, Screen.height / 2 );
 			_maskRenderTarget = new RenderTarget2D( Core.graphicsDevice, Screen.width, Screen.height, false, SurfaceFormat.Color, DepthFormat.None );
 			_maskTexture = maskTexture;
-			_maskOrigin = new Vector2( _maskTexture.Bounds.Width / 2, _maskTexture.Bounds.Height / 2 );
+			_maskOrigin = new vec2( _maskTexture.Bounds.Width / 2, _maskTexture.Bounds.Height / 2 );
 
 			_blendState = new BlendState {
 				ColorSourceBlend = Blend.DestinationColor,
@@ -169,12 +169,12 @@ namespace Nez
 			if( !_isNewSceneLoaded )
 			{
 				graphics.batcher.begin( BlendState.Opaque, Core.defaultSamplerState, DepthStencilState.None, null );
-				graphics.batcher.draw( previousSceneRender, Vector2.Zero, Color.White );
+				graphics.batcher.draw( previousSceneRender, vec2.Zero, Color.White );
 				graphics.batcher.end();
 			}
 
 			graphics.batcher.begin( _blendState, Core.defaultSamplerState, DepthStencilState.None, null );
-			graphics.batcher.draw( _maskRenderTarget, Vector2.Zero, Color.White );
+			graphics.batcher.draw( _maskRenderTarget, vec2.Zero, Color.White );
 			graphics.batcher.end();
 		}
 

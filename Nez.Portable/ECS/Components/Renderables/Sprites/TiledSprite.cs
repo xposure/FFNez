@@ -36,7 +36,7 @@ namespace Nez
 		/// scale of the texture
 		/// </summary>
 		/// <value>The texture scale.</value>
-		public Vector2 textureScale
+		public vec2 textureScale
 		{
 			get { return _textureScale; }
 			set
@@ -44,9 +44,9 @@ namespace Nez
 				_textureScale = value;
 
 				// recalulcate our inverseTextureScale and the source rect size
-				_inverseTexScale = new Vector2( 1f / _textureScale.X, 1f / _textureScale.Y );
-				_sourceRect.Width = (int)( subtexture.sourceRect.Width * _inverseTexScale.X );
-				_sourceRect.Height = (int)( subtexture.sourceRect.Height * _inverseTexScale.Y );
+				_inverseTexScale = new vec2( 1f / _textureScale.x, 1f / _textureScale.y );
+				_sourceRect.Width = (int)( subtexture.sourceRect.Width * _inverseTexScale.x );
+				_sourceRect.Height = (int)( subtexture.sourceRect.Height * _inverseTexScale.y );
 			}
 		}
 
@@ -74,8 +74,8 @@ namespace Nez
 		/// we keep a copy of the sourceRect so that we dont change the Subtexture in case it is used elsewhere
 		/// </summary>
 		protected Rectangle _sourceRect;
-		Vector2 _textureScale = Vector2.One;
-		Vector2 _inverseTexScale = Vector2.One;
+		vec2 _textureScale = vec2.One;
+		vec2 _inverseTexScale = vec2.One;
 
 
 		public TiledSprite( Subtexture subtexture ) : base( subtexture )
@@ -95,7 +95,7 @@ namespace Nez
 		public override void render( Graphics graphics, Camera camera )
 		{
 			var topLeft = entity.transform.position + _localOffset;
-			var destinationRect = RectangleExt.fromFloats( topLeft.X, topLeft.Y, _sourceRect.Width * entity.transform.scale.X * textureScale.X, _sourceRect.Height * entity.transform.scale.Y * textureScale.Y );
+			var destinationRect = RectangleExt.fromFloats( topLeft.x, topLeft.y, _sourceRect.Width * entity.transform.scale.x * textureScale.x, _sourceRect.Height * entity.transform.scale.y * textureScale.y );
 
 			graphics.batcher.draw( subtexture, destinationRect, _sourceRect, color, entity.transform.rotation, origin * _inverseTexScale, spriteEffects, _layerDepth );
 		}

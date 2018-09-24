@@ -129,8 +129,8 @@ namespace Nez.Particles
 				}
 			}
 
-			var min = new Vector2( float.MaxValue, float.MaxValue );
-			var max = new Vector2( float.MinValue, float.MinValue );
+			var min = new vec2( float.MaxValue, float.MaxValue );
+			var max = new vec2( float.MinValue, float.MinValue );
 			var maxParticleSize = float.MinValue;
 
 			// loop through all the particles updating their location and color
@@ -150,15 +150,15 @@ namespace Nez.Particles
 					// particle is good. collect min/max positions for the bounds
 					var pos = emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
 					pos += currentParticle.position;
-					Vector2.Min( ref min, ref pos, out min );
-					Vector2.Max( ref max, ref pos, out max );
+					vec2.Min( ref min, ref pos, out min );
+					vec2.Max( ref max, ref pos, out max );
 					maxParticleSize = System.Math.Max( maxParticleSize, currentParticle.particleSize );
 				}
 			}
 
 			_bounds.location = min;
-			_bounds.width = max.X - min.X;
-			_bounds.height = max.Y - min.Y;
+			_bounds.width = max.x - min.x;
+			_bounds.height = max.y - min.y;
 
 			if( emitterConfig.subtexture == null )
 			{
@@ -187,7 +187,7 @@ namespace Nez.Particles
 				var pos = emitterConfig.simulateInWorldSpace ? currentParticle.spawnPosition : rootPosition;
 
 				if( emitterConfig.subtexture == null )
-					graphics.batcher.draw( graphics.pixelTexture, pos + currentParticle.position, currentParticle.color, currentParticle.rotation, Vector2.One, currentParticle.particleSize * 0.5f, SpriteEffects.None, layerDepth );
+					graphics.batcher.draw( graphics.pixelTexture, pos + currentParticle.position, currentParticle.color, currentParticle.rotation, vec2.One, currentParticle.particleSize * 0.5f, SpriteEffects.None, layerDepth );
 				else
 					graphics.batcher.draw( emitterConfig.subtexture, pos + currentParticle.position, currentParticle.color, currentParticle.rotation, emitterConfig.subtexture.center, currentParticle.particleSize / emitterConfig.subtexture.sourceRect.Width, SpriteEffects.None, layerDepth );
 			}
@@ -268,7 +268,7 @@ namespace Nez.Particles
 		/// <summary>
 		/// adds a Particle to the emitter
 		/// </summary>
-		void addParticle( Vector2 position )
+		void addParticle( vec2 position )
 		{
 			// take the next particle out of the particle pool we have created and initialize it
 			var particle = Pool<Particle>.obtain();

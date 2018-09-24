@@ -259,7 +259,7 @@ namespace Nez.DeferredLighting
 
 			Core.graphicsDevice.setRenderTarget( scene.sceneRenderTarget );
 			Graphics.instance.batcher.begin( BlendState.Opaque );
-			Graphics.instance.batcher.draw( tempRT, Vector2.Zero );
+			Graphics.instance.batcher.draw( tempRT, vec2.Zero );
 			Graphics.instance.batcher.end();
 
 			RenderTarget.releaseTemporary( tempRT );

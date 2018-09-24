@@ -6,13 +6,13 @@ namespace Nez.ECS.Components.Renderables.Particles
 {
     public class FufParticle
     {
-        public Vector2 position;
-        public Vector2 spawnPosition;
+        public vec2 position;
+        public vec2 spawnPosition;
         public Color color = Color.White;
         public float rotation = 0f;
         public float scale = 1f;
         public float alpha;
-        public Vector2 velocity;
+        public vec2 velocity;
 
         private float _timeToLive;
         private float _lifetime;
@@ -30,11 +30,11 @@ namespace Nez.ECS.Components.Renderables.Particles
 
         private FufParticleCreatorConfig _emitterConfig;
 
-        public void initialize(FufParticleCreatorConfig emitterConfig, Vector2 spawnPosition)
+        public void initialize(FufParticleCreatorConfig emitterConfig, vec2 spawnPosition)
         {
             _emitterConfig = emitterConfig;
             this.spawnPosition = spawnPosition;
-            position = Vector2.Zero;
+            position = vec2.Zero;
             color = Color.White;
             rotation = 0f;
             scale = 1f;
@@ -43,10 +43,10 @@ namespace Nez.ECS.Components.Renderables.Particles
             rotation = emitterConfig.particleRotation.nextValue();
             var launchAngle = MathHelper.ToRadians(emitterConfig.launchAngle.nextValue());
             var speed = emitterConfig.speed.nextValue();
-            velocity = new Vector2((float) Math.Cos(launchAngle), (float) Math.Sin(launchAngle)) * speed;
+            velocity = new vec2((float) Math.Cos(launchAngle), (float) Math.Sin(launchAngle)) * speed;
 
             var offset = emitterConfig.offset.nextValue();
-            offset = Vector2.Transform(offset, Matrix.CreateRotationZ(launchAngle));
+            offset = vec2.Transform(offset, Matrix.CreateRotationZ(launchAngle));
             position += offset;
 
             (_startScale, _endScale) = emitterConfig.scale.nextValues();

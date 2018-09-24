@@ -56,7 +56,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			calculatePositionAndValue( mousePos );
 			_mouseDown = true;
@@ -64,7 +64,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{
 			if( distanceOutsideBoundsToPoint( mousePos ) > sliderBoundaryThreshold )
 			{
@@ -78,7 +78,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{
 			_mouseDown = false;
 		}
@@ -221,7 +221,7 @@ namespace Nez.UI
 		}
 
 
-		void calculatePositionAndValue( Vector2 mousePos )
+		void calculatePositionAndValue( vec2 mousePos )
 		{
 			var knob = getKnobDrawable();
 
@@ -230,7 +230,7 @@ namespace Nez.UI
 			{
 				var height = this.height - style.background.topHeight - style.background.bottomHeight;
 				var knobHeight = knob == null ? 0 : knob.minHeight;
-				position = mousePos.Y - style.background.bottomHeight - knobHeight * 0.5f;
+				position = mousePos.y - style.background.bottomHeight - knobHeight * 0.5f;
 				value = _min + ( _max - _min ) * ( position / ( height - knobHeight ) );
 				position = Math.Max( 0, position );
 				position = Math.Min( height - knobHeight, position );
@@ -239,7 +239,7 @@ namespace Nez.UI
 			{
 				var width = this.width - style.background.leftWidth - style.background.rightWidth;
 				var knobWidth = knob == null ? 0 : knob.minWidth;
-				position = mousePos.X - style.background.leftWidth - knobWidth * 0.5f;
+				position = mousePos.x - style.background.leftWidth - knobWidth * 0.5f;
 				value = _min + ( _max - _min ) * ( position / ( width - knobWidth ) );
 				position = Math.Max( 0, position );
 				position = Math.Min( width - knobWidth, position );

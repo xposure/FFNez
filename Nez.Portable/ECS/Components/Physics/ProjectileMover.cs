@@ -26,7 +26,7 @@ namespace Nez
 		/// </summary>
 		/// <returns><c>true</c>, if move actor was newed, <c>false</c> otherwise.</returns>
 		/// <param name="motion">Motion.</param>
-		public bool move( Vector2 motion )
+		public bool move( vec2 motion )
 		{
 			var didCollide = false;
 

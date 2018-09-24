@@ -19,7 +19,7 @@ namespace Nez.ECS.Components.Renderables.Particles
 
         public StartEndFloatValueBounds scale { get; } = new StartEndFloatValueBounds(1f);
 
-        public Vector2ValueBounds offset { get; } = new Vector2ValueBounds(Vector2.Zero);
+        public Vector2ValueBounds offset { get; } = new Vector2ValueBounds(vec2.Zero);
 
         public FloatValueBounds speed { get; } = new FloatValueBounds(1f);
     }

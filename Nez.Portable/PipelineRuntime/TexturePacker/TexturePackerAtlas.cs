@@ -65,7 +65,7 @@ namespace Nez.TextureAtlases
 		{
 			Assert.isFalse( _subtextureMap.ContainsKey( name ), "Region {0} already exists in the texture atlas", name );
 
-			var region = new Subtexture( texture, new Rectangle( x, y, width, height ), new Vector2( pivotX * width, pivotY * height ) );
+			var region = new Subtexture( texture, new Rectangle( x, y, width, height ), new vec2( pivotX * width, pivotY * height ) );
 			var index = subtextures.Count;
 			subtextures.Add( region );
 			_subtextureMap.Add( name, index );

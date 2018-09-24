@@ -15,9 +15,9 @@ namespace Nez.Particles
 		/// </summary>
 		static Circle _circleCollisionShape = new Circle( 0 );
 
-		internal Vector2 position;
-		internal Vector2 spawnPosition;
-		Vector2 _direction;
+		internal vec2 position;
+		internal vec2 spawnPosition;
+		vec2 _direction;
 		internal Color color;
 		// stored at particle creation time and used for lerping the color
 		Color _startColor;
@@ -41,18 +41,18 @@ namespace Nez.Particles
 		/// flag indicating if this particle has already collided so that we know not to move it in the normal fashion
 		/// </summary>
 		bool _collided;
-		Vector2 _velocity;
+		vec2 _velocity;
 
 
-		public void initialize( ParticleEmitterConfig emitterConfig, Vector2 spawnPosition )
+		public void initialize( ParticleEmitterConfig emitterConfig, vec2 spawnPosition )
 		{
 			_collided = false;
 
 			// init the position of the Particle. This is based on the source position of the particle emitter
 			// plus a configured variance. The Random.minusOneToOne method allows the number to be both positive
 			// and negative
-			position.X = emitterConfig.sourcePositionVariance.X * Random.minusOneToOne();
-			position.Y = emitterConfig.sourcePositionVariance.Y * Random.minusOneToOne();
+			position.x = emitterConfig.sourcePositionVariance.x * Random.minusOneToOne();
+			position.y = emitterConfig.sourcePositionVariance.y * Random.minusOneToOne();
 
 			this.spawnPosition = spawnPosition;
 
@@ -60,8 +60,8 @@ namespace Nez.Particles
 			// angle variance.
 			var newAngle = MathHelper.ToRadians( emitterConfig.angle + emitterConfig.angleVariance * Random.minusOneToOne() );
 
-			// create a new Vector2 using the newAngle
-			var vector = new Vector2( Mathf.cos( newAngle ), Mathf.sin( newAngle ) );
+			// create a new vec2 using the newAngle
+			var vector = new vec2( Mathf.cos( newAngle ), Mathf.sin( newAngle ) );
 
 			// calculate the vectorSpeed using the speed and speedVariance which has been passed in
 			var vectorSpeed = emitterConfig.speed + emitterConfig.speedVariance * Random.minusOneToOne();
@@ -126,7 +126,7 @@ namespace Nez.Particles
 		/// updates the particle. Returns true when the particle is no longer alive
 		/// </summary>
 		/// <param name="emitterConfig">Emitter config.</param>
-		public bool update( ParticleEmitterConfig emitterConfig, ref ParticleCollisionConfig collisionConfig, Vector2 rootPosition )
+		public bool update( ParticleEmitterConfig emitterConfig, ref ParticleCollisionConfig collisionConfig, vec2 rootPosition )
 		{
 			// PART 1: reduce the life span of the particle
 			_timeToLive -= Time.deltaTime;
@@ -144,27 +144,27 @@ namespace Nez.Particles
 						_angle += _degreesPerSecond * Time.deltaTime;
 						_radius += _radiusDelta * Time.deltaTime;
 
-						Vector2 tmp;
-						tmp.X = -Mathf.cos( _angle ) * _radius;
-						tmp.Y = -Mathf.sin( _angle ) * _radius;
+						vec2 tmp;
+						tmp.x = -Mathf.cos( _angle ) * _radius;
+						tmp.y = -Mathf.sin( _angle ) * _radius;
 
 						_velocity = tmp - position;
 						position = tmp;
 					}
 					else
 					{
-						Vector2 tmp, radial, tangential;
-						radial = Vector2.Zero;
+						vec2 tmp, radial, tangential;
+						radial = vec2.Zero;
 
-						if( position.X != 0 || position.Y != 0 )
-							Vector2.Normalize( ref position, out radial );
+						if( position.x != 0 || position.y != 0 )
+							vec2.Normalize( ref position, out radial );
 
 						tangential = radial;
 						radial = radial * _radialAcceleration;
 
-						var newy = tangential.X;
-						tangential.X = -tangential.Y;
-						tangential.Y = newy;
+						var newy = tangential.x;
+						tangential.x = -tangential.y;
+						tangential.y = newy;
 						tangential = tangential * _tangentialAcceleration;
 
 						tmp = radial + tangential + emitterConfig.gravity;
@@ -201,7 +201,7 @@ namespace Nez.Particles
 						position += _velocity * Time.deltaTime;
 
 						// if we move too slow we die
-						if( _velocity.LengthSquared() < collisionConfig.minKillSpeedSquared )
+						if( _velocity.LengthSqr < collisionConfig.minKillSpeedSquared )
 							return true;
 					}
 
@@ -242,24 +242,24 @@ namespace Nez.Particles
 		/// </summary>
 		/// <param name="relativeVelocity">Relative velocity.</param>
 		/// <param name="minimumTranslationVector">Minimum translation vector.</param>
-		void calculateCollisionResponseVelocity( float friction, float elasticity, ref Vector2 minimumTranslationVector )
+		void calculateCollisionResponseVelocity( float friction, float elasticity, ref vec2 minimumTranslationVector )
 		{
 			// first, we get the normalized MTV in the opposite direction: the surface normal
 			var inverseMTV = minimumTranslationVector * -1f;
-			Vector2 normal;
-			Vector2.Normalize( ref inverseMTV, out normal );
+			vec2 normal;
+			vec2.Normalize( ref inverseMTV, out normal );
 
 			// the velocity is decomposed along the normal of the collision and the plane of collision.
 			// The elasticity will affect the response along the normal (normalVelocityComponent) and the friction will affect
 			// the tangential component of the velocity (tangentialVelocityComponent)
 			float n;
-			Vector2.Dot( ref _velocity, ref normal, out n );
+			vec2.Dot( ref _velocity, ref normal, out n );
 
 			var normalVelocityComponent = normal * n;
 			var tangentialVelocityComponent = _velocity - normalVelocityComponent;
 
 			if( n > 0.0f )
-				normalVelocityComponent = Vector2.Zero;
+				normalVelocityComponent = vec2.Zero;
 			
 			// elasticity affects the normal component of the velocity and friction affects the tangential component
 			var responseVelocity = -( 1.0f + elasticity ) * normalVelocityComponent - friction * tangentialVelocityComponent;

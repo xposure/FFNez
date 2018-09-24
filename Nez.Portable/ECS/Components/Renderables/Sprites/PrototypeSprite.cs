@@ -41,7 +41,7 @@ namespace Nez
 		{
 			_width = width;
 			_height = height;
-			originNormalized = new Vector2( 0.5f, 0.5f );
+			originNormalized = new vec2( 0.5f, 0.5f );
 		}
 
 
@@ -90,8 +90,8 @@ namespace Nez
 		public override void render( Graphics graphics, Camera camera )
 		{
 			var pos = ( entity.transform.position - ( origin * entity.transform.localScale ) + localOffset );
-			var size = new Point( (int)( _width * entity.transform.localScale.X ), (int)( _height * entity.transform.localScale.Y ) );
-			var destRect = new Rectangle( (int)pos.X, (int)pos.Y, size.X, size.Y );
+			var size = new Point( (int)( _width * entity.transform.localScale.x ), (int)( _height * entity.transform.localScale.y ) );
+			var destRect = new Rectangle( (int)pos.x, (int)pos.y, size.X, size.Y );
 			graphics.batcher.draw( subtexture, destRect, subtexture.sourceRect, color, entity.transform.rotation, SpriteEffects.None, layerDepth, _skewTopX, _skewBottomX, _skewLeftY, _skewRightY );
 		}
 

@@ -2,6 +2,7 @@
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -14,23 +15,23 @@ namespace ImGuiNET
         public byte* Name;
         public uint ID;                                 // == ImHash(Name)
         public WindowFlags Flags;                              // See enum ImGuiWindowFlags_
-        public Vector2 PosFloat;
-        public Vector2 Pos;                                // Position rounded-up to nearest pixel
-        public Vector2 Size;                               // Current size (==SizeFull or collapsed title bar size)
-        public Vector2 SizeFull;                           // Size when non collapsed
-        public Vector2 SizeFullAtLastBegin;                // Copy of SizeFull at the end of Begin. This is the reference value we'll use on the next frame to decide if we need scrollbars.
-        public Vector2 SizeContents;                       // Size of contents (== extents reach of the drawing cursor) from previous frame. Include decoration, window title, border, menu, etc.
-        public Vector2 SizeContentsExplicit;               // Size of contents explicitly set by the user via SetNextWindowContentSize()
+        public vec2 PosFloat;
+        public vec2 Pos;                                // Position rounded-up to nearest pixel
+        public vec2 Size;                               // Current size (==SizeFull or collapsed title bar size)
+        public vec2 SizeFull;                           // Size when non collapsed
+        public vec2 SizeFullAtLastBegin;                // Copy of SizeFull at the end of Begin. This is the reference value we'll use on the next frame to decide if we need scrollbars.
+        public vec2 SizeContents;                       // Size of contents (== extents reach of the drawing cursor) from previous frame. Include decoration, window title, border, menu, etc.
+        public vec2 SizeContentsExplicit;               // Size of contents explicitly set by the user via SetNextWindowContentSize()
         public ImRect ContentsRegionRect;                 // Maximum visible content position in window coordinates. ~~ (SizeContentsExplicit ? SizeContentsExplicit : Size - ScrollbarSizes) - CursorStartPos, per axis
-        public Vector2 WindowPadding;                      // Window padding at the time of begin.
+        public vec2 WindowPadding;                      // Window padding at the time of begin.
         public float WindowRounding;                     // Window rounding at the time of begin.
         public float WindowBorderSize;                   // Window border size at the time of begin.
         public uint MoveId;                             // == window->GetID("#MOVE")
-        public Vector2 Scroll;
-        public Vector2 ScrollTarget;                       // target scroll position. stored as cursor position with scrolling canceled out, so the highest point is always 0.0f. (FLT_MAX for no change)
-        public Vector2 ScrollTargetCenterRatio;            // 0.0f = scroll so that target position is at top, 0.5f = scroll so that target position is centered
+        public vec2 Scroll;
+        public vec2 ScrollTarget;                       // target scroll position. stored as cursor position with scrolling canceled out, so the highest point is always 0.0f. (FLT_MAX for no change)
+        public vec2 ScrollTargetCenterRatio;            // 0.0f = scroll so that target position is at top, 0.5f = scroll so that target position is centered
         public byte ScrollbarX, ScrollbarY;
-        public Vector2 ScrollbarSizes;
+        public vec2 ScrollbarSizes;
         public byte Active;                             // Set to true on Begin()
         public byte WasActive;
         public byte WriteAccessed;                      // Set to true when any widget access the current window
@@ -50,8 +51,8 @@ namespace ImGuiNET
         public Condition SetWindowPosAllowFlags;             // store condition flags for next SetWindowPos() call.
         public Condition SetWindowSizeAllowFlags;            // store condition flags for next SetWindowSize() call.
         public Condition SetWindowCollapsedAllowFlags;       // store condition flags for next SetWindowCollapsed() call.
-        public Vector2 SetWindowPosVal;                    // store window position when using a non-zero Pivot (position set needs to be processed when we know the window size)
-        public Vector2 SetWindowPosPivot;                  // store window pivot for positioning. Vector2(0,0) when positioning from top-left corner; Vector2(0.5f,0.5f) for centering; Vector2(1,1) for bottom right.
+        public vec2 SetWindowPosVal;                    // store window position when using a non-zero Pivot (position set needs to be processed when we know the window size)
+        public vec2 SetWindowPosPivot;                  // store window pivot for positioning. vec2(0,0) when positioning from top-left corner; vec2(0.5f,0.5f) for centering; vec2(1,1) for bottom right.
 
         public NativeDrawContext DC;                                 // Temporary per-window data, reset at the beginning of the frame
         public ImVector IDStack;                            // ID stack. ID are hashes seeded with the value at the top of the stack

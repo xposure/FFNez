@@ -19,15 +19,15 @@ namespace Nez
 		}
 
 		// used for Line items
-		public Vector2 start;
-		public Vector2 end;
+		public vec2 start;
+		public vec2 end;
 		public Rectangle rectangle;
 
 		// used for Text items
 		public string text;
 		public BitmapFont bitmapFont;
 		public NezSpriteFont spriteFont;
-		public Vector2 position;
+		public vec2 position;
 		public float scale;
 
 		// used for Pixel items
@@ -41,7 +41,7 @@ namespace Nez
 		internal DebugDrawType drawType;
 
 
-		public DebugDrawItem( Vector2 start, Vector2 end, Color color, float duration )
+		public DebugDrawItem( vec2 start, vec2 end, Color color, float duration )
 		{
 			this.start = start;
 			this.end = end;
@@ -71,7 +71,7 @@ namespace Nez
 		}
 
 
-		public DebugDrawItem( BitmapFont bitmapFont, String text, Vector2 position, Color color, float duration, float scale )
+		public DebugDrawItem( BitmapFont bitmapFont, String text, vec2 position, Color color, float duration, float scale )
 		{
 			this.bitmapFont = bitmapFont;
 			this.text = text;
@@ -83,7 +83,7 @@ namespace Nez
 		}
 
 
-		public DebugDrawItem( NezSpriteFont spriteFont, String text, Vector2 position, Color color, float duration, float scale )
+		public DebugDrawItem( NezSpriteFont spriteFont, String text, vec2 position, Color color, float duration, float scale )
 		{
 			this.spriteFont = spriteFont;
 			this.text = text;
@@ -123,13 +123,13 @@ namespace Nez
 					graphics.batcher.drawPixel( x, y, color, size );
 					break;
 				case DebugDrawType.BitmapFontText:
-					graphics.batcher.drawString( bitmapFont, text, position, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f );
+					graphics.batcher.drawString( bitmapFont, text, position, color, 0f, vec2.Zero, scale, SpriteEffects.None, 0f );
 					break;
 				case DebugDrawType.SpriteFontText:
-					graphics.batcher.drawString( spriteFont, text, position, color, 0f, Vector2.Zero, new Vector2( scale ), SpriteEffects.None, 0f );
+					graphics.batcher.drawString( spriteFont, text, position, color, 0f, vec2.Zero, new vec2( scale ), SpriteEffects.None, 0f );
 					break;
 				case DebugDrawType.ConsoleText:
-					graphics.batcher.drawString( bitmapFont, text, position, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f );
+					graphics.batcher.drawString( bitmapFont, text, position, color, 0f, vec2.Zero, scale, SpriteEffects.None, 0f );
 					break;
 			}
 
@@ -144,16 +144,16 @@ namespace Nez
 			switch( drawType )
 			{
 				case DebugDrawType.Line:
-					return ( end - start ).Y;
+					return ( end - start ).y;
 				case DebugDrawType.HollowRectangle:
 					return rectangle.Height;
 				case DebugDrawType.Pixel:
 					return size;
 				case DebugDrawType.BitmapFontText:
 				case DebugDrawType.ConsoleText:
-					return bitmapFont.measureString( text ).Y * scale;
+					return bitmapFont.measureString( text ).y * scale;
 				case DebugDrawType.SpriteFontText:
-					return spriteFont.measureString( text ).Y * scale;
+					return spriteFont.measureString( text ).y * scale;
 			}
 
 			return 0;

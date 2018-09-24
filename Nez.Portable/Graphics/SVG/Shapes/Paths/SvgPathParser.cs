@@ -95,7 +95,7 @@ namespace Nez.Svg
 					var index = 0;
 					while( index < coords.Length )
 					{
-						segments.Add( new SvgLineSegment( segments.lastItem().end, toAbsolute( coords[index], segments.lastItem().end.Y, segments, isRelative, false ) ) );
+						segments.Add( new SvgLineSegment( segments.lastItem().end, toAbsolute( coords[index], segments.lastItem().end.y, segments, isRelative, false ) ) );
 						index += 1;
 					}
 				}
@@ -107,7 +107,7 @@ namespace Nez.Svg
 					var index = 0;
 					while( index < coords.Length )
 					{
-						segments.Add( new SvgLineSegment( segments.lastItem().end, toAbsolute( coords[index], segments.lastItem().end.X, segments, false, isRelative ) ) );
+						segments.Add( new SvgLineSegment( segments.lastItem().end, toAbsolute( coords[index], segments.lastItem().end.x, segments, false, isRelative ) ) );
 						index += 1;
 					}
 				}
@@ -199,7 +199,7 @@ namespace Nez.Svg
 		/// <param name="y">The y coordinate.</param>
 		/// <param name="segments">Segments.</param>
 		/// <param name="areBothRelative">If set to <c>true</c> is relative both.</param>
-		static Vector2 toAbsolute( float x, float y, List<SvgPathSegment> segments, bool areBothRelative )
+		static vec2 toAbsolute( float x, float y, List<SvgPathSegment> segments, bool areBothRelative )
 		{
 			return toAbsolute( x, y, segments, areBothRelative, areBothRelative );
 		}
@@ -213,10 +213,10 @@ namespace Nez.Svg
 		/// <param name="segments">Current path segments.</param>
 		/// <param name="isRelativeX"><b>true</b> if <paramref name="x"/> contains relative coordinate value, otherwise <b>false</b>.</param>
 		/// <param name="isRelativeY"><b>true</b> if <paramref name="y"/> contains relative coordinate value, otherwise <b>false</b>.</param>
-		/// <returns><see cref="Vector2"/> that contains absolute coordinates.</returns>
-		static Vector2 toAbsolute( float x, float y, List<SvgPathSegment> segments, bool isRelativeX, bool isRelativeY )
+		/// <returns><see cref="vec2"/> that contains absolute coordinates.</returns>
+		static vec2 toAbsolute( float x, float y, List<SvgPathSegment> segments, bool isRelativeX, bool isRelativeY )
 		{
-			var point = new Vector2( x, y );
+			var point = new vec2( x, y );
 
 			if( ( isRelativeX || isRelativeY ) && segments.Count > 0 )
 			{
@@ -227,33 +227,33 @@ namespace Nez.Svg
 					lastSegment = ( (IList<SvgPathSegment>)segments ).Reverse().OfType<SvgMoveToSegment>().First();
 
 				if( isRelativeX )
-					point.X += lastSegment.end.X;
+					point.x += lastSegment.end.x;
 
 				if( isRelativeY )
-					point.Y += lastSegment.end.Y;
+					point.y += lastSegment.end.y;
 			}
 
 			return point;
 		}
 
 
-		static Vector2 reflect( Vector2 point, Vector2 mirror )
+		static vec2 reflect( vec2 point, vec2 mirror )
 		{
 			float x, y, dx, dy;
-			dx = System.Math.Abs( mirror.X - point.X );
-			dy = System.Math.Abs( mirror.Y - point.Y );
+			dx = System.Math.Abs( mirror.x - point.x );
+			dy = System.Math.Abs( mirror.y - point.y );
 
-			if( mirror.X >= point.X )
-				x = mirror.X + dx;
+			if( mirror.x >= point.x )
+				x = mirror.x + dx;
 			else
-				x = mirror.X - dx;
+				x = mirror.x - dx;
 
-			if( mirror.Y >= point.Y )
-				y = mirror.Y + dy;
+			if( mirror.y >= point.y )
+				y = mirror.y + dy;
 			else
-				y = mirror.Y - dy;
+				y = mirror.y - dy;
 
-			return new Vector2( x, y );
+			return new vec2( x, y );
 		}
 
 

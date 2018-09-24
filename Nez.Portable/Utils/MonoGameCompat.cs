@@ -43,24 +43,24 @@ namespace Nez
 		#region Point
 
 		/// <summary>
-		/// Gets a <see cref="Vector2"/> representation for this object.
+		/// Gets a <see cref="vec2"/> representation for this object.
 		/// </summary>
-		/// <returns>A <see cref="Vector2"/> representation for this object.</returns>
-		public static Vector2 ToVector2( this Point self )
+		/// <returns>A <see cref="vec2"/> representation for this object.</returns>
+		public static vec2 ToVector2( this Point self )
 		{
-			return new Vector2( (float)self.X, (float)self.Y );
+			return new vec2( (float)self.X, (float)self.Y );
 		}
 
 		#endregion
 
 
-		#region Vector2
+		#region vec2
 
 		/// <summary>
 		/// Gets a <see cref="Point"/> representation for this object.
 		/// </summary>
 		/// <returns>A <see cref="Point"/> representation for this object.</returns>
-		public static Point ToPoint( this Vector2 self )
+		public static Point ToPoint( this vec2 self )
 		{
 			return new Point( (int)self.X, (int)self.Y );
 		}
@@ -70,7 +70,7 @@ namespace Nez
 
 		#region Rectangle
 
-		public static bool Contains( this Rectangle rect, Vector2 value )
+		public static bool Contains( this Rectangle rect, vec2 value )
 		{
 			return ( ( ( ( rect.X <= value.X ) && ( value.X < ( rect.X + rect.Width ) ) ) && ( rect.Y <= value.Y ) ) && ( value.Y < ( rect.Y + rect.Height ) ) );
 		}

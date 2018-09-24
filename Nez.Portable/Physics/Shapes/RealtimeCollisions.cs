@@ -7,7 +7,7 @@ namespace Nez.PhysicsShapes.BETA
 {
 	public static class RealtimeCollisions
 	{
-		public static bool intersectMovingCircleBox( Circle s, Box b, Vector2 movement, out float time )
+		public static bool intersectMovingCircleBox( Circle s, Box b, vec2 movement, out float time )
 		{
 			// compute the AABB resulting from expanding b by sphere radius r
 			var e = b.bounds;
@@ -25,13 +25,13 @@ namespace Nez.PhysicsShapes.BETA
 			// compute which min and max faces of b the intersection point p lies outside of. Note, u and v cannot have the
 			// same bits set and they must have at least one bit set among them.
 			int u = 0, v = 0;
-			if( point.X < b.bounds.left )
+			if( point.x < b.bounds.left )
 				u |= 1;
-			if( point.X > b.bounds.right )
+			if( point.x > b.bounds.right )
 				v |= 1;
-			if( point.Y < b.bounds.top )
+			if( point.y < b.bounds.top )
 				u |= 2;
-			if( point.Y > b.bounds.bottom )
+			if( point.y > b.bounds.bottom )
 				v |= 2;
 
 			// 'or' all set bits together into a bitmask (note u + v == u | v)
@@ -67,23 +67,23 @@ namespace Nez.PhysicsShapes.BETA
 		/// </summary>
 		/// <param name="b">The blue component.</param>
 		/// <param name="n">N.</param>
-		static Vector2 corner( Rectangle b, int n )
+		static vec2 corner( Rectangle b, int n )
 		{
-			var p = new Vector2();
-			p.X = ( n & 1 ) == 0 ? b.Right : b.Left;
-			p.Y = ( n & 1 ) == 0 ? b.Bottom : b.Top;
+			var p = new vec2();
+			p.x = ( n & 1 ) == 0 ? b.Right : b.Left;
+			p.y = ( n & 1 ) == 0 ? b.Bottom : b.Top;
 			return p;
 		}
 
 
-		public static bool intersectMovingCircleCircle( Circle s0, Circle s1, Vector2 movement, out float time )
+		public static bool intersectMovingCircleCircle( Circle s0, Circle s1, vec2 movement, out float time )
 		{
 			time = -1;
 			var s = s1.position - s0.position; // vector between circles
 			var r = s1.radius + s0.radius; // sum of radii
 
 			float c;
-			Vector2.Dot( ref s, ref s, out c );
+			vec2.Dot( ref s, ref s, out c );
 			c -= r * r;
 			if( c < 0 )
 			{
@@ -93,12 +93,12 @@ namespace Nez.PhysicsShapes.BETA
 			}
 
 			float a;
-			Vector2.Dot( ref movement, ref movement, out a );
+			vec2.Dot( ref movement, ref movement, out a );
 			if( a < Mathf.epsilon ) // circles not moving
 				return false;
 
 			float b;
-			Vector2.Dot( ref movement, ref s, out b );
+			vec2.Dot( ref movement, ref s, out b );
 			if( b >= 0 ) // circles not moving toward each other
 				return false;
 
@@ -111,7 +111,7 @@ namespace Nez.PhysicsShapes.BETA
 		}
 
 
-		public static bool intersectMovingCircleCircleTwo( Circle first, Circle second, Vector2 movement, out float time )
+		public static bool intersectMovingCircleCircleTwo( Circle first, Circle second, vec2 movement, out float time )
 		{
 			// this algorithm shrinks first down to a point, expands second by first.radius and uses a linecast to check for intersection
 			time = -1;
@@ -135,7 +135,7 @@ namespace Nez.PhysicsShapes.BETA
 		/// <param name="circle">Circle.</param>
 		/// <param name="box">Box.</param>
 		/// <param name="point">Point.</param>
-		public static bool testCircleBox( Circle circle, Box box, out Vector2 point )
+		public static bool testCircleBox( Circle circle, Box box, out vec2 point )
 		{
 			// find the point closest to the sphere center
 			point = box.bounds.getClosestPointOnRectangleFToPoint( circle.position );
@@ -143,7 +143,7 @@ namespace Nez.PhysicsShapes.BETA
 			// circle and box intersect if sqr distance from circle center to point is less than the circle sqr radius
 			var v = point - circle.position;
 			float dist;
-			Vector2.Dot( ref v, ref v, out dist );
+			vec2.Dot( ref v, ref v, out dist );
 
 			return dist <= circle.radius * circle.radius;
 		}

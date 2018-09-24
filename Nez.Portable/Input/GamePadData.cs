@@ -116,7 +116,7 @@ namespace Nez
 
 		#region Sticks
 
-		public Vector2 getLeftStick()
+		public vec2 getLeftStick()
 		{
 			var res = _currentState.ThumbSticks.Left;
 
@@ -127,12 +127,12 @@ namespace Nez
 		}
 
 
-		public Vector2 getLeftStick( float deadzone )
+		public vec2 getLeftStick( float deadzone )
 		{
 			var res = _currentState.ThumbSticks.Left;
 
 			if( res.LengthSquared() < deadzone * deadzone )
-				res = Vector2.Zero;
+				res = vec2.Zero;
 			else if( isLeftStickVertcialInverted )
 				res.Y = -res.Y;
 
@@ -140,7 +140,7 @@ namespace Nez
 		}
 
 
-		public Vector2 getRightStick()
+		public vec2 getRightStick()
 		{
 			var res = _currentState.ThumbSticks.Right;
 
@@ -151,12 +151,12 @@ namespace Nez
 		}
 
 
-		public Vector2 getRightStick( float deadzone )
+		public vec2 getRightStick( float deadzone )
 		{
 			var res = _currentState.ThumbSticks.Right;
 
 			if( res.LengthSquared() < deadzone * deadzone )
-				res = Vector2.Zero;
+				res = vec2.Zero;
 			else if( isRightStickVertcialInverted )
 				res.Y = -res.Y;
 

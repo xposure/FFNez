@@ -102,7 +102,8 @@ namespace FarseerPhysics.Collision
 				var pointA = MathUtils.mul( ref xfA, localPointA );
 				var pointB = MathUtils.mul( ref xfB, localPointB );
 				_axis = pointB - pointA;
-				Nez.Vector2Ext.normalize( ref _axis );
+                _axis.Normalize();
+				//Nez.Vector2Ext.normalize( ref _axis );
 			}
 			else if( cache.IndexA[0] == cache.IndexA[1] )
 			{
@@ -113,7 +114,8 @@ namespace FarseerPhysics.Collision
 
 				var a = localPointB2 - localPointB1;
 				_axis = new Vector2( a.Y, -a.X );
-				Nez.Vector2Ext.normalize( ref _axis );
+                _axis.Normalize();
+				//Nez.Vector2Ext.normalize( ref _axis );
 				var normal = MathUtils.mul( ref xfB.q, _axis );
 
 				_localPoint = 0.5f * ( localPointB1 + localPointB2 );
@@ -135,7 +137,8 @@ namespace FarseerPhysics.Collision
 
 				var a = localPointA2 - localPointA1;
 				_axis = new Vector2( a.Y, -a.X );
-				Nez.Vector2Ext.normalize( ref _axis );
+                _axis.Normalize();
+				//Nez.Vector2Ext.normalize( ref _axis );
 				var normal = MathUtils.mul( ref xfA.q, _axis );
 
 				_localPoint = 0.5f * ( localPointA1 + localPointA2 );

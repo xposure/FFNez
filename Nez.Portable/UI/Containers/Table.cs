@@ -174,13 +174,13 @@ namespace Nez.UI
 		}
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			if( clip )
 			{
 				if( touchable == Touchable.Disabled )
 					return null;
-				if( point.X < 0 || point.X >= width || point.Y < 0 || point.Y >= height )
+				if( point.x < 0 || point.x >= width || point.y < 0 || point.y >= height )
 					return null;
 			}
 

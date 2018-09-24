@@ -288,7 +288,8 @@ namespace Nez.Farseer
 				var pointB = MathUtils.mul( ref secondTransform, _manifold.points[0].localPoint );
 
 				result.normal = pointA - pointB;
-				Vector2Ext.normalize( ref result.normal );
+                result.normal.Normalize();
+				//Vector2Ext.normalize( ref result.normal );
 
 				var cA = pointA - circleA.radius * result.normal;
 				var cB = pointB + circleB.radius * result.normal;
@@ -325,7 +326,8 @@ namespace Nez.Farseer
 					var pointB = MathUtils.mul( ref circleTransform, _manifold.points[0].localPoint );
 
 					result.normal = pointA - pointB;
-					Vector2Ext.normalize( ref result.normal );
+                    result.normal.Normalize();
+					//Vector2Ext.normalize( ref result.normal );
 
 					var cA = pointA - edge.radius * result.normal;
 					var cB = pointB + circle.radius * result.normal;

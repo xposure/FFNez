@@ -5,6 +5,7 @@ using System.Text;
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -24,24 +25,24 @@ namespace ImGuiNET
             return new DrawList(ImGuiNative.igGetWindowDrawList());
         }
 
-        public void AddLine(Vector2 a, Vector2 b, uint color, float thickness)
+        public void AddLine(vec2 a, vec2 b, uint color, float thickness)
         {
             ImGuiNative.ImDrawList_AddLine(_nativeDrawList, a, b, color, thickness);
         }
 
-        public void AddRect(Vector2 a, Vector2 b, uint color, float rounding, int rounding_corners, float thickness)
+        public void AddRect(vec2 a, vec2 b, uint color, float rounding, int rounding_corners, float thickness)
         {
             ImGuiNative.ImDrawList_AddRect(_nativeDrawList, a, b, color, rounding, rounding_corners, thickness);
         }
 
-        public void AddRectFilled(Vector2 a, Vector2 b, uint color, float rounding, int rounding_corners = ~0)
+        public void AddRectFilled(vec2 a, vec2 b, uint color, float rounding, int rounding_corners = ~0)
         {
             ImGuiNative.ImDrawList_AddRectFilled(_nativeDrawList, a, b, color, rounding, rounding_corners);
         }
 
         public void AddRectFilledMultiColor(
-            Vector2 a,
-            Vector2 b,
+            vec2 a,
+            vec2 b,
             uint colorUpperLeft,
             uint colorUpperRight,
             uint colorBottomRight,
@@ -57,12 +58,12 @@ namespace ImGuiNET
                 colorBottomLeft);
         }
 
-        public void AddCircle(Vector2 center, float radius, uint color, int numSegments, float thickness)
+        public void AddCircle(vec2 center, float radius, uint color, int numSegments, float thickness)
         {
             ImGuiNative.ImDrawList_AddCircle(_nativeDrawList, center, radius, color, numSegments, thickness);
         }
 
-        public unsafe void AddText(Vector2 position, string text, uint color)
+        public unsafe void AddText(vec2 position, string text, uint color)
         {
             // Consider using stack allocation if a newer version of Encoding is used (with byte* overloads).
             int bytes = Encoding.UTF8.GetByteCount(text);
@@ -77,10 +78,10 @@ namespace ImGuiNET
 
         public unsafe void AddImageRounded(
             IntPtr userTextureID,
-            Vector2 a,
-            Vector2 b,
-            Vector2 uvA,
-            Vector2 uvB,
+            vec2 a,
+            vec2 b,
+            vec2 uvA,
+            vec2 uvB,
             uint color,
             float rounding,
             int roundingCorners)
@@ -97,7 +98,7 @@ namespace ImGuiNET
                 roundingCorners);
         }
 
-        public void PushClipRect(Vector2 min, Vector2 max, bool intersectWithCurrentClipRect)
+        public void PushClipRect(vec2 min, vec2 max, bool intersectWithCurrentClipRect)
         {
             ImGuiNative.ImDrawList_PushClipRect(_nativeDrawList, min, max, intersectWithCurrentClipRect ? (byte)1 : (byte)0);
         }

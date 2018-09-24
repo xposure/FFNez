@@ -12,13 +12,13 @@ namespace Nez.Svg
 	public class SvgPathBuilder : ISvgPathBuilder
 	{
 		/// <summary>
-		/// helper to convert a Vector2 into a Point
+		/// helper to convert a vec2 into a Point
 		/// </summary>
 		/// <returns>The draw point.</returns>
 		/// <param name="vec">Vec.</param>
-		static System.Drawing.Point toDrawPoint( Vector2 vec )
+		static System.Drawing.Point toDrawPoint( vec2 vec )
 		{
-			return new System.Drawing.Point( (int)vec.X, (int)vec.Y );
+			return new System.Drawing.Point( (int)vec.x, (int)vec.y );
 		}
 
 
@@ -27,7 +27,7 @@ namespace Nez.Svg
 		/// </summary>
 		/// <returns>The drawing points.</returns>
 		/// <param name="segments">Segments.</param>
-		public Vector2[] getDrawingPoints( List<SvgPathSegment> segments, float flatness = 3 )
+		public vec2[] getDrawingPoints( List<SvgPathSegment> segments, float flatness = 3 )
 		{
 			var path = new System.Drawing.Drawing2D.GraphicsPath();
 			for( var j = 0; j < segments.Count; j++ )
@@ -73,7 +73,7 @@ namespace Nez.Svg
 
 			path.Flatten( new System.Drawing.Drawing2D.Matrix(), flatness );
 
-			return System.Array.ConvertAll( path.PathPoints, i => new Vector2( i.X, i.Y ) );
+			return System.Array.ConvertAll( path.PathPoints, i => new vec2( i.X, i.Y ) );
 		}
 
 	}

@@ -198,7 +198,7 @@ namespace Nez.Spatial
 
 			if( cellCount > 0 )
 			{
-				var textPosition = new Vector2( (float)x * (float)_cellSize + 0.5f * _cellSize, (float)y * (float)_cellSize + 0.5f * _cellSize );
+				var textPosition = new vec2( (float)x * (float)_cellSize + 0.5f * _cellSize, (float)y * (float)_cellSize + 0.5f * _cellSize );
 				Debug.drawText( Graphics.instance.bitmapFont, cellCount.ToString(), textPosition, Color.DarkGreen, secondsToDisplay, textScale );
 			}
 		}
@@ -264,25 +264,25 @@ namespace Nez.Spatial
 		/// <param name="end">End.</param>
 		/// <param name="hits">Hits.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public int linecast( Vector2 start, Vector2 end, RaycastHit[] hits, int layerMask )
+		public int linecast( vec2 start, vec2 end, RaycastHit[] hits, int layerMask )
 		{
 			var ray = new Ray2D( start, end );
 			_raycastParser.start( ref ray, hits, layerMask );
 
 			// get our start/end position in the same space as our grid
-			start.X *= _inverseCellSize;
-			start.Y *= _inverseCellSize;
-			var endCell = cellCoords( end.X, end.Y );
+			start.x *= _inverseCellSize;
+			start.y *= _inverseCellSize;
+			var endCell = cellCoords( end.x, end.y );
 
 			// TODO: check gridBounds to ensure the ray starts/ends in the grid. watch out for end cells since they report out of bounds due to int comparison
 
 			// what voxel are we on
-			var intX = Mathf.floorToInt( start.X );
-			var intY = Mathf.floorToInt( start.Y );
+			var intX = Mathf.floorToInt( start.x );
+			var intY = Mathf.floorToInt( start.y );
 
 			// which way we go
-			var stepX = Math.Sign( ray.direction.X );
-			var stepY = Math.Sign( ray.direction.Y );
+			var stepX = Math.Sign( ray.direction.x );
+			var stepY = Math.Sign( ray.direction.y );
 
             // we make sure that if we're on the same line or row we don't step 
             // in the unneeded direction
@@ -297,16 +297,16 @@ namespace Nez.Spatial
 			// determine the value of t at which the ray crosses the first vertical voxel boundary. same for y/horizontal.
 			// The minimum of these two values will indicate how much we can travel along the ray and still remain in the current voxel
 			// may be infinite for near vertical/horizontal rays
-			var tMaxX = ( boundaryX - start.X ) / ray.direction.X;
-			var tMaxY = ( boundaryY - start.Y ) / ray.direction.Y;
-			if( ray.direction.X == 0f || stepX == 0)
+			var tMaxX = ( boundaryX - start.x ) / ray.direction.x;
+			var tMaxY = ( boundaryY - start.y ) / ray.direction.y;
+			if( ray.direction.x == 0f || stepX == 0)
 				tMaxX = float.PositiveInfinity;
-            if( ray.direction.Y == 0f || stepY == 0 )
+            if( ray.direction.y == 0f || stepY == 0 )
 				tMaxY = float.PositiveInfinity;
 
 			// how far do we have to walk before crossing a cell from a cell boundary. may be infinite for near vertical/horizontal rays
-			var tDeltaX = stepX / ray.direction.X;
-			var tDeltaY = stepY / ray.direction.Y;
+			var tDeltaX = stepX / ray.direction.x;
+			var tDeltaY = stepY / ray.direction.y;
 
 			// start walking and returning the intersecting cells.
 			var cell = cellAtPosition( intX, intY );
@@ -403,9 +403,9 @@ namespace Nez.Spatial
 		/// <param name="radius">Radius.</param>
 		/// <param name="results">Results.</param>
 		/// <param name="layerMask">Layer mask.</param>
-		public int overlapCircle( Vector2 circleCenter, float radius, Collider[] results, int layerMask )
+		public int overlapCircle( vec2 circleCenter, float radius, Collider[] results, int layerMask )
 		{
-			var bounds = new RectangleF( circleCenter.X - radius, circleCenter.Y - radius, radius * 2f, radius * 2f );
+			var bounds = new RectangleF( circleCenter.x - radius, circleCenter.y - radius, radius * 2f, radius * 2f );
 
 			_overlapTestCirce.radius = radius;
 			_overlapTestCirce.position = circleCenter;

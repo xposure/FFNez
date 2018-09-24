@@ -172,7 +172,7 @@ namespace Nez
 		{
 			Core.graphicsDevice.setRenderTarget( null );
 			graphics.batcher.begin( BlendState.Opaque, Core.defaultSamplerState, DepthStencilState.None, null );
-			graphics.batcher.draw( previousSceneRender, Vector2.Zero, Color.White );
+			graphics.batcher.draw( previousSceneRender, vec2.Zero, Color.White );
 			graphics.batcher.end();
 		}
 

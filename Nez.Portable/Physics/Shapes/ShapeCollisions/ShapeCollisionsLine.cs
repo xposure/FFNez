@@ -5,11 +5,11 @@ namespace Nez.PhysicsShapes
 {
 	public static partial class ShapeCollisions
 	{
-		public static bool lineToPoly( Vector2 start, Vector2 end, Polygon polygon, out RaycastHit hit )
+		public static bool lineToPoly( vec2 start, vec2 end, Polygon polygon, out RaycastHit hit )
 		{
 			hit = new RaycastHit();
-			var normal = Vector2.Zero;
-			var intersectionPoint = Vector2.Zero;
+			var normal = vec2.Zero;
+			var intersectionPoint = vec2.Zero;
 			var fraction = float.MaxValue;
 			var hasIntersection = false;
 
@@ -17,21 +17,21 @@ namespace Nez.PhysicsShapes
 			{
 				var edge1 = polygon.position + polygon.points[j];
 				var edge2 = polygon.position + polygon.points[i];
-				Vector2 intersection;
+				vec2 intersection;
 				if( lineToLine( edge1, edge2, start, end, out intersection ) )
 				{
 					hasIntersection = true;
 
 					// TODO: is this the correct and most efficient way to get the fraction?
 					// check x fraction first. if it is NaN use y instead
-					var distanceFraction = ( intersection.X - start.X ) / ( end.X - start.X );
+					var distanceFraction = ( intersection.x - start.x ) / ( end.x - start.x );
 					if( float.IsNaN( distanceFraction ) || float.IsInfinity( distanceFraction ) )
-						distanceFraction = ( intersection.Y - start.Y ) / ( end.Y - start.Y );
+						distanceFraction = ( intersection.y - start.y ) / ( end.y - start.y );
 
 					if( distanceFraction < fraction )
 					{
 						var edge = edge2 - edge1;
-						normal = new Vector2( edge.Y, -edge.X );
+						normal = new vec2( edge.y, -edge.x );
 						fraction = distanceFraction;
 						intersectionPoint = intersection;
 					}
@@ -42,7 +42,7 @@ namespace Nez.PhysicsShapes
 			{
 				normal.Normalize();
 				float distance;
-				Vector2.Distance( ref start, ref intersectionPoint, out distance );
+				vec2.Distance( ref start, ref intersectionPoint, out distance );
 				hit.setValues( fraction, distance, intersectionPoint, normal );
 				return true;
 			}
@@ -51,16 +51,16 @@ namespace Nez.PhysicsShapes
 		}
 
 
-		public static bool lineToCircle( Vector2 start, Vector2 end, Circle s, out RaycastHit hit )
+		public static bool lineToCircle( vec2 start, vec2 end, Circle s, out RaycastHit hit )
 		{
 			hit = new RaycastHit();
 
 			// calculate the length here and normalize d separately since we will need it to get the fraction if we have a hit
-			var lineLength = Vector2.Distance( start, end );
+			var lineLength = vec2.Distance( start, end );
 			var d = ( end - start ) / lineLength;
 			var m = start - s.position;
-			var b = Vector2.Dot( m, d );
-			var c = Vector2.Dot( m, m ) - s.radius * s.radius;
+			var b = vec2.Dot( m, d );
+			var c = vec2.Dot( m, m ) - s.radius * s.radius;
 
 			// exit if r's origin outside of s (c > 0) and r pointing away from s (b > 0)
 			if( c > 0f && b > 0f )
@@ -80,32 +80,32 @@ namespace Nez.PhysicsShapes
 				hit.fraction = 0;
 
 			hit.point = start + hit.fraction * d;
-			Vector2.Distance( ref start, ref hit.point, out hit.distance );
-			hit.normal = Vector2.Normalize( hit.point - s.position );
+			vec2.Distance( ref start, ref hit.point, out hit.distance );
+			hit.normal = vec2.Normalize( hit.point - s.position );
 			hit.fraction = hit.distance / lineLength;
 
 			return true;
 		}
 
 
-		public static bool lineToLine( Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2, out Vector2 intersection )
+		public static bool lineToLine( vec2 a1, vec2 a2, vec2 b1, vec2 b2, out vec2 intersection )
 		{
-			intersection = Vector2.Zero;
+			intersection = vec2.Zero;
 
 			var b = a2 - a1;
 			var d = b2 - b1;
-			var bDotDPerp = b.X * d.Y - b.Y * d.X;
+			var bDotDPerp = b.x * d.y - b.y * d.x;
 
 			// if b dot d == 0, it means the lines are parallel so have infinite intersection points
 			if( bDotDPerp == 0 )
 				return false;
 
 			var c = b1 - a1;
-			var t = ( c.X * d.Y - c.Y * d.X ) / bDotDPerp;
+			var t = ( c.x * d.y - c.y * d.x ) / bDotDPerp;
 			if( t < 0 || t > 1 )
 				return false;
 
-			var u = ( c.X * b.Y - c.Y * b.X ) / bDotDPerp;
+			var u = ( c.x * b.y - c.y * b.x ) / bDotDPerp;
 			if( u < 0 || u > 1 )
 				return false;
 

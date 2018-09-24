@@ -45,8 +45,8 @@ namespace Nez.UI
 		RectangleF _handleBounds;
 
 		bool _vertical;
-		Vector2 _lastPoint;
-		Vector2 _handlePosition;
+		vec2 _lastPoint;
+		vec2 _handlePosition;
 
 
 		public SplitPane( Element firstWidget, Element secondWidget, SplitPaneStyle style, bool vertical = false )
@@ -80,7 +80,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			if( _handleBounds.contains( mousePos ) )
 			{
@@ -92,14 +92,14 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{
 			if( _vertical )
 			{
-				var delta = mousePos.Y - _lastPoint.Y;
+				var delta = mousePos.y - _lastPoint.y;
 				var availHeight = height - _style.handle.minHeight;
-				var dragY = _handlePosition.Y + delta;
-				_handlePosition.Y = dragY;
+				var dragY = _handlePosition.y + delta;
+				_handlePosition.y = dragY;
 				dragY = Math.Max( 0, dragY );
 				dragY = Math.Min( availHeight, dragY );
 				_splitAmount = 1 - ( dragY / availHeight );
@@ -109,10 +109,10 @@ namespace Nez.UI
 			}
 			else
 			{
-				var delta = mousePos.X - _lastPoint.X;
+				var delta = mousePos.x - _lastPoint.x;
 				var availWidth = width - _style.handle.minWidth;
-				var dragX = _handlePosition.X + delta;
-				_handlePosition.X = dragX;
+				var dragX = _handlePosition.x + delta;
+				_handlePosition.x = dragX;
 				dragX = Math.Max( 0, dragX );
 				dragX = Math.Min( availWidth, dragX );
 				_splitAmount = dragX / availWidth;
@@ -124,7 +124,7 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{
 		}
 

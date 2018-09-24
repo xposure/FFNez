@@ -26,7 +26,7 @@ namespace Nez
 #if DEBUG
         public static implicit operator Microsoft.Xna.Framework.Vector2(vec2 v) => new Microsoft.Xna.Framework.Vector2(v.x, v.y);
         public static implicit operator vec2(Microsoft.Xna.Framework.Vector2 v) => new vec2(v.X, v.Y);
-        public static explicit operator Point(vec2 v) => new Point((int)v.X, (int)v.Y);
+        public static explicit operator Point(vec2 v) => new Point((int)v.x, (int)v.y);
 
         public static vec2 One => Ones;
         //public static vec2 Zero => new vec2(0, 0);
@@ -69,8 +69,6 @@ namespace Nez
         {
             return new Point((int)x, (int)y);
         }
-        public float X { get => x; set => x = value; }
-        public float Y { get => y; set => y = value; }
 
         /// <summary>
         /// Creates a new <see cref="Vector2"/> that contains CatmullRom interpolation of the specified vectors.
@@ -84,8 +82,8 @@ namespace Nez
         public static vec2 CatmullRom(vec2 value1, vec2 value2, vec2 value3, vec2 value4, float amount)
         {
             return new vec2(
-                glm.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
-                glm.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount));
+                glm.CatmullRom(value1.x, value2.x, value3.x, value4.x, amount),
+                glm.CatmullRom(value1.y, value2.y, value3.y, value4.y, amount));
         }
 #endif
 

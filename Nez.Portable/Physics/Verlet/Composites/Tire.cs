@@ -5,7 +5,7 @@ namespace Nez.Verlet
 {
 	public class Tire : Composite
 	{
-		public Tire( Vector2 origin, float radius, int segments, float spokeStiffness = 1, float treadStiffness = 1 )
+		public Tire( vec2 origin, float radius, int segments, float spokeStiffness = 1, float treadStiffness = 1 )
 		{
 			var stride = 2 * MathHelper.Pi / segments;
 
@@ -13,7 +13,7 @@ namespace Nez.Verlet
 			for( var i = 0; i < segments; i++ )
 			{
 				var theta = i * stride;
-				addParticle( new Particle( new Vector2( origin.X + Mathf.cos( theta ) * radius, origin.Y + Mathf.sin( theta ) * radius ) ) );
+				addParticle( new Particle( new vec2( origin.x + Mathf.cos( theta ) * radius, origin.y + Mathf.sin( theta ) * radius ) ) );
 			}
 
 			var centerParticle = addParticle( new Particle( origin ) );

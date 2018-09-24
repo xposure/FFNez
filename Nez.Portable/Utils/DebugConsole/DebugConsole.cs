@@ -128,14 +128,14 @@ namespace Nez.Console
 			var maxWidth = Core.graphicsDevice.PresentationParameters.BackBufferWidth - 40;
 			var screenHeight = Core.graphicsDevice.PresentationParameters.BackBufferHeight;
 
-			while( Graphics.instance.bitmapFont.measureString( str ).X * renderScale > maxWidth )
+			while( Graphics.instance.bitmapFont.measureString( str ).x * renderScale > maxWidth )
 			{
 				var split = -1;
 				for( var i = 0; i < str.Length; i++ )
 				{
 					if( str[i] == ' ' )
 					{
-						if( Graphics.instance.bitmapFont.measureString( str.Substring( 0, i ) ).X * renderScale <= maxWidth )
+						if( Graphics.instance.bitmapFont.measureString( str.Substring( 0, i ) ).x * renderScale <= maxWidth )
 							split = i;
 						else
 							break;
@@ -532,8 +532,8 @@ namespace Nez.Console
 			if( _underscore )
 				commandLineString += "_";
 
-			var commandTextPosition = commandEntryRect.Location + new Vector2( TEXT_PADDING_X, TEXT_PADDING_Y );
-			Graphics.instance.batcher.drawString( Graphics.instance.bitmapFont, commandLineString, commandTextPosition, Color.White, 0, Vector2.Zero, new Vector2( renderScale ), SpriteEffects.None, 0 );
+			var commandTextPosition = commandEntryRect.Location + new vec2( TEXT_PADDING_X, TEXT_PADDING_Y );
+			Graphics.instance.batcher.drawString( Graphics.instance.bitmapFont, commandLineString, commandTextPosition, Color.White, 0, vec2.Zero, new vec2( renderScale ), SpriteEffects.None, 0 );
 
 			if( _drawCommands.Count > 0 )
 			{
@@ -548,9 +548,9 @@ namespace Nez.Console
 				for( var i = 0; i < _drawCommands.Count; i++ )
 				{
 					var yPosCurrentLineAddition = ( i * LINE_HEIGHT * renderScale ) + ( i * TEXT_PADDING_Y );
-					var position = new Vector2( HORIZONTAL_PADDING + TEXT_PADDING_X, yPosFirstLine - yPosCurrentLineAddition );
+					var position = new vec2( HORIZONTAL_PADDING + TEXT_PADDING_X, yPosFirstLine - yPosCurrentLineAddition );
 					var color = _drawCommands[i].IndexOf( ">" ) == 0 ? Color.Yellow : Color.White;
-					Graphics.instance.batcher.drawString( Graphics.instance.bitmapFont, _drawCommands[i], position, color, 0, Vector2.Zero, new Vector2( renderScale ), SpriteEffects.None, 0 );
+					Graphics.instance.batcher.drawString( Graphics.instance.bitmapFont, _drawCommands[i], position, color, 0, vec2.Zero, new vec2( renderScale ), SpriteEffects.None, 0 );
 				}
 			}
 

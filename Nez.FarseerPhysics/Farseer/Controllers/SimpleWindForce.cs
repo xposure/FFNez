@@ -43,7 +43,8 @@ namespace FarseerPhysics.Controllers
 					}
 					else
 					{
-						Nez.Vector2Ext.normalize( ref direction );
+                        direction.Normalize();
+						//Nez.Vector2Ext.normalize( ref direction );
 						forceVector = direction;
 
 						if( forceVector.Length() == 0 )
@@ -57,12 +58,14 @@ namespace FarseerPhysics.Controllers
 					if( variation != 0 )
 					{
 						var strengthVariation = (float)randomize.NextDouble() * MathHelper.Clamp( variation, 0, 1 );
-						Nez.Vector2Ext.normalize( ref forceVector );
+                        forceVector.Normalize();
+						//Nez.Vector2Ext.normalize( ref forceVector );
 						body.applyForce( forceVector * strength * decayMultiplier * strengthVariation );
 					}
 					else
 					{
-						Nez.Vector2Ext.normalize( ref forceVector );
+                        forceVector.Normalize();
+						//Nez.Vector2Ext.normalize( ref forceVector );
 						body.applyForce( forceVector * strength * decayMultiplier );
 					}
 				}

@@ -26,7 +26,7 @@ namespace Nez
 		/// <returns><c>true</c>, if move actor was newed, <c>false</c> otherwise.</returns>
 		/// <param name="motion">Motion.</param>
 		/// <param name="collisionResult">Collision result.</param>
-		public bool move( Vector2 motion, out CollisionResult collisionResult )
+		public bool move( vec2 motion, out CollisionResult collisionResult )
 		{
 			collisionResult = new CollisionResult();
 
@@ -49,8 +49,8 @@ namespace Nez
 
 				// fetch anything that we might collide with at our new position
 				var bounds = collider.bounds;
-				bounds.x += motion.X;
-				bounds.y += motion.Y;
+				bounds.x += motion.x;
+				bounds.y += motion.y;
 				var neighbors = Physics.boxcastBroadphaseExcludingSelf( collider, ref bounds, collider.collidesWithLayers );
 
 				foreach( var neighbor in neighbors )

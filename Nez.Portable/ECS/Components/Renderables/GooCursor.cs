@@ -62,7 +62,7 @@ namespace Nez
 		// this is the sprite that is drawn at the current cursor position.
 		// textureCenter is used to center the sprite when drawing.
 		Texture2D _cursorTexture;
-		Vector2 _textureCenter;
+		vec2 _textureCenter;
 
 		int _trailNodeCount;
 		TrailNode[] _trailNodes;
@@ -82,7 +82,7 @@ namespace Nez
 		public override void onAddedToEntity()
 		{
 			_cursorTexture = entity.scene.content.Load<Texture2D>( "nez/textures/gooCursor" );
-			_textureCenter = new Vector2( _cursorTexture.Width / 2, _cursorTexture.Height / 2 );
+			_textureCenter = new vec2( _cursorTexture.Width / 2, _cursorTexture.Height / 2 );
 		}
 
 

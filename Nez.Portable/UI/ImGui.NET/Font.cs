@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -50,7 +51,7 @@ namespace ImGuiNET
         /// Offset font rendering by xx pixels.
         /// Default value: (0.0f, 1.0f)
         /// </summary>
-        public Vector2 DisplayOffset;
+        public vec2 DisplayOffset;
         /// <summary>
         /// ImVector(Glyph)
         /// </summary>

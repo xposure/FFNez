@@ -2,6 +2,7 @@
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -27,7 +28,7 @@ namespace ImGuiNET
         /// Display size, in pixels. For clamping windows positions.
         /// Default value: [unset]
         /// </summary>
-        public Vector2 DisplaySize
+        public vec2 DisplaySize
         {
             get { return _nativePtr->DisplaySize; }
             set { _nativePtr->DisplaySize = value; }
@@ -48,7 +49,7 @@ namespace ImGuiNET
         /// User storage only, presently not used by ImGui.
         /// Default value: (1.0f, 1.0f).
         /// </summary>
-        public Vector2 DisplayFramebufferScale
+        public vec2 DisplayFramebufferScale
         {
             get { return _nativePtr->DisplayFramebufferScale; }
             set { _nativePtr->DisplayFramebufferScale = value; }
@@ -57,7 +58,7 @@ namespace ImGuiNET
         /// <summary>
         /// Mouse position, in pixels (set to -1,-1 if no mouse / on another screen, etc.).
         /// </summary>
-        public Vector2 MousePosition
+        public vec2 MousePosition
         {
             get { return _nativePtr->MousePos; }
             set { _nativePtr->MousePos = value; }

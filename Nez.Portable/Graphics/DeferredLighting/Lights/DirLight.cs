@@ -74,16 +74,16 @@ namespace Nez.DeferredLighting
 		public override void debugRender( Graphics graphics )
 		{
 			// figure out a starting corner for the line
-			var root = Vector2.Zero;
+			var root = vec2.Zero;
 			if( direction.Y > 0 )
-				root.Y = 10f;
+				root.y = 10f;
 			else
-				root.Y = Screen.height - 10;
+				root.y = Screen.height - 10;
 
 			if( direction.X > 0 )
-				root.X = 10;
+				root.x = 10;
 			else
-				root.X = Screen.width - 10;
+				root.x = Screen.width - 10;
 			
 			var angle = Mathf.atan2( direction.Y, direction.X );
 			graphics.batcher.drawLineAngle( root, angle, 100, Color.Red, 3 );

@@ -69,8 +69,8 @@ namespace Nez
 
 		int _sampleCount;
 		float[] _sampleWeights;
-		Vector2[] _verticalSampleOffsets;
-		Vector2[] _horizontalSampleOffsets;
+		vec2[] _verticalSampleOffsets;
+		vec2[] _horizontalSampleOffsets;
 
 		EffectParameter _blurWeightsParam;
 		EffectParameter _blurOffsetsParam;
@@ -86,12 +86,12 @@ namespace Nez
 
 			// Create temporary arrays for computing our filter settings.
 			_sampleWeights = new float[_sampleCount];
-			_verticalSampleOffsets = new Vector2[_sampleCount];
-			_horizontalSampleOffsets = new Vector2[_sampleCount];
+			_verticalSampleOffsets = new vec2[_sampleCount];
+			_horizontalSampleOffsets = new vec2[_sampleCount];
 
 			// The first sample always has a zero offset.
-			_verticalSampleOffsets[0] = Vector2.Zero;
-			_horizontalSampleOffsets[0] = Vector2.Zero;
+			_verticalSampleOffsets[0] = vec2.Zero;
+			_horizontalSampleOffsets[0] = vec2.Zero;
 
 			// we can calculate the sample weights just once since they are always the same for horizontal or vertical blur
 			calculateSampleWeights();
@@ -103,7 +103,11 @@ namespace Nez
 		/// </summary>
 		public void prepareForHorizontalBlur()
 		{
-			_blurOffsetsParam.SetValue( _horizontalSampleOffsets );
+            //TODO: optimize this array 
+            var temp = new Microsoft.Xna.Framework.Vector2[_horizontalSampleOffsets.Length];
+            for (var i = 0; i < temp.Length; i++)
+                temp[i] = _horizontalSampleOffsets[i];
+			_blurOffsetsParam.SetValue( temp );
 		}
 
 
@@ -112,14 +116,17 @@ namespace Nez
 		/// </summary>
 		public void prepareForVerticalBlur()
 		{
-			_blurOffsetsParam.SetValue( _verticalSampleOffsets );
+            var temp = new Microsoft.Xna.Framework.Vector2[_verticalSampleOffsets.Length];
+            for (var i = 0; i < temp.Length; i++)
+                temp[i] = _verticalSampleOffsets[i];
+            _blurOffsetsParam.SetValue(temp);
 		}
 
 
 		/// <summary>
 		/// computes sample weightings and texture coordinate offsets for one pass of a separable gaussian blur filter.
 		/// </summary>
-		void setBlurEffectParameters( float dx, float dy, Vector2[] offsets )
+		void setBlurEffectParameters( float dx, float dy, vec2[] offsets )
 		{
 			// Add pairs of additional sample taps, positioned along a line in both directions from the center.
 			for( var i = 0; i < _sampleCount / 2; i++ )
@@ -130,7 +137,7 @@ namespace Nez
 				// than just one at a time. The 1.5 offset kicks things off by positioning us nicely in between two texels.
 				var sampleOffset = i * 2 + 1.5f;
 
-				var delta = new Vector2( dx, dy ) * sampleOffset;
+				var delta = new vec2( dx, dy ) * sampleOffset;
 
 				// Store texture coordinate offsets for the positive and negative taps.
 				offsets[i * 2 + 1] = delta;

@@ -88,7 +88,7 @@ namespace Nez.Tweens
 	}
 
 
-	public class Vector2Tween : Tween<Vector2>
+	public class Vector2Tween : Tween<vec2>
 	{
 		public static Vector2Tween create()
 		{
@@ -100,13 +100,13 @@ namespace Nez.Tweens
 		{ }
 
 
-		public Vector2Tween( ITweenTarget<Vector2> target, Vector2 to, float duration )
+		public Vector2Tween( ITweenTarget<vec2> target, vec2 to, float duration )
 		{
 			initialize( target, to, duration );
 		}
 
 
-		public override ITween<Vector2> setIsRelative()
+		public override ITween<vec2> setIsRelative()
 		{
 			_isRelative = true;
 			_toValue += _fromValue;

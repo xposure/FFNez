@@ -12,7 +12,7 @@ namespace Nez.Verlet
 		/// <summary>
 		/// friction applied to all Particle movement to dampen it. Value should be very close to 1.
 		/// </summary>
-		public Vector2 friction = new Vector2( 0.98f, 1 );
+		public vec2 friction = new vec2( 0.98f, 1 );
 
 		/// <summary>
 		/// should Particles be rendered when doing a debugRender?
@@ -97,7 +97,7 @@ namespace Nez.Verlet
 		/// applies a force to all Particles in this Composite
 		/// </summary>
 		/// <param name="force">Force.</param>
-		public void applyForce( Vector2 force )
+		public void applyForce( vec2 force )
 		{
 			for( var j = 0; j < particles.length; j++ )
 				particles.buffer[j].applyForce( force );
@@ -122,7 +122,7 @@ namespace Nez.Verlet
 		/// <param name="deltaTimeSquared">Delta time.</param>
 		/// <param name="gravity">Gravity.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public void updateParticles( float deltaTimeSquared, Vector2 gravity )
+		public void updateParticles( float deltaTimeSquared, vec2 gravity )
 		{
 			for( var j = 0; j < particles.length; j++ )
 			{
@@ -144,7 +144,7 @@ namespace Nez.Verlet
 				// reset variables
 				p.lastPosition = p.position;
 				p.position = nextPos;
-				p.acceleration.X = p.acceleration.Y = 0;
+				p.acceleration.x = p.acceleration.y = 0;
 			}
 		}
 

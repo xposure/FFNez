@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 #if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -43,7 +44,7 @@ namespace ImGuiNET
         public byte ActiveIdIsAlive;                    // Active widget has been seen this frame
         public byte ActiveIdIsJustActivated;            // Set at the time of activation for one frame
         public byte ActiveIdAllowOverlap;               // Active widget allows another widget to steal active id (generally for overlapping widgets, but not always)
-        public Vector2 ActiveIdClickOffset;                // Clicked offset from upper-left corner, if applicable (currently only set by ButtonBehavior)
+        public vec2 ActiveIdClickOffset;                // Clicked offset from upper-left corner, if applicable (currently only set by ButtonBehavior)
         public NativeWindow* ActiveIdWindow;
         public NativeWindow* MovingWindow;                       // Track the child window we clicked on to move a window.
         public uint MovingWindowMoveId;                 // == MovingWindow->MoveId
@@ -54,10 +55,10 @@ namespace ImGuiNET
         public ImVector CurrentPopupStack;                  // Which level of BeginPopup() we are in (reset every frame)
 
         // Storage for SetNexWindow** and SetNextTreeNode*** functions
-        public Vector2 SetNextWindowPosVal;
-        public Vector2 SetNextWindowPosPivot;
-        public Vector2 SetNextWindowSizeVal;
-        public Vector2 SetNextWindowContentSizeVal;
+        public vec2 SetNextWindowPosVal;
+        public vec2 SetNextWindowPosPivot;
+        public vec2 SetNextWindowSizeVal;
+        public vec2 SetNextWindowContentSizeVal;
         public byte SetNextWindowCollapsedVal;
         public Condition SetNextWindowPosCond;
         public Condition SetNextWindowSizeCond;
@@ -102,14 +103,14 @@ namespace ImGuiNET
         public int ColorEditOptions;                   // Store user options for color edit widgets
         public Vector4 ColorPickerRef;
         public float DragCurrentValue;                   // Currently dragged value, always float, not rounded by end-user precision settings
-        public Vector2 DragLastMouseDelta;
+        public vec2 DragLastMouseDelta;
         public float DragSpeedDefaultRatio;              // If speed == 0.0f, uses (max-min) * DragSpeedDefaultRatio
         public float DragSpeedScaleSlow;
         public float DragSpeedScaleFast;
-        public Vector2 ScrollbarClickDeltaToGrabCenter;    // Distance between mouse and center of grab box, normalized in parent space. Use storage?
+        public vec2 ScrollbarClickDeltaToGrabCenter;    // Distance between mouse and center of grab box, normalized in parent space. Use storage?
         public int TooltipOverrideCount;
         public ImVector PrivateClipboard;                   // If no custom clipboard handler is defined
-        public Vector2 OsImePosRequest, OsImePosSet;       // Cursor position request & last passed to the OS Input Method Editor
+        public vec2 OsImePosRequest, OsImePosSet;       // Cursor position request & last passed to the OS Input Method Editor
 
         // Settings
         public float SettingsDirtyTimer;          // Save .ini Settings on disk when time reaches zero
@@ -135,7 +136,7 @@ namespace ImGuiNET
 
     public unsafe struct NativeDrawListSharedData
     {
-        public Vector2 TexUvWhitePixel;            // UV of white pixel in the atlas
+        public vec2 TexUvWhitePixel;            // UV of white pixel in the atlas
         public NativeFont* Font;                       // Current/default font (optional, for simplified AddText overload)
         public float FontSize;                   // Current/default font size (optional, for simplified AddText overload)
         public float CurveTessellationTol;

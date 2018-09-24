@@ -219,7 +219,7 @@ namespace Nez
 		}
 
 
-		public LineRenderer setPoints( Vector2[] points )
+		public LineRenderer setPoints( vec2[] points )
 		{
 			_points.reset();
 			_points.ensureCapacity( points.Length );
@@ -240,7 +240,7 @@ namespace Nez
 		/// <returns>The point.</returns>
 		/// <param name="point">Point.</param>
 		/// <param name="width">Width.</param>
-		public LineRenderer addPoint( Vector2 point, float width = 20 )
+		public LineRenderer addPoint( vec2 point, float width = 20 )
 		{
 			_maxWidth = System.Math.Max( _maxWidth, width );
 
@@ -262,7 +262,7 @@ namespace Nez
 		/// <param name="point">Point.</param>
 		/// <param name="width">Width.</param>
 		/// <param name="color">Color.</param>
-		public LineRenderer addPoint( Vector2 point, float width, Color color )
+		public LineRenderer addPoint( vec2 point, float width, Color color )
 		{
 			_maxWidth = System.Math.Max( _maxWidth, width );
 
@@ -277,7 +277,7 @@ namespace Nez
 		}
 
 
-		public LineRenderer addPoints( Vector2[] points )
+		public LineRenderer addPoints( vec2[] points )
 		{
 			_points.ensureCapacity( points.Length );
 			for( var i = 0; i < points.Length; i++ )
@@ -297,7 +297,7 @@ namespace Nez
 		/// <returns>The point.</returns>
 		/// <param name="index">Index.</param>
 		/// <param name="point">Point.</param>
-		public LineRenderer updatePoint( int index, Vector2 point )
+		public LineRenderer updatePoint( int index, vec2 point )
 		{
 			_points.buffer[index].position = point;
 			_areVertsDirty = true;
@@ -313,7 +313,7 @@ namespace Nez
 		/// <param name="index">Index.</param>
 		/// <param name="point">Point.</param>
 		/// <param name="width">Width.</param>
-		public LineRenderer updatePoint( int index, Vector2 point, float width )
+		public LineRenderer updatePoint( int index, vec2 point, float width )
 		{
 			_maxWidth = System.Math.Max( _maxWidth, width );
 
@@ -333,7 +333,7 @@ namespace Nez
 		/// <param name="point">Point.</param>
 		/// <param name="width">Width.</param>
 		/// <param name="color">Color.</param>
-		public LineRenderer updatePoint( int index, Vector2 point, float width, Color color )
+		public LineRenderer updatePoint( int index, vec2 point, float width, Color color )
 		{
 			_maxWidth = System.Math.Max( _maxWidth, width );
 
@@ -383,14 +383,14 @@ namespace Nez
 			_points.buffer[0].lengthFromPreviousPoint = 0;
 			for( var i = 0; i < _points.length - 1; i++ )
 			{
-				var distance = Vector2.Distance( _points.buffer[i].position, _points.buffer[i + 1].position );
+				var distance = vec2.Distance( _points.buffer[i].position, _points.buffer[i + 1].position );
 				_points.buffer[i + 1].lengthFromPreviousPoint = distance;
 				lineLength += distance;
 
-				maxX = Mathf.maxOf( maxX, _points.buffer[i].position.X + halfMaxWidth, _points.buffer[i + 1].position.X + halfMaxWidth );
-				minX = Mathf.minOf( minX, _points.buffer[i].position.X - halfMaxWidth, _points.buffer[i + 1].position.X - halfMaxWidth );
-				maxY = Mathf.maxOf( maxY, _points.buffer[i].position.Y + halfMaxWidth, _points.buffer[i + 1].position.Y + halfMaxWidth );
-				minY = Mathf.minOf( minY, _points.buffer[i].position.Y - halfMaxWidth, _points.buffer[i + 1].position.Y - halfMaxWidth );
+				maxX = Mathf.maxOf( maxX, _points.buffer[i].position.x + halfMaxWidth, _points.buffer[i + 1].position.x + halfMaxWidth );
+				minX = Mathf.minOf( minX, _points.buffer[i].position.x - halfMaxWidth, _points.buffer[i + 1].position.x - halfMaxWidth );
+				maxY = Mathf.maxOf( maxY, _points.buffer[i].position.y + halfMaxWidth, _points.buffer[i + 1].position.y + halfMaxWidth );
+				minY = Mathf.minOf( minY, _points.buffer[i].position.y - halfMaxWidth, _points.buffer[i + 1].position.y - halfMaxWidth );
 			}
 
 			_bounds.x = minX;
@@ -419,7 +419,7 @@ namespace Nez
 			}
 
 			var distanceSoFar = 0f;
-			var fusedPoint = Vector2.Zero;
+			var fusedPoint = vec2.Zero;
 			var vertIndex = 0;
 			var thirdPoint = new SegmentPoint();
 
@@ -507,10 +507,10 @@ namespace Nez
 			_indices.add( 2 );
 			_indices.add( 3 );
 
-			addVert( 0, segment.tl, new Vector2( 0, 1 ), _useStartEndColors ? _startColor : segment.point.color );
-			addVert( 1, segment.tr, new Vector2( 1, 1 ), nextPointColor );
-			addVert( 2, segment.br, new Vector2( 1, 0 ), nextPointColor );
-			addVert( 3, segment.bl, new Vector2( 0, 0 ), _useStartEndColors ? _startColor : segment.point.color );
+			addVert( 0, segment.tl, new vec2( 0, 1 ), _useStartEndColors ? _startColor : segment.point.color );
+			addVert( 1, segment.tr, new vec2( 1, 1 ), nextPointColor );
+			addVert( 2, segment.br, new vec2( 1, 0 ), nextPointColor );
+			addVert( 3, segment.bl, new vec2( 0, 0 ), _useStartEndColors ? _startColor : segment.point.color );
 		}
 
 
@@ -536,22 +536,22 @@ namespace Nez
 			_indices.add( 4 );
 
 			// the tl vert will always be present, as weill the bl
-			addVert( vertIndex++, segment.tl, new Vector2( 0, 1 ), segment.point.color );
+			addVert( vertIndex++, segment.tl, new vec2( 0, 1 ), segment.point.color );
 
 			if( nextSegment.shouldFuseBottom )
 			{
-				addVert( vertIndex++, segment.tr, new Vector2( 1, 1 ), segment.nextPoint.color );
-				addVert( vertIndex++, nextSegment.point.position, new Vector2( 1, 0.5f ), segment.nextPoint.color );
-				addVert( vertIndex++, nextSegment.hasFusedPoint ? nextSegment.fusedPoint : segment.tl, new Vector2( 1, 0 ), segment.nextPoint.color );
+				addVert( vertIndex++, segment.tr, new vec2( 1, 1 ), segment.nextPoint.color );
+				addVert( vertIndex++, nextSegment.point.position, new vec2( 1, 0.5f ), segment.nextPoint.color );
+				addVert( vertIndex++, nextSegment.hasFusedPoint ? nextSegment.fusedPoint : segment.tl, new vec2( 1, 0 ), segment.nextPoint.color );
 			}
 			else
 			{
-				addVert( vertIndex++, nextSegment.hasFusedPoint ? nextSegment.fusedPoint : segment.bl, new Vector2( 1, 1 ), segment.nextPoint.color );
-				addVert( vertIndex++, nextSegment.point.position, new Vector2( 1, 0.5f ), segment.nextPoint.color );
-				addVert( vertIndex++, segment.br, new Vector2( 1, 0 ), segment.nextPoint.color );
+				addVert( vertIndex++, nextSegment.hasFusedPoint ? nextSegment.fusedPoint : segment.bl, new vec2( 1, 1 ), segment.nextPoint.color );
+				addVert( vertIndex++, nextSegment.point.position, new vec2( 1, 0.5f ), segment.nextPoint.color );
+				addVert( vertIndex++, segment.br, new vec2( 1, 0 ), segment.nextPoint.color );
 			}
 
-			addVert( vertIndex++, segment.bl, new Vector2( 0, 0 ), segment.point.color );
+			addVert( vertIndex++, segment.bl, new vec2( 0, 0 ), segment.point.color );
 		}
 
 
@@ -580,20 +580,20 @@ namespace Nez
 
 			if( segment.shouldFuseBottom )
 			{
-				addVert( vertIndex++, segment.tl, new Vector2( 0, 1 ), segment.point.color );
-				addVert( vertIndex++, segment.tr, new Vector2( 1, 1 ), segment.nextPoint.color );
-				addVert( vertIndex++, segment.br, new Vector2( 1, 0 ), segment.nextPoint.color );
-				addVert( vertIndex++, segment.hasFusedPoint ? segment.fusedPoint : segment.bl, new Vector2( 0, 0 ), segment.point.color );
+				addVert( vertIndex++, segment.tl, new vec2( 0, 1 ), segment.point.color );
+				addVert( vertIndex++, segment.tr, new vec2( 1, 1 ), segment.nextPoint.color );
+				addVert( vertIndex++, segment.br, new vec2( 1, 0 ), segment.nextPoint.color );
+				addVert( vertIndex++, segment.hasFusedPoint ? segment.fusedPoint : segment.bl, new vec2( 0, 0 ), segment.point.color );
 			}
 			else
 			{
-				addVert( vertIndex++, segment.hasFusedPoint ? segment.fusedPoint : segment.tl, new Vector2( 0, 1 ), segment.point.color );
-				addVert( vertIndex++, segment.tr, new Vector2( 1, 1 ), segment.nextPoint.color );
-				addVert( vertIndex++, segment.br, new Vector2( 1, 0 ), segment.nextPoint.color );
-				addVert( vertIndex++, segment.bl, new Vector2( 0, 0 ), segment.point.color );
+				addVert( vertIndex++, segment.hasFusedPoint ? segment.fusedPoint : segment.tl, new vec2( 0, 1 ), segment.point.color );
+				addVert( vertIndex++, segment.tr, new vec2( 1, 1 ), segment.nextPoint.color );
+				addVert( vertIndex++, segment.br, new vec2( 1, 0 ), segment.nextPoint.color );
+				addVert( vertIndex++, segment.bl, new vec2( 0, 0 ), segment.point.color );
 			}
 
-			addVert( vertIndex++, segment.point.position, new Vector2( 1, 0.5f ), segment.point.color );
+			addVert( vertIndex++, segment.point.position, new vec2( 1, 0.5f ), segment.point.color );
 		}
 
 
@@ -645,12 +645,12 @@ namespace Nez
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		void patchJaggedJoint( ref Segment segment, ref int vertIndex )
 		{
-			Vector2 intersection;
+			vec2 intersection;
 			if( segment.shouldFuseBottom )
 			{
 				if( Vector2Ext.getRayIntersection( segment.tl, segment.tr, _lastSegment.tl, _lastSegment.tr, out intersection ) )
 				{
-					addVert( vertIndex++, intersection, new Vector2( 1, 1 ), segment.point.color );
+					addVert( vertIndex++, intersection, new vec2( 1, 1 ), segment.point.color );
 
 					_indices.add( (short)vertIndex );
 					_indices.add( (short)( vertIndex + 4 ) );
@@ -666,7 +666,7 @@ namespace Nez
 				if( Vector2Ext.getRayIntersection( segment.bl, segment.br, _lastSegment.bl, _lastSegment.br, out intersection ) )
 				{
 					var firstSegmentOffset = vertIndex == 5 ? 1 : 0;
-					addVert( vertIndex++, intersection, new Vector2( 1, 0 ), segment.point.color );
+					addVert( vertIndex++, intersection, new vec2( 1, 0 ), segment.point.color );
 
 					_indices.add( (short)( vertIndex + 4 ) );
 					_indices.add( (short)( vertIndex + 3 ) );
@@ -691,8 +691,8 @@ namespace Nez
 				var center = segment.point.position;
 
 				// we get the angle from 3 o'clock to each of the points, then get the angle in degrees of the pacman shape
-				var angle1 = Mathf.atan2( a.Y - center.Y, a.X - center.X ) * Mathf.rad2Deg;
-				var angle2 = Mathf.atan2( b.Y - center.Y, b.X - center.X ) * Mathf.rad2Deg;
+				var angle1 = Mathf.atan2( a.y - center.y, a.x - center.x ) * Mathf.rad2Deg;
+				var angle2 = Mathf.atan2( b.y - center.y, b.x - center.x ) * Mathf.rad2Deg;
 				var deltaAngle = Mathf.deltaAngle( angle1, angle2 );
 
 				// figure out how many verts we are going to add to the joint
@@ -722,7 +722,7 @@ namespace Nez
 				{
 					var midAngle = angle1 + angleIncrement * ( i + 1 );
 					var midPoint = Mathf.pointOnCircle( center, segment.point.width / 2, midAngle );
-					addVert( vertIndex++, midPoint, new Vector2( 1, 1 ), segment.point.color );
+					addVert( vertIndex++, midPoint, new vec2( 1, 1 ), segment.point.color );
 				}
 			}
 			else
@@ -731,8 +731,8 @@ namespace Nez
 				var b = segment.bl;
 				var center = segment.point.position;
 
-				var angle1 = Mathf.atan2( a.Y - center.Y, a.X - center.X ) * Mathf.rad2Deg;
-				var angle2 = Mathf.atan2( b.Y - center.Y, b.X - center.X ) * Mathf.rad2Deg;
+				var angle1 = Mathf.atan2( a.y - center.y, a.x - center.x ) * Mathf.rad2Deg;
+				var angle2 = Mathf.atan2( b.y - center.y, b.x - center.x ) * Mathf.rad2Deg;
 				var deltaAngle = Mathf.deltaAngle( angle1, angle2 );
 
 				var totalNewVerts = Mathf.ceil( System.Math.Abs( deltaAngle ) / degreesPerSubdivision );
@@ -758,7 +758,7 @@ namespace Nez
 				{
 					var midAngle = angle1 + angleIncrement * ( i + 1 );
 					var midPoint = Mathf.pointOnCircle( center, segment.point.width / 2, midAngle );
-					addVert( vertIndex++, midPoint, new Vector2( 1, 0 ), segment.point.color );
+					addVert( vertIndex++, midPoint, new vec2( 1, 0 ), segment.point.color );
 				}
 			}
 		}
@@ -772,7 +772,7 @@ namespace Nez
 		/// <param name="texCoord">Tex coordinate.</param>
 		/// <param name="col">Col.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		void addVert( int index, Vector2 position, Vector2 texCoord, Color col )
+		void addVert( int index, vec2 position, vec2 texCoord, Color col )
 		{
 			_vertices.ensureCapacity();
 			_vertices.buffer[index].Position = position.toVector3();
@@ -805,7 +805,7 @@ namespace Nez
 			if( useWorldSpace )
 				return;
 
-			_bounds.calculateBounds( entity.transform.position, _localOffset, Vector2.Zero, entity.transform.scale, entity.transform.rotation, width, height );
+			_bounds.calculateBounds( entity.transform.position, _localOffset, vec2.Zero, entity.transform.scale, entity.transform.rotation, width, height );
 		}
 
 
@@ -852,7 +852,7 @@ namespace Nez
 
 		struct SegmentPoint
 		{
-			public Vector2 position;
+			public vec2 position;
 			public Color color;
 			public float width;
 			public float lengthFromPreviousPoint;
@@ -864,10 +864,10 @@ namespace Nez
 		/// </summary>
 		class Segment
 		{
-			public Vector2 tl, tr, br, bl;
+			public vec2 tl, tr, br, bl;
 			public SegmentPoint point;
 			public SegmentPoint nextPoint;
-			public Vector2 fusedPoint;
+			public vec2 fusedPoint;
 			public bool hasFusedPoint;
 			public bool shouldFuseBottom;
 			public float angle;
@@ -880,15 +880,15 @@ namespace Nez
 				this.nextPoint = nextPoint;
 
 				// rotate 90 degrees before calculating and cache cos/sin
-				var radians = Mathf.atan2( nextPoint.position.Y - point.position.Y, nextPoint.position.X - point.position.X );
+				var radians = Mathf.atan2( nextPoint.position.y - point.position.y, nextPoint.position.x - point.position.x );
 				radians += MathHelper.PiOver2;
 				var halfCos = Mathf.cos( radians ) * 0.5f;
 				var halfSin = Mathf.sin( radians ) * 0.5f;
 
-				tl = point.position - new Vector2( point.width * halfCos, point.width * halfSin );
-				tr = nextPoint.position - new Vector2( nextPoint.width * halfCos, nextPoint.width * halfSin );
-				br = nextPoint.position + new Vector2( nextPoint.width * halfCos, nextPoint.width * halfSin );
-				bl = point.position + new Vector2( point.width * halfCos, point.width * halfSin );
+				tl = point.position - new vec2( point.width * halfCos, point.width * halfSin );
+				tr = nextPoint.position - new vec2( nextPoint.width * halfCos, nextPoint.width * halfSin );
+				br = nextPoint.position + new vec2( nextPoint.width * halfCos, nextPoint.width * halfSin );
+				bl = point.position + new vec2( point.width * halfCos, point.width * halfSin );
 			}
 
 

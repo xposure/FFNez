@@ -63,49 +63,49 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			float width = getWidth(), height = getHeight();
 			edge = 0;
-			if( _isResizable && mousePos.X >= 0 && mousePos.X < width && mousePos.Y >= 0 && mousePos.Y < height )
+			if( _isResizable && mousePos.x >= 0 && mousePos.x < width && mousePos.y >= 0 && mousePos.y < height )
 			{
-				if( mousePos.X < resizeBorderSize )
+				if( mousePos.x < resizeBorderSize )
 					edge |= (int)AlignInternal.left;
-				if( mousePos.X > width - resizeBorderSize )
+				if( mousePos.x > width - resizeBorderSize )
 					edge |= (int)AlignInternal.right;
-				if( mousePos.Y < resizeBorderSize )
+				if( mousePos.y < resizeBorderSize )
 					edge |= (int)AlignInternal.top;
-				if( mousePos.Y > height - resizeBorderSize )
+				if( mousePos.y > height - resizeBorderSize )
 					edge |= (int)AlignInternal.bottom;
 
 				int tempResizeBorderSize = resizeBorderSize;
 				if( edge != 0 )
 					tempResizeBorderSize += 25;
-				if( mousePos.X < tempResizeBorderSize )
+				if( mousePos.x < tempResizeBorderSize )
 					edge |= (int)AlignInternal.left;
-				if( mousePos.X > width - tempResizeBorderSize )
+				if( mousePos.x > width - tempResizeBorderSize )
 					edge |= (int)AlignInternal.right;
-				if( mousePos.Y < tempResizeBorderSize )
+				if( mousePos.y < tempResizeBorderSize )
 					edge |= (int)AlignInternal.top;
-				if( mousePos.Y > height - tempResizeBorderSize )
+				if( mousePos.y > height - tempResizeBorderSize )
 					edge |= (int)AlignInternal.bottom;
 			}
 
-			if( _isMovable && edge == 0 && mousePos.Y >= 0 && mousePos.Y <= getPadTop() && mousePos.X >= 0 && mousePos.X <= width )
+			if( _isMovable && edge == 0 && mousePos.y >= 0 && mousePos.y <= getPadTop() && mousePos.x >= 0 && mousePos.x <= width )
 				edge = MOVE;
 			
 			_dragging = edge != 0;
 
-			startX = mousePos.X;
-			startY = mousePos.Y;
-			lastX = mousePos.X;
-			lastY = mousePos.Y;
+			startX = mousePos.x;
+			startY = mousePos.y;
+			lastX = mousePos.x;
+			lastY = mousePos.y;
 
 			return true;
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{
 			if( !_dragging )
 				return;
@@ -121,7 +121,7 @@ namespace Nez.UI
 
 			if( ( edge & MOVE ) != 0 )
 			{
-				float amountX = mousePos.X - startX, amountY = mousePos.Y - startY;
+				float amountX = mousePos.x - startX, amountY = mousePos.y - startY;
 
 				if( clampPosition )
 				{
@@ -140,7 +140,7 @@ namespace Nez.UI
 			}
 			if( ( edge & (int)AlignInternal.left ) != 0 )
 			{
-				float amountX = mousePos.X - startX;
+				float amountX = mousePos.x - startX;
 				if( width - amountX < minWidth )
 					amountX = -( minWidth - width );
 				if( clampPosition && windowX + amountX < 0 )
@@ -150,7 +150,7 @@ namespace Nez.UI
 			}
 			if( ( edge & (int)AlignInternal.top ) != 0 )
 			{
-				float amountY = mousePos.Y - startY;
+				float amountY = mousePos.y - startY;
 				if( height - amountY < minHeight )
 					amountY = -( minHeight - height );
 				if( clampPosition && windowY + amountY < 0 )
@@ -160,7 +160,7 @@ namespace Nez.UI
 			}
 			if( ( edge & (int)AlignInternal.right ) != 0 )
 			{
-				float amountX = mousePos.X - lastX;
+				float amountX = mousePos.x - lastX;
 				if( width + amountX < minWidth )
 					amountX = minWidth - width;
 				if( clampPosition && windowX + width + amountX > parentWidth )
@@ -169,7 +169,7 @@ namespace Nez.UI
 			}
 			if( ( edge & (int)AlignInternal.bottom ) != 0 )
 			{
-				float amountY = mousePos.Y - lastY;
+				float amountY = mousePos.y - lastY;
 				if( height + amountY < minHeight )
 					amountY = minHeight - height;
 				if( clampPosition && windowY + height + amountY > parentHeight )
@@ -177,13 +177,13 @@ namespace Nez.UI
 				height += amountY;
 			}
 
-			lastX = mousePos.X;
-			lastY = mousePos.Y;
+			lastX = mousePos.x;
+			lastY = mousePos.y;
 			setBounds( Mathf.round( windowX ), Mathf.round( windowY ), Mathf.round( width ), Mathf.round( height ) );
 		}
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{
 			_dragging = false;
 		}
@@ -248,9 +248,9 @@ namespace Nez.UI
 
 			if( style.stageBackground != null )
 			{
-				var stagePos = stageToLocalCoordinates( Vector2.Zero );
-				var stageSize = stageToLocalCoordinates( new Vector2( stage.getWidth(), stage.getHeight() ) );
-				drawStageBackground( graphics, parentAlpha, getX() + stagePos.X, getY() + stagePos.Y, getX() + stageSize.X, getY() + stageSize.Y );
+				var stagePos = stageToLocalCoordinates( vec2.Zero );
+				var stageSize = stageToLocalCoordinates( new vec2( stage.getWidth(), stage.getHeight() ) );
+				drawStageBackground( graphics, parentAlpha, getX() + stagePos.x, getY() + stagePos.y, getX() + stageSize.x, getY() + stageSize.y );
 			}
 
 			base.draw( graphics, parentAlpha );
@@ -275,13 +275,13 @@ namespace Nez.UI
 		}
 
 
-		public override Element hit( Vector2 point )
+		public override Element hit( vec2 point )
 		{
 			var hit = base.hit( point );
 			if( hit == null || hit == this )
 				return hit;
 
-			if( point.Y >= 0 && point.Y <= getPadTop() && point.X >= 0 && point.X <= width )
+			if( point.y >= 0 && point.y <= getPadTop() && point.x >= 0 && point.x <= width )
 			{
 				// Hit the title bar, don't use the hit child if it is in the Window's table.
 				Element current = hit;

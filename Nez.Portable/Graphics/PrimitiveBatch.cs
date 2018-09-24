@@ -114,7 +114,7 @@ namespace Nez
 		}
 
 
-		public void addVertex( Vector2 vertex, Color color, PrimitiveType primitiveType )
+		public void addVertex( vec2 vertex, Color color, PrimitiveType primitiveType )
 		{
 			Assert.isTrue( _hasBegun, "Invalid state. Begin must be called before AddVertex can be called." );
 			Assert.isFalse( primitiveType == PrimitiveType.LineStrip || primitiveType == PrimitiveType.TriangleStrip, "The specified primitiveType is not supported by PrimitiveBatch" );
@@ -177,11 +177,11 @@ namespace Nez
 
 		public void drawRectangle( float x, float y, float width, float height, Color color )
 		{
-			var verts = new Vector2[4];
-			verts[2] = new Vector2( x + width, y + height );
-			verts[1] = new Vector2( x + width, y );
-			verts[0] = new Vector2( x, y );
-			verts[3] = new Vector2( x, y + height );
+			var verts = new vec2[4];
+			verts[2] = new vec2( x + width, y + height );
+			verts[1] = new vec2( x + width, y );
+			verts[0] = new vec2( x, y );
+			verts[3] = new vec2( x, y + height );
 
 			drawPolygon( verts, 4, color );
 		}
@@ -189,17 +189,17 @@ namespace Nez
 
 		public void drawRectangle( ref Rectangle rect, Color color )
 		{
-			var verts = new Vector2[4];
-			verts[0] = new Vector2( rect.Left, rect.Top );
-			verts[1] = new Vector2( rect.Right, rect.Top );
-			verts[2] = new Vector2( rect.Right, rect.Bottom );
-			verts[3] = new Vector2( rect.Left, rect.Bottom );
+			var verts = new vec2[4];
+			verts[0] = new vec2( rect.Left, rect.Top );
+			verts[1] = new vec2( rect.Right, rect.Top );
+			verts[2] = new vec2( rect.Right, rect.Bottom );
+			verts[3] = new vec2( rect.Left, rect.Bottom );
 
 			drawPolygon( verts, 4, color );
 		}
 
 
-		public void drawPolygon( Vector2[] vertices, int count, Color color )
+		public void drawPolygon( vec2[] vertices, int count, Color color )
 		{
 			for( int i = 1; i < count - 1; i++ )
 			{
@@ -210,7 +210,7 @@ namespace Nez
 		}
 
 
-		public void drawPolygon( Vector2 position, Vector2[] vertices, Color color )
+		public void drawPolygon( vec2 position, vec2[] vertices, Color color )
 		{
 			var v0 = vertices[0];
 			var v1 = v0;
@@ -232,18 +232,18 @@ namespace Nez
 		}
 
 
-		public void drawCircle( Vector2 center, float radius, Color color, int circleSegments = 32 )
+		public void drawCircle( vec2 center, float radius, Color color, int circleSegments = 32 )
 		{
 			var increment = MathHelper.Pi * 2.0f / circleSegments;
 			var theta = 0.0f;
 
-			var v0 = center + radius * new Vector2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
+			var v0 = center + radius * new vec2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
 			theta += increment;
 
 			for( int i = 1; i < circleSegments - 1; i++ )
 			{
-				var v1 = center + radius * new Vector2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
-				var v2 = center + radius * new Vector2( (float)Math.Cos( theta + increment ), (float)Math.Sin( theta + increment ) );
+				var v1 = center + radius * new vec2( (float)Math.Cos( theta ), (float)Math.Sin( theta ) );
+				var v2 = center + radius * new vec2( (float)Math.Cos( theta + increment ), (float)Math.Sin( theta + increment ) );
 
 				addVertex( v0, color, PrimitiveType.TriangleList );
 				addVertex( v1, color, PrimitiveType.TriangleList );
@@ -254,7 +254,7 @@ namespace Nez
 		}
 
 
-		public void drawArrow( Vector2 start, Vector2 end, float length, float width, bool drawStartIndicator, Color color )
+		public void drawArrow( vec2 start, vec2 end, float length, float width, bool drawStartIndicator, Color color )
 		{
 			// Draw connection segment between start- and end-point
 			//drawLine( start, end, color );
@@ -263,21 +263,21 @@ namespace Nez
 			var halfWidth = width / 2;
 
 			// Create directional reference
-			Vector2 rotation = ( start - end );
+			vec2 rotation = ( start - end );
 			rotation.Normalize();
 
 			// Calculate angle of directional vector
-			float angle = (float)Math.Atan2( rotation.X, -rotation.Y );
+			float angle = (float)Math.Atan2( rotation.x, -rotation.y );
 			// Create matrix for rotation
 			Matrix2D rotMatrix = Matrix2D.createRotation( angle );
 			// Create translation matrix for end-point
-			Matrix2D endMatrix = Matrix2D.createTranslation( end.X, end.Y );
+			Matrix2D endMatrix = Matrix2D.createTranslation( end.x, end.y );
 
 			// Setup arrow end shape
-			Vector2[] verts = new Vector2[3];
-			verts[0] = new Vector2( 0, 0 );
-			verts[1] = new Vector2( -halfWidth, -length );
-			verts[2] = new Vector2( halfWidth, -length );
+			vec2[] verts = new vec2[3];
+			verts[0] = new vec2( 0, 0 );
+			verts[1] = new vec2( -halfWidth, -length );
+			verts[2] = new vec2( halfWidth, -length );
 
 			// Rotate end shape
 			Vector2Ext.transform( verts, ref rotMatrix, verts );
@@ -290,13 +290,13 @@ namespace Nez
 			if( drawStartIndicator )
 			{
 				// Create translation matrix for start
-				Matrix2D startMatrix = Matrix2D.createTranslation( start.X, start.Y );
+				Matrix2D startMatrix = Matrix2D.createTranslation( start.x, start.y );
 				// Setup arrow start shape
-				Vector2[] baseVerts = new Vector2[4];
-				baseVerts[0] = new Vector2( -halfWidth, length / 4 );
-				baseVerts[1] = new Vector2( halfWidth, length / 4 );
-				baseVerts[2] = new Vector2( halfWidth, 0 );
-				baseVerts[3] = new Vector2( -halfWidth, 0 );
+				vec2[] baseVerts = new vec2[4];
+				baseVerts[0] = new vec2( -halfWidth, length / 4 );
+				baseVerts[1] = new vec2( halfWidth, length / 4 );
+				baseVerts[2] = new vec2( halfWidth, 0 );
+				baseVerts[3] = new vec2( -halfWidth, 0 );
 
 				// Rotate start shape
 				Vector2Ext.transform( baseVerts, ref rotMatrix, baseVerts );

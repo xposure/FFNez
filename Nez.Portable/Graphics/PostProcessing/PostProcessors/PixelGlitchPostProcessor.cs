@@ -71,13 +71,13 @@ namespace Nez
 
 			_verticalSizeParam.SetValue( _verticalSize );
 			_horizontalOffsetParam.SetValue( _horizontalOffset );
-			_screenSizeParam.SetValue( new Vector2( Screen.width, Screen.height ) );
+			_screenSizeParam.SetValue( new vec2( Screen.width, Screen.height ) );
 		}
 
 
 		public override void onSceneBackBufferSizeChanged( int newWidth, int newHeight )
 		{
-			_screenSizeParam.SetValue( new Vector2( newWidth, newHeight ) );
+			_screenSizeParam.SetValue( new vec2( newWidth, newHeight ) );
 		}
 	}
 }

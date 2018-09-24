@@ -112,8 +112,8 @@ namespace Nez.UI
 			var regionHeight = _drawable.minHeight;
 
 			var size = _scaling.apply( regionWidth, regionHeight, width, height );
-			imageWidth = size.X;
-			imageHeight = size.Y;
+			imageWidth = size.x;
+			imageHeight = size.y;
 
 			if( ( _align & AlignInternal.left ) != 0 )
 				imageX = 0;

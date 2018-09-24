@@ -1,5 +1,6 @@
 ﻿#if MONOGAME
 using Microsoft.Xna.Framework;
+using Nez;
 #else
 using System.Numerics;
 #endif
@@ -27,7 +28,7 @@ namespace ImGuiNET
         /// <summary>
         /// Padding within a window.
         /// </summary>
-        public Vector2 WindowPadding
+        public vec2 WindowPadding
         {
             get { return NativePtr->WindowPadding; }
             set { NativePtr->WindowPadding = value; }
@@ -36,7 +37,7 @@ namespace ImGuiNET
         /// <summary>
         /// Minimum window size.
         /// </summary>
-        public Vector2 WindowMinSize
+        public vec2 WindowMinSize
         {
             get { return NativePtr->WindowMinSize; }
             set { NativePtr->WindowMinSize = value; }
@@ -54,7 +55,7 @@ namespace ImGuiNET
         /// <summary>
         /// Alignment for title bar text.
         /// </summary>
-        public Vector2 WindowTitleAlign
+        public vec2 WindowTitleAlign
         {
             get { return NativePtr->WindowTitleAlign; }
             set { NativePtr->WindowTitleAlign = value; }
@@ -72,7 +73,7 @@ namespace ImGuiNET
         /// <summary>
         /// Padding within a framed rectangle (used by most widgets).
         /// </summary>
-        public Vector2 FramePadding
+        public vec2 FramePadding
         {
             get { return NativePtr->FramePadding; }
             set { NativePtr->FramePadding = value; }
@@ -90,7 +91,7 @@ namespace ImGuiNET
         /// <summary>
         /// Horizontal and vertical spacing between widgets/lines.
         /// </summary>
-        public Vector2 ItemSpacing
+        public vec2 ItemSpacing
         {
             get { return NativePtr->ItemSpacing; }
             set { NativePtr->ItemSpacing = value; }
@@ -99,7 +100,7 @@ namespace ImGuiNET
         /// <summary>
         /// Horizontal and vertical spacing between within elements of a composed widget (e.g. a slider and its label).
         /// </summary>
-        public Vector2 ItemInnerSpacing
+        public vec2 ItemInnerSpacing
         {
             get { return NativePtr->ItemInnerSpacing; }
             set { NativePtr->ItemInnerSpacing = value; }
@@ -108,7 +109,7 @@ namespace ImGuiNET
         /// <summary>
         /// Expand reactive bounding box for touch-based system where touch position is not accurate enough. Unfortunately we don't sort widgets so priority on overlap will always be given to the first widget. So don't grow this too much!
         /// </summary>
-        public Vector2 TouchExtraPadding
+        public vec2 TouchExtraPadding
         {
             get { return NativePtr->TouchExtraPadding; }
             set { NativePtr->TouchExtraPadding = value; }
@@ -171,7 +172,7 @@ namespace ImGuiNET
         /// <summary>
         /// Window positions are clamped to be visible within the display area by at least this amount. Only covers regular windows.
         /// </summary>
-        public Vector2 DisplayWindowPadding
+        public vec2 DisplayWindowPadding
         {
             get { return NativePtr->DisplayWindowPadding; }
             set { NativePtr->DisplayWindowPadding = value; }
@@ -180,7 +181,7 @@ namespace ImGuiNET
         /// <summary>
         /// If you cannot see the edge of your screen (e.g. on a TV) increase the safe area padding. Covers popups/tooltips as well regular windows.
         /// </summary>
-        public Vector2 DisplaySafeAreaPadding
+        public vec2 DisplaySafeAreaPadding
         {
             get { return NativePtr->DisplaySafeAreaPadding; }
             set { NativePtr->DisplaySafeAreaPadding = value; }

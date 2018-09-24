@@ -18,7 +18,7 @@ namespace Nez.UI
 				if( _prefSizeInvalid )
 					computePrefSize();
 
-				var w = _prefSize.X;
+				var w = _prefSize.x;
 				if( _style.background != null )
 					w += _style.background.leftWidth + _style.background.rightWidth;
 				return w;
@@ -32,7 +32,7 @@ namespace Nez.UI
 				if( _prefSizeInvalid )
 					computePrefSize();
 
-				var h = _prefSize.Y;
+				var h = _prefSize.y;
 				if( _style.background != null )
 					h += _style.background.topHeight + _style.background.bottomHeight;
 				return h;
@@ -54,8 +54,8 @@ namespace Nez.UI
 		string _wrappedString;
 		bool _prefSizeInvalid;
 		float _lastPrefHeight;
-		Vector2 _prefSize;
-		Vector2 _textPosition;
+		vec2 _prefSize;
+		vec2 _textPosition;
 
 
 		public Label( string text, LabelStyle style )
@@ -124,7 +124,7 @@ namespace Nez.UI
 				_wrappedString = _text;
 			}
 
-			_prefSize = _style.font.measureString( _wrappedString ) * new Vector2( _fontScaleX, _fontScaleY );
+			_prefSize = _style.font.measureString( _wrappedString ) * new vec2( _fontScaleX, _fontScaleY );
 		}
 
 
@@ -279,14 +279,14 @@ namespace Nez.UI
 
 			var width = this.width;
 			var height = this.height;
-			_textPosition.X = 0;
-			_textPosition.Y = 0;
+			_textPosition.x = 0;
+			_textPosition.y = 0;
 			// TODO: explore why descent causes mis-alignment
 			//_textPosition.Y =_style.font.descent;
 			if( _style.background != null )
 			{
-				_textPosition.X = _style.background.leftWidth;
-				_textPosition.Y = _style.background.topHeight;
+				_textPosition.x = _style.background.leftWidth;
+				_textPosition.y = _style.background.topHeight;
 				width -= _style.background.leftWidth + _style.background.rightWidth;
 				height -= _style.background.topHeight + _style.background.bottomHeight;
 			}
@@ -295,15 +295,15 @@ namespace Nez.UI
 			if( isWrapped || _wrappedString.IndexOf( '\n' ) != -1 )
 			{
 				// If the text can span multiple lines, determine the text's actual size so it can be aligned within the label.
-				textWidth = _prefSize.X;
-				textHeight = _prefSize.Y;
+				textWidth = _prefSize.x;
+				textHeight = _prefSize.y;
 
 				if( ( labelAlign & AlignInternal.left ) == 0 )
 				{
 					if( ( labelAlign & AlignInternal.right ) != 0 )
-						_textPosition.X += width - textWidth;
+						_textPosition.x += width - textWidth;
 					else
-						_textPosition.X += ( width - textWidth ) / 2;
+						_textPosition.x += ( width - textWidth ) / 2;
 				}
 			}
 			else
@@ -314,28 +314,28 @@ namespace Nez.UI
 				
 			if( ( labelAlign & AlignInternal.bottom ) != 0 )
 			{
-				_textPosition.Y += height - textHeight;
+				_textPosition.y += height - textHeight;
 				y += _style.font.descent;
 			}
 			else if( ( labelAlign & AlignInternal.top ) != 0 )
 			{
-				_textPosition.Y += 0;
+				_textPosition.y += 0;
 				y -= _style.font.descent;
 			}
 			else
 			{
-				_textPosition.Y += ( height - textHeight ) / 2;
+				_textPosition.y += ( height - textHeight ) / 2;
 			}
 
 			//_textPosition.Y += textHeight;
 
 			// if we have GlyphLayout this code is redundant
 			if( ( labelAlign & AlignInternal.left ) != 0 )
-				_textPosition.X = 0;
+				_textPosition.x = 0;
 			else if( labelAlign == AlignInternal.center )
-				_textPosition.X = width / 2 - ( _prefSize.X / 2 ); // center of width - center of text size
+				_textPosition.x = width / 2 - ( _prefSize.x / 2 ); // center of width - center of text size
 			else
-				_textPosition.X = width - _prefSize.X; // full width - our text size
+				_textPosition.x = width - _prefSize.x; // full width - our text size
 		}
 
 
@@ -345,9 +345,9 @@ namespace Nez.UI
 
 			var color = new Color( this.color, (int)(this.color.A * parentAlpha) );
 			if( _style.background != null )
-				_style.background.draw( graphics, x, y, width == 0 ? _prefSize.X : width, height, color );
+				_style.background.draw( graphics, x, y, width == 0 ? _prefSize.x : width, height, color );
 
-			graphics.batcher.drawString( _style.font, _wrappedString, new Vector2( x, y ) + _textPosition, _style.fontColor, 0, Vector2.Zero, new Vector2( _fontScaleX, _fontScaleY ), SpriteEffects.None, 0 );
+			graphics.batcher.drawString( _style.font, _wrappedString, new vec2( x, y ) + _textPosition, _style.fontColor, 0, vec2.Zero, new vec2( _fontScaleX, _fontScaleY ), SpriteEffects.None, 0 );
 		}
 
 	}

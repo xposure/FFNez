@@ -59,7 +59,7 @@ namespace Nez
 		/// position of the transform in world space
 		/// </summary>
 		/// <value>The position.</value>
-		public Vector2 position
+		public vec2 position
 		{
 			get
 			{
@@ -88,7 +88,7 @@ namespace Nez
 		/// position of the transform relative to the parent transform. If the transform has no parent, it is the same as Transform.position
 		/// </summary>
 		/// <value>The local position.</value>
-		public Vector2 localPosition
+		public vec2 localPosition
 		{
 			get
 			{
@@ -155,7 +155,7 @@ namespace Nez
 		/// global scale of the transform
 		/// </summary>
 		/// <value>The scale.</value>
-		public Vector2 scale
+		public vec2 scale
 		{
 			get
 			{
@@ -170,7 +170,7 @@ namespace Nez
 		/// the scale of the transform relative to the parent. If the transform has no parent, it is the same as Transform.scale
 		/// </summary>
 		/// <value>The local scale.</value>
-		public Vector2 localScale
+		public vec2 localScale
 		{
 			get
 			{
@@ -252,12 +252,12 @@ namespace Nez
 		Matrix2D _translationMatrix;
 		Matrix2D _scaleMatrix;
 
-		Vector2 _position;
-		Vector2 _scale;
+		vec2 _position;
+		vec2 _scale;
 		float _rotation;
 
-		Vector2 _localPosition;
-		Vector2 _localScale;
+		vec2 _localPosition;
+		vec2 _localScale;
 		float _localRotation;
 
 		List<Transform> _children = new List<Transform>();
@@ -268,7 +268,7 @@ namespace Nez
 		public Transform( Entity entity )
 		{
 			this.entity = entity;
-			_scale = _localScale = Vector2.One;
+			_scale = _localScale = vec2.One;
 		}
 
 
@@ -314,7 +314,7 @@ namespace Nez
 		/// <returns>The position.</returns>
 		/// <param name="position">Position.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public Transform setPosition( Vector2 position )
+		public Transform setPosition( vec2 position )
 		{
 			if( shouldRoundPosition )
 				Vector2Ext.round( ref position );
@@ -324,7 +324,7 @@ namespace Nez
 			
 			_position = position;
 			if( parent != null )
-				localPosition = Vector2.Transform( _position, worldToLocalTransform );
+				localPosition = vec2.Transform( _position, worldToLocalTransform );
 			else
 				localPosition = position;
 
@@ -337,7 +337,7 @@ namespace Nez
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public Transform setPosition( float x, float y )
 		{
-			return setPosition( new Vector2( x, y ) );
+			return setPosition( new vec2( x, y ) );
 		}
 
 
@@ -348,7 +348,7 @@ namespace Nez
 		/// <returns>The local position.</returns>
 		/// <param name="localPosition">Local position.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public Transform setLocalPosition( Vector2 localPosition )
+		public Transform setLocalPosition( vec2 localPosition )
 		{
 			if( shouldRoundPosition )
 				Vector2Ext.round( ref localPosition );
@@ -430,7 +430,7 @@ namespace Nez
 		/// <returns>The scale.</returns>
 		/// <param name="scale">Scale.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public Transform setScale( Vector2 scale )
+		public Transform setScale( vec2 scale )
 		{
 			_scale = scale;
 			if( parent != null )
@@ -450,7 +450,7 @@ namespace Nez
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public Transform setScale( float scale )
 		{
-			return setScale( new Vector2( scale ) );
+			return setScale( new vec2( scale ) );
 		}
 
 
@@ -460,7 +460,7 @@ namespace Nez
 		/// <returns>The local scale.</returns>
 		/// <param name="scale">Scale.</param>
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
-		public Transform setLocalScale( Vector2 scale )
+		public Transform setLocalScale( vec2 scale )
 		{
 			_localScale = scale;
 			_localDirty = _positionDirty = _localScaleDirty = true;
@@ -478,7 +478,7 @@ namespace Nez
 		[MethodImpl( MethodImplOptions.AggressiveInlining )]
 		public Transform setLocalScale( float scale )
 		{
-			return setLocalScale( new Vector2( scale ) );
+			return setLocalScale( new vec2( scale ) );
 		}
 
 		#endregion
@@ -505,7 +505,7 @@ namespace Nez
 				{
 					if( _localPositionDirty )
 					{
-						Matrix2D.createTranslation( _localPosition.X, _localPosition.Y, out _translationMatrix );
+						Matrix2D.createTranslation( _localPosition.x, _localPosition.y, out _translationMatrix );
 						_localPositionDirty = false;
 					}
 
@@ -517,7 +517,7 @@ namespace Nez
 
 					if( _localScaleDirty )
 					{
-						Matrix2D.createScale( _localScale.X, _localScale.Y, out _scaleMatrix );
+						Matrix2D.createScale( _localScale.x, _localScale.y, out _scaleMatrix );
 						_localScaleDirty = false;
 					}
 

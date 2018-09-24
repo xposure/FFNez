@@ -9,7 +9,7 @@ namespace Nez.ECS.Components.Renderables.Particles {
             get { return _bounds; }
         }
 
-        private Vector2 rootPosition => entity.transform.position + _localOffset;
+        private vec2 rootPosition => entity.transform.position + _localOffset;
         private List<FufParticle> _particles;
         public FufParticleCreatorConfig emitterConfig;
         public bool emitting = true;
@@ -92,8 +92,8 @@ namespace Nez.ECS.Components.Renderables.Particles {
                 }
             }
 
-            var boundsMin = new Vector2(float.MaxValue, float.MaxValue);
-            var boundsMax = new Vector2(float.MinValue, float.MinValue);
+            var boundsMin = new vec2(float.MaxValue, float.MaxValue);
+            var boundsMax = new vec2(float.MinValue, float.MinValue);
             var maxParticleScale = 0f;
 
             // update particles
@@ -106,15 +106,15 @@ namespace Nez.ECS.Components.Renderables.Particles {
                     _particles.RemoveAt(i);
                 } else {
                     var pos = particle.position + (simulateInWorldSpace ? particle.spawnPosition : rootPosition);
-                    Vector2.Min(ref boundsMin, ref pos, out boundsMin);
-                    Vector2.Max(ref boundsMax, ref pos, out boundsMax);
+                    vec2.Min(ref boundsMin, ref pos, out boundsMin);
+                    vec2.Max(ref boundsMax, ref pos, out boundsMax);
                     maxParticleScale = Math.Max(maxParticleScale, particle.scale);
                 }
             }
 
             _bounds.location = boundsMin;
-            _bounds.width = boundsMax.X - boundsMin.X;
-            _bounds.height = boundsMax.Y - boundsMin.Y;
+            _bounds.width = boundsMax.x - boundsMin.x;
+            _bounds.height = boundsMax.y - boundsMin.y;
 
             _bounds.inflate(emitterConfig.subtexture.sourceRect.Width * maxParticleScale,
                 emitterConfig.subtexture.sourceRect.Height * maxParticleScale);
@@ -129,7 +129,7 @@ namespace Nez.ECS.Components.Renderables.Particles {
             }
         }
 
-        protected void addParticle(Vector2 spawnPosition) {
+        protected void addParticle(vec2 spawnPosition) {
             var particle = Pool<FufParticle>.obtain();
             particle.initialize(emitterConfig, spawnPosition);
             _particles.Add(particle);

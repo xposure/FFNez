@@ -52,7 +52,7 @@ namespace Nez.UI
 
 			float maxItemWidth = 0;
 			for( var i = 0; i < _items.Count; i++ )
-				maxItemWidth = Math.Max( font.measureString( _items[i].ToString() ).X, maxItemWidth );
+				maxItemWidth = Math.Max( font.measureString( _items[i].ToString() ).x, maxItemWidth );
 
 
 			_prefWidth = maxItemWidth;
@@ -117,7 +117,7 @@ namespace Nez.UI
 				}
 
 				fontColor = new Color( fontColor, (int)(fontColor.A * parentAlpha) );
-				graphics.batcher.drawString( font, str, new Vector2( x, y ), fontColor );
+				graphics.batcher.drawString( font, str, new vec2( x, y ), fontColor );
 			}
 		}
 
@@ -159,7 +159,7 @@ namespace Nez.UI
 		}
 
 
-		bool IInputListener.onMousePressed( Vector2 mousePos )
+		bool IInputListener.onMousePressed( vec2 mousePos )
 		{
 			if( _isDisabled )
 				return false;
@@ -173,11 +173,11 @@ namespace Nez.UI
 		}
 
 
-		void IInputListener.onMouseMoved( Vector2 mousePos )
+		void IInputListener.onMouseMoved( vec2 mousePos )
 		{ }
 
 
-		void IInputListener.onMouseUp( Vector2 mousePos )
+		void IInputListener.onMouseUp( vec2 mousePos )
 		{ }
 
 

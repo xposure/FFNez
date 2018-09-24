@@ -8,30 +8,30 @@ namespace Nez.Svg
 	/// </summary>
 	public abstract class SvgPathSegment
 	{
-		public Vector2 start, end;
+		public vec2 start, end;
 
 
 		protected SvgPathSegment()
 		{}
 
 
-		protected SvgPathSegment( Vector2 start, Vector2 end )
+		protected SvgPathSegment( vec2 start, vec2 end )
 		{
 			this.start = start;
 			this.end = end;
 		}
 
 
-		protected string toSvgString( Vector2 point )
+		protected string toSvgString( vec2 point )
 		{
-			return string.Format( "{0} {1}", point.X, point.Y );
+			return string.Format( "{0} {1}", point.x, point.y );
 		}
 	}
 
 
 	public sealed class SvgMoveToSegment : SvgPathSegment
 	{
-		public SvgMoveToSegment( Vector2 position )
+		public SvgMoveToSegment( vec2 position )
 		{
 			start = position;
 			end = position;
@@ -47,7 +47,7 @@ namespace Nez.Svg
 
 	public sealed class SvgLineSegment : SvgPathSegment
 	{
-		public SvgLineSegment( Vector2 start, Vector2 end )
+		public SvgLineSegment( vec2 start, vec2 end )
 		{
 			this.start = start;
 			this.end = end;
@@ -73,31 +73,31 @@ namespace Nez.Svg
 
 	public sealed class SvgQuadraticCurveSegment : SvgPathSegment
 	{
-		public Vector2 controlPoint;
+		public vec2 controlPoint;
 
-		public Vector2 firstCtrlPoint
+		public vec2 firstCtrlPoint
 		{
 			get
 			{
-				var x1 = start.X + ( controlPoint.X - start.X ) * 2 / 3;
-				var y1 = start.Y + ( controlPoint.Y - start.Y ) * 2 / 3;
+				var x1 = start.x + ( controlPoint.x - start.x ) * 2 / 3;
+				var y1 = start.y + ( controlPoint.y - start.y ) * 2 / 3;
 
-				return new Vector2( x1, y1 );
+				return new vec2( x1, y1 );
 			}
 		}
 
-		public Vector2 secondCtrlPoint
+		public vec2 secondCtrlPoint
 		{
 			get
 			{
-				var x2 = controlPoint.X + ( end.X - controlPoint.X ) / 3;
-				var y2 = controlPoint.Y + ( end.Y - controlPoint.Y ) / 3;
+				var x2 = controlPoint.x + ( end.x - controlPoint.x ) / 3;
+				var y2 = controlPoint.y + ( end.y - controlPoint.y ) / 3;
 
-				return new Vector2( x2, y2 );
+				return new vec2( x2, y2 );
 			}
 		}
 
-		public SvgQuadraticCurveSegment( Vector2 start, Vector2 controlPoint, Vector2 end )
+		public SvgQuadraticCurveSegment( vec2 start, vec2 controlPoint, vec2 end )
 		{
 			this.start = start;
 			this.controlPoint = controlPoint;
@@ -115,11 +115,11 @@ namespace Nez.Svg
 
 	public sealed class SvgCubicCurveSegment : SvgPathSegment
 	{
-		public Vector2 firstCtrlPoint;
-		public Vector2 secondCtrlPoint;
+		public vec2 firstCtrlPoint;
+		public vec2 secondCtrlPoint;
 
 
-		public SvgCubicCurveSegment( Vector2 start, Vector2 firstCtrlPoint, Vector2 secondCtrlPoint, Vector2 end )
+		public SvgCubicCurveSegment( vec2 start, vec2 firstCtrlPoint, vec2 secondCtrlPoint, vec2 end )
 		{
 			this.start = start;
 			this.end = end;

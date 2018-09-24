@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework;
 
 namespace Nez
 {
-    using Vector2 = Nez.vec2;
-
 	/// <summary>
 	/// basic follow camera. LockOn mode uses no deadzone and just centers the camera on the target. CameraWindow mode wraps a deadzone
 	/// around the target allowing it to move within the deadzone without moving the camera.
@@ -35,7 +33,7 @@ namespace Nez
 		/// <summary>
 		/// offset from the screen center that the camera will focus on
 		/// </summary>
-		public Vector2 focusOffset;
+		public vec2 focusOffset;
 
 		/// <summary>
 		/// If true, the camera position will not got out of the map rectangle (0,0, mapwidth, mapheight)
@@ -45,16 +43,16 @@ namespace Nez
 		/// <summary>
 		/// Contains the width and height of the current map.
 		/// </summary>
-		public Vector2 mapSize;
+		public vec2 mapSize;
 
 		protected Entity _targetEntity;
 		protected Collider _targetCollider;
-		protected Vector2 _desiredPositionDelta;
+		protected vec2 _desiredPositionDelta;
 		protected CameraStyle _cameraStyle;
 		protected RectangleF _worldSpaceDeadzone;
 
-		private Vector2 _precisePosition;
-		private Vector2 _lastPosition;
+		private vec2 _precisePosition;
+		private vec2 _lastPosition;
 		
 		public FollowCamera( Entity targetEntity, Camera camera, CameraStyle cameraStyle = CameraStyle.LockOn  )
 		{
@@ -95,15 +93,15 @@ namespace Nez
 			
 			// translate the deadzone to be in world space
 			var halfScreen = camera.bounds.size * 0.5f;
-			_worldSpaceDeadzone.x = camera.position.X - halfScreen.X + deadzone.x + focusOffset.X;
-			_worldSpaceDeadzone.y = camera.position.Y - halfScreen.Y + deadzone.y + focusOffset.Y;
+			_worldSpaceDeadzone.x = camera.position.x - halfScreen.x + deadzone.x + focusOffset.x;
+			_worldSpaceDeadzone.y = camera.position.y - halfScreen.y + deadzone.y + focusOffset.y;
 			_worldSpaceDeadzone.width = deadzone.width;
 			_worldSpaceDeadzone.height = deadzone.height;
 
 			if( _targetEntity != null )
 				updateFollow();
 
-			_precisePosition = Vector2.Lerp( _precisePosition, _precisePosition + _desiredPositionDelta, followLerp );
+			_precisePosition = vec2.Lerp( _precisePosition, _precisePosition + _desiredPositionDelta, followLerp );
 
 			if( mapLockEnabled )
 			{
@@ -120,12 +118,12 @@ namespace Nez
 		/// </summary>
 		/// <returns>The to map size.</returns>
 		/// <param name="position">Position.</param>
-		Vector2 clampToMapSize( Vector2 position )
+		vec2 clampToMapSize( vec2 position )
 		{
-			var halfScreen = new Vector2( camera.bounds.width, camera.bounds.height ) * 0.5f;
-			var cameraMax = new Vector2( mapSize.X - halfScreen.X, mapSize.Y - halfScreen.Y );
+			var halfScreen = new vec2( camera.bounds.width, camera.bounds.height ) * 0.5f;
+			var cameraMax = new vec2( mapSize.x - halfScreen.x, mapSize.y - halfScreen.y );
 
-			return Vector2.Clamp( position, halfScreen, cameraMax );
+			return vec2.Clamp( position, halfScreen, cameraMax );
 		}
 
 
@@ -151,24 +149,24 @@ namespace Nez
 
 		void updateFollow()
 		{
-			_desiredPositionDelta.X = _desiredPositionDelta.Y = 0;
+			_desiredPositionDelta.x = _desiredPositionDelta.y = 0;
 
 			if( _cameraStyle == CameraStyle.LockOn )
 			{
-				var targetX = _targetEntity.transform.position.X;
-				var targetY = _targetEntity.transform.position.Y;
+				var targetX = _targetEntity.transform.position.x;
+				var targetY = _targetEntity.transform.position.y;
 
 				// x-axis
 				if( _worldSpaceDeadzone.x > targetX )
-					_desiredPositionDelta.X = targetX - _worldSpaceDeadzone.x;
+					_desiredPositionDelta.x = targetX - _worldSpaceDeadzone.x;
 				else if( _worldSpaceDeadzone.x < targetX )
-					_desiredPositionDelta.X = targetX - _worldSpaceDeadzone.x;
+					_desiredPositionDelta.x = targetX - _worldSpaceDeadzone.x;
 
 				// y-axis
 				if( _worldSpaceDeadzone.y < targetY )
-					_desiredPositionDelta.Y = targetY - _worldSpaceDeadzone.y;
+					_desiredPositionDelta.y = targetY - _worldSpaceDeadzone.y;
 				else if( _worldSpaceDeadzone.y > targetY )
-					_desiredPositionDelta.Y = targetY - _worldSpaceDeadzone.y;
+					_desiredPositionDelta.y = targetY - _worldSpaceDeadzone.y;
 			}
 			else
 			{
@@ -185,15 +183,15 @@ namespace Nez
 				{
 					// x-axis
 					if( _worldSpaceDeadzone.left > targetBounds.left )
-						_desiredPositionDelta.X = targetBounds.left - _worldSpaceDeadzone.left;
+						_desiredPositionDelta.x = targetBounds.left - _worldSpaceDeadzone.left;
 					else if( _worldSpaceDeadzone.right < targetBounds.right )
-						_desiredPositionDelta.X = targetBounds.right - _worldSpaceDeadzone.right;
+						_desiredPositionDelta.x = targetBounds.right - _worldSpaceDeadzone.right;
 
 					// y-axis
 					if( _worldSpaceDeadzone.bottom < targetBounds.bottom )
-						_desiredPositionDelta.Y = targetBounds.bottom - _worldSpaceDeadzone.bottom;
+						_desiredPositionDelta.y = targetBounds.bottom - _worldSpaceDeadzone.bottom;
 					else if( _worldSpaceDeadzone.top > targetBounds.top )
-						_desiredPositionDelta.Y = targetBounds.top - _worldSpaceDeadzone.top;
+						_desiredPositionDelta.y = targetBounds.top - _worldSpaceDeadzone.top;
 				}
 			}
 		}
